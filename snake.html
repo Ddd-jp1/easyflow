@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>EasyFlow — Змейка</title>
 
 <style>
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -33,6 +35,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
 .logo {
@@ -99,6 +102,7 @@ header {
     border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
+    transition: 0.2s;
 }
 
 .level:hover {
@@ -166,6 +170,9 @@ header {
     width: min(90vw, 500px);
     height: min(90vw, 500px);
 
+    max-width: 500px;
+    max-height: 500px;
+
     background: #111827;
 
     border: 5px solid #2563eb;
@@ -183,7 +190,6 @@ header {
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
-
     margin-top: 20px;
 }
 
@@ -200,10 +206,13 @@ header {
 
     font-weight: bold;
     font-size: 16px;
+
+    transition: 0.2s;
 }
 
 .main-button:hover {
     background: #1d4ed8;
+    transform: translateY(-2px);
 }
 
 .pause-button {
@@ -231,11 +240,10 @@ header {
     width: 65px;
     height: 55px;
 
-    border: none;
+    border: 1px solid #dbe1e8;
     border-radius: 12px;
 
     background: white;
-    border: 1px solid #dbe1e8;
 
     font-size: 25px;
 
@@ -243,6 +251,8 @@ header {
 
     user-select: none;
     -webkit-user-select: none;
+
+    touch-action: manipulation;
 }
 
 .control:active {
@@ -304,15 +314,27 @@ header {
     border-bottom: none;
 }
 
+/* FOOTER */
+
 footer {
     margin-top: 40px;
+
     background: #111827;
+
     color: #9ca3af;
+
     text-align: center;
+
     padding: 25px;
 }
 
+/* MOBILE */
+
 @media(max-width: 600px) {
+
+    .header {
+        flex-direction: column;
+    }
 
     .title h1 {
         font-size: 32px;
@@ -327,8 +349,18 @@ footer {
         padding: 12px 15px;
     }
 
+    .difficulty {
+        padding: 15px 10px;
+    }
+
+    .level {
+        padding: 10px 14px;
+    }
+
 }
+
 </style>
+
 </head>
 
 <body>
@@ -342,7 +374,7 @@ EasyFlow
 </a>
 
 <a href="games.html" class="back">
-← Игры
+← Все игры
 </a>
 
 </div>
@@ -363,7 +395,7 @@ EasyFlow
 </div>
 
 
-<!-- ВЫБОР СЛОЖНОСТИ -->
+<!-- СЛОЖНОСТЬ -->
 
 <div class="difficulty">
 
@@ -408,9 +440,7 @@ onclick="selectDifficulty('hard')"
 
 <span>Очки</span>
 
-<strong id="score">
-0
-</strong>
+<strong id="score">0</strong>
 
 </div>
 
@@ -419,9 +449,7 @@ onclick="selectDifficulty('hard')"
 
 <span>🏆 Рекорд</span>
 
-<strong id="record">
-0
-</strong>
+<strong id="record">0</strong>
 
 </div>
 
@@ -430,16 +458,14 @@ onclick="selectDifficulty('hard')"
 
 <span>Скорость</span>
 
-<strong id="speed">
-Медленно
-</strong>
+<strong id="speed">Медленно</strong>
 
 </div>
 
 </div>
 
 
-<!-- ИГРА -->
+<!-- ИГРОВОЕ ПОЛЕ -->
 
 <div class="game-wrapper">
 
@@ -486,10 +512,7 @@ onclick="togglePause()"
 
 <div class="controls">
 
-<button
-class="control empty"
->
-</button>
+<button class="control empty"></button>
 
 <button
 class="control"
@@ -498,10 +521,7 @@ onclick="changeDirection('up')"
 ⬆️
 </button>
 
-<button
-class="control empty"
->
-</button>
+<button class="control empty"></button>
 
 
 <button
@@ -540,29 +560,25 @@ onclick="changeDirection('right')"
 
 <span>🟢 Лёгкий</span>
 
-<strong id="easyRecord">
-0
-</strong>
+<strong id="easyRecord">0</strong>
 
 </div>
+
 
 <div class="record-row">
 
 <span>🟡 Средний</span>
 
-<strong id="mediumRecord">
-0
-</strong>
+<strong id="mediumRecord">0</strong>
 
 </div>
+
 
 <div class="record-row">
 
 <span>🔴 Сложный</span>
 
-<strong id="hardRecord">
-0
-</strong>
+<strong id="hardRecord">0</strong>
 
 </div>
 
@@ -581,7 +597,7 @@ onclick="changeDirection('right')"
 <script>
 
 /* =====================================
-   НАСТРОЙКИ ИГРЫ
+   ОСНОВНЫЕ НАСТРОЙКИ
 ===================================== */
 
 const canvas =
@@ -590,15 +606,16 @@ document.getElementById("game");
 const ctx =
 canvas.getContext("2d");
 
-
 const grid = 20;
 
 const cells = 25;
 
-
 let snake = [];
 
-let food = {};
+let food = {
+    x: 15,
+    y: 15
+};
 
 let direction = "right";
 
@@ -666,32 +683,28 @@ function updateRecords() {
 
     document.getElementById(
         "easyRecord"
-    ).textContent =
-        getRecord("easy");
+    ).textContent = getRecord("easy");
 
 
     document.getElementById(
         "mediumRecord"
-    ).textContent =
-        getRecord("medium");
+    ).textContent = getRecord("medium");
 
 
     document.getElementById(
         "hardRecord"
-    ).textContent =
-        getRecord("hard");
+    ).textContent = getRecord("hard");
 
 
     document.getElementById(
         "record"
-    ).textContent =
-        getRecord(difficulty);
+    ).textContent = getRecord(difficulty);
 
 }
 
 
 /* =====================================
-   СЛОЖНОСТЬ
+   ВЫБОР СЛОЖНОСТИ
 ===================================== */
 
 function selectDifficulty(level) {
@@ -703,9 +716,7 @@ function selectDifficulty(level) {
         );
 
         return;
-
     }
-
 
     difficulty = level;
 
@@ -720,9 +731,7 @@ function selectDifficulty(level) {
 
 
     document
-        .getElementById(
-            level + "Button"
-        )
+        .getElementById(level + "Button")
         .classList.add("active");
 
 
@@ -740,7 +749,7 @@ function selectDifficulty(level) {
 
 
 /* =====================================
-   НОВАЯ ИГРА
+   НАЧАЛО ИГРЫ
 ===================================== */
 
 function startGame() {
@@ -794,7 +803,8 @@ function startGame() {
 
     document.getElementById(
         "message"
-    ).className = "message";
+    ).className =
+        "message";
 
 
     createFood();
@@ -802,17 +812,16 @@ function startGame() {
     draw();
 
 
-    gameTimer =
-        setInterval(
-            gameLoop,
-            settings[difficulty].speed
-        );
+    gameTimer = setInterval(
+        gameLoop,
+        settings[difficulty].speed
+    );
 
 }
 
 
 /* =====================================
-   ЕДА
+   СОЗДАНИЕ ЕДЫ
 ===================================== */
 
 function createFood() {
@@ -868,6 +877,7 @@ function gameLoop() {
     const head = {
 
         x: snake[0].x,
+
         y: snake[0].y
 
     };
@@ -890,13 +900,18 @@ function gameLoop() {
     }
 
 
-    /* Столкновение со стеной */
+    /* Стена */
 
     if (
+
         head.x < 0 ||
+
         head.x >= cells ||
+
         head.y < 0 ||
+
         head.y >= cells
+
     ) {
 
         endGame();
@@ -906,9 +921,10 @@ function gameLoop() {
     }
 
 
-    /* Столкновение с собой */
+    /* Себя */
 
     if (
+
         snake.some(function(part) {
 
             return (
@@ -917,6 +933,7 @@ function gameLoop() {
             );
 
         })
+
     ) {
 
         endGame();
@@ -929,14 +946,18 @@ function gameLoop() {
     snake.unshift(head);
 
 
-    /* Съел еду */
+    /* Еда */
 
     if (
+
         head.x === food.x &&
+
         head.y === food.y
+
     ) {
 
         score++;
+
 
         document.getElementById(
             "score"
@@ -985,8 +1006,11 @@ function changeDirection(newDirection) {
 
 
     if (
+
         newDirection === "up" &&
+
         direction !== "down"
+
     ) {
 
         nextDirection = "up";
@@ -995,8 +1019,11 @@ function changeDirection(newDirection) {
 
 
     if (
+
         newDirection === "down" &&
+
         direction !== "up"
+
     ) {
 
         nextDirection = "down";
@@ -1005,8 +1032,11 @@ function changeDirection(newDirection) {
 
 
     if (
+
         newDirection === "left" &&
+
         direction !== "right"
+
     ) {
 
         nextDirection = "left";
@@ -1015,8 +1045,11 @@ function changeDirection(newDirection) {
 
 
     if (
+
         newDirection === "right" &&
+
         direction !== "left"
+
     ) {
 
         nextDirection = "right";
@@ -1034,9 +1067,15 @@ document.addEventListener(
     "keydown",
     function(event) {
 
+        const key =
+            event.key.toLowerCase();
+
+
         if (
+
             event.key === "ArrowUp" ||
-            event.key.toLowerCase() === "w"
+            key === "w"
+
         ) {
 
             event.preventDefault();
@@ -1047,8 +1086,10 @@ document.addEventListener(
 
 
         if (
+
             event.key === "ArrowDown" ||
-            event.key.toLowerCase() === "s"
+            key === "s"
+
         ) {
 
             event.preventDefault();
@@ -1059,8 +1100,10 @@ document.addEventListener(
 
 
         if (
+
             event.key === "ArrowLeft" ||
-            event.key.toLowerCase() === "a"
+            key === "a"
+
         ) {
 
             event.preventDefault();
@@ -1071,8 +1114,10 @@ document.addEventListener(
 
 
         if (
+
             event.key === "ArrowRight" ||
-            event.key.toLowerCase() === "d"
+            key === "d"
+
         ) {
 
             event.preventDefault();
@@ -1083,9 +1128,13 @@ document.addEventListener(
 
 
         if (
+
             event.key === " " ||
             event.key === "Escape"
+
         ) {
+
+            event.preventDefault();
 
             togglePause();
 
@@ -1109,19 +1158,27 @@ function togglePause() {
     paused = !paused;
 
 
-    if (paused) {
-
+    const message =
         document.getElementById(
             "message"
-        ).textContent =
+        );
+
+
+    if (paused) {
+
+        message.textContent =
             "⏸️ Игра на паузе";
+
+        message.className =
+            "message";
 
     } else {
 
-        document.getElementById(
-            "message"
-        ).textContent =
+        message.textContent =
             "▶️ Игра продолжается";
+
+        message.className =
+            "message";
 
     }
 
@@ -1136,6 +1193,8 @@ function endGame() {
 
     clearInterval(gameTimer);
 
+    gameTimer = null;
+
     gameRunning = false;
 
     gameOver = true;
@@ -1145,29 +1204,34 @@ function endGame() {
         getRecord(difficulty);
 
 
-    if (score >= record && score > 0) {
-
+    const message =
         document.getElementById(
             "message"
-        ).textContent =
+        );
+
+
+    if (score > record) {
+
+        saveRecord(
+            difficulty,
+            score
+        );
+
+        updateRecords();
+
+        message.textContent =
             "🏆 Новый рекорд! " + score;
 
-        document.getElementById(
-            "message"
-        ).className =
+        message.className =
             "message new-record";
 
     } else {
 
-        document.getElementById(
-            "message"
-        ).textContent =
+        message.textContent =
             "💥 Игра окончена! Очки: " +
             score;
 
-        document.getElementById(
-            "message"
-        ).className =
+        message.className =
             "message game-over";
 
     }
@@ -1183,6 +1247,8 @@ function endGame() {
 ===================================== */
 
 function draw() {
+
+    /* Фон */
 
     ctx.fillStyle = "#111827";
 
@@ -1247,11 +1313,17 @@ function draw() {
     ctx.beginPath();
 
     ctx.arc(
+
         food.x * grid + grid / 2,
+
         food.y * grid + grid / 2,
+
         grid / 2 - 3,
+
         0,
+
         Math.PI * 2
+
     );
 
     ctx.fill();
@@ -1278,11 +1350,17 @@ function draw() {
             ctx.beginPath();
 
             ctx.roundRect(
+
                 part.x * grid + 2,
+
                 part.y * grid + 2,
+
                 grid - 4,
+
                 grid - 4,
+
                 5
+
             );
 
             ctx.fill();
@@ -1294,7 +1372,7 @@ function draw() {
 
 
 /* =====================================
-   ЭКРАН ДО НАЧАЛА
+   СТАРТОВЫЙ ЭКРАН
 ===================================== */
 
 function drawStartScreen() {
@@ -1309,9 +1387,10 @@ function drawStartScreen() {
     );
 
 
-    ctx.fillStyle = "#2563eb";
-
     ctx.textAlign = "center";
+
+
+    ctx.fillStyle = "#2563eb";
 
     ctx.font =
         "bold 38px Arial";
@@ -1354,15 +1433,17 @@ function drawStartScreen() {
 
 
 /* =====================================
-   ЗАПУСК
+   ЗАПУСК ПРИ ОТКРЫТИИ
 ===================================== */
 
 updateRecords();
+
 
 document.getElementById(
     "speed"
 ).textContent =
     settings[difficulty].name;
+
 
 drawStartScreen();
 
