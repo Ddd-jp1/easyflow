@@ -10,220 +10,205 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>Мои игры — EasyFlow</title>
-
+<title>EasyFlow — Мои игры</title>
 
 <style>
 
-/* =========================
-   ОСНОВНЫЕ НАСТРОЙКИ
-========================= */
-
 :root {
-
     --main: #2563eb;
-
     --background: #f4f7fb;
-
     --card: #ffffff;
-
     --text: #111827;
-
     --muted: #64748b;
-
     --border: #e5e7eb;
-
     --radius: 16px;
-
 }
-
 
 * {
-
     box-sizing: border-box;
-
     margin: 0;
-
     padding: 0;
-
 }
-
 
 body {
-
     font-family: Arial, sans-serif;
-
     background: var(--background);
-
     color: var(--text);
-
     min-height: 100vh;
-
 }
 
-
 /* =========================
-   DARK THEME
+   ТЁМНАЯ ТЕМА
 ========================= */
 
 body.dark {
-
     --background: #0f172a;
-
     --card: #1e293b;
-
     --text: #f8fafc;
-
     --muted: #94a3b8;
-
     --border: #334155;
-
 }
-
 
 /* =========================
    HEADER
 ========================= */
 
 header {
-
     background: var(--card);
-
     border-bottom: 1px solid var(--border);
-
-    padding: 15px 5%;
-
+    padding: 16px 5%;
 }
 
-
 .header-inner {
-
-    max-width: 1200px;
-
+    max-width: 1100px;
     margin: auto;
 
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 20px;
-
 }
-
 
 .logo {
-
     color: var(--main);
-
     font-size: 28px;
-
     font-weight: bold;
-
-    cursor: pointer;
-
     text-decoration: none;
-
 }
 
-
 .back-button {
-
     display: inline-block;
-
     text-decoration: none;
 
     background: var(--main);
-
     color: white;
 
     padding: 11px 18px;
-
     border-radius: 10px;
 
     font-weight: bold;
 
     transition: 0.2s;
-
 }
-
 
 .back-button:hover {
-
     transform: translateY(-2px);
-
     opacity: 0.9;
-
 }
-
 
 /* =========================
    MAIN
 ========================= */
 
 .container {
-
     max-width: 1100px;
-
     margin: auto;
-
-    padding: 45px 20px;
-
+    padding: 40px 20px;
 }
 
+/* =========================
+   ПРИВЕТСТВИЕ
+========================= */
 
-.title {
+.welcome {
+    margin-bottom: 40px;
+}
+
+.welcome-content {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+    border-radius: 22px;
+
+    padding: 45px 25px;
 
     text-align: center;
 
-    margin-bottom: 40px;
-
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.06);
 }
 
-
-.title h1 {
-
-    font-size: 42px;
-
-    margin-bottom: 10px;
-
+.welcome h1 {
     color: var(--main);
 
+    font-size: 38px;
+
+    margin-bottom: 15px;
 }
 
-
-.title p {
-
+.welcome p {
     color: var(--muted);
 
     font-size: 18px;
 
+    line-height: 1.6;
+
+    margin-bottom: 8px;
 }
 
+.welcome-button {
+    display: inline-block;
+
+    margin-top: 22px;
+
+    padding: 13px 25px;
+
+    background: var(--main);
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.welcome-button:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
 
 /* =========================
-   GAMES GRID
+   ЗАГОЛОВОК
+========================= */
+
+.title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.title h2 {
+    font-size: 36px;
+    color: var(--main);
+    margin-bottom: 10px;
+}
+
+.title p {
+    color: var(--muted);
+    font-size: 18px;
+}
+
+/* =========================
+   ИГРЫ
 ========================= */
 
 .games-grid {
-
     display: grid;
 
     grid-template-columns:
         repeat(2, 1fr);
 
     gap: 25px;
-
 }
 
-
 /* =========================
-   GAME CARD
+   КАРТОЧКА
 ========================= */
 
 .game-card {
-
     background: var(--card);
 
     border: 1px solid var(--border);
@@ -236,81 +221,63 @@ header {
 
     box-shadow:
         0 10px 30px
-        rgba(0,0,0,0.06);
+        rgba(0, 0, 0, 0.06);
 
     transition:
         transform 0.2s,
         box-shadow 0.2s;
-
 }
 
-
 .game-card:hover {
-
     transform: translateY(-6px);
 
     box-shadow:
         0 15px 35px
-        rgba(0,0,0,0.12);
-
+        rgba(0, 0, 0, 0.12);
 }
 
-
 /* =========================
-   ICON
+   ИКОНКА
 ========================= */
 
 .game-icon {
-
     font-size: 70px;
-
     margin-bottom: 18px;
-
 }
 
-
 /* =========================
-   GAME TITLE
+   НАЗВАНИЕ
 ========================= */
 
-.game-card h2 {
-
+.game-card h3 {
     font-size: 25px;
-
     margin-bottom: 12px;
-
 }
 
-
 /* =========================
-   DESCRIPTION
+   ОПИСАНИЕ
 ========================= */
 
 .game-card p {
-
     color: var(--muted);
 
     line-height: 1.6;
 
-    min-height: 50px;
+    min-height: 55px;
 
     margin-bottom: 25px;
-
 }
 
-
 /* =========================
-   PLAY BUTTON
+   КНОПКА ИГРАТЬ
 ========================= */
 
 .play-button {
-
     display: inline-block;
 
     text-decoration: none;
 
     background: var(--main);
-
     color: white;
 
     padding: 13px 25px;
@@ -320,25 +287,19 @@ header {
     font-weight: bold;
 
     transition: 0.2s;
-
 }
 
-
 .play-button:hover {
-
     opacity: 0.9;
 
     transform: scale(1.03);
-
 }
-
 
 /* =========================
    FOOTER
 ========================= */
 
 footer {
-
     margin-top: 50px;
 
     padding: 25px;
@@ -348,41 +309,44 @@ footer {
     color: #9ca3af;
 
     text-align: center;
-
 }
 
-
 /* =========================
-   MOBILE
+   МОБИЛЬНАЯ ВЕРСИЯ
 ========================= */
 
 @media (max-width: 750px) {
 
     .header-inner {
-
         flex-direction: column;
-
     }
 
+    .container {
+        padding: 25px 12px;
+    }
+
+    .welcome-content {
+        padding: 35px 18px;
+    }
+
+    .welcome h1 {
+        font-size: 28px;
+    }
+
+    .welcome p {
+        font-size: 16px;
+    }
+
+    .title h2 {
+        font-size: 30px;
+    }
 
     .games-grid {
-
         grid-template-columns: 1fr;
-
     }
-
-
-    .title h1 {
-
-        font-size: 34px;
-
-    }
-
 
     .game-card {
-
         padding: 30px 20px;
-
     }
 
 }
@@ -403,7 +367,6 @@ footer {
 
 <div class="header-inner">
 
-
 <a
     href="index.html"
     class="logo"
@@ -411,14 +374,12 @@ footer {
     EasyFlow
 </a>
 
-
 <a
     href="index.html"
     class="back-button"
 >
-    ← Вернуться в EasyFlow
+    ← На главную
 </a>
-
 
 </div>
 
@@ -432,12 +393,48 @@ footer {
 <main class="container">
 
 
-<div class="title">
+<!-- ПРИВЕТСТВИЕ -->
+
+<section class="welcome">
+
+<div class="welcome-content">
 
 <h1>
-    🎮 Мои игры
+    👋 Добро пожаловать в EasyFlow!
 </h1>
 
+<p>
+    Твой удобный сайт для игр,
+    развлечений и хорошего настроения.
+</p>
+
+<p>
+    Выбирай игру, устанавливай рекорды
+    и наслаждайся временем в EasyFlow 🎮
+</p>
+
+<a
+    href="#games"
+    class="welcome-button"
+>
+    🎮 Выбрать игру
+</a>
+
+</div>
+
+</section>
+
+
+<!-- ЗАГОЛОВОК -->
+
+<div
+    class="title"
+    id="games"
+>
+
+<h2>
+    🎮 Мои игры
+</h2>
 
 <p>
     Выбирай игру и начинай играть!
@@ -447,7 +444,7 @@ footer {
 
 
 <!-- =========================
-     GAMES
+     ИГРЫ
 ========================= -->
 
 <div class="games-grid">
@@ -461,18 +458,15 @@ footer {
     ❌⭕
 </div>
 
-
-<h2>
+<h3>
     Крестики-нолики
-</h2>
-
+</h3>
 
 <p>
     Сыграй против компьютера.
     Выбирай уровень сложности
     и постарайся победить!
 </p>
-
 
 <a
     href="tictactoe.html"
@@ -492,18 +486,15 @@ footer {
     🏓
 </div>
 
-
-<h2>
+<h3>
     Пинг-понг
-</h2>
-
+</h3>
 
 <p>
     Управляй ракеткой и отбивай
     мяч. Набери больше очков,
     чем соперник!
 </p>
-
 
 <a
     href="pingpong.html"
@@ -515,26 +506,23 @@ footer {
 </div>
 
 
-<!-- УГАДАЙ СТРАНУ -->
+<!-- УГАДАЙ ФЛАГ -->
 
 <div class="game-card">
 
 <div class="game-icon">
-    🚩
+    🌍
 </div>
 
-
-<h2>
+<h3>
     Угадай страну по флагу
-</h2>
-
+</h3>
 
 <p>
     Посмотри на флаг и выбери
     правильную страну. Проверь
     свои знания географии!
 </p>
-
 
 <a
     href="flags.html"
@@ -546,7 +534,7 @@ footer {
 </div>
 
 
-<!-- ИГРА НА ПАМЯТЬ -->
+<!-- ПАМЯТЬ -->
 
 <div class="game-card">
 
@@ -554,18 +542,15 @@ footer {
     🧠
 </div>
 
-
-<h2>
+<h3>
     Игра на память
-</h2>
-
+</h3>
 
 <p>
     Открывай карточки и находи
     одинаковые пары. Постарайся
     сделать это за меньшее число ходов!
 </p>
-
 
 <a
     href="memory.html"
@@ -603,14 +588,12 @@ window.addEventListener(
     "DOMContentLoaded",
     function() {
 
-
-        /* Цвет */
+        /* ЦВЕТ */
 
         const color =
             localStorage.getItem(
                 "easyflow_color"
             );
-
 
         if (color) {
 
@@ -625,13 +608,12 @@ window.addEventListener(
         }
 
 
-        /* Шрифт */
+        /* ШРИФТ */
 
         const font =
             localStorage.getItem(
                 "easyflow_font"
             );
-
 
         if (font) {
 
@@ -641,13 +623,12 @@ window.addEventListener(
         }
 
 
-        /* Скругление */
+        /* СКРУГЛЕНИЕ */
 
         const radius =
             localStorage.getItem(
                 "easyflow_radius"
             );
-
 
         if (radius) {
 
@@ -662,13 +643,12 @@ window.addEventListener(
         }
 
 
-        /* Тема */
+        /* ТЕМА */
 
         const theme =
             localStorage.getItem(
                 "easyflow_theme"
             );
-
 
         if (theme === "dark") {
 
