@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EasyFlow — Змейка</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #111827;
+    min-height: 100vh;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 18px 6%;
+}
+
+.header {
+    max-width: 900px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #2563eb;
+    font-size: 27px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    padding: 35px 20px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.title h1 {
+    font-size: 40px;
+    color: #2563eb;
+    margin-bottom: 8px;
+}
+
+.title p {
+    color: #64748b;
+}
+
+/* СЛОЖНОСТЬ */
+
+.difficulty {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.difficulty h2 {
+    margin-bottom: 15px;
+}
+
+.levels {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.level {
+    border: 2px solid #e5e7eb;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.level:hover {
+    transform: translateY(-2px);
+}
+
+.level.active.easy {
+    border-color: #22c55e;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.level.active.medium {
+    border-color: #eab308;
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.level.active.hard {
+    border-color: #ef4444;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* ИНФОРМАЦИЯ */
+
+.info {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 130px;
+}
+
+.stat span {
+    display: block;
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.stat strong {
+    font-size: 23px;
+}
+
+/* ИГРА */
+
+.game-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#game {
+    display: block;
+
+    width: min(90vw, 500px);
+    height: min(90vw, 500px);
+
+    background: #111827;
+
+    border: 5px solid #2563eb;
+    border-radius: 15px;
+
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+
+    touch-action: none;
+}
+
+/* КНОПКИ */
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+}
+
+.main-button {
+    border: none;
+    background: #2563eb;
+    color: white;
+
+    padding: 13px 22px;
+
+    border-radius: 11px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.main-button:hover {
+    background: #1d4ed8;
+}
+
+.pause-button {
+    background: #64748b;
+}
+
+.pause-button:hover {
+    background: #475569;
+}
+
+/* УПРАВЛЕНИЕ */
+
+.controls {
+    width: 210px;
+    margin: 25px auto 0;
+
+    display: grid;
+    grid-template-columns: repeat(3, 65px);
+    gap: 7px;
+
+    justify-content: center;
+}
+
+.control {
+    width: 65px;
+    height: 55px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: white;
+    border: 1px solid #dbe1e8;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.control:active {
+    background: #dbeafe;
+}
+
+.empty {
+    visibility: hidden;
+}
+
+/* СООБЩЕНИЕ */
+
+.message {
+    text-align: center;
+    margin-top: 20px;
+
+    min-height: 25px;
+
+    font-weight: bold;
+}
+
+.game-over {
+    color: #ef4444;
+}
+
+.new-record {
+    color: #16a34a;
+}
+
+/* РЕКОРДЫ */
+
+.records {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-top: 30px;
+}
+
+.records h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.record-row {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 12px 5px;
+
+    border-bottom: 1px solid #eef0f3;
+}
+
+.record-row:last-child {
+    border-bottom: none;
+}
+
+footer {
+    margin-top: 40px;
+    background: #111827;
+    color: #9ca3af;
+    text-align: center;
+    padding: 25px;
+}
+
+@media(max-width: 600px) {
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .container {
+        padding: 25px 12px;
+    }
+
+    .stat {
+        min-width: 100px;
+        padding: 12px 15px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="header">
+
+<a href="index.html" class="logo">
+EasyFlow
+</a>
+
+<a href="games.html" class="back">
+← Игры
+</a>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+<div class="title">
+
+<h1>🐍 Змейка</h1>
+
+<p>
+Собери как можно больше еды и установи свой рекорд!
+</p>
+
+</div>
+
+
+<!-- ВЫБОР СЛОЖНОСТИ -->
+
+<div class="difficulty">
+
+<h2>Выбери сложность</h2>
+
+<div class="levels">
+
+<button
+class="level easy active"
+id="easyButton"
+onclick="selectDifficulty('easy')"
+>
+🟢 Лёгкий
+</button>
+
+<button
+class="level medium"
+id="mediumButton"
+onclick="selectDifficulty('medium')"
+>
+🟡 Средний
+</button>
+
+<button
+class="level hard"
+id="hardButton"
+onclick="selectDifficulty('hard')"
+>
+🔴 Сложный
+</button>
+
+</div>
+
+</div>
+
+
+<!-- СТАТИСТИКА -->
+
+<div class="info">
+
+<div class="stat">
+
+<span>Очки</span>
+
+<strong id="score">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>🏆 Рекорд</span>
+
+<strong id="record">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>Скорость</span>
+
+<strong id="speed">
+Медленно
+</strong>
+
+</div>
+
+</div>
+
+
+<!-- ИГРА -->
+
+<div class="game-wrapper">
+
+<canvas
+id="game"
+width="500"
+height="500"
+>
+</canvas>
+
+</div>
+
+
+<div
+id="message"
+class="message"
+>
+Нажми «Начать игру»
+</div>
+
+
+<!-- КНОПКИ -->
+
+<div class="buttons">
+
+<button
+class="main-button"
+onclick="startGame()"
+>
+▶️ Начать игру
+</button>
+
+<button
+class="main-button pause-button"
+onclick="togglePause()"
+>
+⏸️ Пауза
+</button>
+
+</div>
+
+
+<!-- МОБИЛЬНОЕ УПРАВЛЕНИЕ -->
+
+<div class="controls">
+
+<button
+class="control empty"
+>
+</button>
+
+<button
+class="control"
+onclick="changeDirection('up')"
+>
+⬆️
+</button>
+
+<button
+class="control empty"
+>
+</button>
+
+
+<button
+class="control"
+onclick="changeDirection('left')"
+>
+⬅️
+</button>
+
+<button
+class="control"
+onclick="changeDirection('down')"
+>
+⬇️
+</button>
+
+<button
+class="control"
+onclick="changeDirection('right')"
+>
+➡️
+</button>
+
+</div>
+
+
+<!-- РЕКОРДЫ -->
+
+<div class="records">
+
+<h2>
+🏆 Мои рекорды
+</h2>
+
+<div class="record-row">
+
+<span>🟢 Лёгкий</span>
+
+<strong id="easyRecord">
+0
+</strong>
+
+</div>
+
+<div class="record-row">
+
+<span>🟡 Средний</span>
+
+<strong id="mediumRecord">
+0
+</strong>
+
+</div>
+
+<div class="record-row">
+
+<span>🔴 Сложный</span>
+
+<strong id="hardRecord">
+0
+</strong>
+
+</div>
+
+</div>
+
+</main>
+
+
+<footer>
+
+© 2026 EasyFlow
+
+</footer>
+
+
+<script>
+
+/* =====================================
+   НАСТРОЙКИ ИГРЫ
+===================================== */
+
+const canvas =
+document.getElementById("game");
+
+const ctx =
+canvas.getContext("2d");
+
+
+const grid = 20;
+
+const cells = 25;
+
+
+let snake = [];
+
+let food = {};
+
+let direction = "right";
+
+let nextDirection = "right";
+
+let score = 0;
+
+let gameTimer = null;
+
+let gameRunning = false;
+
+let paused = false;
+
+let gameOver = false;
+
+let difficulty = "easy";
+
+
+const settings = {
+
+    easy: {
+        speed: 180,
+        name: "Медленно"
+    },
+
+    medium: {
+        speed: 120,
+        name: "Средне"
+    },
+
+    hard: {
+        speed: 75,
+        name: "Быстро"
+    }
+
+};
+
+
+/* =====================================
+   РЕКОРДЫ
+===================================== */
+
+function getRecord(level) {
+
+    return Number(
+        localStorage.getItem(
+            "easyflow_snake_record_" + level
+        ) || 0
+    );
+
+}
+
+
+function saveRecord(level, value) {
+
+    localStorage.setItem(
+        "easyflow_snake_record_" + level,
+        value
+    );
+
+}
+
+
+function updateRecords() {
+
+    document.getElementById(
+        "easyRecord"
+    ).textContent =
+        getRecord("easy");
+
+
+    document.getElementById(
+        "mediumRecord"
+    ).textContent =
+        getRecord("medium");
+
+
+    document.getElementById(
+        "hardRecord"
+    ).textContent =
+        getRecord("hard");
+
+
+    document.getElementById(
+        "record"
+    ).textContent =
+        getRecord(difficulty);
+
+}
+
+
+/* =====================================
+   СЛОЖНОСТЬ
+===================================== */
+
+function selectDifficulty(level) {
+
+    if (gameRunning) {
+
+        alert(
+            "Сначала закончи текущую игру."
+        );
+
+        return;
+
+    }
+
+
+    difficulty = level;
+
+
+    document
+        .querySelectorAll(".level")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+
+    document
+        .getElementById(
+            level + "Button"
+        )
+        .classList.add("active");
+
+
+    document.getElementById(
+        "speed"
+    ).textContent =
+        settings[level].name;
+
+
+    updateRecords();
+
+    drawStartScreen();
+
+}
+
+
+/* =====================================
+   НОВАЯ ИГРА
+===================================== */
+
+function startGame() {
+
+    clearInterval(gameTimer);
+
+
+    snake = [
+
+        {
+            x: 12,
+            y: 12
+        },
+
+        {
+            x: 11,
+            y: 12
+        },
+
+        {
+            x: 10,
+            y: 12
+        }
+
+    ];
+
+
+    direction = "right";
+
+    nextDirection = "right";
+
+    score = 0;
+
+    paused = false;
+
+    gameRunning = true;
+
+    gameOver = false;
+
+
+    document.getElementById(
+        "score"
+    ).textContent = "0";
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "Игра началась!";
+
+
+    document.getElementById(
+        "message"
+    ).className = "message";
+
+
+    createFood();
+
+    draw();
+
+
+    gameTimer =
+        setInterval(
+            gameLoop,
+            settings[difficulty].speed
+        );
+
+}
+
+
+/* =====================================
+   ЕДА
+===================================== */
+
+function createFood() {
+
+    let valid = false;
+
+
+    while (!valid) {
+
+        food = {
+
+            x: Math.floor(
+                Math.random() * cells
+            ),
+
+            y: Math.floor(
+                Math.random() * cells
+            )
+
+        };
+
+
+        valid = !snake.some(
+            function(part) {
+
+                return (
+                    part.x === food.x &&
+                    part.y === food.y
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =====================================
+   ИГРОВОЙ ЦИКЛ
+===================================== */
+
+function gameLoop() {
+
+    if (!gameRunning || paused) {
+        return;
+    }
+
+
+    direction = nextDirection;
+
+
+    const head = {
+
+        x: snake[0].x,
+        y: snake[0].y
+
+    };
+
+
+    if (direction === "up") {
+        head.y--;
+    }
+
+    if (direction === "down") {
+        head.y++;
+    }
+
+    if (direction === "left") {
+        head.x--;
+    }
+
+    if (direction === "right") {
+        head.x++;
+    }
+
+
+    /* Столкновение со стеной */
+
+    if (
+        head.x < 0 ||
+        head.x >= cells ||
+        head.y < 0 ||
+        head.y >= cells
+    ) {
+
+        endGame();
+
+        return;
+
+    }
+
+
+    /* Столкновение с собой */
+
+    if (
+        snake.some(function(part) {
+
+            return (
+                part.x === head.x &&
+                part.y === head.y
+            );
+
+        })
+    ) {
+
+        endGame();
+
+        return;
+
+    }
+
+
+    snake.unshift(head);
+
+
+    /* Съел еду */
+
+    if (
+        head.x === food.x &&
+        head.y === food.y
+    ) {
+
+        score++;
+
+        document.getElementById(
+            "score"
+        ).textContent = score;
+
+
+        const record =
+            getRecord(difficulty);
+
+
+        if (score > record) {
+
+            saveRecord(
+                difficulty,
+                score
+            );
+
+            updateRecords();
+
+        }
+
+
+        createFood();
+
+    } else {
+
+        snake.pop();
+
+    }
+
+
+    draw();
+
+}
+
+
+/* =====================================
+   УПРАВЛЕНИЕ
+===================================== */
+
+function changeDirection(newDirection) {
+
+    if (!gameRunning || gameOver) {
+        return;
+    }
+
+
+    if (
+        newDirection === "up" &&
+        direction !== "down"
+    ) {
+
+        nextDirection = "up";
+
+    }
+
+
+    if (
+        newDirection === "down" &&
+        direction !== "up"
+    ) {
+
+        nextDirection = "down";
+
+    }
+
+
+    if (
+        newDirection === "left" &&
+        direction !== "right"
+    ) {
+
+        nextDirection = "left";
+
+    }
+
+
+    if (
+        newDirection === "right" &&
+        direction !== "left"
+    ) {
+
+        nextDirection = "right";
+
+    }
+
+}
+
+
+/* =====================================
+   КЛАВИАТУРА
+===================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "ArrowUp" ||
+            event.key.toLowerCase() === "w"
+        ) {
+
+            event.preventDefault();
+
+            changeDirection("up");
+
+        }
+
+
+        if (
+            event.key === "ArrowDown" ||
+            event.key.toLowerCase() === "s"
+        ) {
+
+            event.preventDefault();
+
+            changeDirection("down");
+
+        }
+
+
+        if (
+            event.key === "ArrowLeft" ||
+            event.key.toLowerCase() === "a"
+        ) {
+
+            event.preventDefault();
+
+            changeDirection("left");
+
+        }
+
+
+        if (
+            event.key === "ArrowRight" ||
+            event.key.toLowerCase() === "d"
+        ) {
+
+            event.preventDefault();
+
+            changeDirection("right");
+
+        }
+
+
+        if (
+            event.key === " " ||
+            event.key === "Escape"
+        ) {
+
+            togglePause();
+
+        }
+
+    }
+);
+
+
+/* =====================================
+   ПАУЗА
+===================================== */
+
+function togglePause() {
+
+    if (!gameRunning || gameOver) {
+        return;
+    }
+
+
+    paused = !paused;
+
+
+    if (paused) {
+
+        document.getElementById(
+            "message"
+        ).textContent =
+            "⏸️ Игра на паузе";
+
+    } else {
+
+        document.getElementById(
+            "message"
+        ).textContent =
+            "▶️ Игра продолжается";
+
+    }
+
+}
+
+
+/* =====================================
+   КОНЕЦ ИГРЫ
+===================================== */
+
+function endGame() {
+
+    clearInterval(gameTimer);
+
+    gameRunning = false;
+
+    gameOver = true;
+
+
+    const record =
+        getRecord(difficulty);
+
+
+    if (score >= record && score > 0) {
+
+        document.getElementById(
+            "message"
+        ).textContent =
+            "🏆 Новый рекорд! " + score;
+
+        document.getElementById(
+            "message"
+        ).className =
+            "message new-record";
+
+    } else {
+
+        document.getElementById(
+            "message"
+        ).textContent =
+            "💥 Игра окончена! Очки: " +
+            score;
+
+        document.getElementById(
+            "message"
+        ).className =
+            "message game-over";
+
+    }
+
+
+    draw();
+
+}
+
+
+/* =====================================
+   РИСОВАНИЕ
+===================================== */
+
+function draw() {
+
+    ctx.fillStyle = "#111827";
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    /* Сетка */
+
+    ctx.strokeStyle =
+        "rgba(255,255,255,0.04)";
+
+
+    for (
+        let x = 0;
+        x < canvas.width;
+        x += grid
+    ) {
+
+        ctx.beginPath();
+
+        ctx.moveTo(x, 0);
+
+        ctx.lineTo(
+            x,
+            canvas.height
+        );
+
+        ctx.stroke();
+
+    }
+
+
+    for (
+        let y = 0;
+        y < canvas.height;
+        y += grid
+    ) {
+
+        ctx.beginPath();
+
+        ctx.moveTo(0, y);
+
+        ctx.lineTo(
+            canvas.width,
+            y
+        );
+
+        ctx.stroke();
+
+    }
+
+
+    /* Еда */
+
+    ctx.fillStyle = "#ef4444";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        food.x * grid + grid / 2,
+        food.y * grid + grid / 2,
+        grid / 2 - 3,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    /* Змейка */
+
+    snake.forEach(
+        function(part, index) {
+
+            if (index === 0) {
+
+                ctx.fillStyle =
+                    "#22c55e";
+
+            } else {
+
+                ctx.fillStyle =
+                    "#16a34a";
+
+            }
+
+
+            ctx.beginPath();
+
+            ctx.roundRect(
+                part.x * grid + 2,
+                part.y * grid + 2,
+                grid - 4,
+                grid - 4,
+                5
+            );
+
+            ctx.fill();
+
+        }
+    );
+
+}
+
+
+/* =====================================
+   ЭКРАН ДО НАЧАЛА
+===================================== */
+
+function drawStartScreen() {
+
+    ctx.fillStyle = "#111827";
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    ctx.fillStyle = "#2563eb";
+
+    ctx.textAlign = "center";
+
+    ctx.font =
+        "bold 38px Arial";
+
+
+    ctx.fillText(
+        "🐍 ЗМЕЙКА",
+        canvas.width / 2,
+        210
+    );
+
+
+    ctx.fillStyle = "white";
+
+    ctx.font =
+        "20px Arial";
+
+
+    ctx.fillText(
+        "Сложность: " +
+        settings[difficulty].name,
+        canvas.width / 2,
+        255
+    );
+
+
+    ctx.fillStyle = "#94a3b8";
+
+    ctx.font =
+        "16px Arial";
+
+
+    ctx.fillText(
+        "Нажми «Начать игру»",
+        canvas.width / 2,
+        300
+    );
+
+}
+
+
+/* =====================================
+   ЗАПУСК
+===================================== */
+
+updateRecords();
+
+document.getElementById(
+    "speed"
+).textContent =
+    settings[difficulty].name;
+
+drawStartScreen();
+
+</script>
+
+</body>
+</html>
