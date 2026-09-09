@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EasyFlow — Пинг-понг</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #111827;
+    min-height: 100vh;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 18px 6%;
+}
+
+.header {
+    max-width: 900px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #2563eb;
+    font-size: 27px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    padding: 35px 20px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.title h1 {
+    font-size: 40px;
+    color: #2563eb;
+    margin-bottom: 8px;
+}
+
+.title p {
+    color: #64748b;
+}
+
+/* СЛОЖНОСТЬ */
+
+.difficulty {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.difficulty h2 {
+    margin-bottom: 15px;
+}
+
+.levels {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.level {
+    border: 2px solid #e5e7eb;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.level:hover {
+    transform: translateY(-2px);
+}
+
+.level.active.easy {
+    border-color: #22c55e;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.level.active.medium {
+    border-color: #eab308;
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.level.active.hard {
+    border-color: #ef4444;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* ИНФОРМАЦИЯ */
+
+.info {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 130px;
+}
+
+.stat span {
+    display: block;
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.stat strong {
+    font-size: 23px;
+}
+
+/* ИГРА */
+
+.game-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#game {
+    display: block;
+
+    width: min(90vw, 700px);
+    height: min(90vw, 450px);
+
+    background: #111827;
+
+    border: 5px solid #2563eb;
+    border-radius: 15px;
+
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+
+    touch-action: none;
+}
+
+/* КНОПКИ */
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+}
+
+.main-button {
+    border: none;
+    background: #2563eb;
+    color: white;
+
+    padding: 13px 22px;
+
+    border-radius: 11px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.main-button:hover {
+    background: #1d4ed8;
+}
+
+.pause-button {
+    background: #64748b;
+}
+
+.pause-button:hover {
+    background: #475569;
+}
+
+/* УПРАВЛЕНИЕ */
+
+.controls {
+    width: 210px;
+    margin: 25px auto 0;
+
+    display: grid;
+    grid-template-columns: repeat(3, 65px);
+    gap: 7px;
+
+    justify-content: center;
+}
+
+.control {
+    width: 65px;
+    height: 55px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: white;
+    border: 1px solid #dbe1e8;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.control:active {
+    background: #dbeafe;
+}
+
+.empty {
+    visibility: hidden;
+}
+
+/* СООБЩЕНИЕ */
+
+.message {
+    text-align: center;
+    margin-top: 20px;
+
+    min-height: 25px;
+
+    font-weight: bold;
+}
+
+.game-over {
+    color: #ef4444;
+}
+
+.new-record {
+    color: #16a34a;
+}
+
+/* РЕКОРДЫ */
+
+.records {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-top: 30px;
+}
+
+.records h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.record-row {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 12px 5px;
+
+    border-bottom: 1px solid #eef0f3;
+}
+
+.record-row:last-child {
+    border-bottom: none;
+}
+
+footer {
+    margin-top: 40px;
+    background: #111827;
+    color: #9ca3af;
+    text-align: center;
+    padding: 25px;
+}
+
+@media(max-width: 600px) {
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .container {
+        padding: 25px 12px;
+    }
+
+    .stat {
+        min-width: 100px;
+        padding: 12px 15px;
+    }
+
+    #game {
+        width: 95vw;
+        height: 60vw;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="header">
+
+<a href="index.html" class="logo">
+EasyFlow
+</a>
+
+<a href="games.html" class="back">
+← Игры
+</a>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+
+<div class="title">
+
+<h1>🏓 Пинг-понг</h1>
+
+<p>
+Играй против компьютера и набери больше очков!
+</p>
+
+</div>
+
+
+<!-- СЛОЖНОСТЬ -->
+
+<div class="difficulty">
+
+<h2>Выбери сложность</h2>
+
+<div class="levels">
+
+<button
+class="level easy active"
+id="easyButton"
+onclick="selectDifficulty('easy')"
+>
+🟢 Лёгкий
+</button>
+
+<button
+class="level medium"
+id="mediumButton"
+onclick="selectDifficulty('medium')"
+>
+🟡 Средний
+</button>
+
+<button
+class="level hard"
+id="hardButton"
+onclick="selectDifficulty('hard')"
+>
+🔴 Сложный
+</button>
+
+</div>
+
+</div>
+
+
+<!-- СТАТИСТИКА -->
+
+<div class="info">
+
+<div class="stat">
+
+<span>Ты</span>
+
+<strong id="playerScore">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>🏆 Рекорд</span>
+
+<strong id="record">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>Компьютер</span>
+
+<strong id="computerScore">
+0
+</strong>
+
+</div>
+
+</div>
+
+
+<!-- ИГРА -->
+
+<div class="game-wrapper">
+
+<canvas
+id="game"
+width="700"
+height="450"
+>
+</canvas>
+
+</div>
+
+
+<div
+id="message"
+class="message"
+>
+Нажми «Начать игру»
+</div>
+
+
+<!-- КНОПКИ -->
+
+<div class="buttons">
+
+<button
+class="main-button"
+onclick="startGame()"
+>
+▶️ Начать игру
+</button>
+
+<button
+class="main-button pause-button"
+onclick="togglePause()"
+>
+⏸️ Пауза
+</button>
+
+</div>
+
+
+<!-- МОБИЛЬНОЕ УПРАВЛЕНИЕ -->
+
+<div class="controls">
+
+<button
+class="control empty"
+>
+</button>
+
+<button
+class="control"
+onclick="movePlayer('up')"
+>
+⬆️
+</button>
+
+<button
+class="control empty"
+>
+</button>
+
+
+<button
+class="control empty"
+>
+</button>
+
+<button
+class="control"
+onclick="movePlayer('down')"
+>
+⬇️
+</button>
+
+<button
+class="control empty"
+>
+</button>
+
+</div>
+
+
+<!-- РЕКОРДЫ -->
+
+<div class="records">
+
+<h2>
+🏆 Мои рекорды
+</h2>
+
+<div class="record-row">
+
+<span>🟢 Лёгкий</span>
+
+<strong id="easyRecord">
+0
+</strong>
+
+</div>
+
+
+<div class="record-row">
+
+<span>🟡 Средний</span>
+
+<strong id="mediumRecord">
+0
+</strong>
+
+</div>
+
+
+<div class="record-row">
+
+<span>🔴 Сложный</span>
+
+<strong id="hardRecord">
+0
+</strong>
+
+</div>
+
+</div>
+
+</main>
+
+
+<footer>
+
+© 2026 EasyFlow
+
+</footer>
+
+
+<script>
+
+/* =====================================
+   НАСТРОЙКИ
+===================================== */
+
+const canvas =
+document.getElementById("game");
+
+const ctx =
+canvas.getContext("2d");
+
+
+const settings = {
+
+    easy: {
+        computerSpeed: 3.2,
+        ballSpeed: 4,
+        name: "Легко"
+    },
+
+    medium: {
+        computerSpeed: 4.8,
+        ballSpeed: 5,
+        name: "Средне"
+    },
+
+    hard: {
+        computerSpeed: 6.5,
+        ballSpeed: 6,
+        name: "Сложно"
+    }
+
+};
+
+
+let difficulty = "easy";
+
+let animation = null;
+
+let gameRunning = false;
+
+let paused = false;
+
+let gameOver = false;
+
+let playerScore = 0;
+
+let computerScore = 0;
+
+
+/* =====================================
+   РАКЕТКИ
+===================================== */
+
+const paddleWidth = 15;
+
+const paddleHeight = 90;
+
+const player = {
+
+    x: 25,
+
+    y: canvas.height / 2 - paddleHeight / 2,
+
+    width: paddleWidth,
+
+    height: paddleHeight,
+
+    speed: 7
+
+};
+
+
+const computer = {
+
+    x: canvas.width - 40,
+
+    y: canvas.height / 2 - paddleHeight / 2,
+
+    width: paddleWidth,
+
+    height: paddleHeight
+
+};
+
+
+/* =====================================
+   МЯЧ
+===================================== */
+
+const ball = {
+
+    x: canvas.width / 2,
+
+    y: canvas.height / 2,
+
+    radius: 9,
+
+    speedX: 5,
+
+    speedY: 3
+
+};
+
+
+let keys = {
+
+    up: false,
+
+    down: false
+
+};
+
+
+/* =====================================
+   РЕКОРДЫ
+===================================== */
+
+function getRecord(level) {
+
+    return Number(
+
+        localStorage.getItem(
+            "easyflow_pingpong_record_" + level
+        ) || 0
+
+    );
+
+}
+
+
+function saveRecord(level, value) {
+
+    localStorage.setItem(
+
+        "easyflow_pingpong_record_" + level,
+
+        value
+
+    );
+
+}
+
+
+function updateRecords() {
+
+    document.getElementById(
+        "easyRecord"
+    ).textContent =
+        getRecord("easy");
+
+
+    document.getElementById(
+        "mediumRecord"
+    ).textContent =
+        getRecord("medium");
+
+
+    document.getElementById(
+        "hardRecord"
+    ).textContent =
+        getRecord("hard");
+
+
+    document.getElementById(
+        "record"
+    ).textContent =
+        getRecord(difficulty);
+
+}
+
+
+/* =====================================
+   ВЫБОР СЛОЖНОСТИ
+===================================== */
+
+function selectDifficulty(level) {
+
+    if (gameRunning) {
+
+        alert(
+            "Сначала закончи текущую игру."
+        );
+
+        return;
+
+    }
+
+
+    difficulty = level;
+
+
+    document
+    .querySelectorAll(".level")
+    .forEach(function(button) {
+
+        button.classList.remove("active");
+
+    });
+
+
+    document
+    .getElementById(
+        level + "Button"
+    )
+    .classList.add("active");
+
+
+    updateRecords();
+
+    drawStartScreen();
+
+}
+
+
+/* =====================================
+   СБРОС МЯЧА
+===================================== */
+
+function resetBall(direction) {
+
+    ball.x = canvas.width / 2;
+
+    ball.y = canvas.height / 2;
+
+
+    ball.speedX =
+        settings[difficulty].ballSpeed *
+        direction;
+
+
+    ball.speedY =
+        (Math.random() * 4 - 2);
+
+}
+
+
+/* =====================================
+   НАЧАЛО ИГРЫ
+===================================== */
+
+function startGame() {
+
+    cancelAnimationFrame(animation);
+
+
+    playerScore = 0;
+
+    computerScore = 0;
+
+
+    document.getElementById(
+        "playerScore"
+    ).textContent = "0";
+
+
+    document.getElementById(
+        "computerScore"
+    ).textContent = "0";
+
+
+    player.y =
+        canvas.height / 2 -
+        paddleHeight / 2;
+
+
+    computer.y =
+        canvas.height / 2 -
+        paddleHeight / 2;
+
+
+    resetBall(
+        Math.random() > 0.5 ? 1 : -1
+    );
+
+
+    gameRunning = true;
+
+    paused = false;
+
+    gameOver = false;
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "🏓 Игра началась!";
+
+
+    document.getElementById(
+        "message"
+    ).className =
+        "message";
+
+
+    gameLoop();
+
+}
+
+
+/* =====================================
+   ИГРОВОЙ ЦИКЛ
+===================================== */
+
+function gameLoop() {
+
+    if (!gameRunning) {
+
+        return;
+
+    }
+
+
+    if (!paused) {
+
+        update();
+
+        draw();
+
+    }
+
+
+    animation =
+        requestAnimationFrame(gameLoop);
+
+}
+
+
+/* =====================================
+   ОБНОВЛЕНИЕ
+===================================== */
+
+function update() {
+
+    /* Игрок */
+
+    if (keys.up) {
+
+        player.y -= player.speed;
+
+    }
+
+
+    if (keys.down) {
+
+        player.y += player.speed;
+
+    }
+
+
+    /* Ограничение игрока */
+
+    if (player.y < 0) {
+
+        player.y = 0;
+
+    }
+
+
+    if (
+        player.y + player.height >
+        canvas.height
+    ) {
+
+        player.y =
+            canvas.height -
+            player.height;
+
+    }
+
+
+    /* Компьютер */
+
+    const computerCenter =
+        computer.y +
+        computer.height / 2;
+
+
+    if (
+        computerCenter <
+        ball.y - 10
+    ) {
+
+        computer.y +=
+            settings[difficulty].computerSpeed;
+
+    }
+
+
+    if (
+        computerCenter >
+        ball.y + 10
+    ) {
+
+        computer.y -=
+            settings[difficulty].computerSpeed;
+
+    }
+
+
+    if (computer.y < 0) {
+
+        computer.y = 0;
+
+    }
+
+
+    if (
+        computer.y +
+        computer.height >
+        canvas.height
+    ) {
+
+        computer.y =
+            canvas.height -
+            computer.height;
+
+    }
+
+
+    /* Мяч */
+
+    ball.x += ball.speedX;
+
+    ball.y += ball.speedY;
+
+
+    /* Верхняя стенка */
+
+    if (
+        ball.y - ball.radius <= 0
+    ) {
+
+        ball.y = ball.radius;
+
+        ball.speedY =
+            Math.abs(ball.speedY);
+
+    }
+
+
+    /* Нижняя стенка */
+
+    if (
+        ball.y + ball.radius >=
+        canvas.height
+    ) {
+
+        ball.y =
+            canvas.height -
+            ball.radius;
+
+        ball.speedY =
+            -Math.abs(ball.speedY);
+
+    }
+
+
+    /* Удар игрока */
+
+    if (
+
+        ball.x - ball.radius <=
+        player.x + player.width &&
+
+        ball.x > player.x &&
+
+        ball.y >= player.y &&
+
+        ball.y <=
+        player.y + player.height
+
+    ) {
+
+        ball.x =
+            player.x +
+            player.width +
+            ball.radius;
+
+
+        ball.speedX =
+            Math.abs(ball.speedX) * 1.03;
+
+
+        const hitPosition =
+            (
+                ball.y -
+                (
+                    player.y +
+                    player.height / 2
+                )
+            ) /
+            (
+                player.height / 2
+            );
+
+
+        ball.speedY +=
+            hitPosition * 2;
+
+    }
+
+
+    /* Удар компьютера */
+
+    if (
+
+        ball.x + ball.radius >=
+        computer.x &&
+
+        ball.x <
+        computer.x + computer.width &&
+
+        ball.y >= computer.y &&
+
+        ball.y <=
+        computer.y + computer.height
+
+    ) {
+
+        ball.x =
+            computer.x -
+            ball.radius;
+
+
+        ball.speedX =
+            -Math.abs(ball.speedX) * 1.03;
+
+
+        const hitPosition =
+            (
+                ball.y -
+                (
+                    computer.y +
+                    computer.height / 2
+                )
+            ) /
+            (
+                computer.height / 2
+            );
+
+
+        ball.speedY +=
+            hitPosition * 2;
+
+    }
+
+
+    /* Мяч ушёл слева */
+
+    if (
+        ball.x < -ball.radius
+    ) {
+
+        computerScore++;
+
+
+        document.getElementById(
+            "computerScore"
+        ).textContent =
+            computerScore;
+
+
+        checkWinner();
+
+
+        if (!gameOver) {
+
+            resetBall(1);
+
+        }
+
+    }
+
+
+    /* Мяч ушёл справа */
+
+    if (
+        ball.x >
+        canvas.width +
+        ball.radius
+    ) {
+
+        playerScore++;
+
+
+        document.getElementById(
+            "playerScore"
+        ).textContent =
+            playerScore;
+
+
+        checkWinner();
+
+
+        if (!gameOver) {
+
+            resetBall(-1);
+
+        }
+
+    }
+
+}
+
+
+/* =====================================
+   ПОБЕДА
+===================================== */
+
+function checkWinner() {
+
+    const winningScore = 5;
+
+
+    if (
+        playerScore >= winningScore
+    ) {
+
+        finishGame(true);
+
+    }
+
+
+    if (
+        computerScore >= winningScore
+    ) {
+
+        finishGame(false);
+
+    }
+
+}
+
+
+/* =====================================
+   КОНЕЦ ИГРЫ
+===================================== */
+
+function finishGame(playerWon) {
+
+    gameRunning = false;
+
+    gameOver = true;
+
+    cancelAnimationFrame(animation);
+
+
+    if (playerWon) {
+
+        const oldRecord =
+            getRecord(difficulty);
+
+
+        if (
+            playerScore >
+            oldRecord
+        ) {
+
+            saveRecord(
+                difficulty,
+                playerScore
+            );
+
+
+            document.getElementById(
+                "message"
+            ).textContent =
+                "🏆 Победа! Новый рекорд: " +
+                playerScore;
+
+
+            document.getElementById(
+                "message"
+            ).className =
+                "message new-record";
+
+        } else {
+
+            document.getElementById(
+                "message"
+            ).textContent =
+                "🏆 Ты победил! Счёт: " +
+                playerScore +
+                " : " +
+                computerScore;
+
+
+            document.getElementById(
+                "message"
+            ).className =
+                "message new-record";
+
+        }
+
+
+        updateRecords();
+
+    } else {
+
+        document.getElementById(
+            "message"
+        ).textContent =
+            "💥 Компьютер победил! Счёт: " +
+            playerScore +
+            " : " +
+            computerScore;
+
+
+        document.getElementById(
+            "message"
+        ).className =
+            "message game-over";
+
+    }
+
+
+    draw();
+
+}
+
+
+/* =====================================
+   ПАУЗА
+===================================== */
+
+function togglePause() {
+
+    if (
+        !gameRunning ||
+        gameOver
+    ) {
+
+        return;
+
+    }
+
+
+    paused = !paused;
+
+
+    if (paused) {
+
+        document.getElementById(
+            "message"
+        ).textContent =
+            "⏸️ Игра на паузе";
+
+    } else {
+
+        document.getElementById(
+            "message"
+        ).textContent =
+            "▶️ Игра продолжается";
+
+    }
+
+}
+
+
+/* =====================================
+   КЛАВИАТУРА
+===================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "ArrowUp" ||
+            event.key.toLowerCase() === "w"
+        ) {
+
+            event.preventDefault();
+
+            keys.up = true;
+
+        }
+
+
+        if (
+            event.key === "ArrowDown" ||
+            event.key.toLowerCase() === "s"
+        ) {
+
+            event.preventDefault();
+
+            keys.down = true;
+
+        }
+
+
+        if (
+            event.key === " "
+        ) {
+
+            event.preventDefault();
+
+            togglePause();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keyup",
+    function(event) {
+
+        if (
+            event.key === "ArrowUp" ||
+            event.key.toLowerCase() === "w"
+        ) {
+
+            keys.up = false;
+
+        }
+
+
+        if (
+            event.key === "ArrowDown" ||
+            event.key.toLowerCase() === "s"
+        ) {
+
+            keys.down = false;
+
+        }
+
+    }
+);
+
+
+/* =====================================
+   МОБИЛЬНОЕ УПРАВЛЕНИЕ
+===================================== */
+
+function movePlayer(direction) {
+
+    if (
+        !gameRunning ||
+        gameOver
+    ) {
+
+        return;
+
+    }
+
+
+    if (direction === "up") {
+
+        player.y -= 35;
+
+    }
+
+
+    if (direction === "down") {
+
+        player.y += 35;
+
+    }
+
+
+    if (player.y < 0) {
+
+        player.y = 0;
+
+    }
+
+
+    if (
+        player.y +
+        player.height >
+        canvas.height
+    ) {
+
+        player.y =
+            canvas.height -
+            player.height;
+
+    }
+
+}
+
+
+/* =====================================
+   РИСОВАНИЕ
+===================================== */
+
+function draw() {
+
+    /* Фон */
+
+    ctx.fillStyle = "#111827";
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    /* Центральная линия */
+
+    ctx.strokeStyle =
+        "rgba(255,255,255,0.25)";
+
+    ctx.setLineDash([10, 10]);
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        canvas.width / 2,
+        0
+    );
+
+    ctx.lineTo(
+        canvas.width / 2,
+        canvas.height
+    );
+
+    ctx.stroke();
+
+    ctx.setLineDash([]);
+
+
+    /* Центральный круг */
+
+    ctx.strokeStyle =
+        "rgba(255,255,255,0.2)";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        canvas.width / 2,
+        canvas.height / 2,
+        70,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.stroke();
+
+
+    /* Ракетка игрока */
+
+    ctx.fillStyle =
+        "#2563eb";
+
+    ctx.roundRect(
+        player.x,
+        player.y,
+        player.width,
+        player.height,
+        7
+    );
+
+    ctx.fill();
+
+
+    /* Ракетка компьютера */
+
+    ctx.fillStyle =
+        "#ef4444";
+
+    ctx.roundRect(
+        computer.x,
+        computer.y,
+        computer.width,
+        computer.height,
+        7
+    );
+
+    ctx.fill();
+
+
+    /* Мяч */
+
+    ctx.fillStyle =
+        "#ffffff";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        ball.x,
+        ball.y,
+        ball.radius,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    /* Счёт на поле */
+
+    ctx.fillStyle =
+        "rgba(255,255,255,0.5)";
+
+    ctx.textAlign = "center";
+
+    ctx.font =
+        "bold 45px Arial";
+
+
+    ctx.fillText(
+        playerScore,
+        canvas.width / 2 - 70,
+        65
+    );
+
+
+    ctx.fillText(
+        computerScore,
+        canvas.width / 2 + 70,
+        65
+    );
+
+
+    /* Пауза */
+
+    if (paused) {
+
+        ctx.fillStyle =
+            "rgba(0,0,0,0.55)";
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        ctx.fillStyle =
+            "white";
+
+        ctx.font =
+            "bold 40px Arial";
+
+        ctx.fillText(
+            "⏸️ ПАУЗА",
+            canvas.width / 2,
+            canvas.height / 2
+        );
+
+    }
+
+}
+
+
+/* =====================================
+   СТАРТОВЫЙ ЭКРАН
+===================================== */
+
+function drawStartScreen() {
+
+    ctx.fillStyle =
+        "#111827";
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    ctx.strokeStyle =
+        "rgba(255,255,255,0.2)";
+
+    ctx.setLineDash([10, 10]);
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        canvas.width / 2,
+        0
+    );
+
+    ctx.lineTo(
+        canvas.width / 2,
+        canvas.height
+    );
+
+    ctx.stroke();
+
+    ctx.setLineDash([]);
+
+
+    ctx.fillStyle =
+        "#2563eb";
+
+    ctx.textAlign =
+        "center";
+
+    ctx.font =
+        "bold 40px Arial";
+
+
+    ctx.fillText(
+        "🏓 ПИНГ-ПОНГ",
+        canvas.width / 2,
+        190
+    );
+
+
+    ctx.fillStyle =
+        "white";
+
+    ctx.font =
+        "20px Arial";
+
+
+    ctx.fillText(
+        "Сложность: " +
+        settings[difficulty].name,
+        canvas.width / 2,
+        235
+    );
+
+
+    ctx.fillStyle =
+        "#94a3b8";
+
+    ctx.font =
+        "16px Arial";
+
+
+    ctx.fillText(
+        "Нажми «Начать игру»",
+        canvas.width / 2,
+        280
+    );
+
+}
+
+
+/* =====================================
+   ЗАПУСК
+===================================== */
+
+updateRecords();
+
+drawStartScreen();
+
+</script>
+
+</body>
+</html>
