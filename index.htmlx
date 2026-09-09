@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>EasyFlow</title>
 
     <style>
@@ -12,85 +13,114 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: #f4f7fb;
             color: #111827;
         }
 
-        /* ===== HEADER ===== */
+        /* ================= HEADER ================= */
 
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-
-            background: white;
+        .header {
+            width: 100%;
+            background: #ffffff;
             border-bottom: 1px solid #e5e7eb;
 
-            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+
+            min-height: 72px;
+            padding: 10px 20px;
 
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
         }
+
+        /* ЛОГО */
 
         .logo {
+            color: #2563eb;
             font-size: 28px;
             font-weight: 800;
-            color: #2563eb;
-        }
-
-        nav {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-        }
-
-        nav button {
-            border: none;
-            background: transparent;
-
-            padding: 11px 15px;
-            border-radius: 10px;
-
-            color: #374151;
-            font-weight: 600;
 
             cursor: pointer;
             white-space: nowrap;
-
-            transition: 0.2s;
         }
 
-        nav button:hover {
+        /* ================= NAV ================= */
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-button {
+            border: none;
+            outline: none;
+
+            background: transparent;
+
+            color: #374151;
+
+            padding: 12px 14px;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+
+            white-space: nowrap;
+        }
+
+        .nav-button:hover {
             background: #eff6ff;
             color: #2563eb;
         }
 
-        nav button.active {
+        .nav-button.active {
             background: #2563eb;
             color: white;
         }
 
-        /* ===== MAIN ===== */
+        /* ================= MAIN ================= */
 
-        main {
+        .container {
+            width: 100%;
             max-width: 1100px;
-            margin: auto;
+
+            margin: 0 auto;
+
             padding: 40px 20px;
         }
 
         .page {
             display: none;
-            animation: fade 0.25s ease;
         }
 
         .page.active {
             display: block;
+            animation: showPage 0.25s ease;
         }
 
-        @keyframes fade {
+        @keyframes showPage {
             from {
                 opacity: 0;
                 transform: translateY(10px);
@@ -102,86 +132,101 @@
             }
         }
 
-        /* ===== HOME ===== */
+        /* ================= HOME ================= */
 
-        .hero {
+        .home {
             min-height: 70vh;
 
             display: flex;
             flex-direction: column;
-            justify-content: center;
+
             align-items: center;
+            justify-content: center;
 
             text-align: center;
-
-            padding: 50px 20px;
         }
 
-        .hero h1 {
-            font-size: clamp(55px, 10vw, 100px);
+        .home h1 {
             color: #2563eb;
+
+            font-size: clamp(55px, 10vw, 100px);
+
             margin-bottom: 20px;
         }
 
-        .hero p {
-            font-size: 20px;
+        .home-text {
+            max-width: 650px;
+
             color: #64748b;
-            max-width: 600px;
+
+            font-size: 20px;
+
             line-height: 1.6;
         }
 
-        .welcome-box {
+        .welcome {
             margin-top: 35px;
-            padding: 25px 35px;
 
             background: white;
-            border-radius: 18px;
 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            padding: 30px 40px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.07);
         }
 
-        /* ===== TITLES ===== */
+        .welcome h2 {
+            margin-bottom: 10px;
+        }
 
-        .title {
+        .welcome p {
+            color: #64748b;
+        }
+
+        /* ================= TITLE ================= */
+
+        .page-title {
             margin-bottom: 30px;
         }
 
-        .title h2 {
+        .page-title h2 {
             font-size: 36px;
             margin-bottom: 8px;
         }
 
-        .title p {
+        .page-title p {
             color: #64748b;
         }
 
-        /* ===== CARDS ===== */
+        /* ================= CARDS ================= */
 
         .cards {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 20px;
         }
 
         .card {
             background: white;
+
             padding: 30px;
 
             border-radius: 18px;
 
             border: 1px solid #e5e7eb;
 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-
-            transition: 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.05);
         }
 
         .card-icon {
-            font-size: 35px;
+            font-size: 40px;
+
             margin-bottom: 15px;
         }
 
@@ -194,7 +239,7 @@
             line-height: 1.5;
         }
 
-        /* ===== GALLERY ===== */
+        /* ================= IMAGES ================= */
 
         .empty-gallery {
             background: white;
@@ -206,66 +251,74 @@
             padding: 80px 20px;
 
             text-align: center;
-
-            color: #64748b;
         }
 
-        .empty-gallery .icon {
-            font-size: 55px;
+        .empty-gallery-icon {
+            font-size: 60px;
+
             margin-bottom: 15px;
         }
 
         .empty-gallery h3 {
-            color: #111827;
             font-size: 24px;
+
             margin-bottom: 10px;
         }
 
-        /* ===== PROFILE ===== */
+        .empty-gallery p {
+            color: #64748b;
+        }
 
-        .profile {
-            background: white;
+        /* ================= PROFILE ================= */
 
+        .profile-box {
             max-width: 650px;
+
+            background: white;
 
             padding: 35px;
 
             border-radius: 20px;
 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.06);
         }
 
-        .profile-icon {
+        .avatar {
             width: 90px;
             height: 90px;
+
+            border-radius: 50%;
+
+            background: #eff6ff;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            background: #eff6ff;
-            color: #2563eb;
-
-            border-radius: 50%;
-
             font-size: 40px;
+
+            color: #2563eb;
 
             margin-bottom: 20px;
         }
 
-        .profile h2 {
+        .profile-box h2 {
             margin-bottom: 10px;
         }
 
-        .profile p {
+        .profile-box p {
             color: #64748b;
+
             line-height: 1.6;
         }
 
-        /* ===== LINKS ===== */
+        /* ================= LINKS ================= */
 
         .links {
-            display: grid;
+            display: flex;
+            flex-direction: column;
+
             gap: 15px;
         }
 
@@ -277,33 +330,41 @@
             border-radius: 15px;
 
             display: flex;
-            justify-content: space-between;
+
             align-items: center;
+            justify-content: space-between;
 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            gap: 20px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.05);
         }
 
-        .link-card h3 {
-            margin-bottom: 5px;
+        .link-info h3 {
+            margin-bottom: 6px;
         }
 
-        .link-card p {
+        .link-info p {
             color: #64748b;
+
             font-size: 14px;
         }
 
-        .link-button {
+        .open-link {
             background: #2563eb;
+
             color: white;
 
             text-decoration: none;
 
-            padding: 10px 18px;
+            padding: 11px 18px;
 
             border-radius: 9px;
+
+            white-space: nowrap;
         }
 
-        /* ===== SETTINGS ===== */
+        /* ================= SETTINGS ================= */
 
         .settings {
             max-width: 650px;
@@ -314,77 +375,107 @@
 
             border-radius: 20px;
 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.06);
         }
 
-        .setting {
+        .form-group {
             margin-bottom: 20px;
         }
 
-        .setting label {
+        .form-group label {
             display: block;
 
             margin-bottom: 8px;
 
-            font-weight: bold;
+            font-weight: 700;
         }
 
-        .setting input {
+        .form-group input {
             width: 100%;
 
-            padding: 13px;
+            padding: 13px 15px;
 
             border: 1px solid #d1d5db;
 
-            border-radius: 9px;
+            border-radius: 10px;
 
             font-size: 16px;
+
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         .save-button {
             border: none;
 
             background: #2563eb;
+
             color: white;
 
-            padding: 13px 25px;
+            padding: 13px 24px;
 
-            border-radius: 9px;
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            font-weight: 700;
 
             cursor: pointer;
-
-            font-weight: bold;
         }
 
         .save-button:hover {
             background: #1d4ed8;
         }
 
-        /* ===== FOOTER ===== */
+        /* ================= FOOTER ================= */
 
         footer {
-            margin-top: 50px;
-
-            padding: 25px;
+            margin-top: 40px;
 
             background: #111827;
 
             color: #9ca3af;
 
             text-align: center;
+
+            padding: 25px;
         }
 
-        /* ===== MOBILE ===== */
+        /* ================= MOBILE ================= */
 
-        @media (max-width: 800px) {
+        @media (max-width: 850px) {
 
-            header {
+            .header-inner {
                 flex-direction: column;
-                gap: 12px;
+
+                align-items: stretch;
+
+                padding: 15px;
             }
 
-            nav {
+            .logo {
+                text-align: center;
+            }
+
+            .nav {
                 width: 100%;
+
+                overflow-x: auto;
+
+                padding-bottom: 4px;
+
+                justify-content: flex-start;
+            }
+
+            .nav-button {
+                flex-shrink: 0;
             }
 
             .cards {
@@ -393,75 +484,136 @@
 
             .link-card {
                 flex-direction: column;
+
                 align-items: flex-start;
-                gap: 15px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .container {
+                padding: 25px 15px;
             }
 
-            .hero h1 {
-                font-size: 55px;
+            .page-title h2 {
+                font-size: 30px;
+            }
+
+            .welcome {
+                padding: 25px 20px;
+            }
+
+            .settings {
+                padding: 20px;
             }
         }
     </style>
 </head>
 
+
 <body>
 
-<header>
 
-    <div class="logo">
-        EasyFlow
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div
+            class="logo"
+            onclick="openPage('home')"
+        >
+            EasyFlow
+        </div>
+
+
+        <nav class="nav">
+
+            <button
+                class="nav-button active"
+                data-page="home"
+                onclick="openPage('home')"
+            >
+                🏠 Главная
+            </button>
+
+
+            <button
+                class="nav-button"
+                data-page="images"
+                onclick="openPage('images')"
+            >
+                🖼️ Картинки
+            </button>
+
+
+            <button
+                class="nav-button"
+                data-page="profile"
+                onclick="openPage('profile')"
+            >
+                👤 Профиль
+            </button>
+
+
+            <button
+                class="nav-button"
+                data-page="links"
+                onclick="openPage('links')"
+            >
+                🔗 Мои ссылки
+            </button>
+
+
+            <button
+                class="nav-button"
+                data-page="settings"
+                onclick="openPage('settings')"
+            >
+                ⚙️ Настройки
+            </button>
+
+        </nav>
+
     </div>
-
-    <nav>
-
-        <button class="active" onclick="showPage('home', this)">
-            🏠 Главная
-        </button>
-
-        <button onclick="showPage('images', this)">
-            🖼️ Картинки
-        </button>
-
-        <button onclick="showPage('profile', this)">
-            👤 Профиль
-        </button>
-
-        <button onclick="showPage('links', this)">
-            🔗 Мои ссылки
-        </button>
-
-        <button onclick="showPage('settings', this)">
-            ⚙️ Настройки
-        </button>
-
-    </nav>
 
 </header>
 
 
-<main>
+<!-- ================= CONTENT ================= -->
 
-    <!-- ===== ГЛАВНАЯ ===== -->
+<main class="container">
 
-    <section id="home" class="page active">
 
-        <div class="hero">
+    <!-- ===== HOME ===== -->
 
-            <h1>EasyFlow</h1>
+    <section
+        id="home"
+        class="page active"
+    >
 
-            <p>
+        <div class="home">
+
+            <h1>
+                EasyFlow
+            </h1>
+
+            <p class="home-text">
                 Твоя собственная платформа.
-                Здесь ты можешь создавать,
-                добавлять и управлять своим контентом.
+                Создавай свой контент,
+                добавляй ссылки и настраивай
+                свой профиль.
             </p>
 
-            <div class="welcome-box">
+
+            <div class="welcome">
 
                 <h2>
-                    Добро пожаловать 👋
+                    Добро пожаловать! 👋
                 </h2>
 
-                <p style="margin-top: 10px;">
+                <p>
                     EasyFlow только начинается.
                 </p>
 
@@ -472,23 +624,29 @@
     </section>
 
 
-    <!-- ===== КАРТИНКИ ===== -->
+    <!-- ===== IMAGES ===== -->
 
-    <section id="images" class="page">
+    <section
+        id="images"
+        class="page"
+    >
 
-        <div class="title">
+        <div class="page-title">
 
-            <h2>🖼️ Картинки</h2>
+            <h2>
+                🖼️ Картинки
+            </h2>
 
             <p>
-                Здесь будут твои изображения.
+                Здесь будут находиться твои изображения.
             </p>
 
         </div>
 
+
         <div class="empty-gallery">
 
-            <div class="icon">
+            <div class="empty-gallery-icon">
                 🖼️
             </div>
 
@@ -497,7 +655,7 @@
             </h3>
 
             <p>
-                Позже здесь можно будет добавить изображения.
+                Позже здесь можно будет добавлять свои изображения.
             </p>
 
         </div>
@@ -505,13 +663,18 @@
     </section>
 
 
-    <!-- ===== ПРОФИЛЬ ===== -->
+    <!-- ===== PROFILE ===== -->
 
-    <section id="profile" class="page">
+    <section
+        id="profile"
+        class="page"
+    >
 
-        <div class="title">
+        <div class="page-title">
 
-            <h2>👤 Профиль</h2>
+            <h2>
+                👤 Профиль
+            </h2>
 
             <p>
                 Твоя персональная страница.
@@ -519,15 +682,18 @@
 
         </div>
 
-        <div class="profile">
 
-            <div class="profile-icon">
+        <div class="profile-box">
+
+            <div class="avatar">
                 👤
             </div>
+
 
             <h2 id="profileName">
                 Мой профиль
             </h2>
+
 
             <p id="profileDescription">
                 Здесь будет информация о пользователе.
@@ -538,91 +704,107 @@
     </section>
 
 
-    <!-- ===== ССЫЛКИ ===== -->
+    <!-- ===== LINKS ===== -->
 
-    <section id="links" class="page">
+    <section
+        id="links"
+        class="page"
+    >
 
-        <div class="title">
+        <div class="page-title">
 
-            <h2>🔗 Мои ссылки</h2>
+            <h2>
+                🔗 Мои ссылки
+            </h2>
 
             <p>
-                Здесь ты можешь размещать свои ссылки.
+                Здесь можно размещать свои ссылки.
             </p>
 
         </div>
 
+
         <div class="links">
+
 
             <div class="link-card">
 
-                <div>
+                <div class="link-info">
 
                     <h3>
                         Моя ссылка
                     </h3>
 
                     <p>
-                        Здесь будет твоя ссылка.
+                        Добавь сюда свою ссылку.
                     </p>
 
                 </div>
 
+
                 <a
                     href="#"
-                    class="link-button"
+                    class="open-link"
                 >
                     Открыть
                 </a>
 
             </div>
 
+
         </div>
 
     </section>
 
 
-    <!-- ===== НАСТРОЙКИ ===== -->
+    <!-- ===== SETTINGS ===== -->
 
-    <section id="settings" class="page">
+    <section
+        id="settings"
+        class="page"
+    >
 
-        <div class="title">
+        <div class="page-title">
 
-            <h2>⚙️ Настройки</h2>
+            <h2>
+                ⚙️ Настройки
+            </h2>
 
             <p>
-                Настрой свой профиль.
+                Измени информацию своего профиля.
             </p>
 
         </div>
 
+
         <div class="settings">
 
-            <div class="setting">
 
-                <label>
+            <div class="form-group">
+
+                <label for="name">
                     Имя
                 </label>
 
                 <input
-                    type="text"
                     id="name"
-                    placeholder="Введите имя"
+                    type="text"
+                    placeholder="Например: Alex"
                 >
 
             </div>
 
 
-            <div class="setting">
+            <div class="form-group">
 
-                <label>
+                <label for="description">
                     Описание
                 </label>
 
                 <input
-                    type="text"
                     id="description"
-                    placeholder="Введите описание"
+                    type="text"
+                    placeholder="Расскажи о себе"
                 >
 
             </div>
@@ -630,7 +812,7 @@
 
             <button
                 class="save-button"
-                onclick="saveSettings()"
+                onclick="saveProfile()"
             >
                 Сохранить
             </button>
@@ -639,8 +821,11 @@
 
     </section>
 
+
 </main>
 
+
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
@@ -651,46 +836,82 @@
 
 <script>
 
-    /* ===== ПЕРЕКЛЮЧЕНИЕ РАЗДЕЛОВ ===== */
+    /* ==========================================
+       ПЕРЕКЛЮЧЕНИЕ РАЗДЕЛОВ
+    ========================================== */
 
-    function showPage(pageId, button) {
+    function openPage(pageName) {
 
-        const pages = document.querySelectorAll(".page");
+        /* Скрываем все страницы */
+
+        const pages =
+            document.querySelectorAll(".page");
 
         pages.forEach(function(page) {
+
             page.classList.remove("active");
+
         });
 
-        document
-            .getElementById(pageId)
-            .classList.add("active");
 
+        /* Показываем выбранную */
+
+        const selectedPage =
+            document.getElementById(pageName);
+
+        if (selectedPage) {
+
+            selectedPage.classList.add("active");
+
+        }
+
+
+        /* Меняем активную кнопку */
 
         const buttons =
-            document.querySelectorAll("nav button");
+            document.querySelectorAll(".nav-button");
 
-        buttons.forEach(function(btn) {
-            btn.classList.remove("active");
+        buttons.forEach(function(button) {
+
+            button.classList.remove("active");
+
+            if (
+                button.getAttribute("data-page")
+                === pageName
+            ) {
+
+                button.classList.add("active");
+
+            }
+
         });
 
-        button.classList.add("active");
+
+        /* Прокручиваем вверх */
 
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
+
     }
 
 
-    /* ===== СОХРАНЕНИЕ ПРОФИЛЯ ===== */
+    /* ==========================================
+       СОХРАНЕНИЕ ПРОФИЛЯ
+    ========================================== */
 
-    function saveSettings() {
+    function saveProfile() {
 
         const name =
-            document.getElementById("name").value;
+            document.getElementById("name").value.trim();
+
 
         const description =
-            document.getElementById("description").value;
+            document
+                .getElementById("description")
+                .value
+                .trim();
 
 
         if (name) {
@@ -700,9 +921,9 @@
                 name
             );
 
-            document.getElementById(
-                "profileName"
-            ).textContent = name;
+            document
+                .getElementById("profileName")
+                .textContent = name;
 
         }
 
@@ -714,56 +935,69 @@
                 description
             );
 
-            document.getElementById(
-                "profileDescription"
-            ).textContent = description;
+            document
+                .getElementById("profileDescription")
+                .textContent = description;
 
         }
 
 
-        alert("Настройки сохранены!");
+        alert("Профиль сохранён!");
+
     }
 
 
-    /* ===== ЗАГРУЗКА ПРОФИЛЯ ===== */
+    /* ==========================================
+       ЗАГРУЗКА ПРОФИЛЯ
+    ========================================== */
 
-    window.onload = function() {
+    window.addEventListener(
+        "DOMContentLoaded",
+        function() {
 
-        const name =
-            localStorage.getItem("easyflow_name");
-
-        const description =
-            localStorage.getItem(
-                "easyflow_description"
-            );
+            const savedName =
+                localStorage.getItem(
+                    "easyflow_name"
+                );
 
 
-        if (name) {
+            const savedDescription =
+                localStorage.getItem(
+                    "easyflow_description"
+                );
 
-            document.getElementById(
-                "name"
-            ).value = name;
 
-            document.getElementById(
-                "profileName"
-            ).textContent = name;
+            if (savedName) {
+
+                document
+                    .getElementById("name")
+                    .value = savedName;
+
+                document
+                    .getElementById("profileName")
+                    .textContent = savedName;
+
+            }
+
+
+            if (savedDescription) {
+
+                document
+                    .getElementById("description")
+                    .value = savedDescription;
+
+                document
+                    .getElementById("profileDescription")
+                    .textContent =
+                    savedDescription;
+
+            }
+
         }
-
-
-        if (description) {
-
-            document.getElementById(
-                "description"
-            ).value = description;
-
-            document.getElementById(
-                "profileDescription"
-            ).textContent = description;
-        }
-
-    };
+    );
 
 </script>
+
 
 </body>
 </html>
