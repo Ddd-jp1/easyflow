@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EasyFlow — Угадай страну</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #111827;
+    min-height: 100vh;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 18px 6%;
+}
+
+.header {
+    max-width: 900px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #2563eb;
+    font-size: 27px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    padding: 35px 20px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.title h1 {
+    font-size: 40px;
+    color: #2563eb;
+    margin-bottom: 8px;
+}
+
+.title p {
+    color: #64748b;
+}
+
+/* СЛОЖНОСТЬ */
+
+.difficulty {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.difficulty h2 {
+    margin-bottom: 15px;
+}
+
+.levels {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.level {
+    border: 2px solid #e5e7eb;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.level:hover {
+    transform: translateY(-2px);
+}
+
+.level.active.easy {
+    border-color: #22c55e;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.level.active.medium {
+    border-color: #eab308;
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.level.active.hard {
+    border-color: #ef4444;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* СТАТИСТИКА */
+
+.info {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 130px;
+}
+
+.stat span {
+    display: block;
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.stat strong {
+    font-size: 23px;
+}
+
+/* ИГРА */
+
+.game-box {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+.flag-wrapper {
+    width: 100%;
+    max-width: 520px;
+    height: 300px;
+    margin: 0 auto 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 2px solid #e5e7eb;
+    overflow: hidden;
+}
+
+#flag {
+    max-width: 90%;
+    max-height: 85%;
+    width: auto;
+    height: auto;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.question {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* ВАРИАНТЫ */
+
+.answers {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+
+    max-width: 600px;
+    margin: auto;
+}
+
+.answer {
+    border: 2px solid #e5e7eb;
+    background: white;
+    color: #111827;
+
+    padding: 15px 12px;
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.answer:hover {
+    border-color: #2563eb;
+    background: #eff6ff;
+    transform: translateY(-2px);
+}
+
+.answer.correct {
+    background: #dcfce7;
+    border-color: #22c55e;
+    color: #166534;
+}
+
+.answer.wrong {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #991b1b;
+}
+
+/* СООБЩЕНИЕ */
+
+.message {
+    min-height: 28px;
+    margin: 20px 0;
+
+    text-align: center;
+
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.message.correct-message {
+    color: #16a34a;
+}
+
+.message.wrong-message {
+    color: #dc2626;
+}
+
+/* КНОПКИ */
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+}
+
+.main-button {
+    border: none;
+
+    background: #2563eb;
+    color: white;
+
+    padding: 13px 22px;
+
+    border-radius: 11px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.main-button:hover {
+    background: #1d4ed8;
+}
+
+.next-button {
+    display: none;
+}
+
+/* РЕКОРДЫ */
+
+.records {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-top: 30px;
+}
+
+.records h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.record-row {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 12px 5px;
+
+    border-bottom: 1px solid #eef0f3;
+}
+
+.record-row:last-child {
+    border-bottom: none;
+}
+
+footer {
+    margin-top: 40px;
+    background: #111827;
+    color: #9ca3af;
+    text-align: center;
+    padding: 25px;
+}
+
+@media(max-width: 600px) {
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .container {
+        padding: 25px 12px;
+    }
+
+    .game-box {
+        padding: 18px;
+    }
+
+    .flag-wrapper {
+        height: 210px;
+    }
+
+    .answers {
+        grid-template-columns: 1fr;
+    }
+
+    .stat {
+        min-width: 100px;
+        padding: 12px 15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="header">
+
+<a href="index.html" class="logo">
+EasyFlow
+</a>
+
+<a href="games.html" class="back">
+← Игры
+</a>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+
+<div class="title">
+
+<h1>🌍 Угадай страну</h1>
+
+<p>
+Угадай страну по её флагу и установи свой рекорд!
+</p>
+
+</div>
+
+
+<!-- СЛОЖНОСТЬ -->
+
+<div class="difficulty">
+
+<h2>Выбери сложность</h2>
+
+<div class="levels">
+
+<button
+class="level easy active"
+id="easyButton"
+onclick="selectDifficulty('easy')"
+>
+🟢 Лёгкий
+</button>
+
+<button
+class="level medium"
+id="mediumButton"
+onclick="selectDifficulty('medium')"
+>
+🟡 Средний
+</button>
+
+<button
+class="level hard"
+id="hardButton"
+onclick="selectDifficulty('hard')"
+>
+🔴 Сложный
+</button>
+
+</div>
+
+</div>
+
+
+<!-- СТАТИСТИКА -->
+
+<div class="info">
+
+<div class="stat">
+
+<span>Очки</span>
+
+<strong id="score">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>🏆 Рекорд</span>
+
+<strong id="record">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>❤️ Жизни</span>
+
+<strong id="lives">
+3
+</strong>
+
+</div>
+
+</div>
+
+
+<!-- ИГРА -->
+
+<div class="game-box">
+
+<div class="flag-wrapper">
+
+<img
+id="flag"
+src=""
+alt="Флаг"
+>
+
+</div>
+
+
+<div
+id="question"
+class="question"
+>
+Какая это страна?
+</div>
+
+
+<div
+id="answers"
+class="answers"
+>
+</div>
+
+
+<div
+id="message"
+class="message"
+>
+Нажми «Начать игру»
+</div>
+
+
+<div class="buttons">
+
+<button
+class="main-button"
+onclick="startGame()"
+>
+▶️ Начать игру
+</button>
+
+
+<button
+id="nextButton"
+class="main-button next-button"
+onclick="nextQuestion()"
+>
+➡️ Следующий флаг
+</button>
+
+</div>
+
+</div>
+
+
+<!-- РЕКОРДЫ -->
+
+<div class="records">
+
+<h2>
+🏆 Мои рекорды
+</h2>
+
+
+<div class="record-row">
+
+<span>
+🟢 Лёгкий
+</span>
+
+<strong id="easyRecord">
+0
+</strong>
+
+</div>
+
+
+<div class="record-row">
+
+<span>
+🟡 Средний
+</span>
+
+<strong id="mediumRecord">
+0
+</strong>
+
+</div>
+
+
+<div class="record-row">
+
+<span>
+🔴 Сложный
+</span>
+
+<strong id="hardRecord">
+0
+</strong>
+
+</div>
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+© 2026 EasyFlow
+
+</footer>
+
+
+<script>
+
+/* =====================================
+   СТРАНЫ
+===================================== */
+
+const countries = [
+
+{
+name: "Казахстан",
+code: "kz",
+difficulty: "easy"
+},
+
+{
+name: "Россия",
+code: "ru",
+difficulty: "easy"
+},
+
+{
+name: "Украина",
+code: "ua",
+difficulty: "easy"
+},
+
+{
+name: "Беларусь",
+code: "by",
+difficulty: "easy"
+},
+
+{
+name: "Германия",
+code: "de",
+difficulty: "easy"
+},
+
+{
+name: "Франция",
+code: "fr",
+difficulty: "easy"
+},
+
+{
+name: "Италия",
+code: "it",
+difficulty: "easy"
+},
+
+{
+name: "Япония",
+code: "jp",
+difficulty: "easy"
+},
+
+{
+name: "США",
+code: "us",
+difficulty: "easy"
+},
+
+{
+name: "Канада",
+code: "ca",
+difficulty: "easy"
+},
+
+{
+name: "Великобритания",
+code: "gb",
+difficulty: "medium"
+},
+
+{
+name: "Испания",
+code: "es",
+difficulty: "medium"
+},
+
+{
+name: "Польша",
+code: "pl",
+difficulty: "medium"
+},
+
+{
+name: "Турция",
+code: "tr",
+difficulty: "medium"
+},
+
+{
+name: "Китай",
+code: "cn",
+difficulty: "medium"
+},
+
+{
+name: "Южная Корея",
+code: "kr",
+difficulty: "medium"
+},
+
+{
+name: "Индия",
+code: "in",
+difficulty: "medium"
+},
+
+{
+name: "Бразилия",
+code: "br",
+difficulty: "medium"
+},
+
+{
+name: "Австралия",
+code: "au",
+difficulty: "medium"
+},
+
+{
+name: "Мексика",
+code: "mx",
+difficulty: "medium"
+},
+
+{
+name: "Норвегия",
+code: "no",
+difficulty: "hard"
+},
+
+{
+name: "Швеция",
+code: "se",
+difficulty: "hard"
+},
+
+{
+name: "Финляндия",
+code: "fi",
+difficulty: "hard"
+},
+
+{
+name: "Дания",
+code: "dk",
+difficulty: "hard"
+},
+
+{
+name: "Исландия",
+code: "is",
+difficulty: "hard"
+},
+
+{
+name: "Аргентина",
+code: "ar",
+difficulty: "hard"
+},
+
+{
+name: "Чили",
+code: "cl",
+difficulty: "hard"
+},
+
+{
+name: "Португалия",
+code: "pt",
+difficulty: "hard"
+},
+
+{
+name: "Греция",
+code: "gr",
+difficulty: "hard"
+},
+
+{
+name: "Швейцария",
+code: "ch",
+difficulty: "hard"
+},
+
+{
+name: "Нидерланды",
+code: "nl",
+difficulty: "hard"
+},
+
+{
+name: "Бельгия",
+code: "be",
+difficulty: "hard"
+},
+
+{
+name: "Австрия",
+code: "at",
+difficulty: "hard"
+},
+
+{
+name: "Египет",
+code: "eg",
+difficulty: "hard"
+},
+
+{
+name: "Южная Африка",
+code: "za",
+difficulty: "hard"
+}
+
+];
+
+
+/* =====================================
+   НАСТРОЙКИ
+===================================== */
+
+let difficulty = "easy";
+
+let currentCountry = null;
+
+let score = 0;
+
+let lives = 3;
+
+let gameRunning = false;
+
+let questionAnswered = false;
+
+
+/* =====================================
+   РЕКОРДЫ
+===================================== */
+
+function getRecord(level) {
+
+    return Number(
+        localStorage.getItem(
+            "easyflow_flags_record_" + level
+        ) || 0
+    );
+
+}
+
+
+function saveRecord(level, value) {
+
+    localStorage.setItem(
+        "easyflow_flags_record_" + level,
+        value
+    );
+
+}
+
+
+function updateRecords() {
+
+    document.getElementById(
+        "easyRecord"
+    ).textContent =
+        getRecord("easy");
+
+
+    document.getElementById(
+        "mediumRecord"
+    ).textContent =
+        getRecord("medium");
+
+
+    document.getElementById(
+        "hardRecord"
+    ).textContent =
+        getRecord("hard");
+
+
+    document.getElementById(
+        "record"
+    ).textContent =
+        getRecord(difficulty);
+
+}
+
+
+/* =====================================
+   ВЫБОР СЛОЖНОСТИ
+===================================== */
+
+function selectDifficulty(level) {
+
+    if (gameRunning) {
+
+        alert(
+            "Сначала закончи текущую игру."
+        );
+
+        return;
+
+    }
+
+
+    difficulty = level;
+
+
+    document
+        .querySelectorAll(".level")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+
+    document
+        .getElementById(
+            level + "Button"
+        )
+        .classList.add("active");
+
+
+    updateRecords();
+
+    resetScreen();
+
+}
+
+
+/* =====================================
+   НАЧАЛО ИГРЫ
+===================================== */
+
+function startGame() {
+
+    score = 0;
+
+    lives = 3;
+
+    gameRunning = true;
+
+    questionAnswered = false;
+
+
+    document.getElementById(
+        "score"
+    ).textContent = score;
+
+
+    document.getElementById(
+        "lives"
+    ).textContent = lives;
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "Выбери правильную страну!";
+
+
+    document.getElementById(
+        "message"
+    ).className = "message";
+
+
+    document.getElementById(
+        "nextButton"
+    ).style.display = "none";
+
+
+    nextQuestion();
+
+}
+
+
+/* =====================================
+   СЛЕДУЮЩИЙ ВОПРОС
+===================================== */
+
+function nextQuestion() {
+
+    if (!gameRunning) {
+        return;
+    }
+
+
+    questionAnswered = false;
+
+
+    document.getElementById(
+        "nextButton"
+    ).style.display = "none";
+
+
+    const available =
+        countries.filter(function(country) {
+
+            return country.difficulty === difficulty;
+
+        });
+
+
+    currentCountry =
+        available[
+            Math.floor(
+                Math.random() *
+                available.length
+            )
+        ];
+
+
+    document.getElementById(
+        "flag"
+    ).src =
+        "https://flagcdn.com/w640/" +
+        currentCountry.code +
+        ".png";
+
+
+    document.getElementById(
+        "question"
+    ).textContent =
+        "Какая это страна?";
+
+
+    createAnswers(available);
+
+}
+
+
+/* =====================================
+   СОЗДАНИЕ ВАРИАНТОВ
+===================================== */
+
+function createAnswers(available) {
+
+    const answers =
+        document.getElementById(
+            "answers"
+        );
+
+
+    answers.innerHTML = "";
+
+
+    let options = [currentCountry];
+
+
+    const shuffled =
+        available
+        .filter(function(country) {
+
+            return country.name !==
+                currentCountry.name;
+
+        })
+        .sort(function() {
+
+            return Math.random() - 0.5;
+
+        });
+
+
+    while (
+        options.length < 4 &&
+        shuffled.length > 0
+    ) {
+
+        options.push(
+            shuffled.shift()
+        );
+
+    }
+
+
+    options.sort(function() {
+
+        return Math.random() - 0.5;
+
+    });
+
+
+    options.forEach(function(country) {
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.className = "answer";
+
+
+        button.textContent =
+            country.name;
+
+
+        button.onclick =
+            function() {
+
+                checkAnswer(
+                    country,
+                    button
+                );
+
+            };
+
+
+        answers.appendChild(button);
+
+    });
+
+}
+
+
+/* =====================================
+   ПРОВЕРКА ОТВЕТА
+===================================== */
+
+function checkAnswer(country, button) {
+
+    if (
+        !gameRunning ||
+        questionAnswered
+    ) {
+        return;
+    }
+
+
+    questionAnswered = true;
+
+
+    const buttons =
+        document.querySelectorAll(
+            ".answer"
+        );
+
+
+    buttons.forEach(function(btn) {
+
+        btn.disabled = true;
+
+    });
+
+
+    if (
+        country.name ===
+        currentCountry.name
+    ) {
+
+        button.classList.add(
+            "correct"
+        );
+
+
+        score++;
+
+
+        document.getElementById(
+            "score"
+        ).textContent =
+            score;
+
+
+        document.getElementById(
+            "message"
+        ).textContent =
+            "✅ Правильно!";
+
+
+        document.getElementById(
+            "message"
+        ).className =
+            "message correct-message";
+
+
+        updateBestScore();
+
+
+        document.getElementById(
+            "nextButton"
+        ).style.display =
+            "inline-block";
+
+
+    } else {
+
+        button.classList.add(
+            "wrong"
+        );
+
+
+        buttons.forEach(
+            function(btn) {
+
+                if (
+                    btn.textContent ===
+                    currentCountry.name
+                ) {
+
+                    btn.classList.add(
+                        "correct"
+                    );
+
+                }
+
+            }
+        );
+
+
+        lives--;
+
+
+        document.getElementById(
+            "lives"
+        ).textContent =
+            lives;
+
+
+        document.getElementById(
+            "message"
+        ).textContent =
+            "❌ Неправильно! Правильный ответ: " +
+            currentCountry.name;
+
+
+        document.getElementById(
+            "message"
+        ).className =
+            "message wrong-message";
+
+
+        if (lives <= 0) {
+
+            endGame();
+
+        } else {
+
+            document.getElementById(
+                "nextButton"
+            ).style.display =
+                "inline-block";
+
+        }
+
+    }
+
+}
+
+
+/* =====================================
+   СОХРАНЕНИЕ РЕКОРДА
+===================================== */
+
+function updateBestScore() {
+
+    const record =
+        getRecord(difficulty);
+
+
+    if (score > record) {
+
+        saveRecord(
+            difficulty,
+            score
+        );
+
+        updateRecords();
+
+    }
+
+}
+
+
+/* =====================================
+   КОНЕЦ ИГРЫ
+===================================== */
+
+function endGame() {
+
+    gameRunning = false;
+
+
+    updateBestScore();
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "💥 Игра окончена! Твой результат: " +
+        score;
+
+
+    document.getElementById(
+        "message"
+    ).className =
+        "message wrong-message";
+
+
+    document.getElementById(
+        "nextButton"
+    ).style.display =
+        "none";
+
+
+    document
+        .querySelectorAll(".answer")
+        .forEach(function(button) {
+
+            button.disabled = true;
+
+        });
+
+}
+
+
+/* =====================================
+   СБРОС ЭКРАНА
+===================================== */
+
+function resetScreen() {
+
+    score = 0;
+
+    lives = 3;
+
+    gameRunning = false;
+
+    questionAnswered = false;
+
+
+    document.getElementById(
+        "score"
+    ).textContent = "0";
+
+
+    document.getElementById(
+        "lives"
+    ).textContent = "3";
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "Нажми «Начать игру»";
+
+
+    document.getElementById(
+        "message"
+    ).className =
+        "message";
+
+
+    document.getElementById(
+        "flag"
+    ).removeAttribute("src");
+
+
+    document.getElementById(
+        "answers"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "nextButton"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =====================================
+   ЗАПУСК
+===================================== */
+
+updateRecords();
+
+</script>
+
+</body>
+</html>
