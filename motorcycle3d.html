@@ -48,10 +48,10 @@ header {
 .header {
     max-width: 1100px;
     margin: auto;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 15px;
 }
 
 .logo {
@@ -161,7 +161,7 @@ header {
     border-radius: 16px;
     padding: 18px;
     text-align: center;
-    transition: .2s;
+    transition: transform .2s, border-color .2s;
 }
 
 .bike:hover {
@@ -228,14 +228,10 @@ canvas {
     display: block;
     width: 100%;
     height: auto;
-
     background: #70b7e8;
-
     border-radius: 18px;
     border: 4px solid var(--main);
-
     box-shadow: 0 15px 35px rgba(0,0,0,.2);
-
     touch-action: none;
 }
 
@@ -244,13 +240,11 @@ canvas {
     top: 12px;
     left: 12px;
     right: 12px;
-
     display: flex;
     justify-content: space-between;
-
+    gap: 8px;
     color: white;
     font-weight: bold;
-
     pointer-events: none;
 }
 
@@ -258,6 +252,7 @@ canvas {
     background: rgba(0,0,0,.45);
     padding: 8px 12px;
     border-radius: 8px;
+    white-space: nowrap;
 }
 
 /* =========================
@@ -274,21 +269,14 @@ canvas {
 .control {
     width: 90px;
     height: 60px;
-
-    border: none;
+    border: 1px solid var(--border);
     border-radius: 15px;
-
     background: var(--card);
     color: var(--text);
-
-    border: 1px solid var(--border);
-
     font-size: 28px;
     cursor: pointer;
-
     user-select: none;
     -webkit-user-select: none;
-
     touch-action: manipulation;
 }
 
@@ -312,18 +300,20 @@ canvas {
     border: none;
     background: var(--main);
     color: white;
-
     padding: 13px 22px;
     border-radius: 11px;
-
     font-size: 16px;
     font-weight: bold;
-
     cursor: pointer;
 }
 
 .main-button:hover {
     opacity: .9;
+}
+
+.main-button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
 }
 
 .message {
@@ -341,7 +331,6 @@ canvas {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 18px;
-
     padding: 20px;
     margin-top: 25px;
 }
@@ -374,10 +363,8 @@ canvas {
     border: 1px solid var(--border);
     background: var(--bg);
     color: var(--text);
-
     padding: 10px 15px;
     border-radius: 9px;
-
     cursor: pointer;
 }
 
@@ -391,16 +378,13 @@ canvas {
    MOBILE
 ========================= */
 
-@media(max-width: 800px) {
-
+@media (max-width: 800px) {
     .bikes {
         grid-template-columns: repeat(2, 1fr);
     }
-
 }
 
-@media(max-width: 500px) {
-
+@media (max-width: 500px) {
     .title h1 {
         font-size: 30px;
     }
@@ -429,6 +413,17 @@ canvas {
     .control {
         width: 100px;
     }
+
+    .hud {
+        left: 8px;
+        right: 8px;
+        top: 8px;
+    }
+
+    .hud span {
+        padding: 6px 7px;
+        font-size: 12px;
+    }
 }
 
 footer {
@@ -444,246 +439,216 @@ footer {
 <body>
 
 <header>
-
-<div class="header">
-
-<a href="index.html" class="logo">
-EasyFlow
-</a>
-
-<a href="games.html" class="back">
-← Игры
-</a>
-
-</div>
-
+    <div class="header">
+        <a href="index.html" class="logo">EasyFlow</a>
+        <a href="games.html" class="back">← Игры</a>
+    </div>
 </header>
-
 
 <main class="container">
 
-<div class="title">
+    <div class="title">
+        <h1>🏍️ Moto Ride</h1>
+        <p>Зарабатывай монеты, покупай мотоциклы и проходи трассы!</p>
+    </div>
 
-<h1>🏍️ Moto Ride</h1>
+    <div class="money">
+        💰 Монеты:
+        <strong id="coins">0</strong>
+    </div>
 
-<p>
-Зарабатывай монеты, покупай мотоциклы и проходи трассы!
-</p>
+    <!-- МОТОЦИКЛЫ -->
 
-</div>
+    <div class="menu">
+        <h2>🏍️ Выбор мотоцикла</h2>
 
+        <div id="bikes" class="bikes"></div>
+    </div>
 
-<!-- ДЕНЬГИ -->
+    <!-- ИГРА -->
 
-<div class="money">
+    <div class="game-section">
 
-💰 Монеты:
+        <div class="game-box">
 
-<strong id="coins">
-0
-</strong>
+            <canvas id="game" width="700" height="500"></canvas>
 
-</div>
+            <div class="hud">
 
+                <span>
+                    💰 <b id="gameCoins">0</b>
+                </span>
 
-<!-- МОТОЦИКЛЫ -->
+                <span>
+                    🏍️ <b id="speedText">0</b> км/ч
+                </span>
 
-<div class="menu">
+                <span>
+                    🏁 <b id="distance">0</b> м
+                </span>
 
-<h2>🏍️ Выбор мотоцикла</h2>
+            </div>
 
-<div
-id="bikes"
-class="bikes">
-</div>
+        </div>
 
-</div>
+        <div class="controls">
 
+            <button
+                class="control"
+                id="leftButton"
+                type="button"
+                aria-label="Влево">
+                ⬅️
+            </button>
 
-<!-- ИГРА -->
+            <button
+                class="control"
+                id="rightButton"
+                type="button"
+                aria-label="Вправо">
+                ➡️
+            </button>
 
-<div class="game-section">
+        </div>
 
-<div class="game-box">
+        <div class="actions">
 
-<canvas
-id="game"
-width="700"
-height="500">
-</canvas>
+            <button
+                class="main-button"
+                id="startButton"
+                type="button"
+                onclick="startGame()">
+                ▶️ Начать поездку
+            </button>
 
-<div class="hud">
+            <button
+                class="main-button"
+                id="stopButton"
+                type="button"
+                onclick="stopGame()">
+                ⏹️ Остановиться
+            </button>
 
-<span>
-💰 <b id="gameCoins">0</b>
-</span>
+        </div>
 
-<span>
-🏍️ <b id="speedText">0</b> км/ч
-</span>
+        <div id="message" class="message">
+            Выбери мотоцикл и начинай поездку!
+        </div>
 
-<span>
-🏁 <b id="distance">0</b> м
-</span>
+    </div>
 
-</div>
+    <!-- НАСТРОЙКИ -->
 
-</div>
+    <div class="settings">
 
+        <h2>⚙️ Настройки</h2>
 
-<div class="controls">
+        <div class="setting">
 
-<button
-class="control"
-id="leftButton">
-⬅️
-</button>
-
-<button
-class="control"
-id="rightButton">
-➡️
-</button>
-
-</div>
-
-
-<div class="actions">
-
-<button
-class="main-button"
-onclick="startGame()">
-▶️ Начать поездку
-</button>
-
-<button
-class="main-button"
-onclick="stopGame()">
-⏹️ Остановиться
-</button>
-
-</div>
-
-
-<div
-id="message"
-class="message">
-Выбери мотоцикл и начинай поездку!
-</div>
-
-</div>
-
-
-<!-- НАСТРОЙКИ -->
-
-<div class="settings">
-
-<h2>⚙️ Настройки</h2>
-
-
-<div class="setting">
-
-<div class="setting-title">
-🎨 Графика
-</div>
-
-<div class="options">
-
-<button
-class="option active"
-onclick="setGraphics('low', this)">
-Низкая
-</button>
-
-<button
-class="option"
-onclick="setGraphics('medium', this)">
-Средняя
-</button>
-
-<button
-class="option"
-onclick="setGraphics('high', this)">
-Высокая
-</button>
-
-</div>
-
-</div>
-
-
-<div class="setting">
-
-<div class="setting-title">
-🌦️ Погода
-</div>
-
-<div class="options">
-
-<button
-class="option active"
-onclick="setWeather('clear', this)">
-☀️ Ясно
-</button>
-
-<button
-class="option"
-onclick="setWeather('rain', this)">
-🌧️ Дождь
-</button>
-
-<button
-class="option"
-onclick="setWeather('snow', this)">
-❄️ Снег
-</button>
-
-<button
-class="option"
-onclick="setWeather('fog', this)">
-🌫️ Туман
-</button>
-
-</div>
-
-</div>
-
-
-<div class="setting">
-
-<div class="setting-title">
-🎮 Управление
-</div>
-
-<div class="options">
-
-<button
-class="option active"
-onclick="setControl('buttons', this)">
-⬅️ Кнопки ➡️
-</button>
-
-<button
-class="option"
-onclick="setControl('tilt', this)">
-📱 Наклон телефона
-</button>
-
-</div>
-
-</div>
-
-</div>
+            <div class="setting-title">
+                🎨 Графика
+            </div>
+
+            <div class="options">
+
+                <button
+                    type="button"
+                    class="option active"
+                    onclick="setGraphics('low', this)">
+                    Низкая
+                </button>
+
+                <button
+                    type="button"
+                    class="option"
+                    onclick="setGraphics('medium', this)">
+                    Средняя
+                </button>
+
+                <button
+                    type="button"
+                    class="option"
+                    onclick="setGraphics('high', this)">
+                    Высокая
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="setting">
+
+            <div class="setting-title">
+                🌦️ Погода
+            </div>
+
+            <div class="options">
+
+                <button
+                    type="button"
+                    class="option active"
+                    onclick="setWeather('clear', this)">
+                    ☀️ Ясно
+                </button>
+
+                <button
+                    type="button"
+                    class="option"
+                    onclick="setWeather('rain', this)">
+                    🌧️ Дождь
+                </button>
+
+                <button
+                    type="button"
+                    class="option"
+                    onclick="setWeather('snow', this)">
+                    ❄️ Снег
+                </button>
+
+                <button
+                    type="button"
+                    class="option"
+                    onclick="setWeather('fog', this)">
+                    🌫️ Туман
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="setting">
+
+            <div class="setting-title">
+                🎮 Управление
+            </div>
+
+            <div class="options">
+
+                <button
+                    type="button"
+                    class="option active"
+                    onclick="setControl('buttons', this)">
+                    ⬅️ Кнопки ➡️
+                </button>
+
+                <button
+                    type="button"
+                    class="option"
+                    onclick="setControl('tilt', this)">
+                    📱 Наклон телефона
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </main>
 
-
 <footer>
-
-© 2026 EasyFlow — Moto Ride
-
+    © 2026 EasyFlow — Moto Ride
 </footer>
-
 
 <script>
 
@@ -692,167 +657,146 @@ onclick="setControl('tilt', this)">
 ================================================== */
 
 const bikes = [
-
-{
-    name: "Street 50",
-    icon: "🏍️",
-    price: 0,
-    speed: 5,
-    color: "#2563eb"
-},
-
-{
-    name: "Road 100",
-    icon: "🏍️",
-    price: 500,
-    speed: 6,
-    color: "#ef4444"
-},
-
-{
-    name: "Speed X",
-    icon: "🏍️",
-    price: 1000,
-    speed: 7,
-    color: "#22c55e"
-},
-
-{
-    name: "Racer",
-    icon: "🏍️",
-    price: 1500,
-    speed: 8,
-    color: "#f59e0b"
-},
-
-{
-    name: "Thunder",
-    icon: "🏍️",
-    price: 2000,
-    speed: 9,
-    color: "#8b5cf6"
-},
-
-{
-    name: "Shadow",
-    icon: "🏍️",
-    price: 2500,
-    speed: 9,
-    color: "#111827"
-},
-
-{
-    name: "Fire",
-    icon: "🏍️",
-    price: 3000,
-    speed: 10,
-    color: "#dc2626"
-},
-
-{
-    name: "Lightning",
-    icon: "🏍️",
-    price: 3500,
-    speed: 10,
-    color: "#eab308"
-},
-
-{
-    name: "Storm",
-    icon: "🏍️",
-    price: 4000,
-    speed: 11,
-    color: "#64748b"
-},
-
-{
-    name: "Phantom",
-    icon: "🏍️",
-    price: 4500,
-    speed: 11,
-    color: "#7c3aed"
-},
-
-{
-    name: "Ninja",
-    icon: "🏍️",
-    price: 5000,
-    speed: 12,
-    color: "#111111"
-},
-
-{
-    name: "Falcon",
-    icon: "🏍️",
-    price: 6000,
-    speed: 12,
-    color: "#0284c7"
-},
-
-{
-    name: "Viper",
-    icon: "🏍️",
-    price: 7000,
-    speed: 13,
-    color: "#16a34a"
-},
-
-{
-    name: "Turbo",
-    icon: "🏍️",
-    price: 8000,
-    speed: 13,
-    color: "#f97316"
-},
-
-{
-    name: "Dragon",
-    icon: "🏍️",
-    price: 9000,
-    speed: 14,
-    color: "#b91c1c"
-},
-
-{
-    name: "Titan",
-    icon: "🏍️",
-    price: 10000,
-    speed: 14,
-    color: "#475569"
-},
-
-{
-    name: "Hyper",
-    icon: "🏍️",
-    price: 12000,
-    speed: 15,
-    color: "#9333ea"
-},
-
-{
-    name: "Ultra",
-    icon: "🏍️",
-    price: 14000,
-    speed: 16,
-    color: "#0891b2"
-},
-
-{
-    name: "Legend",
-    icon: "🏍️",
-    price: 17000,
-    speed: 17,
-    color: "#ca8a04"
-},
-
-{
-    name: "Ultimate",
-    icon: "🏍️",
-    price: 20000,
-    speed: 19,
-    color: "#e11d48"
-}
-
+    {
+        name: "Street 50",
+        icon: "🏍️",
+        price: 0,
+        speed: 5,
+        color: "#2563eb"
+    },
+    {
+        name: "Road 100",
+        icon: "🏍️",
+        price: 500,
+        speed: 6,
+        color: "#ef4444"
+    },
+    {
+        name: "Speed X",
+        icon: "🏍️",
+        price: 1000,
+        speed: 7,
+        color: "#22c55e"
+    },
+    {
+        name: "Racer",
+        icon: "🏍️",
+        price: 1500,
+        speed: 8,
+        color: "#f59e0b"
+    },
+    {
+        name: "Thunder",
+        icon: "🏍️",
+        price: 2000,
+        speed: 9,
+        color: "#8b5cf6"
+    },
+    {
+        name: "Shadow",
+        icon: "🏍️",
+        price: 2500,
+        speed: 9,
+        color: "#111827"
+    },
+    {
+        name: "Fire",
+        icon: "🏍️",
+        price: 3000,
+        speed: 10,
+        color: "#dc2626"
+    },
+    {
+        name: "Lightning",
+        icon: "🏍️",
+        price: 3500,
+        speed: 10,
+        color: "#eab308"
+    },
+    {
+        name: "Storm",
+        icon: "🏍️",
+        price: 4000,
+        speed: 11,
+        color: "#64748b"
+    },
+    {
+        name: "Phantom",
+        icon: "🏍️",
+        price: 4500,
+        speed: 11,
+        color: "#7c3aed"
+    },
+    {
+        name: "Ninja",
+        icon: "🏍️",
+        price: 5000,
+        speed: 12,
+        color: "#111111"
+    },
+    {
+        name: "Falcon",
+        icon: "🏍️",
+        price: 6000,
+        speed: 12,
+        color: "#0284c7"
+    },
+    {
+        name: "Viper",
+        icon: "🏍️",
+        price: 7000,
+        speed: 13,
+        color: "#16a34a"
+    },
+    {
+        name: "Turbo",
+        icon: "🏍️",
+        price: 8000,
+        speed: 13,
+        color: "#f97316"
+    },
+    {
+        name: "Dragon",
+        icon: "🏍️",
+        price: 9000,
+        speed: 14,
+        color: "#b91c1c"
+    },
+    {
+        name: "Titan",
+        icon: "🏍️",
+        price: 10000,
+        speed: 14,
+        color: "#475569"
+    },
+    {
+        name: "Hyper",
+        icon: "🏍️",
+        price: 12000,
+        speed: 15,
+        color: "#9333ea"
+    },
+    {
+        name: "Ultra",
+        icon: "🏍️",
+        price: 14000,
+        speed: 16,
+        color: "#0891b2"
+    },
+    {
+        name: "Legend",
+        icon: "🏍️",
+        price: 17000,
+        speed: 17,
+        color: "#ca8a04"
+    },
+    {
+        name: "Ultimate",
+        icon: "🏍️",
+        price: 20000,
+        speed: 19,
+        color: "#e11d48"
+    }
 ];
 
 
@@ -860,68 +804,98 @@ const bikes = [
    СОСТОЯНИЕ
 ================================================== */
 
-let coins =
-    Number(
-        localStorage.getItem(
-            "easyflow_moto_coins"
-        ) || 100
+let coins = Number(
+    localStorage.getItem("easyflow_moto_coins") || 100
+);
+
+let owned;
+
+try {
+    owned = JSON.parse(
+        localStorage.getItem("easyflow_moto_owned") || "[0]"
     );
 
+    if (!Array.isArray(owned)) {
+        owned = [0];
+    }
 
-let owned =
-    JSON.parse(
-        localStorage.getItem(
-            "easyflow_moto_owned"
-        ) || "[0]"
-    );
+} catch {
+    owned = [0];
+}
 
+owned = owned
+    .filter(index => Number.isInteger(index) && index >= 0 && index < bikes.length);
 
-let selectedBike =
-    Number(
-        localStorage.getItem(
-            "easyflow_moto_selected"
-        ) || 0
-    );
+if (!owned.includes(0)) {
+    owned.unshift(0);
+}
 
+let selectedBike = Number(
+    localStorage.getItem("easyflow_moto_selected") || 0
+);
+
+if (
+    !Number.isInteger(selectedBike) ||
+    selectedBike < 0 ||
+    selectedBike >= bikes.length ||
+    !owned.includes(selectedBike)
+) {
+    selectedBike = 0;
+}
 
 let graphics = "low";
-
 let weather = "clear";
-
 let control = "buttons";
 
 let running = false;
-
 let animation = null;
 
 let playerX = 350;
-
 let roadOffset = 0;
-
 let distance = 0;
-
 let gameCoins = 0;
-
 let speed = 0;
 
 let leftPressed = false;
-
 let rightPressed = false;
 
 let obstacles = [];
-
 let lastTime = 0;
+
+let lastCoinDistance = -1;
+let gameFinished = false;
+
+
+/* ==================================================
+   ПОГОДА — СТАБИЛЬНЫЕ ЧАСТИЦЫ
+================================================== */
+
+const weatherParticles = [];
+
+for (let i = 0; i < 100; i++) {
+
+    weatherParticles.push({
+        x: Math.random() * 700,
+        y: Math.random() * 500,
+        speed: 2 + Math.random() * 4,
+        size: 1 + Math.random() * 3
+    });
+
+}
 
 
 /* ==================================================
    DOM
 ================================================== */
 
-const canvas =
-    document.getElementById("game");
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
 
-const ctx =
-    canvas.getContext("2d");
+const leftButton = document.getElementById("leftButton");
+const rightButton = document.getElementById("rightButton");
+
+const startButton = document.getElementById("startButton");
+const stopButton = document.getElementById("stopButton");
 
 
 /* ==================================================
@@ -932,7 +906,7 @@ function saveData() {
 
     localStorage.setItem(
         "easyflow_moto_coins",
-        coins
+        String(coins)
     );
 
     localStorage.setItem(
@@ -942,7 +916,7 @@ function saveData() {
 
     localStorage.setItem(
         "easyflow_moto_selected",
-        selectedBike
+        String(selectedBike)
     );
 
 }
@@ -954,13 +928,8 @@ function saveData() {
 
 function updateCoins() {
 
-    document.getElementById(
-        "coins"
-    ).textContent = coins;
-
-    document.getElementById(
-        "gameCoins"
-    ).textContent = gameCoins;
+    document.getElementById("coins").textContent = coins;
+    document.getElementById("gameCoins").textContent = gameCoins;
 
 }
 
@@ -971,86 +940,64 @@ function updateCoins() {
 
 function renderBikes() {
 
-    const box =
-        document.getElementById("bikes");
+    const box = document.getElementById("bikes");
 
     box.innerHTML = "";
 
-    bikes.forEach(
-        function(bike, index) {
+    bikes.forEach(function(bike, index) {
 
-            const card =
-                document.createElement("div");
+        const card = document.createElement("div");
 
-            card.className = "bike";
+        card.className = "bike";
+
+        if (index === selectedBike) {
+            card.classList.add("selected");
+        }
+
+        let buttonText;
+        let disabled = false;
+
+        if (owned.includes(index)) {
 
             if (index === selectedBike) {
-                card.classList.add("selected");
-            }
-
-
-            let buttonText = "";
-
-            let disabled = false;
-
-
-            if (owned.includes(index)) {
-
-                if (index === selectedBike) {
-
-                    buttonText = "✅ Выбран";
-
-                } else {
-
-                    buttonText = "Выбрать";
-
-                }
-
+                buttonText = "✅ Выбран";
             } else {
-
-                buttonText =
-                    "💰 " + bike.price;
-
-                if (coins < bike.price) {
-                    disabled = true;
-                }
-
+                buttonText = "Выбрать";
             }
 
+        } else {
 
-            card.innerHTML = `
+            buttonText = "💰 " + bike.price;
 
-                <div class="bike-icon">
-                    ${bike.icon}
-                </div>
-
-                <h3>
-                    ${bike.name}
-                </h3>
-
-                <div class="bike-info">
-
-                    Скорость:
-                    ${bike.speed}
-
-                </div>
-
-                <button
-                    class="buy"
-                    ${disabled ? "disabled" : ""}
-                    onclick="selectBike(${index})">
-
-                    ${buttonText}
-
-                </button>
-
-            `;
-
-
-            box.appendChild(card);
+            if (coins < bike.price) {
+                disabled = true;
+            }
 
         }
-    );
+
+        card.innerHTML = `
+            <div class="bike-icon">${bike.icon}</div>
+
+            <h3>${bike.name}</h3>
+
+            <div class="bike-info">
+                Скорость: ${bike.speed}
+            </div>
+
+            <button
+                class="buy"
+                type="button"
+                ${disabled ? "disabled" : ""}
+                onclick="selectBike(${index})">
+
+                ${buttonText}
+
+            </button>
+        `;
+
+        box.appendChild(card);
+
+    });
 
 }
 
@@ -1061,34 +1008,47 @@ function renderBikes() {
 
 function selectBike(index) {
 
-    const bike =
-        bikes[index];
+    if (running) {
+        showMessage("Сначала закончи текущую поездку.");
+        return;
+    }
 
+    if (!bikes[index]) {
+        return;
+    }
+
+    const bike = bikes[index];
 
     if (!owned.includes(index)) {
 
         if (coins < bike.price) {
-
+            showMessage("❌ Недостаточно монет.");
             return;
-
         }
 
         coins -= bike.price;
-
         owned.push(index);
-
     }
-
 
     selectedBike = index;
 
     saveData();
-
     updateCoins();
-
     renderBikes();
-
     draw();
+
+    showMessage("🏍️ Выбран мотоцикл: " + bike.name);
+
+}
+
+
+/* ==================================================
+   СООБЩЕНИЕ
+================================================== */
+
+function showMessage(text) {
+
+    document.getElementById("message").textContent = text;
 
 }
 
@@ -1102,12 +1062,10 @@ function setGraphics(level, button) {
     graphics = level;
 
     document
-        .querySelectorAll(
-            ".setting:nth-child(1) .option"
-        )
-        .forEach(
-            b => b.classList.remove("active")
-        );
+        .querySelectorAll(".setting:nth-child(1) .option")
+        .forEach(function(b) {
+            b.classList.remove("active");
+        });
 
     button.classList.add("active");
 
@@ -1125,12 +1083,10 @@ function setWeather(type, button) {
     weather = type;
 
     document
-        .querySelectorAll(
-            ".setting:nth-child(2) .option"
-        )
-        .forEach(
-            b => b.classList.remove("active")
-        );
+        .querySelectorAll(".setting:nth-child(2) .option")
+        .forEach(function(b) {
+            b.classList.remove("active");
+        });
 
     button.classList.add("active");
 
@@ -1143,25 +1099,38 @@ function setWeather(type, button) {
    УПРАВЛЕНИЕ
 ================================================== */
 
-function setControl(type, button) {
-
-    control = type;
-
-    document
-        .querySelectorAll(
-            ".setting:nth-child(3) .option"
-        )
-        .forEach(
-            b => b.classList.remove("active")
-        );
-
-    button.classList.add("active");
-
+async function setControl(type, button) {
 
     if (type === "tilt") {
 
-        requestTiltPermission();
+        const allowed = await requestTiltPermission();
 
+        if (!allowed) {
+
+            showMessage(
+                "📱 Не удалось получить доступ к датчикам. Используются кнопки."
+            );
+
+            type = "buttons";
+
+            document
+                .querySelectorAll(".setting:nth-child(3) .option")
+                .forEach(function(b) {
+                    b.classList.remove("active");
+                });
+
+            document
+                .querySelector(
+                    '.setting:nth-child(3) .option[onclick*="buttons"]'
+                )
+                .classList.add("active");
+        }
+    }
+
+    control = type;
+
+    if (type === "tilt") {
+        showMessage("📱 Наклоняй телефон влево или вправо.");
     }
 
 }
@@ -1171,43 +1140,31 @@ function setControl(type, button) {
    НАКЛОН ТЕЛЕФОНА
 ================================================== */
 
-function requestTiltPermission() {
+async function requestTiltPermission() {
+
+    if (typeof DeviceOrientationEvent === "undefined") {
+        return false;
+    }
 
     if (
-        typeof DeviceOrientationEvent !==
-        "undefined" &&
         typeof DeviceOrientationEvent.requestPermission ===
         "function"
     ) {
 
-        DeviceOrientationEvent
-            .requestPermission()
-            .then(
-                function(permission) {
+        try {
 
-                    if (
-                        permission !== "granted"
-                    ) {
+            const permission =
+                await DeviceOrientationEvent.requestPermission();
 
-                        alert(
-                            "Разреши доступ к датчикам телефона."
-                        );
+            return permission === "granted";
 
-                    }
-
-                }
-            )
-            .catch(
-                function() {
-
-                    alert(
-                        "Не удалось получить доступ к гироскопу."
-                    );
-
-                }
-            );
+        } catch {
+            return false;
+        }
 
     }
+
+    return true;
 
 }
 
@@ -1220,32 +1177,24 @@ window.addEventListener(
     "deviceorientation",
     function(event) {
 
-        if (
-            !running ||
-            control !== "tilt"
-        ) {
-
+        if (!running || control !== "tilt") {
             return;
-
         }
 
-
-        let gamma =
-            event.gamma || 0;
-
+        const gamma = event.gamma || 0;
 
         if (gamma < -8) {
-
             playerX -= 5;
-
         }
-
 
         if (gamma > 8) {
-
             playerX += 5;
-
         }
+
+        playerX = Math.max(
+            220,
+            Math.min(480, playerX)
+        );
 
     }
 );
@@ -1255,153 +1204,106 @@ window.addEventListener(
    КНОПКИ
 ================================================== */
 
-const leftButton =
-    document.getElementById(
-        "leftButton"
-    );
+function pressLeft(event) {
 
-const rightButton =
-    document.getElementById(
-        "rightButton"
-    );
+    event.preventDefault();
 
-
-function pressLeft(e) {
-
-    e.preventDefault();
+    if (control !== "buttons") {
+        return;
+    }
 
     leftPressed = true;
-
 }
 
-function releaseLeft(e) {
+function releaseLeft(event) {
 
-    e.preventDefault();
-
+    event.preventDefault();
     leftPressed = false;
-
 }
 
+function pressRight(event) {
 
-function pressRight(e) {
+    event.preventDefault();
 
-    e.preventDefault();
+    if (control !== "buttons") {
+        return;
+    }
 
     rightPressed = true;
-
 }
 
-function releaseRight(e) {
+function releaseRight(event) {
 
-    e.preventDefault();
-
+    event.preventDefault();
     rightPressed = false;
-
 }
 
 
-leftButton.addEventListener(
-    "pointerdown",
-    pressLeft
-);
+leftButton.addEventListener("pointerdown", pressLeft);
+leftButton.addEventListener("pointerup", releaseLeft);
+leftButton.addEventListener("pointercancel", releaseLeft);
+leftButton.addEventListener("pointerleave", releaseLeft);
 
-leftButton.addEventListener(
-    "pointerup",
-    releaseLeft
-);
-
-leftButton.addEventListener(
-    "pointercancel",
-    releaseLeft
-);
-
-leftButton.addEventListener(
-    "pointerleave",
-    releaseLeft
-);
-
-
-rightButton.addEventListener(
-    "pointerdown",
-    pressRight
-);
-
-rightButton.addEventListener(
-    "pointerup",
-    releaseRight
-);
-
-rightButton.addEventListener(
-    "pointercancel",
-    releaseRight
-);
-
-rightButton.addEventListener(
-    "pointerleave",
-    releaseRight
-);
+rightButton.addEventListener("pointerdown", pressRight);
+rightButton.addEventListener("pointerup", releaseRight);
+rightButton.addEventListener("pointercancel", releaseRight);
+rightButton.addEventListener("pointerleave", releaseRight);
 
 
 /* ==================================================
    КЛАВИАТУРА
 ================================================== */
 
-document.addEventListener(
-    "keydown",
-    function(event) {
+document.addEventListener("keydown", function(event) {
 
-        if (
-            event.key === "ArrowLeft" ||
-            event.key.toLowerCase() === "a"
-        ) {
+    if (
+        event.key === "ArrowLeft" ||
+        event.key.toLowerCase() === "a"
+    ) {
 
-            leftPressed = true;
+        leftPressed = true;
 
+        if (running) {
+            event.preventDefault();
         }
-
-
-        if (
-            event.key === "ArrowRight" ||
-            event.key.toLowerCase() === "d"
-        ) {
-
-            rightPressed = true;
-
-        }
-
     }
-);
 
+    if (
+        event.key === "ArrowRight" ||
+        event.key.toLowerCase() === "d"
+    ) {
 
-document.addEventListener(
-    "keyup",
-    function(event) {
+        rightPressed = true;
 
-        if (
-            event.key === "ArrowLeft" ||
-            event.key.toLowerCase() === "a"
-        ) {
-
-            leftPressed = false;
-
+        if (running) {
+            event.preventDefault();
         }
-
-
-        if (
-            event.key === "ArrowRight" ||
-            event.key.toLowerCase() === "d"
-        ) {
-
-            rightPressed = false;
-
-        }
-
     }
-);
+
+});
+
+
+document.addEventListener("keyup", function(event) {
+
+    if (
+        event.key === "ArrowLeft" ||
+        event.key.toLowerCase() === "a"
+    ) {
+        leftPressed = false;
+    }
+
+    if (
+        event.key === "ArrowRight" ||
+        event.key.toLowerCase() === "d"
+    ) {
+        rightPressed = false;
+    }
+
+});
 
 
 /* ==================================================
-   СТАРТ
+   СТАРТ ИГРЫ
 ================================================== */
 
 function startGame() {
@@ -1410,34 +1312,35 @@ function startGame() {
         return;
     }
 
-
     running = true;
+    gameFinished = false;
 
     distance = 0;
-
     gameCoins = 0;
-
     roadOffset = 0;
-
     playerX = 350;
-
     obstacles = [];
-
     speed = bikes[selectedBike].speed;
 
+    lastCoinDistance = -1;
 
-    document.getElementById(
-        "message"
-    ).textContent =
-        "🏁 Поехали!";
+    leftPressed = false;
+    rightPressed = false;
 
+    document.getElementById("speedText").textContent =
+        speed * 12;
+
+    document.getElementById("distance").textContent = "0";
+
+    updateCoins();
+
+    showMessage("🏁 Поехали!");
+
+    startButton.disabled = true;
 
     lastTime = performance.now();
 
-    animation =
-        requestAnimationFrame(
-            gameLoop
-        );
+    animation = requestAnimationFrame(gameLoop);
 
 }
 
@@ -1448,27 +1351,47 @@ function startGame() {
 
 function stopGame() {
 
+    if (!running) {
+        return;
+    }
+
+    endRide(
+        "🏁 Поездка окончена! Заработано: " +
+        gameCoins +
+        " 💰"
+    );
+
+}
+
+
+/* ==================================================
+   ЗАВЕРШЕНИЕ ПОЕЗДКИ
+================================================== */
+
+function endRide(message) {
+
+    if (!running) {
+        return;
+    }
+
     running = false;
 
     cancelAnimationFrame(animation);
 
+    animation = null;
 
     coins += gameCoins;
 
     saveData();
-
     updateCoins();
-
     renderBikes();
 
+    startButton.disabled = false;
 
-    document.getElementById(
-        "message"
-    ).textContent =
-        "🏁 Поездка окончена! Заработано: " +
-        gameCoins +
-        " 💰";
+    leftPressed = false;
+    rightPressed = false;
 
+    showMessage(message);
 
     draw();
 
@@ -1485,173 +1408,138 @@ function gameLoop(time) {
         return;
     }
 
-
-    const delta =
-        Math.min(
-            (time - lastTime) / 16.67,
-            2
-        );
-
+    const delta = Math.min(
+        (time - lastTime) / 16.67,
+        2
+    );
 
     lastTime = time;
 
-
     update(delta);
-
     draw();
 
-
-    animation =
-        requestAnimationFrame(
-            gameLoop
-        );
+    if (running) {
+        animation = requestAnimationFrame(gameLoop);
+    }
 
 }
 
 
 /* ==================================================
-   ОБНОВЛЕНИЕ
+   ОБНОВЛЕНИЕ ИГРЫ
 ================================================== */
 
 function update(delta) {
 
-    const bike =
-        bikes[selectedBike];
+    const bike = bikes[selectedBike];
+
+    speed = bike.speed;
+
+    roadOffset += speed * delta * 2;
+
+    distance += speed * delta * 0.04;
 
 
-    speed =
-        bike.speed;
-
-
-    roadOffset +=
-        speed * delta * 2;
-
-
-    distance +=
-        speed * delta * 0.04;
-
+    /* Управление */
 
     if (
         leftPressed &&
         control === "buttons"
     ) {
-
-        playerX -=
-            7 * delta;
-
+        playerX -= 7 * delta;
     }
-
 
     if (
         rightPressed &&
         control === "buttons"
     ) {
-
-        playerX +=
-            7 * delta;
-
+        playerX += 7 * delta;
     }
 
-
-    playerX =
-        Math.max(
-            210,
-            Math.min(
-                490,
-                playerX
-            )
-        );
+    playerX = Math.max(
+        220,
+        Math.min(480, playerX)
+    );
 
 
     /* Монеты */
 
+    const currentCoinDistance =
+        Math.floor(distance / 10);
+
     if (
-        Math.floor(distance) % 10 === 0
+        currentCoinDistance > lastCoinDistance &&
+        currentCoinDistance > 0
     ) {
 
-        if (
-            Math.random() < 0.03
-        ) {
+        lastCoinDistance = currentCoinDistance;
 
+        if (Math.random() < 0.7) {
             gameCoins++;
-
             updateCoins();
-
         }
-
     }
 
 
     /* Препятствия */
 
-    if (
-        Math.random() < 0.018 * delta
-    ) {
+    if (Math.random() < 0.018 * delta) {
 
         obstacles.push({
-
-            x:
-                210 +
-                Math.random() * 280,
-
-            y: -50,
-
+            x: 210 + Math.random() * 280,
+            y: -80,
             width: 45,
-
             height: 70
-
         });
 
     }
 
 
-    obstacles.forEach(
-        function(obstacle) {
+    /* Движение препятствий */
 
-            obstacle.y +=
-                speed * delta * 2;
+    obstacles.forEach(function(obstacle) {
 
-        }
-    );
+        obstacle.y += speed * delta * 2;
+
+    });
 
 
-    obstacles =
-        obstacles.filter(
-            function(obstacle) {
+    /* Удаление старых препятствий */
 
-                return obstacle.y <
-                    canvas.height + 100;
+    obstacles = obstacles.filter(function(obstacle) {
 
-            }
-        );
+        return obstacle.y < canvas.height + 100;
+
+    });
 
 
     /* Столкновение */
 
-    for (
-        const obstacle of obstacles
-    ) {
+    for (const obstacle of obstacles) {
 
-        if (
+        const playerLeft = playerX - 22;
+        const playerRight = playerX + 22;
 
-            playerX - 22 <
-            obstacle.x +
-            obstacle.width &&
+        const playerTop = 380;
+        const playerBottom = 450;
 
-            playerX + 22 >
-            obstacle.x &&
+        const obstacleLeft = obstacle.x;
+        const obstacleRight =
+            obstacle.x + obstacle.width;
 
-            410 <
-            obstacle.y +
-            obstacle.height &&
+        const obstacleTop = obstacle.y;
+        const obstacleBottom =
+            obstacle.y + obstacle.height;
 
-            450 >
-            obstacle.y
+        const collision =
+            playerLeft < obstacleRight &&
+            playerRight > obstacleLeft &&
+            playerTop < obstacleBottom &&
+            playerBottom > obstacleTop;
 
-        ) {
+        if (collision) {
 
             crash();
-
             return;
 
         }
@@ -1659,15 +1547,10 @@ function update(delta) {
     }
 
 
-    document.getElementById(
-        "speedText"
-    ).textContent =
-        speed * 12;
+    document.getElementById("speedText").textContent =
+        Math.floor(speed * 12);
 
-
-    document.getElementById(
-        "distance"
-    ).textContent =
+    document.getElementById("distance").textContent =
         Math.floor(distance);
 
 }
@@ -1679,29 +1562,15 @@ function update(delta) {
 
 function crash() {
 
-    running = false;
+    if (!running) {
+        return;
+    }
 
-    cancelAnimationFrame(animation);
-
-
-    coins += gameCoins;
-
-    saveData();
-
-    updateCoins();
-
-    renderBikes();
-
-
-    document.getElementById(
-        "message"
-    ).textContent =
+    endRide(
         "💥 Авария! Ты заработал " +
         gameCoins +
-        " 💰";
-
-
-    draw();
+        " 💰"
+    );
 
 }
 
@@ -1718,9 +1587,7 @@ function draw() {
 
     /* Небо */
 
-    let sky =
-        "#70b7e8";
-
+    let sky = "#70b7e8";
 
     if (weather === "rain") {
         sky = "#64748b";
@@ -1734,93 +1601,52 @@ function draw() {
         sky = "#94a3b8";
     }
 
-
     ctx.fillStyle = sky;
 
-    ctx.fillRect(
-        0,
-        0,
-        w,
-        h
-    );
+    ctx.fillRect(0, 0, w, h);
 
 
-    /* Деревья / трава */
+    /* Трава */
 
     ctx.fillStyle =
         weather === "snow"
-        ? "#e2e8f0"
-        : "#4ade80";
+            ? "#e2e8f0"
+            : "#4ade80";
 
-    ctx.fillRect(
-        0,
-        0,
-        190,
-        h
-    );
-
-    ctx.fillRect(
-        510,
-        0,
-        190,
-        h
-    );
+    ctx.fillRect(0, 0, 190, h);
+    ctx.fillRect(510, 0, 190, h);
 
 
     /* Дорога */
 
     ctx.fillStyle =
-        "#333333";
+        graphics === "high"
+            ? "#292929"
+            : "#333333";
 
-    ctx.fillRect(
-        190,
-        0,
-        320,
-        h
-    );
+    ctx.fillRect(190, 0, 320, h);
 
 
     /* Края дороги */
 
-    ctx.fillStyle =
-        "#ffffff";
+    ctx.fillStyle = "#ffffff";
 
-    ctx.fillRect(
-        195,
-        0,
-        6,
-        h
-    );
-
-    ctx.fillRect(
-        499,
-        0,
-        6,
-        h
-    );
+    ctx.fillRect(195, 0, 6, h);
+    ctx.fillRect(499, 0, 6, h);
 
 
     /* Разметка */
 
-    ctx.fillStyle =
-        "#f8fafc";
-
+    ctx.fillStyle = "#f8fafc";
 
     const lineHeight = 50;
-
     const gap = 40;
 
-
     for (
-        let y =
-            -lineHeight +
-            (roadOffset %
-                (lineHeight + gap));
-
+        let y = -lineHeight +
+            (roadOffset % (lineHeight + gap));
         y < h;
-
-        y +=
-            lineHeight + gap
+        y += lineHeight + gap
     ) {
 
         ctx.fillRect(
@@ -1835,32 +1661,27 @@ function draw() {
 
     /* Препятствия */
 
-    obstacles.forEach(
-        function(obstacle) {
+    obstacles.forEach(function(obstacle) {
 
-            ctx.fillStyle =
-                "#dc2626";
+        ctx.fillStyle = "#dc2626";
 
-            ctx.fillRect(
-                obstacle.x,
-                obstacle.y,
-                obstacle.width,
-                obstacle.height
-            );
+        ctx.fillRect(
+            obstacle.x,
+            obstacle.y,
+            obstacle.width,
+            obstacle.height
+        );
 
+        ctx.fillStyle = "#facc15";
 
-            ctx.fillStyle =
-                "#facc15";
+        ctx.fillRect(
+            obstacle.x + 5,
+            obstacle.y + 8,
+            obstacle.width - 10,
+            10
+        );
 
-            ctx.fillRect(
-                obstacle.x + 5,
-                obstacle.y + 8,
-                obstacle.width - 10,
-                10
-            );
-
-        }
-    );
+    });
 
 
     /* Мотоцикл */
@@ -1883,16 +1704,11 @@ function draw() {
    МОТОЦИКЛ
 ================================================== */
 
-function drawMotorcycle(
-    x,
-    y,
-    color
-) {
+function drawMotorcycle(x, y, color) {
 
     /* Тень */
 
-    ctx.fillStyle =
-        "rgba(0,0,0,.35)";
+    ctx.fillStyle = "rgba(0,0,0,.35)";
 
     ctx.beginPath();
 
@@ -1911,9 +1727,7 @@ function drawMotorcycle(
 
     /* Колёса */
 
-    ctx.fillStyle =
-        "#111827";
-
+    ctx.fillStyle = "#111827";
 
     ctx.beginPath();
 
@@ -1926,7 +1740,6 @@ function drawMotorcycle(
     );
 
     ctx.fill();
-
 
     ctx.beginPath();
 
@@ -1943,12 +1756,9 @@ function drawMotorcycle(
 
     /* Корпус */
 
-    ctx.fillStyle =
-        color;
+    ctx.fillStyle = color;
 
-    ctx.beginPath();
-
-    ctx.roundRect(
+    drawRoundedRect(
         x - 16,
         y - 30,
         32,
@@ -1956,13 +1766,10 @@ function drawMotorcycle(
         8
     );
 
-    ctx.fill();
-
 
     /* Фара */
 
-    ctx.fillStyle =
-        "#fef08a";
+    ctx.fillStyle = "#fef08a";
 
     ctx.beginPath();
 
@@ -1979,8 +1786,7 @@ function drawMotorcycle(
 
     /* Водитель */
 
-    ctx.fillStyle =
-        "#111827";
+    ctx.fillStyle = "#111827";
 
     ctx.beginPath();
 
@@ -1991,6 +1797,74 @@ function drawMotorcycle(
         0,
         Math.PI * 2
     );
+
+    ctx.fill();
+
+}
+
+
+/* ==================================================
+   СКРУГЛЁННЫЙ ПРЯМОУГОЛЬНИК
+================================================== */
+
+function drawRoundedRect(x, y, width, height, radius) {
+
+    radius = Math.min(
+        radius,
+        width / 2,
+        height / 2
+    );
+
+    ctx.beginPath();
+
+    ctx.moveTo(x + radius, y);
+
+    ctx.lineTo(x + width - radius, y);
+
+    ctx.quadraticCurveTo(
+        x + width,
+        y,
+        x + width,
+        y + radius
+    );
+
+    ctx.lineTo(
+        x + width,
+        y + height - radius
+    );
+
+    ctx.quadraticCurveTo(
+        x + width,
+        y + height,
+        x + width - radius,
+        y + height
+    );
+
+    ctx.lineTo(
+        x + radius,
+        y + height
+    );
+
+    ctx.quadraticCurveTo(
+        x,
+        y + height,
+        x,
+        y + height - radius
+    );
+
+    ctx.lineTo(
+        x,
+        y + radius
+    );
+
+    ctx.quadraticCurveTo(
+        x,
+        y,
+        x + radius,
+        y
+    );
+
+    ctx.closePath();
 
     ctx.fill();
 
@@ -2015,27 +1889,14 @@ function drawWeather() {
 
         ctx.lineWidth = 2;
 
+        weatherParticles.forEach(function(particle) {
 
-        for (
-            let i = 0;
-            i < 80;
-            i++
-        ) {
-
-            const x =
-                Math.random() *
-                canvas.width;
-
-            const y =
-                Math.random() *
-                canvas.height;
+            const x = particle.x;
+            const y = particle.y;
 
             ctx.beginPath();
 
-            ctx.moveTo(
-                x,
-                y
-            );
+            ctx.moveTo(x, y);
 
             ctx.lineTo(
                 x - 5,
@@ -2044,8 +1905,9 @@ function drawWeather() {
 
             ctx.stroke();
 
-        }
+        });
 
+        return;
     }
 
 
@@ -2054,35 +1916,23 @@ function drawWeather() {
         ctx.fillStyle =
             "rgba(255,255,255,.8)";
 
-
-        for (
-            let i = 0;
-            i < 60;
-            i++
-        ) {
-
-            const x =
-                Math.random() *
-                canvas.width;
-
-            const y =
-                Math.random() *
-                canvas.height;
+        weatherParticles.forEach(function(particle) {
 
             ctx.beginPath();
 
             ctx.arc(
-                x,
-                y,
-                3,
+                particle.x,
+                particle.y,
+                particle.size,
                 0,
                 Math.PI * 2
             );
 
             ctx.fill();
 
-        }
+        });
 
+        return;
     }
 
 
@@ -2104,68 +1954,84 @@ function drawWeather() {
 
 
 /* ==================================================
-   НАСТРОЙКИ EASYFLOW
+   АНИМАЦИЯ ПОГОДЫ
+================================================== */
+
+function updateWeatherParticles(delta) {
+
+    if (
+        weather !== "rain" &&
+        weather !== "snow"
+    ) {
+        return;
+    }
+
+    weatherParticles.forEach(function(particle) {
+
+        particle.y += particle.speed * delta;
+
+        if (particle.y > canvas.height) {
+
+            particle.y = -20;
+
+            particle.x =
+                Math.random() * canvas.width;
+
+        }
+
+    });
+
+}
+
+
+/* ==================================================
+   EASYFLOW SETTINGS
 ================================================== */
 
 function loadEasyFlowSettings() {
 
     const color =
-        localStorage.getItem(
-            "easyflow_color"
-        );
+        localStorage.getItem("easyflow_color");
 
     if (color) {
 
-        document.documentElement
-            .style
-            .setProperty(
-                "--main",
-                color
-            );
+        document.documentElement.style.setProperty(
+            "--main",
+            color
+        );
 
     }
 
 
     const font =
-        localStorage.getItem(
-            "easyflow_font"
-        );
+        localStorage.getItem("easyflow_font");
 
     if (font) {
 
-        document.body.style.fontFamily =
-            font;
+        document.body.style.fontFamily = font;
 
     }
 
 
     const radius =
-        localStorage.getItem(
-            "easyflow_radius"
-        );
+        localStorage.getItem("easyflow_radius");
 
     if (radius) {
 
-        document.documentElement
-            .style
-            .setProperty(
-                "--radius",
-                radius
-            );
+        document.documentElement.style.setProperty(
+            "--radius",
+            radius
+        );
 
     }
 
 
     const theme =
-        localStorage.getItem(
-            "easyflow_theme"
-        );
+        localStorage.getItem("easyflow_theme");
 
     if (theme === "dark") {
 
-        document.body.classList.add(
-            "dark"
-        );
+        document.body.classList.add("dark");
 
     }
 
@@ -2173,15 +2039,106 @@ function loadEasyFlowSettings() {
 
 
 /* ==================================================
+   СОХРАНЕНИЕ НАСТРОЕК
+================================================== */
+
+function saveGameSettings() {
+
+    localStorage.setItem(
+        "easyflow_moto_graphics",
+        graphics
+    );
+
+    localStorage.setItem(
+        "easyflow_moto_weather",
+        weather
+    );
+
+    localStorage.setItem(
+        "easyflow_moto_control",
+        control
+    );
+
+}
+
+
+/* ==================================================
+   ЗАГРУЗКА НАСТРОЕК ИГРЫ
+================================================== */
+
+function loadGameSettings() {
+
+    const savedGraphics =
+        localStorage.getItem("easyflow_moto_graphics");
+
+    const savedWeather =
+        localStorage.getItem("easyflow_moto_weather");
+
+    const savedControl =
+        localStorage.getItem("easyflow_moto_control");
+
+    if (
+        ["low", "medium", "high"].includes(savedGraphics)
+    ) {
+        graphics = savedGraphics;
+    }
+
+    if (
+        ["clear", "rain", "snow", "fog"].includes(savedWeather)
+    ) {
+        weather = savedWeather;
+    }
+
+    if (
+        ["buttons", "tilt"].includes(savedControl)
+    ) {
+        control = savedControl;
+    }
+
+}
+
+
+/* ==================================================
+   АВТОСОХРАНЕНИЕ НАСТРОЕК
+================================================== */
+
+document.querySelectorAll(".option").forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+        setTimeout(
+            saveGameSettings,
+            0
+        );
+
+    });
+
+});
+
+
+/* ==================================================
+   ИГРОВОЙ ЦИКЛ ПОГОДЫ
+================================================== */
+
+const originalUpdate = update;
+
+update = function(delta) {
+
+    originalUpdate(delta);
+    updateWeatherParticles(delta);
+
+};
+
+
+/* ==================================================
    ЗАПУСК
 ================================================== */
 
 loadEasyFlowSettings();
+loadGameSettings();
 
 updateCoins();
-
 renderBikes();
-
 draw();
 
 </script>
