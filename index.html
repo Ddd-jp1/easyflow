@@ -1,877 +1,847 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>EasyFlow</title>
+<title>EasyFlow — Все игры</title>
 
 <style>
-
-:root {
-    --main: #2563eb;
-    --background: #f4f7fb;
-    --card: #ffffff;
-    --text: #111827;
-    --muted: #64748b;
-    --border: #e5e7eb;
-    --radius: 16px;
+:root{
+    --main:#2563eb;
+    --background:#f4f7fb;
+    --card:#fff;
+    --text:#111827;
+    --muted:#64748b;
+    --border:#e5e7eb;
+    --radius:16px;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: var(--background);
-    color: var(--text);
-    transition: 0.3s;
+body{
+    font-family:Arial,sans-serif;
+    background:var(--background);
+    color:var(--text);
+    min-height:100vh;
+    transition:.3s;
 }
 
-/* DARK */
-
-body.dark {
-    --background: #0f172a;
-    --card: #1e293b;
-    --text: #f8fafc;
-    --muted: #94a3b8;
-    --border: #334155;
+body.dark{
+    --background:#0f172a;
+    --card:#1e293b;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --border:#334155;
 }
 
-/* HEADER */
-
-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-
-    background: var(--card);
-    border-bottom: 1px solid var(--border);
-
-    padding: 15px 5%;
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    padding:15px 5%;
 }
 
-.header-inner {
-    max-width: 1200px;
-    margin: auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 20px;
+.header-inner{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
 }
 
-.logo {
-    color: var(--main);
-    font-size: 28px;
-    font-weight: bold;
-
-    cursor: pointer;
+.logo{
+    color:var(--main);
+    font-size:28px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-nav {
-    display: flex;
-    gap: 7px;
-
-    overflow-x: auto;
+nav{
+    display:flex;
+    gap:7px;
+    overflow-x:auto;
 }
 
-nav button {
-    border: none;
-    background: transparent;
-
-    color: var(--text);
-
-    padding: 11px 14px;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    font-weight: bold;
-
-    white-space: nowrap;
-
-    transition: 0.2s;
+nav button{
+    border:0;
+    background:transparent;
+    color:var(--text);
+    padding:11px 14px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    white-space:nowrap;
 }
 
-nav button:hover {
-    background: rgba(37,99,235,0.1);
-    color: var(--main);
+nav button:hover{
+    background:rgba(37,99,235,.1);
+    color:var(--main);
 }
 
-nav button.active {
-    background: var(--main);
-    color: white;
+nav button.active{
+    background:var(--main);
+    color:#fff;
 }
 
-/* MAIN */
-
-.container {
-    max-width: 1100px;
-    margin: auto;
-
-    padding: 40px 20px;
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:40px 20px;
 }
 
-.page {
-    display: none;
+.page{
+    display:none;
 }
 
-.page.active {
-    display: block;
-
-    animation: fade 0.25s ease;
+.page.active{
+    display:block;
+    animation:fade .25s ease;
 }
 
-@keyframes fade {
-
-    from {
-        opacity: 0;
-        transform: translateY(10px);
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
     }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    to{
+        opacity:1;
+        transform:translateY(0);
     }
-
 }
 
-/* HOME */
-
-.home {
-    min-height: 65vh;
-
-    display: flex;
-    flex-direction: column;
-
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
+.home{
+    min-height:65vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
 }
 
-.home h1 {
-    color: var(--main);
-
-    font-size: clamp(55px, 10vw, 100px);
-
-    margin-bottom: 20px;
+.home h1{
+    color:var(--main);
+    font-size:clamp(55px,10vw,100px);
+    margin-bottom:20px;
 }
 
-.home p {
-    max-width: 650px;
-
-    color: var(--muted);
-
-    font-size: 20px;
-
-    line-height: 1.6;
+.home p{
+    max-width:650px;
+    color:var(--muted);
+    font-size:20px;
+    line-height:1.6;
 }
 
-.home-button {
-    margin-top: 30px;
-
-    border: none;
-
-    background: var(--main);
-    color: white;
-
-    padding: 14px 25px;
-
-    border-radius: var(--radius);
-
-    cursor: pointer;
-
-    font-weight: bold;
+.home-button,
+.primary-button{
+    margin-top:25px;
+    border:0;
+    background:var(--main);
+    color:#fff;
+    padding:14px 25px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    font-weight:bold;
 }
 
-/* TITLE */
-
-.title {
-    margin-bottom: 30px;
+.title{
+    margin-bottom:30px;
 }
 
-.title h2 {
-    font-size: 36px;
-    margin-bottom: 8px;
+.title h2{
+    font-size:36px;
+    margin-bottom:8px;
 }
 
-.title p {
-    color: var(--muted);
+.title p{
+    color:var(--muted);
 }
 
 /* PROFILE */
 
-.profile {
-    background: var(--card);
-
-    padding: 35px;
-
-    border-radius: var(--radius);
-
-    border: 1px solid var(--border);
-
-    max-width: 700px;
-
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+.profile,
+.form-box,
+.settings-card{
+    max-width:700px;
+    background:var(--card);
+    padding:30px;
+    border-radius:var(--radius);
+    border:1px solid var(--border);
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
 }
 
-.avatar-wrapper {
-    position: relative;
-
-    width: 120px;
-    height: 120px;
-
-    margin-bottom: 20px;
+.avatar-wrapper{
+    width:120px;
+    height:120px;
+    margin-bottom:20px;
 }
 
-.avatar {
-    width: 120px;
-    height: 120px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-
-    background: #eff6ff;
-
-    border: 4px solid var(--main);
+.avatar,
+.avatar-placeholder{
+    width:120px;
+    height:120px;
+    border-radius:50%;
 }
 
-.avatar-placeholder {
-    width: 120px;
-    height: 120px;
-
-    border-radius: 50%;
-
-    background: rgba(37,99,235,0.1);
-
-    color: var(--main);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 50px;
-
-    border: 4px solid var(--main);
+.avatar{
+    object-fit:cover;
+    border:4px solid var(--main);
 }
 
-.upload-label {
-    display: inline-block;
-
-    background: var(--main);
-
-    color: white;
-
-    padding: 11px 18px;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    margin-bottom: 20px;
-
-    font-weight: bold;
+.avatar-placeholder{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:50px;
+    color:var(--main);
+    background:rgba(37,99,235,.1);
+    border:4px solid var(--main);
 }
 
-#avatarInput {
-    display: none;
+.upload-label{
+    display:inline-block;
+    background:var(--main);
+    color:#fff;
+    padding:11px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    margin-bottom:20px;
+    font-weight:bold;
 }
 
-.profile h2 {
-    margin-bottom: 8px;
+#avatarInput,
+#imageInput{
+    display:none;
 }
 
-.profile-description {
-    color: var(--muted);
+.profile h2{
+    margin-bottom:8px;
+}
 
-    line-height: 1.6;
-
-    margin-bottom: 20px;
+.profile-description{
+    color:var(--muted);
+    line-height:1.6;
 }
 
 /* GALLERY */
 
-.gallery {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 20px;
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
 }
 
-.gallery-item {
-    position: relative;
-
-    background: var(--card);
-
-    border-radius: var(--radius);
-
-    overflow: hidden;
-
-    border: 1px solid var(--border);
+.gallery-item{
+    position:relative;
+    background:var(--card);
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid var(--border);
 }
 
-.gallery-item img {
-    width: 100%;
-
-    height: 250px;
-
-    object-fit: cover;
-
-    display: block;
-
-    cursor: pointer;
+.gallery-item img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    cursor:pointer;
 }
 
-.delete-photo {
-    position: absolute;
-
-    top: 10px;
-    right: 10px;
-
-    border: none;
-
-    background: rgba(0,0,0,0.7);
-
-    color: white;
-
-    width: 35px;
-    height: 35px;
-
-    border-radius: 50%;
-
-    cursor: pointer;
-
-    font-size: 16px;
+.delete-photo{
+    position:absolute;
+    top:10px;
+    right:10px;
+    border:0;
+    background:rgba(0,0,0,.7);
+    color:#fff;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    cursor:pointer;
 }
 
-.gallery-empty {
-    grid-column: 1 / -1;
-
-    background: var(--card);
-
-    border: 2px dashed var(--border);
-
-    border-radius: var(--radius);
-
-    padding: 80px 20px;
-
-    text-align: center;
-
-    color: var(--muted);
+.gallery-empty{
+    grid-column:1/-1;
+    background:var(--card);
+    border:2px dashed var(--border);
+    border-radius:var(--radius);
+    padding:60px 20px;
+    text-align:center;
+    color:var(--muted);
 }
 
-.gallery-empty div {
-    font-size: 55px;
-
-    margin-bottom: 15px;
+.gallery-empty div{
+    font-size:50px;
+    margin-bottom:15px;
 }
 
 /* LINKS */
 
-.links {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 15px;
-
-    margin-bottom: 25px;
+.links{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    margin-bottom:25px;
 }
 
-.link-card {
-    background: var(--card);
-
-    border: 1px solid var(--border);
-
-    border-radius: var(--radius);
-
-    padding: 20px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 20px;
+.link-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
 }
 
-.link-info h3 {
-    margin-bottom: 5px;
+.link-info h3{
+    margin-bottom:5px;
 }
 
-.link-info p {
-    color: var(--muted);
-
-    font-size: 14px;
+.link-info p{
+    color:var(--muted);
+    font-size:14px;
+    word-break:break-all;
 }
 
-.link-actions {
-    display: flex;
-
-    gap: 8px;
+.link-actions{
+    display:flex;
+    gap:8px;
 }
 
-.open-link {
-    text-decoration: none;
-
-    background: var(--main);
-
-    color: white;
-
-    padding: 10px 16px;
-
-    border-radius: 10px;
+.open-link{
+    text-decoration:none;
+    background:var(--main);
+    color:#fff;
+    padding:10px 16px;
+    border-radius:10px;
 }
 
-.delete-link {
-    border: none;
-
-    background: #ef4444;
-
-    color: white;
-
-    padding: 10px 14px;
-
-    border-radius: 10px;
-
-    cursor: pointer;
+.delete-link{
+    border:0;
+    background:#ef4444;
+    color:#fff;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
 }
 
-/* FORM */
+/* FORMS */
 
-.form-box {
-    max-width: 700px;
-
-    background: var(--card);
-
-    border: 1px solid var(--border);
-
-    padding: 30px;
-
-    border-radius: var(--radius);
+.form-group{
+    margin-bottom:20px;
 }
 
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-
-    margin-bottom: 8px;
-
-    font-weight: bold;
+.form-group label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
 }
 
 .form-group input,
-.form-group select {
-    width: 100%;
-
-    padding: 13px;
-
-    border: 1px solid var(--border);
-
-    background: var(--background);
-
-    color: var(--text);
-
-    border-radius: 10px;
-
-    font-size: 16px;
-
-    outline: none;
+.form-group select{
+    width:100%;
+    padding:13px;
+    border:1px solid var(--border);
+    background:var(--background);
+    color:var(--text);
+    border-radius:10px;
+    font-size:16px;
+    outline:none;
 }
 
 .form-group input:focus,
-.form-group select:focus {
-    border-color: var(--main);
+.form-group select:focus{
+    border-color:var(--main);
 }
 
-.primary-button {
-    border: none;
+/* GAMES */
 
-    background: var(--main);
-
-    color: white;
-
-    padding: 13px 22px;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    font-weight: bold;
+.games-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
 }
 
-/* =========================
-   ИГРЫ
-========================= */
-
-.games-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 20px;
+.game-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:30px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+    transition:.2s;
 }
 
-.game-card {
-    background: var(--card);
-
-    border: 1px solid var(--border);
-
-    border-radius: var(--radius);
-
-    padding: 30px;
-
-    text-align: center;
-
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-
-    transition: 0.2s;
+.game-card:hover{
+    transform:translateY(-5px);
 }
 
-.game-card:hover {
-    transform: translateY(-4px);
+.game-icon{
+    font-size:60px;
+    margin-bottom:15px;
 }
 
-.game-icon {
-    font-size: 60px;
-
-    margin-bottom: 15px;
+.game-card h3{
+    font-size:24px;
+    margin-bottom:10px;
 }
 
-.game-card h3 {
-    font-size: 24px;
-
-    margin-bottom: 10px;
+.game-card p{
+    color:var(--muted);
+    line-height:1.5;
+    margin-bottom:20px;
 }
 
-.game-card p {
-    color: var(--muted);
-
-    margin-bottom: 20px;
-
-    line-height: 1.5;
+.game-button{
+    display:inline-block;
+    border:0;
+    background:var(--main);
+    color:#fff;
+    padding:13px 22px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    font-weight:bold;
 }
 
-.game-button {
-    display: inline-block;
+/* GAME AREA */
 
-    text-decoration: none;
-
-    border: none;
-
-    background: var(--main);
-
-    color: white;
-
-    padding: 13px 22px;
-
-    border-radius: var(--radius);
-
-    cursor: pointer;
-
-    font-weight: bold;
-
-    transition: 0.2s;
+.game-area{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:25px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
 }
 
-.game-button:hover {
-    opacity: 0.9;
+.back-games{
+    margin-bottom:20px;
+    border:0;
+    background:var(--main);
+    color:white;
+    padding:11px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
 
-    transform: scale(1.03);
+.game-title{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.game-status{
+    margin:15px;
+    color:var(--muted);
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* TIC TAC TOE */
+
+.ttt-board{
+    display:grid;
+    grid-template-columns:repeat(3,90px);
+    gap:8px;
+    justify-content:center;
+    margin:20px auto;
+}
+
+.ttt-cell{
+    width:90px;
+    height:90px;
+    border:2px solid var(--border);
+    background:var(--background);
+    color:var(--text);
+    border-radius:10px;
+    font-size:40px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.ttt-cell:hover{
+    background:rgba(37,99,235,.1);
+}
+
+/* PING PONG */
+
+#pingCanvas{
+    display:block;
+    width:min(700px,100%);
+    height:auto;
+    margin:20px auto;
+    background:#07111f;
+    border-radius:12px;
+    border:2px solid var(--border);
+    touch-action:none;
+}
+
+/* FLAGS */
+
+.flag-box{
+    font-size:110px;
+    margin:20px;
+}
+
+.flag-options{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    max-width:600px;
+    margin:auto;
+}
+
+.flag-option{
+    border:1px solid var(--border);
+    background:var(--background);
+    color:var(--text);
+    padding:15px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.flag-option:hover{
+    border-color:var(--main);
+}
+
+/* MEMORY */
+
+.memory-board{
+    display:grid;
+    grid-template-columns:repeat(4,80px);
+    gap:10px;
+    justify-content:center;
+    margin:20px auto;
+}
+
+.memory-card{
+    width:80px;
+    height:80px;
+    border:0;
+    border-radius:10px;
+    background:var(--main);
+    color:#fff;
+    font-size:32px;
+    cursor:pointer;
+}
+
+.memory-card.open,
+.memory-card.matched{
+    background:var(--background);
+    color:var(--text);
+    border:2px solid var(--main);
+}
+
+/* SNAKE */
+
+#snakeCanvas{
+    display:block;
+    width:400px;
+    max-width:100%;
+    height:auto;
+    margin:20px auto;
+    background:#07111f;
+    border:3px solid var(--main);
+    border-radius:10px;
+    touch-action:none;
+}
+
+.mobile-controls{
+    display:grid;
+    grid-template-columns:repeat(3,55px);
+    gap:5px;
+    justify-content:center;
+    margin-top:10px;
+}
+
+.mobile-controls button{
+    height:50px;
+    border:0;
+    border-radius:10px;
+    background:var(--main);
+    color:#fff;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.mobile-controls .up{
+    grid-column:2;
+}
+
+.mobile-controls .left{
+    grid-column:1;
+}
+
+.mobile-controls .down{
+    grid-column:2;
+}
+
+.mobile-controls .right{
+    grid-column:3;
+    grid-row:2;
+}
+
+/* MOTORCYCLE */
+
+#bikeCanvas{
+    display:block;
+    width:min(700px,100%);
+    height:auto;
+    margin:20px auto;
+    background:#111827;
+    border-radius:12px;
+    border:2px solid var(--border);
+    touch-action:none;
+}
+
+.controls-text{
+    color:var(--muted);
+    margin:10px;
+}
+
+/* BOXING */
+
+.boxing-ring{
+    max-width:600px;
+    height:280px;
+    margin:20px auto;
+    border:8px solid #dc2626;
+    border-radius:15px;
+    background:linear-gradient(#60a5fa 0 30%,#f8fafc 30% 70%,#60a5fa 70%);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    overflow:hidden;
+}
+
+.fighter{
+    font-size:90px;
+    transition:.1s;
+}
+
+.fighter.hit{
+    animation:hit .2s;
+}
+
+@keyframes hit{
+    50%{
+        transform:translateX(20px) rotate(10deg);
+    }
+}
+
+.boxing-buttons{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.boxing-buttons button{
+    border:0;
+    background:var(--main);
+    color:#fff;
+    padding:14px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
 /* DESIGN */
 
-.color-row {
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
+.color-row{
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
 
-input[type="color"] {
-    width: 60px;
-    height: 45px;
-
-    border: none;
-
-    padding: 0;
-
-    cursor: pointer;
+input[type=color]{
+    width:60px;
+    height:45px;
+    border:0;
+    cursor:pointer;
 }
 
-/* THEME BUTTONS */
-
-.theme-buttons {
-    display: flex;
-
-    gap: 10px;
-
-    flex-wrap: wrap;
+.theme-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
 }
 
-.theme-button {
-    border: 1px solid var(--border);
-
-    background: var(--background);
-
-    color: var(--text);
-
-    padding: 12px 18px;
-
-    border-radius: 10px;
-
-    cursor: pointer;
+.theme-button{
+    border:1px solid var(--border);
+    background:var(--background);
+    color:var(--text);
+    padding:12px 18px;
+    border-radius:10px;
+    cursor:pointer;
 }
 
-.theme-button.active {
-    background: var(--main);
-
-    color: white;
-
-    border-color: var(--main);
-}
-
-/* SETTINGS */
-
-.settings-card {
-    max-width: 700px;
-
-    background: var(--card);
-
-    border: 1px solid var(--border);
-
-    padding: 30px;
-
-    border-radius: var(--radius);
-}
-
-.success {
-    color: #22c55e;
-
-    margin-top: 15px;
-
-    display: none;
-}
-
-/* FOOTER */
-
-footer {
-    margin-top: 50px;
-
-    padding: 25px;
-
-    background: #111827;
-
-    color: #9ca3af;
-
-    text-align: center;
+.theme-button.active{
+    background:var(--main);
+    color:#fff;
 }
 
 /* MODAL */
 
-.modal {
-    display: none;
-
-    position: fixed;
-
-    z-index: 99999;
-
-    left: 0;
-    top: 0;
-
-    width: 100%;
-    height: 100%;
-
-    background: rgba(0,0,0,0.85);
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
+.modal{
+    display:none;
+    position:fixed;
+    z-index:99999;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    align-items:center;
+    justify-content:center;
+    padding:20px;
 }
 
-.modal.active {
-    display: flex;
+.modal.active{
+    display:flex;
 }
 
-.modal img {
-    max-width: 95%;
-    max-height: 90%;
-
-    border-radius: 15px;
+.modal img{
+    max-width:95%;
+    max-height:90%;
+    border-radius:15px;
 }
 
-.modal-close {
-    position: absolute;
+.modal-close{
+    position:absolute;
+    top:20px;
+    right:25px;
+    color:white;
+    font-size:35px;
+    cursor:pointer;
+}
 
-    top: 20px;
-    right: 25px;
+/* FOOTER */
 
-    color: white;
-
-    font-size: 35px;
-
-    cursor: pointer;
+footer{
+    margin-top:50px;
+    padding:25px;
+    background:#111827;
+    color:#9ca3af;
+    text-align:center;
 }
 
 /* MOBILE */
 
-@media (max-width: 800px) {
+@media(max-width:800px){
 
-    .header-inner {
-        flex-direction: column;
+    .header-inner{
+        flex-direction:column;
     }
 
-    .logo {
-        text-align: center;
+    nav{
+        width:100%;
     }
 
-    nav {
-        width: 100%;
+    .gallery,
+    .games-grid{
+        grid-template-columns:1fr;
     }
 
-    .gallery {
-        grid-template-columns: 1fr;
+    .link-card{
+        flex-direction:column;
+        align-items:flex-start;
     }
 
-    .games-grid {
-        grid-template-columns: 1fr;
+    .flag-options{
+        grid-template-columns:1fr;
     }
 
-    .link-card {
-        flex-direction: column;
+    .memory-board{
+        grid-template-columns:repeat(4,65px);
+    }
 
-        align-items: flex-start;
+    .memory-card{
+        width:65px;
+        height:65px;
+        font-size:27px;
+    }
+
+    .ttt-board{
+        grid-template-columns:repeat(3,75px);
+    }
+
+    .ttt-cell{
+        width:75px;
+        height:75px;
     }
 
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- HEADER -->
-
 <header>
-
 <div class="header-inner">
 
-<div
-class="logo"
-onclick="openPage('home')"
->
+<div class="logo" onclick="openPage('home')">
 EasyFlow
 </div>
 
-
 <nav>
 
-<button
-class="active"
-data-page="home"
-onclick="openPage('home')"
->
+<button class="active" data-page="home" onclick="openPage('home')">
 🏠 Главная
 </button>
 
-<button
-data-page="profile"
-onclick="openPage('profile')"
->
+<button data-page="profile" onclick="openPage('profile')">
 👤 Профиль
 </button>
 
-<button
-data-page="images"
-onclick="openPage('images')"
->
+<button data-page="images" onclick="openPage('images')">
 🖼️ Картинки
 </button>
 
-<button
-data-page="links"
-onclick="openPage('links')"
->
+<button data-page="links" onclick="openPage('links')">
 🔗 Ссылки
 </button>
 
-<button
-data-page="games"
-onclick="openPage('games')"
->
+<button data-page="games" onclick="openPage('games')">
 🎮 Игры
 </button>
 
-<button
-data-page="design"
-onclick="openPage('design')"
->
+<button data-page="design" onclick="openPage('design')">
 🎨 Дизайн
 </button>
 
-<button
-data-page="settings"
-onclick="openPage('settings')"
->
+<button data-page="settings" onclick="openPage('settings')">
 ⚙️ Настройки
 </button>
 
 </nav>
-
 </div>
-
 </header>
-
 
 <main class="container">
 
-
 <!-- HOME -->
 
-<section
-id="home"
-class="page active"
->
+<section id="home" class="page active">
 
 <div class="home">
 
-<h1>
-EasyFlow
-</h1>
+<h1>EasyFlow</h1>
 
 <p>
 Создай свою персональную страницу,
-настрой дизайн, добавляй фотографии
-и свои ссылки.
+настрой дизайн, добавляй фотографии,
+ссылки и играй прямо внутри сайта.
 </p>
 
-<button
-class="home-button"
-onclick="openPage('profile')"
->
-Создать профиль
+<button class="home-button" onclick="openPage('games')">
+🎮 Открыть игры
 </button>
 
 </div>
@@ -881,200 +851,88 @@ onclick="openPage('profile')"
 
 <!-- PROFILE -->
 
-<section
-id="profile"
-class="page"
->
+<section id="profile" class="page">
 
 <div class="title">
-
-<h2>
-👤 Профиль
-</h2>
-
-<p>
-Настрой свою персональную страницу.
-</p>
-
+<h2>👤 Профиль</h2>
+<p>Настрой свою персональную страницу.</p>
 </div>
-
 
 <div class="profile">
 
-
 <div class="avatar-wrapper">
 
-<div
-id="avatarPlaceholder"
-class="avatar-placeholder"
->
+<div id="avatarPlaceholder" class="avatar-placeholder">
 👤
 </div>
 
-<img
-id="avatarImage"
+<img id="avatarImage"
 class="avatar"
-style="display:none;"
-alt="Аватар"
->
+style="display:none"
+alt="Аватар">
 
 </div>
 
-
 <label class="upload-label">
-
 📷 Загрузить аватар
-
-<input
-id="avatarInput"
-type="file"
-accept="image/*"
->
-
+<input id="avatarInput" type="file" accept="image/*">
 </label>
-
 
 <h2 id="profileName">
 Мой профиль
 </h2>
 
-
-<p
-id="profileDescription"
-class="profile-description"
->
+<p id="profileDescription" class="profile-description">
 Здесь появится описание твоего профиля.
 </p>
 
-
 </div>
-
 </section>
 
 
 <!-- IMAGES -->
 
-<section
-id="images"
-class="page"
->
+<section id="images" class="page">
 
 <div class="title">
-
-<h2>
-🖼️ Мои картинки
-</h2>
-
-<p>
-Загружай фотографии прямо со своего устройства.
-</p>
-
+<h2>🖼️ Мои картинки</h2>
+<p>Загружай фотографии со своего устройства.</p>
 </div>
-
 
 <label class="upload-label">
-
 ➕ Добавить фотографию
-
-<input
-id="imageInput"
-type="file"
-accept="image/*"
-multiple
->
-
+<input id="imageInput" type="file" accept="image/*" multiple>
 </label>
 
-
-<div
-id="gallery"
-class="gallery"
->
-
-<div class="gallery-empty">
-
-<div>
-🖼️
-</div>
-
-<h3>
-Пока нет фотографий
-</h3>
-
-<p>
-Нажми «Добавить фотографию», чтобы загрузить изображения.
-</p>
-
-</div>
-
-</div>
+<div id="gallery" class="gallery"></div>
 
 </section>
 
 
 <!-- LINKS -->
 
-<section
-id="links"
-class="page"
->
+<section id="links" class="page">
 
 <div class="title">
-
-<h2>
-🔗 Мои ссылки
-</h2>
-
-<p>
-Добавляй свои сайты и социальные сети.
-</p>
-
+<h2>🔗 Мои ссылки</h2>
+<p>Добавляй свои сайты и социальные сети.</p>
 </div>
 
-
-<div
-id="linksContainer"
-class="links"
->
-</div>
-
+<div id="linksContainer" class="links"></div>
 
 <div class="form-box">
 
 <div class="form-group">
-
-<label>
-Название ссылки
-</label>
-
-<input
-id="linkName"
-type="text"
-placeholder="Например: Мой YouTube"
->
-
+<label>Название ссылки</label>
+<input id="linkName" type="text" placeholder="Например: Мой сайт">
 </div>
-
 
 <div class="form-group">
-
-<label>
-Адрес ссылки
-</label>
-
-<input
-id="linkUrl"
-type="url"
-placeholder="https://example.com"
->
-
+<label>Адрес ссылки</label>
+<input id="linkUrl" type="url" placeholder="https://example.com">
 </div>
 
-
-<button
-class="primary-button"
-onclick="addLink()"
->
+<button class="primary-button" onclick="addLink()">
 ➕ Добавить ссылку
 </button>
 
@@ -1083,134 +941,314 @@ onclick="addLink()"
 </section>
 
 
-<!-- =========================
-     GAMES
-========================= -->
+<!-- GAMES MENU -->
 
-<section
-id="games"
-class="page"
->
+<section id="games" class="page">
 
 <div class="title">
-
-<h2>
-🎮 Мои игры
-</h2>
-
-<p>
-Выбери игру и попробуй свои силы.
-</p>
-
+<h2>🎮 Все игры</h2>
+<p>Все игры находятся прямо в этом файле.</p>
 </div>
-
 
 <div class="games-grid">
 
-
-<!-- ПИНГ-ПОНГ -->
+<div class="game-card">
+<div class="game-icon">❌⭕</div>
+<h3>Крестики-нолики</h3>
+<p>Сыграй против компьютера.</p>
+<button class="game-button" onclick="startGame('tictactoe')">
+🎮 Играть
+</button>
+</div>
 
 <div class="game-card">
-
-<div class="game-icon">
-🏓
-</div>
-
-<h3>
-Пинг-понг
-</h3>
-
-<p>
-Сыграй в пинг-понг против компьютера.
-</p>
-
-<a
-href="pingpong.html"
-class="game-button"
->
+<div class="game-icon">🏓</div>
+<h3>Пинг-понг</h3>
+<p>Отбивай мяч и побеждай компьютер.</p>
+<button class="game-button" onclick="startGame('pingpong')">
 🎮 Играть
-</a>
-
+</button>
 </div>
-
-
-<!-- ФЛАГИ -->
 
 <div class="game-card">
-
-<div class="game-icon">
-🌍
-</div>
-
-<h3>
-Угадай страну по флагу
-</h3>
-
-<p>
-Смотри на флаг и угадывай, какой стране он принадлежит.
-</p>
-
-<a
-href="flags.html"
-class="game-button"
->
+<div class="game-icon">🌍</div>
+<h3>Угадай флаг</h3>
+<p>Угадывай страны по их флагам.</p>
+<button class="game-button" onclick="startGame('flags')">
 🎮 Играть
-</a>
-
+</button>
 </div>
-
-
-<!-- КРЕСТИКИ-НОЛИКИ -->
 
 <div class="game-card">
-
-<div class="game-icon">
-❌⭕
-</div>
-
-<h3>
-Крестики-нолики
-</h3>
-
-<p>
-Сыграй в классические крестики-нолики против компьютера.
-</p>
-
-<a
-href="tictactoe.html"
-class="game-button"
->
+<div class="game-icon">🧠</div>
+<h3>Игра на память</h3>
+<p>Найди все одинаковые пары.</p>
+<button class="game-button" onclick="startGame('memory')">
 🎮 Играть
-</a>
-
+</button>
 </div>
-
-
-<!-- ИГРА 4 -->
 
 <div class="game-card">
-
-<div class="game-icon">
-🧠
+<div class="game-icon">🐍</div>
+<h3>Змейка</h3>
+<p>Собирай еду и увеличивай змейку.</p>
+<button class="game-button" onclick="startGame('snake')">
+🎮 Играть
+</button>
 </div>
 
-<h3>
-Игра 4
-</h3>
+<div class="game-card">
+<div class="game-icon">🏍️</div>
+<h3>Мотоцикл 3D</h3>
+<p>Езжай по трассе и избегай машин.</p>
+<button class="game-button" onclick="startGame('bike')">
+🎮 Играть
+</button>
+</div>
 
-<p>
-Попробуй свои силы в четвёртой игре EasyFlow.
+<div class="game-card">
+<div class="game-icon">🥊</div>
+<h3>Бокс</h3>
+<p>Ударяй соперника и побеждай.</p>
+<button class="game-button" onclick="startGame('boxing')">
+🎮 Играть
+</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- GAME TICTACTOE -->
+
+<section id="game-tictactoe" class="page">
+
+<div class="game-area">
+
+<button class="back-games" onclick="openPage('games')">
+← Все игры
+</button>
+
+<h2 class="game-title">❌⭕ Крестики-нолики</h2>
+
+<div id="tttStatus" class="game-status">
+Твой ход: ❌
+</div>
+
+<div id="tttBoard" class="ttt-board"></div>
+
+<button class="primary-button" onclick="newTicTacToe()">
+🔄 Новая игра
+</button>
+
+</div>
+
+</section>
+
+
+<!-- PING PONG -->
+
+<section id="game-pingpong" class="page">
+
+<div class="game-area">
+
+<button class="back-games" onclick="stopPingPong();openPage('games')">
+← Все игры
+</button>
+
+<h2 class="game-title">🏓 Пинг-понг</h2>
+
+<div id="pingStatus" class="game-status">
+Игрок 0 : 0 Компьютер
+</div>
+
+<canvas id="pingCanvas" width="700" height="400"></canvas>
+
+<p class="controls-text">
+Управление: мышь, палец или клавиши ↑ ↓
 </p>
 
-<a
-href="game4.html"
-class="game-button"
->
-🎮 Играть
-</a>
+<button class="primary-button" onclick="startPingPong()">
+▶ Начать заново
+</button>
 
 </div>
 
+</section>
+
+
+<!-- FLAGS -->
+
+<section id="game-flags" class="page">
+
+<div class="game-area">
+
+<button class="back-games" onclick="openPage('games')">
+← Все игры
+</button>
+
+<h2 class="game-title">🌍 Угадай страну</h2>
+
+<div id="flagScore" class="game-status">
+Счёт: 0
+</div>
+
+<div id="flagEmoji" class="flag-box">🇰🇿</div>
+
+<div id="flagOptions" class="flag-options"></div>
+
+</div>
+
+</section>
+
+
+<!-- MEMORY -->
+
+<section id="game-memory" class="page">
+
+<div class="game-area">
+
+<button class="back-games" onclick="openPage('games')">
+← Все игры
+</button>
+
+<h2 class="game-title">🧠 Память</h2>
+
+<div id="memoryStatus" class="game-status">
+Ходы: 0
+</div>
+
+<div id="memoryBoard" class="memory-board"></div>
+
+<button class="primary-button" onclick="startMemory()">
+🔄 Новая игра
+</button>
+
+</div>
+
+</section>
+
+
+<!-- SNAKE -->
+
+<section id="game-snake" class="page">
+
+<div class="game-area">
+
+<button class="back-games" onclick="stopSnake();openPage('games')">
+← Все игры
+</button>
+
+<h2 class="game-title">🐍 Змейка</h2>
+
+<div id="snakeStatus" class="game-status">
+Счёт: 0
+</div>
+
+<canvas id="snakeCanvas" width="400" height="400"></canvas>
+
+<div class="mobile-controls">
+
+<button class="up" onclick="setSnakeDirection('up')">⬆️</button>
+<button class="left" onclick="setSnakeDirection('left')">⬅️</button>
+<button class="down" onclick="setSnakeDirection('down')">⬇️</button>
+<button class="right" onclick="setSnakeDirection('right')">➡️</button>
+
+</div>
+
+<p class="controls-text">
+Управление: стрелки на клавиатуре
+</p>
+
+<button class="primary-button" onclick="startSnake()">
+▶ Начать заново
+</button>
+
+</div>
+
+</section>
+
+
+<!-- MOTORCYCLE -->
+
+<section id="game-bike" class="page">
+
+<div class="game-area">
+
+<button class="back-games" onclick="stopBike();openPage('games')">
+← Все игры
+</button>
+
+<h2 class="game-title">🏍️ Мотоцикл 3D</h2>
+
+<div id="bikeStatus" class="game-status">
+Счёт: 0
+</div>
+
+<canvas id="bikeCanvas" width="700" height="450"></canvas>
+
+<p class="controls-text">
+Управление: ← → или A D
+</p>
+
+<button class="primary-button" onclick="startBike()">
+▶ Начать заново
+</button>
+
+</div>
+
+</section>
+
+
+<!-- BOXING -->
+
+<section id="game-boxing" class="page">
+
+<div class="game-area">
+
+<button class="back-games" onclick="stopBoxing();openPage('games')">
+← Все игры
+</button>
+
+<h2 class="game-title">🥊 Бокс</h2>
+
+<div id="boxingStatus" class="game-status">
+Твоё здоровье: 100 | Соперник: 100
+</div>
+
+<div class="boxing-ring">
+
+<div id="playerFighter" class="fighter">
+🥊
+</div>
+
+<div id="enemyFighter" class="fighter">
+🥷
+</div>
+
+</div>
+
+<div class="boxing-buttons">
+
+<button onclick="boxingAttack('jab')">
+👊 Джеб
+</button>
+
+<button onclick="boxingAttack('strong')">
+💥 Сильный удар
+</button>
+
+<button onclick="boxingAttack('block')">
+🛡️ Блок
+</button>
+
+</div>
+
+<br>
+
+<button class="primary-button" onclick="startBoxing()">
+🔄 Новый бой
+</button>
 
 </div>
 
@@ -1219,32 +1257,18 @@ class="game-button"
 
 <!-- DESIGN -->
 
-<section
-id="design"
-class="page"
->
+<section id="design" class="page">
 
 <div class="title">
-
-<h2>
-🎨 Дизайн
-</h2>
-
-<p>
-Настрой внешний вид EasyFlow.
-</p>
-
+<h2>🎨 Дизайн</h2>
+<p>Настрой внешний вид EasyFlow.</p>
 </div>
-
 
 <div class="form-box">
 
-
 <div class="form-group">
 
-<label>
-Основной цвет
-</label>
+<label>Основной цвет</label>
 
 <div class="color-row">
 
@@ -1255,74 +1279,42 @@ value="#2563eb"
 oninput="changeColor(this.value)"
 >
 
-<span>
-Выбери цвет кнопок и элементов.
-</span>
+<span>Цвет кнопок и элементов</span>
 
 </div>
 
 </div>
-
 
 <div class="form-group">
 
-<label>
-Шрифт
-</label>
+<label>Шрифт</label>
 
-<select
-id="fontSelect"
-onchange="changeFont(this.value)"
->
+<select id="fontSelect" onchange="changeFont(this.value)">
 
-<option value="Arial">
-Arial
-</option>
-
-<option value="Georgia">
-Georgia
-</option>
-
-<option value="Verdana">
-Verdana
-</option>
-
-<option value="Tahoma">
-Tahoma
-</option>
-
-<option value="Courier New">
-Courier New
-</option>
-
-<option value="Trebuchet MS">
-Trebuchet MS
-</option>
+<option>Arial</option>
+<option>Georgia</option>
+<option>Verdana</option>
+<option>Tahoma</option>
+<option>Courier New</option>
+<option>Trebuchet MS</option>
 
 </select>
 
 </div>
 
-
 <div class="form-group">
 
-<label>
-Тема
-</label>
+<label>Тема</label>
 
 <div class="theme-buttons">
 
-<button
-class="theme-button active"
-onclick="setTheme('light', this)"
->
+<button class="theme-button active"
+onclick="setTheme('light',this)">
 ☀️ Светлая
 </button>
 
-<button
-class="theme-button"
-onclick="setTheme('dark', this)"
->
+<button class="theme-button"
+onclick="setTheme('dark',this)">
 🌙 Тёмная
 </button>
 
@@ -1330,72 +1322,39 @@ onclick="setTheme('dark', this)"
 
 </div>
 
-
 <div class="form-group">
 
-<label>
-Стиль кнопок
-</label>
+<label>Скругление</label>
 
-<select
-id="radiusSelect"
-onchange="changeRadius(this.value)"
->
+<select id="radiusSelect" onchange="changeRadius(this.value)">
 
-<option value="6px">
-Маленькое скругление
-</option>
-
-<option value="16px" selected>
-Обычное
-</option>
-
-<option value="30px">
-Сильно округлённые
-</option>
-
-<option value="0px">
-Квадратные
-</option>
+<option value="6px">Маленькое</option>
+<option value="16px" selected>Обычное</option>
+<option value="30px">Сильное</option>
+<option value="0px">Квадратное</option>
 
 </select>
 
 </div>
 
-
 </div>
-
 </section>
 
 
 <!-- SETTINGS -->
 
-<section
-id="settings"
-class="page"
->
+<section id="settings" class="page">
 
 <div class="title">
-
-<h2>
-⚙️ Настройки
-</h2>
-
-<p>
-Информация твоего профиля.
-</p>
-
+<h2>⚙️ Настройки</h2>
+<p>Информация твоего профиля.</p>
 </div>
-
 
 <div class="settings-card">
 
-
 <div class="form-group">
 
-<label>
-Имя профиля
-</label>
+<label>Имя профиля</label>
 
 <input
 id="nameInput"
@@ -1405,12 +1364,9 @@ placeholder="Введите имя"
 
 </div>
 
-
 <div class="form-group">
 
-<label>
-Описание
-</label>
+<label>Описание</label>
 
 <input
 id="descriptionInput"
@@ -1420,569 +1376,1551 @@ placeholder="Расскажите о себе"
 
 </div>
 
-
-<button
-class="primary-button"
-onclick="saveProfile()"
->
-💾 Сохранить профиль
+<button class="primary-button" onclick="saveProfile()">
+💾 Сохранить
 </button>
 
-
-<div
-id="successMessage"
-class="success"
->
+<div id="successMessage"
+style="color:#22c55e;margin-top:15px;display:none">
 ✓ Профиль сохранён
 </div>
 
-
 </div>
-
 </section>
-
 
 </main>
 
 
 <footer>
-
-© 2026 EasyFlow
-
+© 2026 EasyFlow — Все игры работают в одном файле
 </footer>
 
 
-<!-- IMAGE MODAL -->
+<div id="imageModal" class="modal" onclick="closeModal()">
 
-<div
-id="imageModal"
-class="modal"
-onclick="closeModal()"
->
+<span class="modal-close">×</span>
 
-<span
-class="modal-close"
->
-×
-</span>
-
-<img
-id="modalImage"
-alt="Просмотр изображения"
->
+<img id="modalImage" alt="Просмотр">
 
 </div>
 
 
 <script>
 
-
-/* ===================================
+/* ==========================================
    ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
-=================================== */
+========================================== */
 
-function openPage(pageName) {
+function openPage(pageName){
 
-    const pages =
-        document.querySelectorAll(".page");
-
-    pages.forEach(function(page) {
-
+    document.querySelectorAll(".page").forEach(function(page){
         page.classList.remove("active");
-
     });
 
+    const page=document.getElementById(pageName);
 
-    const selected =
-        document.getElementById(pageName);
-
-    if (selected) {
-
-        selected.classList.add("active");
-
+    if(page){
+        page.classList.add("active");
     }
 
+    document.querySelectorAll("nav button").forEach(function(button){
 
-    document
-        .querySelectorAll("nav button")
-        .forEach(function(button) {
+        button.classList.remove("active");
 
-            button.classList.remove("active");
+        if(button.dataset.page===pageName){
+            button.classList.add("active");
+        }
 
-            if (
-                button.dataset.page === pageName
-            ) {
-
-                button.classList.add("active");
-
-            }
-
-        });
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
     });
 
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 }
 
 
-/* ===================================
-   СОХРАНЕНИЕ ПРОФИЛЯ
-=================================== */
+/* ==========================================
+   ЗАПУСК ИГРЫ
+========================================== */
 
-function saveProfile() {
+function startGame(game){
 
-    const name =
-        document
-        .getElementById("nameInput")
-        .value
-        .trim();
+    stopAllGames();
+
+    openPage("game-"+game);
+
+    if(game==="tictactoe"){
+        newTicTacToe();
+    }
+
+    if(game==="pingpong"){
+        startPingPong();
+    }
+
+    if(game==="flags"){
+        startFlags();
+    }
+
+    if(game==="memory"){
+        startMemory();
+    }
+
+    if(game==="snake"){
+        startSnake();
+    }
+
+    if(game==="bike"){
+        startBike();
+    }
+
+    if(game==="boxing"){
+        startBoxing();
+    }
+}
 
 
-    const description =
-        document
-        .getElementById("descriptionInput")
-        .value
-        .trim();
+function stopAllGames(){
+    stopPingPong();
+    stopSnake();
+    stopBike();
+    stopBoxing();
+}
 
 
-    if (name) {
+/* ==========================================
+   КРЕСТИКИ-НОЛИКИ
+========================================== */
+
+let tttBoard=[];
+let tttGameOver=false;
+
+function newTicTacToe(){
+
+    tttBoard=["","","","","","","","",""];
+    tttGameOver=false;
+
+    renderTicTacToe();
+
+    document.getElementById("tttStatus").textContent=
+        "Твой ход: ❌";
+}
+
+function renderTicTacToe(){
+
+    const board=document.getElementById("tttBoard");
+
+    board.innerHTML="";
+
+    tttBoard.forEach(function(value,index){
+
+        const cell=document.createElement("button");
+
+        cell.className="ttt-cell";
+        cell.textContent=value;
+
+        cell.onclick=function(){
+            ticTacToeMove(index);
+        };
+
+        board.appendChild(cell);
+
+    });
+}
+
+function ticTacToeMove(index){
+
+    if(tttGameOver || tttBoard[index]) return;
+
+    tttBoard[index]="❌";
+
+    renderTicTacToe();
+
+    if(checkWinner(tttBoard,"❌")){
+        document.getElementById("tttStatus").textContent=
+            "🎉 Ты победил!";
+        tttGameOver=true;
+        return;
+    }
+
+    if(tttBoard.every(Boolean)){
+        document.getElementById("tttStatus").textContent=
+            "🤝 Ничья!";
+        tttGameOver=true;
+        return;
+    }
+
+    document.getElementById("tttStatus").textContent=
+        "Компьютер думает...";
+
+    setTimeout(computerTicTacToe,400);
+}
+
+function computerTicTacToe(){
+
+    if(tttGameOver) return;
+
+    const free=[];
+
+    tttBoard.forEach(function(v,i){
+        if(!v) free.push(i);
+    });
+
+    if(!free.length) return;
+
+    const move=free[Math.floor(Math.random()*free.length)];
+
+    tttBoard[move]="⭕";
+
+    renderTicTacToe();
+
+    if(checkWinner(tttBoard,"⭕")){
+        document.getElementById("tttStatus").textContent=
+            "😔 Компьютер победил!";
+        tttGameOver=true;
+        return;
+    }
+
+    if(tttBoard.every(Boolean)){
+        document.getElementById("tttStatus").textContent=
+            "🤝 Ничья!";
+        tttGameOver=true;
+        return;
+    }
+
+    document.getElementById("tttStatus").textContent=
+        "Твой ход: ❌";
+}
+
+function checkWinner(board,symbol){
+
+    const wins=[
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ];
+
+    return wins.some(function(line){
+        return line.every(function(i){
+            return board[i]===symbol;
+        });
+    });
+}
+
+
+/* ==========================================
+   ПИНГ-ПОНГ
+========================================== */
+
+const pingCanvas=document.getElementById("pingCanvas");
+const pingCtx=pingCanvas.getContext("2d");
+
+let pingAnimation=null;
+let pingRunning=false;
+
+let ping={
+    playerY:160,
+    enemyY:160,
+    ballX:350,
+    ballY:200,
+    dx:5,
+    dy:3,
+    playerScore:0,
+    enemyScore:0
+};
+
+function resetPingBall(){
+
+    ping.ballX=350;
+    ping.ballY=200;
+
+    ping.dx=Math.random()>0.5?5:-5;
+    ping.dy=(Math.random()*4)-2;
+}
+
+function startPingPong(){
+
+    stopPingPong();
+
+    ping={
+        playerY:160,
+        enemyY:160,
+        ballX:350,
+        ballY:200,
+        dx:5,
+        dy:3,
+        playerScore:0,
+        enemyScore:0
+    };
+
+    pingRunning=true;
+
+    pingLoop();
+}
+
+function stopPingPong(){
+
+    pingRunning=false;
+
+    if(pingAnimation){
+        cancelAnimationFrame(pingAnimation);
+        pingAnimation=null;
+    }
+}
+
+function pingLoop(){
+
+    if(!pingRunning) return;
+
+    updatePing();
+    drawPing();
+
+    pingAnimation=requestAnimationFrame(pingLoop);
+}
+
+function updatePing(){
+
+    ping.ballX+=ping.dx;
+    ping.ballY+=ping.dy;
+
+    if(ping.ballY<8 || ping.ballY>392){
+        ping.dy*=-1;
+    }
+
+    ping.enemyY+=(ping.ballY-(ping.enemyY+40))*.06;
+
+    if(
+        ping.ballX<35 &&
+        ping.ballY>ping.playerY &&
+        ping.ballY<ping.playerY+80
+    ){
+        ping.dx=Math.abs(ping.dx);
+    }
+
+    if(
+        ping.ballX>665 &&
+        ping.ballY>ping.enemyY &&
+        ping.ballY<ping.enemyY+80
+    ){
+        ping.dx=-Math.abs(ping.dx);
+    }
+
+    if(ping.ballX<0){
+
+        ping.enemyScore++;
+        resetPingBall();
+
+    }
+
+    if(ping.ballX>700){
+
+        ping.playerScore++;
+        resetPingBall();
+
+    }
+
+    document.getElementById("pingStatus").textContent=
+        "Игрок "+ping.playerScore+
+        " : "+
+        ping.enemyScore+
+        " Компьютер";
+}
+
+function drawPing(){
+
+    pingCtx.fillStyle="#07111f";
+    pingCtx.fillRect(0,0,700,400);
+
+    pingCtx.strokeStyle="#334155";
+    pingCtx.setLineDash([8,8]);
+    pingCtx.beginPath();
+    pingCtx.moveTo(350,0);
+    pingCtx.lineTo(350,400);
+    pingCtx.stroke();
+    pingCtx.setLineDash([]);
+
+    pingCtx.fillStyle="#2563eb";
+    pingCtx.fillRect(15,ping.playerY,15,80);
+
+    pingCtx.fillStyle="#ef4444";
+    pingCtx.fillRect(670,ping.enemyY,15,80);
+
+    pingCtx.fillStyle="#fff";
+    pingCtx.beginPath();
+    pingCtx.arc(ping.ballX,ping.ballY,9,0,Math.PI*2);
+    pingCtx.fill();
+}
+
+function movePingPlayer(y){
+
+    const rect=pingCanvas.getBoundingClientRect();
+
+    const scale=pingCanvas.height/rect.height;
+
+    ping.playerY=y*scale-40;
+
+    ping.playerY=Math.max(
+        0,
+        Math.min(320,ping.playerY)
+    );
+}
+
+pingCanvas.addEventListener("mousemove",function(e){
+    movePingPlayer(e.clientY-pingCanvas.getBoundingClientRect().top);
+});
+
+pingCanvas.addEventListener("touchmove",function(e){
+
+    e.preventDefault();
+
+    const rect=pingCanvas.getBoundingClientRect();
+
+    movePingPlayer(
+        e.touches[0].clientY-rect.top
+    );
+
+},{passive:false});
+
+document.addEventListener("keydown",function(e){
+
+    if(
+        document.getElementById("game-pingpong").classList.contains("active")
+    ){
+
+        if(e.key==="ArrowUp"){
+            ping.playerY-=25;
+        }
+
+        if(e.key==="ArrowDown"){
+            ping.playerY+=25;
+        }
+
+        ping.playerY=Math.max(
+            0,
+            Math.min(320,ping.playerY)
+        );
+    }
+
+});
+
+
+/* ==========================================
+   ФЛАГИ
+========================================== */
+
+const flags=[
+    {
+        flag:"🇰🇿",
+        country:"Казахстан"
+    },
+    {
+        flag:"🇷🇺",
+        country:"Россия"
+    },
+    {
+        flag:"🇺🇦",
+        country:"Украина"
+    },
+    {
+        flag:"🇺🇸",
+        country:"США"
+    },
+    {
+        flag:"🇬🇧",
+        country:"Великобритания"
+    },
+    {
+        flag:"🇯🇵",
+        country:"Япония"
+    },
+    {
+        flag:"🇩🇪",
+        country:"Германия"
+    },
+    {
+        flag:"🇫🇷",
+        country:"Франция"
+    },
+    {
+        flag:"🇨🇳",
+        country:"Китай"
+    },
+    {
+        flag:"🇮🇹",
+        country:"Италия"
+    },
+    {
+        flag:"🇪🇸",
+        country:"Испания"
+    },
+    {
+        flag:"🇧🇷",
+        country:"Бразилия"
+    }
+];
+
+let currentFlag;
+let flagPoints=0;
+
+function startFlags(){
+
+    flagPoints=0;
+
+    nextFlag();
+}
+
+function nextFlag(){
+
+    currentFlag=
+        flags[Math.floor(Math.random()*flags.length)];
+
+    document.getElementById("flagEmoji").textContent=
+        currentFlag.flag;
+
+    document.getElementById("flagScore").textContent=
+        "Счёт: "+flagPoints;
+
+    let answers=[
+        currentFlag.country
+    ];
+
+    while(answers.length<4){
+
+        const random=
+            flags[Math.floor(Math.random()*flags.length)]
+            .country;
+
+        if(!answers.includes(random)){
+            answers.push(random);
+        }
+    }
+
+    answers.sort(function(){
+        return Math.random()-.5;
+    });
+
+    const box=document.getElementById("flagOptions");
+
+    box.innerHTML="";
+
+    answers.forEach(function(answer){
+
+        const button=document.createElement("button");
+
+        button.className="flag-option";
+        button.textContent=answer;
+
+        button.onclick=function(){
+
+            if(answer===currentFlag.country){
+
+                flagPoints++;
+
+                button.style.background="#22c55e";
+                button.style.color="white";
+
+                setTimeout(nextFlag,500);
+
+            }else{
+
+                button.style.background="#ef4444";
+                button.style.color="white";
+
+                setTimeout(nextFlag,700);
+            }
+
+        };
+
+        box.appendChild(button);
+
+    });
+}
+
+
+/* ==========================================
+   ПАМЯТЬ
+========================================== */
+
+const memorySymbols=[
+    "🍎","🍌","🍇","🍉",
+    "🍎","🍌","🍇","🍉"
+];
+
+let memoryFirst=null;
+let memorySecond=null;
+let memoryLocked=false;
+let memoryMoves=0;
+let memoryMatched=0;
+
+function startMemory(){
+
+    const board=document.getElementById("memoryBoard");
+
+    board.innerHTML="";
+
+    memoryFirst=null;
+    memorySecond=null;
+    memoryLocked=false;
+    memoryMoves=0;
+    memoryMatched=0;
+
+    const cards=[...memorySymbols];
+
+    cards.sort(function(){
+        return Math.random()-.5;
+    });
+
+    cards.forEach(function(symbol,index){
+
+        const button=document.createElement("button");
+
+        button.className="memory-card";
+        button.dataset.symbol=symbol;
+        button.dataset.index=index;
+        button.textContent="❓";
+
+        button.onclick=function(){
+            memoryClick(button);
+        };
+
+        board.appendChild(button);
+
+    });
+
+    updateMemoryStatus();
+}
+
+function updateMemoryStatus(){
+
+    document.getElementById("memoryStatus").textContent=
+        "Ходы: "+memoryMoves+
+        " | Найдено пар: "+
+        memoryMatched+"/4";
+}
+
+function memoryClick(card){
+
+    if(
+        memoryLocked ||
+        card.classList.contains("open") ||
+        card.classList.contains("matched")
+    ){
+        return;
+    }
+
+    card.textContent=card.dataset.symbol;
+    card.classList.add("open");
+
+    if(!memoryFirst){
+
+        memoryFirst=card;
+        return;
+
+    }
+
+    memorySecond=card;
+    memoryMoves++;
+
+    if(
+        memoryFirst.dataset.symbol===
+        memorySecond.dataset.symbol
+    ){
+
+        memoryFirst.classList.add("matched");
+        memorySecond.classList.add("matched");
+
+        memoryMatched++;
+
+        memoryFirst=null;
+        memorySecond=null;
+
+        updateMemoryStatus();
+
+        if(memoryMatched===4){
+
+            setTimeout(function(){
+
+                document.getElementById("memoryStatus").textContent=
+                    "🎉 Победа! Ходов: "+memoryMoves;
+
+            },300);
+
+        }
+
+    }else{
+
+        memoryLocked=true;
+
+        setTimeout(function(){
+
+            memoryFirst.textContent="❓";
+            memorySecond.textContent="❓";
+
+            memoryFirst.classList.remove("open");
+            memorySecond.classList.remove("open");
+
+            memoryFirst=null;
+            memorySecond=null;
+
+            memoryLocked=false;
+
+            updateMemoryStatus();
+
+        },800);
+
+    }
+
+    updateMemoryStatus();
+}
+
+
+/* ==========================================
+   ЗМЕЙКА
+========================================== */
+
+const snakeCanvas=document.getElementById("snakeCanvas");
+const snakeCtx=snakeCanvas.getContext("2d");
+
+let snake=[];
+let snakeFood={x:10,y:10};
+let snakeDirection={x:1,y:0};
+let snakeNextDirection={x:1,y:0};
+let snakeTimer=null;
+let snakeScore=0;
+
+function startSnake(){
+
+    stopSnake();
+
+    snake=[
+        {x:10,y:10},
+        {x:9,y:10},
+        {x:8,y:10}
+    ];
+
+    snakeDirection={x:1,y:0};
+    snakeNextDirection={x:1,y:0};
+    snakeScore=0;
+
+    createSnakeFood();
+
+    updateSnakeStatus();
+
+    snakeTimer=setInterval(updateSnake,110);
+
+    drawSnake();
+}
+
+function stopSnake(){
+
+    if(snakeTimer){
+        clearInterval(snakeTimer);
+        snakeTimer=null;
+    }
+}
+
+function updateSnakeStatus(){
+
+    document.getElementById("snakeStatus").textContent=
+        "Счёт: "+snakeScore;
+}
+
+function createSnakeFood(){
+
+    do{
+
+        snakeFood={
+            x:Math.floor(Math.random()*20),
+            y:Math.floor(Math.random()*20)
+        };
+
+    }while(
+        snake.some(function(part){
+            return part.x===snakeFood.x &&
+                   part.y===snakeFood.y;
+        })
+    );
+}
+
+function updateSnake(){
+
+    snakeDirection=snakeNextDirection;
+
+    const head={
+        x:snake[0].x+snakeDirection.x,
+        y:snake[0].y+snakeDirection.y
+    };
+
+    if(
+        head.x<0 ||
+        head.x>=20 ||
+        head.y<0 ||
+        head.y>=20 ||
+        snake.some(function(part){
+            return part.x===head.x &&
+                   part.y===head.y;
+        })
+    ){
+
+        stopSnake();
+
+        document.getElementById("snakeStatus").textContent=
+            "💀 Игра окончена! Счёт: "+snakeScore;
+
+        return;
+    }
+
+    snake.unshift(head);
+
+    if(
+        head.x===snakeFood.x &&
+        head.y===snakeFood.y
+    ){
+
+        snakeScore++;
+        createSnakeFood();
+        updateSnakeStatus();
+
+    }else{
+
+        snake.pop();
+
+    }
+
+    drawSnake();
+}
+
+function drawSnake(){
+
+    snakeCtx.fillStyle="#07111f";
+    snakeCtx.fillRect(0,0,400,400);
+
+    const size=20;
+
+    snakeCtx.fillStyle="#ef4444";
+
+    snakeCtx.fillRect(
+        snakeFood.x*size,
+        snakeFood.y*size,
+        size-2,
+        size-2
+    );
+
+    snake.forEach(function(part,index){
+
+        snakeCtx.fillStyle=
+            index===0?"#22c55e":"#16a34a";
+
+        snakeCtx.fillRect(
+            part.x*size,
+            part.y*size,
+            size-2,
+            size-2
+        );
+
+    });
+}
+
+function setSnakeDirection(direction){
+
+    if(direction==="up" && snakeDirection.y!==1){
+        snakeNextDirection={x:0,y:-1};
+    }
+
+    if(direction==="down" && snakeDirection.y!==-1){
+        snakeNextDirection={x:0,y:1};
+    }
+
+    if(direction==="left" && snakeDirection.x!==1){
+        snakeNextDirection={x:-1,y:0};
+    }
+
+    if(direction==="right" && snakeDirection.x!==-1){
+        snakeNextDirection={x:1,y:0};
+    }
+}
+
+document.addEventListener("keydown",function(e){
+
+    if(
+        document.getElementById("game-snake").classList.contains("active")
+    ){
+
+        if(e.key==="ArrowUp"){
+            setSnakeDirection("up");
+        }
+
+        if(e.key==="ArrowDown"){
+            setSnakeDirection("down");
+        }
+
+        if(e.key==="ArrowLeft"){
+            setSnakeDirection("left");
+        }
+
+        if(e.key==="ArrowRight"){
+            setSnakeDirection("right");
+        }
+
+    }
+
+});
+
+
+/* ==========================================
+   МОТОЦИКЛ
+========================================== */
+
+const bikeCanvas=document.getElementById("bikeCanvas");
+const bikeCtx=bikeCanvas.getContext("2d");
+
+let bikeAnimation=null;
+let bikeRunning=false;
+
+let bike={
+    x:350,
+    score:0,
+    speed:5,
+    obstacles:[]
+};
+
+function startBike(){
+
+    stopBike();
+
+    bike={
+        x:350,
+        score:0,
+        speed:5,
+        obstacles:[]
+    };
+
+    bikeRunning=true;
+
+    bikeLoop();
+}
+
+function stopBike(){
+
+    bikeRunning=false;
+
+    if(bikeAnimation){
+        cancelAnimationFrame(bikeAnimation);
+        bikeAnimation=null;
+    }
+}
+
+function bikeLoop(){
+
+    if(!bikeRunning) return;
+
+    updateBike();
+    drawBike();
+
+    bikeAnimation=requestAnimationFrame(bikeLoop);
+}
+
+function updateBike(){
+
+    bike.score+=1;
+
+    if(bike.score%80===0){
+        bike.speed+=.3;
+    }
+
+    if(Math.random()<.025){
+
+        bike.obstacles.push({
+            x:100+Math.random()*500,
+            y:-60,
+            w:50,
+            h:80
+        });
+
+    }
+
+    bike.obstacles.forEach(function(car){
+        car.y+=bike.speed;
+    });
+
+    bike.obstacles=
+        bike.obstacles.filter(function(car){
+            return car.y<500;
+        });
+
+    for(const car of bike.obstacles){
+
+        if(
+            bike.x+18>car.x &&
+            bike.x-18<car.x+car.w &&
+            360<car.y+car.h &&
+            410>car.y
+        ){
+
+            bikeRunning=false;
+
+            document.getElementById("bikeStatus").textContent=
+                "💥 Авария! Счёт: "+
+                Math.floor(bike.score/10);
+
+            return;
+        }
+
+    }
+
+    document.getElementById("bikeStatus").textContent=
+        "Счёт: "+Math.floor(bike.score/10);
+}
+
+function drawBike(){
+
+    const ctx=bikeCtx;
+
+    ctx.fillStyle="#111827";
+    ctx.fillRect(0,0,700,450);
+
+    /* дорога */
+
+    ctx.fillStyle="#374151";
+    ctx.fillRect(80,0,540,450);
+
+    /* трава */
+
+    ctx.fillStyle="#166534";
+    ctx.fillRect(0,0,80,450);
+    ctx.fillRect(620,0,80,450);
+
+    /* полосы */
+
+    ctx.fillStyle="#facc15";
+
+    for(let y=-50;y<450;y+=100){
+
+        ctx.fillRect(
+            345,
+            y+(bike.score%100),
+            10,
+            50
+        );
+
+    }
+
+    /* машины */
+
+    bike.obstacles.forEach(function(car){
+
+        ctx.fillStyle="#dc2626";
+
+        ctx.fillRect(
+            car.x,
+            car.y,
+            car.w,
+            car.h
+        );
+
+        ctx.fillStyle="#111827";
+
+        ctx.fillRect(
+            car.x+8,
+            car.y+10,
+            car.w-16,
+            20
+        );
+
+    });
+
+    /* мотоцикл */
+
+    ctx.fillStyle="#2563eb";
+
+    ctx.beginPath();
+    ctx.arc(bike.x,390,18,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle="#111";
+
+    ctx.beginPath();
+    ctx.arc(bike.x,420,15,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle="#fff";
+    ctx.font="bold 20px Arial";
+    ctx.fillText("🏍️",bike.x-20,390);
+}
+
+document.addEventListener("keydown",function(e){
+
+    if(
+        document.getElementById("game-bike").classList.contains("active")
+    ){
+
+        if(e.key==="ArrowLeft" || e.key.toLowerCase()==="a"){
+            bike.x-=25;
+        }
+
+        if(e.key==="ArrowRight" || e.key.toLowerCase()==="d"){
+            bike.x+=25;
+        }
+
+        bike.x=Math.max(
+            105,
+            Math.min(595,bike.x)
+        );
+
+    }
+
+});
+
+
+/* ==========================================
+   БОКС
+========================================== */
+
+let playerHealth=100;
+let enemyHealth=100;
+let boxingTimer=null;
+let playerBlocking=false;
+
+function startBoxing(){
+
+    stopBoxing();
+
+    playerHealth=100;
+    enemyHealth=100;
+    playerBlocking=false;
+
+    updateBoxing();
+
+    boxingTimer=setInterval(enemyAttack,1200);
+}
+
+function stopBoxing(){
+
+    if(boxingTimer){
+        clearInterval(boxingTimer);
+        boxingTimer=null;
+    }
+}
+
+function updateBoxing(){
+
+    document.getElementById("boxingStatus").textContent=
+        "Твоё здоровье: "+
+        playerHealth+
+        " | Соперник: "+
+        enemyHealth;
+}
+
+function boxingAttack(type){
+
+    if(playerHealth<=0 || enemyHealth<=0){
+        return;
+    }
+
+    let damage=0;
+
+    if(type==="jab"){
+        damage=8+Math.floor(Math.random()*8);
+    }
+
+    if(type==="strong"){
+        damage=15+Math.floor(Math.random()*12);
+    }
+
+    if(type==="block"){
+
+        playerBlocking=true;
+
+        setTimeout(function(){
+            playerBlocking=false;
+        },700);
+
+        document.getElementById("boxingStatus").textContent=
+            "🛡️ Блок!";
+
+        return;
+    }
+
+    enemyHealth-=damage;
+
+    if(enemyHealth<0){
+        enemyHealth=0;
+    }
+
+    const enemy=
+        document.getElementById("enemyFighter");
+
+    enemy.classList.remove("hit");
+
+    void enemy.offsetWidth;
+
+    enemy.classList.add("hit");
+
+    updateBoxing();
+
+    if(enemyHealth<=0){
+
+        stopBoxing();
+
+        document.getElementById("boxingStatus").textContent=
+            "🏆 Ты победил!";
+    }
+}
+
+function enemyAttack(){
+
+    if(playerHealth<=0 || enemyHealth<=0){
+        return;
+    }
+
+    if(playerBlocking){
+
+        document.getElementById("boxingStatus").textContent=
+            "🛡️ Ты заблокировал удар!";
+
+        setTimeout(updateBoxing,500);
+
+        return;
+    }
+
+    const damage=5+Math.floor(Math.random()*12);
+
+    playerHealth-=damage;
+
+    if(playerHealth<0){
+        playerHealth=0;
+    }
+
+    const player=
+        document.getElementById("playerFighter");
+
+    player.classList.remove("hit");
+
+    void player.offsetWidth;
+
+    player.classList.add("hit");
+
+    updateBoxing();
+
+    if(playerHealth<=0){
+
+        stopBoxing();
+
+        document.getElementById("boxingStatus").textContent=
+            "💀 Ты проиграл!";
+    }
+}
+
+
+/* ==========================================
+   ПРОФИЛЬ
+========================================== */
+
+function saveProfile(){
+
+    const name=
+        document.getElementById("nameInput")
+        .value.trim();
+
+    const description=
+        document.getElementById("descriptionInput")
+        .value.trim();
+
+    if(name){
 
         localStorage.setItem(
             "easyflow_name",
             name
         );
 
-        document
-        .getElementById("profileName")
-        .textContent = name;
-
+        document.getElementById(
+            "profileName"
+        ).textContent=name;
     }
 
-
-    if (description) {
+    if(description){
 
         localStorage.setItem(
             "easyflow_description",
             description
         );
 
-        document
-        .getElementById("profileDescription")
-        .textContent =
-            description;
-
+        document.getElementById(
+            "profileDescription"
+        ).textContent=description;
     }
 
+    const success=
+        document.getElementById("successMessage");
 
-    document
-    .getElementById("successMessage")
-    .style.display = "block";
+    success.style.display="block";
 
-
-    setTimeout(function() {
-
-        document
-        .getElementById("successMessage")
-        .style.display = "none";
-
-    }, 2500);
-
+    setTimeout(function(){
+        success.style.display="none";
+    },2500);
 }
 
 
-/* ===================================
+/* ==========================================
    АВАТАР
-=================================== */
+========================================== */
 
-document
-.getElementById("avatarInput")
-.addEventListener(
-    "change",
-    function(event) {
+document.getElementById("avatarInput")
+.addEventListener("change",function(event){
 
-        const file =
-            event.target.files[0];
+    const file=event.target.files[0];
 
-        if (!file) return;
+    if(!file) return;
 
+    const reader=new FileReader();
 
-        const reader =
-            new FileReader();
+    reader.onload=function(e){
 
+        document.getElementById("avatarImage").src=
+            e.target.result;
 
-        reader.onload =
-            function(e) {
+        document.getElementById("avatarImage").style.display=
+            "block";
 
-                const image =
-                    document
-                    .getElementById(
-                        "avatarImage"
-                    );
+        document.getElementById("avatarPlaceholder").style.display=
+            "none";
 
-                image.src =
-                    e.target.result;
+        localStorage.setItem(
+            "easyflow_avatar",
+            e.target.result
+        );
+    };
 
-                image.style.display =
-                    "block";
+    reader.readAsDataURL(file);
+});
 
 
-                document
-                .getElementById(
-                    "avatarPlaceholder"
-                )
-                .style.display = "none";
+/* ==========================================
+   ФОТОГРАФИИ
+========================================== */
 
+document.getElementById("imageInput")
+.addEventListener("change",function(event){
 
-                localStorage.setItem(
-                    "easyflow_avatar",
-                    e.target.result
-                );
+    const files=Array.from(event.target.files);
 
-            };
+    files.forEach(function(file){
 
+        const reader=new FileReader();
+
+        reader.onload=function(e){
+            addImage(e.target.result);
+        };
 
         reader.readAsDataURL(file);
+    });
 
-    }
-);
+    event.target.value="";
+});
 
+function addImage(src){
 
-/* ===================================
-   ФОТОГРАФИИ
-=================================== */
-
-document
-.getElementById("imageInput")
-.addEventListener(
-    "change",
-    function(event) {
-
-        const files =
-            Array.from(event.target.files);
-
-
-        files.forEach(function(file) {
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                function(e) {
-
-                    addImage(
-                        e.target.result
-                    );
-
-                };
-
-
-            reader.readAsDataURL(file);
-
-        });
-
-
-        event.target.value = "";
-
-    }
-);
-
-
-function addImage(src) {
-
-    const images =
-        JSON.parse(
-            localStorage.getItem(
-                "easyflow_images"
-            ) || "[]"
-        );
-
+    const images=JSON.parse(
+        localStorage.getItem("easyflow_images")||"[]"
+    );
 
     images.push(src);
 
+    localStorage.setItem(
+        "easyflow_images",
+        JSON.stringify(images)
+    );
+
+    renderGallery();
+}
+
+function deleteImage(index){
+
+    const images=JSON.parse(
+        localStorage.getItem("easyflow_images")||"[]"
+    );
+
+    images.splice(index,1);
 
     localStorage.setItem(
         "easyflow_images",
         JSON.stringify(images)
     );
 
-
     renderGallery();
-
 }
 
+function renderGallery(){
 
-function deleteImage(index) {
+    const gallery=document.getElementById("gallery");
 
-    const images =
-        JSON.parse(
-            localStorage.getItem(
-                "easyflow_images"
-            ) || "[]"
-        );
-
-
-    images.splice(index, 1);
-
-
-    localStorage.setItem(
-        "easyflow_images",
-        JSON.stringify(images)
+    const images=JSON.parse(
+        localStorage.getItem("easyflow_images")||"[]"
     );
 
+    gallery.innerHTML="";
 
-    renderGallery();
+    if(images.length===0){
 
-}
-
-
-function renderGallery() {
-
-    const gallery =
-        document.getElementById(
-            "gallery"
-        );
-
-
-    const images =
-        JSON.parse(
-            localStorage.getItem(
-                "easyflow_images"
-            ) || "[]"
-        );
-
-
-    gallery.innerHTML = "";
-
-
-    if (images.length === 0) {
-
-        gallery.innerHTML = `
-
+        gallery.innerHTML=`
             <div class="gallery-empty">
-
                 <div>🖼️</div>
-
-                <h3>
-                    Пока нет фотографий
-                </h3>
-
-                <p>
-                    Добавь первую фотографию.
-                </p>
-
+                <h3>Пока нет фотографий</h3>
+                <p>Добавь первую фотографию.</p>
             </div>
-
         `;
 
         return;
-
     }
 
+    images.forEach(function(src,index){
 
-    images.forEach(function(src, index) {
+        const item=document.createElement("div");
 
-        const item =
-            document.createElement("div");
+        item.className="gallery-item";
 
-        item.className =
-            "gallery-item";
+        const img=document.createElement("img");
 
+        img.src=src;
+        img.alt="Моя фотография";
 
-        item.innerHTML = `
+        img.onclick=function(){
+            openModal(src);
+        };
 
-            <img
-                src="${src}"
-                alt="Моя фотография"
-                onclick="openModal('${src}')"
-            >
+        const del=document.createElement("button");
 
-            <button
-                class="delete-photo"
-                onclick="deleteImage(${index})"
-            >
-                🗑
-            </button>
+        del.className="delete-photo";
+        del.textContent="🗑";
 
-        `;
+        del.onclick=function(){
+            deleteImage(index);
+        };
 
+        item.appendChild(img);
+        item.appendChild(del);
 
         gallery.appendChild(item);
-
     });
-
 }
 
 
-/* ===================================
+/* ==========================================
    ССЫЛКИ
-=================================== */
+========================================== */
 
-function addLink() {
+function addLink(){
 
-    const name =
-        document
-        .getElementById("linkName")
-        .value
-        .trim();
+    const name=
+        document.getElementById("linkName")
+        .value.trim();
 
+    let url=
+        document.getElementById("linkUrl")
+        .value.trim();
 
-    let url =
-        document
-        .getElementById("linkUrl")
-        .value
-        .trim();
+    if(!name || !url){
 
-
-    if (!name || !url) {
-
-        alert(
-            "Заполни название и адрес ссылки."
-        );
+        alert("Заполни название и адрес ссылки.");
 
         return;
-
     }
 
-
-    if (
-        !url.startsWith("http://")
-        &&
+    if(
+        !url.startsWith("http://") &&
         !url.startsWith("https://")
-    ) {
-
-        url =
-            "https://" + url;
-
+    ){
+        url="https://"+url;
     }
 
-
-    const links =
-        JSON.parse(
-            localStorage.getItem(
-                "easyflow_links"
-            ) || "[]"
-        );
-
+    const links=JSON.parse(
+        localStorage.getItem("easyflow_links")||"[]"
+    );
 
     links.push({
-        name: name,
-        url: url
+        name:name,
+        url:url
     });
 
+    localStorage.setItem(
+        "easyflow_links",
+        JSON.stringify(links)
+    );
+
+    document.getElementById("linkName").value="";
+    document.getElementById("linkUrl").value="";
+
+    renderLinks();
+}
+
+function deleteLink(index){
+
+    const links=JSON.parse(
+        localStorage.getItem("easyflow_links")||"[]"
+    );
+
+    links.splice(index,1);
 
     localStorage.setItem(
         "easyflow_links",
         JSON.stringify(links)
     );
 
-
-    document
-    .getElementById("linkName")
-    .value = "";
-
-
-    document
-    .getElementById("linkUrl")
-    .value = "";
-
-
     renderLinks();
-
 }
 
+function escapeHtml(text){
 
-function deleteLink(index) {
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
 
-    const links =
-        JSON.parse(
-            localStorage.getItem(
-                "easyflow_links"
-            ) || "[]"
-        );
+function renderLinks(){
 
+    const container=
+        document.getElementById("linksContainer");
 
-    links.splice(index, 1);
-
-
-    localStorage.setItem(
-        "easyflow_links",
-        JSON.stringify(links)
+    const links=JSON.parse(
+        localStorage.getItem("easyflow_links")||"[]"
     );
 
+    container.innerHTML="";
 
-    renderLinks();
+    if(links.length===0){
 
-}
-
-
-function renderLinks() {
-
-    const container =
-        document.getElementById(
-            "linksContainer"
-        );
-
-
-    const links =
-        JSON.parse(
-            localStorage.getItem(
-                "easyflow_links"
-            ) || "[]"
-        );
-
-
-    container.innerHTML = "";
-
-
-    if (links.length === 0) {
-
-        container.innerHTML = `
-
+        container.innerHTML=`
             <div class="gallery-empty">
-
                 <div>🔗</div>
-
-                <h3>
-                    Пока нет ссылок
-                </h3>
-
-                <p>
-                    Добавь свою первую ссылку ниже.
-                </p>
-
+                <h3>Пока нет ссылок</h3>
+                <p>Добавь первую ссылку ниже.</p>
             </div>
-
         `;
 
         return;
-
     }
 
+    links.forEach(function(link,index){
 
-    links.forEach(function(link, index) {
+        const card=document.createElement("div");
 
-        const card =
-            document.createElement("div");
+        card.className="link-card";
 
-        card.className =
-            "link-card";
-
-
-        card.innerHTML = `
+        card.innerHTML=`
 
             <div class="link-info">
 
-                <h3>
-                    ${escapeHtml(link.name)}
-                </h3>
+                <h3>${escapeHtml(link.name)}</h3>
 
-                <p>
-                    ${escapeHtml(link.url)}
-                </p>
+                <p>${escapeHtml(link.url)}</p>
 
             </div>
 
@@ -1991,359 +2929,214 @@ function renderLinks() {
                 <a
                     href="${escapeHtml(link.url)}"
                     target="_blank"
+                    rel="noopener"
                     class="open-link"
                 >
                     Открыть
                 </a>
 
-                <button
-                    class="delete-link"
-                    onclick="deleteLink(${index})"
-                >
+                <button class="delete-link">
                     🗑
                 </button>
 
             </div>
-
         `;
 
+        card.querySelector(".delete-link")
+        .onclick=function(){
+            deleteLink(index);
+        };
 
         container.appendChild(card);
-
     });
-
 }
 
 
-/* Защита текста */
+/* ==========================================
+   ДИЗАЙН
+========================================== */
 
-function escapeHtml(text) {
+function changeColor(color){
 
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-/* ===================================
-   ЦВЕТ
-=================================== */
-
-function changeColor(color) {
-
-    document
-    .documentElement
-    .style
-    .setProperty(
+    document.documentElement.style.setProperty(
         "--main",
         color
     );
-
 
     localStorage.setItem(
         "easyflow_color",
         color
     );
-
 }
 
+function changeFont(font){
 
-/* ===================================
-   ШРИФТ
-=================================== */
-
-function changeFont(font) {
-
-    document
-    .body
-    .style
-    .fontFamily = font;
-
+    document.body.style.fontFamily=font;
 
     localStorage.setItem(
         "easyflow_font",
         font
     );
-
 }
 
+function changeRadius(radius){
 
-/* ===================================
-   СКРУГЛЕНИЕ
-=================================== */
-
-function changeRadius(radius) {
-
-    document
-    .documentElement
-    .style
-    .setProperty(
+    document.documentElement.style.setProperty(
         "--radius",
         radius
     );
-
 
     localStorage.setItem(
         "easyflow_radius",
         radius
     );
-
 }
 
+function setTheme(theme,button){
 
-/* ===================================
-   ТЕМА
-=================================== */
-
-function setTheme(theme, button) {
-
-    if (theme === "dark") {
-
-        document
-        .body
-        .classList
-        .add("dark");
-
-    } else {
-
-        document
-        .body
-        .classList
-        .remove("dark");
-
+    if(theme==="dark"){
+        document.body.classList.add("dark");
+    }else{
+        document.body.classList.remove("dark");
     }
-
 
     localStorage.setItem(
         "easyflow_theme",
         theme
     );
 
-
-    document
-    .querySelectorAll(".theme-button")
-    .forEach(function(btn) {
-
+    document.querySelectorAll(".theme-button")
+    .forEach(function(btn){
         btn.classList.remove("active");
-
     });
 
-
     button.classList.add("active");
-
 }
 
 
-/* ===================================
-   МОДАЛЬНОЕ ОКНО
-=================================== */
+/* ==========================================
+   MODAL
+========================================== */
 
-function openModal(src) {
+function openModal(src){
 
-    document
-    .getElementById("modalImage")
-    .src = src;
+    document.getElementById("modalImage").src=src;
 
+    document.getElementById("imageModal")
+    .classList.add("active");
+}
 
-    document
-    .getElementById("imageModal")
-    .classList
-    .add("active");
+function closeModal(){
 
+    document.getElementById("imageModal")
+    .classList.remove("active");
 }
 
 
-function closeModal() {
+/* ==========================================
+   ЗАГРУЗКА ДАННЫХ
+========================================== */
 
-    document
-    .getElementById("imageModal")
-    .classList
-    .remove("active");
+window.addEventListener("DOMContentLoaded",function(){
 
-}
+    const name=
+        localStorage.getItem("easyflow_name");
 
+    const description=
+        localStorage.getItem("easyflow_description");
 
-/* ===================================
-   ЗАГРУЗКА СОХРАНЁННЫХ ДАННЫХ
-=================================== */
+    if(name){
 
-window.addEventListener(
-    "DOMContentLoaded",
-    function() {
+        document.getElementById("nameInput").value=name;
 
-
-        /* Профиль */
-
-        const name =
-            localStorage.getItem(
-                "easyflow_name"
-            );
-
-
-        const description =
-            localStorage.getItem(
-                "easyflow_description"
-            );
-
-
-        if (name) {
-
-            document
-            .getElementById("nameInput")
-            .value = name;
-
-            document
-            .getElementById("profileName")
-            .textContent = name;
-
-        }
-
-
-        if (description) {
-
-            document
-            .getElementById("descriptionInput")
-            .value = description;
-
-            document
-            .getElementById("profileDescription")
-            .textContent =
-                description;
-
-        }
-
-
-        /* Аватар */
-
-        const avatar =
-            localStorage.getItem(
-                "easyflow_avatar"
-            );
-
-
-        if (avatar) {
-
-            document
-            .getElementById("avatarImage")
-            .src = avatar;
-
-            document
-            .getElementById("avatarImage")
-            .style.display =
-                "block";
-
-
-            document
-            .getElementById(
-                "avatarPlaceholder"
-            )
-            .style.display =
-                "none";
-
-        }
-
-
-        /* Цвет */
-
-        const color =
-            localStorage.getItem(
-                "easyflow_color"
-            );
-
-
-        if (color) {
-
-            changeColor(color);
-
-            document
-            .getElementById("mainColor")
-            .value = color;
-
-        }
-
-
-        /* Шрифт */
-
-        const font =
-            localStorage.getItem(
-                "easyflow_font"
-            );
-
-
-        if (font) {
-
-            changeFont(font);
-
-            document
-            .getElementById("fontSelect")
-            .value = font;
-
-        }
-
-
-        /* Скругление */
-
-        const radius =
-            localStorage.getItem(
-                "easyflow_radius"
-            );
-
-
-        if (radius) {
-
-            changeRadius(radius);
-
-            document
-            .getElementById("radiusSelect")
-            .value = radius;
-
-        }
-
-
-        /* Тема */
-
-        const theme =
-            localStorage.getItem(
-                "easyflow_theme"
-            );
-
-
-        if (theme === "dark") {
-
-            document
-            .body
-            .classList
-            .add("dark");
-
-
-            document
-            .querySelectorAll(
-                ".theme-button"
-            )[0]
-            .classList
-            .remove("active");
-
-
-            document
-            .querySelectorAll(
-                ".theme-button"
-            )[1]
-            .classList
-            .add("active");
-
-        }
-
-
-        renderGallery();
-
-        renderLinks();
-
+        document.getElementById("profileName")
+        .textContent=name;
     }
-);
+
+    if(description){
+
+        document.getElementById("descriptionInput")
+        .value=description;
+
+        document.getElementById("profileDescription")
+        .textContent=description;
+    }
+
+
+    const avatar=
+        localStorage.getItem("easyflow_avatar");
+
+    if(avatar){
+
+        document.getElementById("avatarImage").src=avatar;
+
+        document.getElementById("avatarImage")
+        .style.display="block";
+
+        document.getElementById("avatarPlaceholder")
+        .style.display="none";
+    }
+
+
+    const color=
+        localStorage.getItem("easyflow_color");
+
+    if(color){
+
+        changeColor(color);
+
+        document.getElementById("mainColor")
+        .value=color;
+    }
+
+
+    const font=
+        localStorage.getItem("easyflow_font");
+
+    if(font){
+
+        changeFont(font);
+
+        document.getElementById("fontSelect")
+        .value=font;
+    }
+
+
+    const radius=
+        localStorage.getItem("easyflow_radius");
+
+    if(radius){
+
+        changeRadius(radius);
+
+        document.getElementById("radiusSelect")
+        .value=radius;
+    }
+
+
+    const theme=
+        localStorage.getItem("easyflow_theme");
+
+    if(theme==="dark"){
+
+        document.body.classList.add("dark");
+
+        document.querySelectorAll(".theme-button")[0]
+        .classList.remove("active");
+
+        document.querySelectorAll(".theme-button")[1]
+        .classList.add("active");
+    }
+
+
+    renderGallery();
+    renderLinks();
+
+    newTicTacToe();
+    startFlags();
+    startMemory();
+
+});
 
 </script>
 
