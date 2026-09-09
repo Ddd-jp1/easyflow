@@ -122,7 +122,7 @@ header {
 .difficulty {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 18px;
+    border-radius: var(--radius);
 
     padding: 20px;
     margin-bottom: 20px;
@@ -243,9 +243,7 @@ header {
 ========================= */
 
 .memory-board {
-
     width: 100%;
-
     max-width: 720px;
 
     margin: auto;
@@ -264,15 +262,12 @@ header {
 ========================= */
 
 .memory-card {
-
     width: 100%;
-
     aspect-ratio: 1 / 1;
 
     min-width: 0;
 
     border: none;
-
     background: transparent;
 
     cursor: pointer;
@@ -284,28 +279,34 @@ header {
     -webkit-tap-highlight-color: transparent;
 }
 
-.card-inner {
+.memory-card:focus-visible {
+    outline: 3px solid var(--main);
+    outline-offset: 3px;
+}
 
+.memory-card:disabled {
+    cursor: default;
+}
+
+.card-inner {
     width: 100%;
     height: 100%;
 
     position: relative;
 
     transition:
-        transform 0.45s;
+        transform 0.45s ease;
 
     transform-style: preserve-3d;
 }
 
 .memory-card.open .card-inner,
 .memory-card.matched .card-inner {
-
     transform: rotateY(180deg);
 }
 
 .card-front,
 .card-back {
-
     position: absolute;
 
     width: 100%;
@@ -330,7 +331,6 @@ header {
 ========================= */
 
 .card-front {
-
     background:
         linear-gradient(
             135deg,
@@ -360,7 +360,6 @@ header {
 ========================= */
 
 .card-back {
-
     background: var(--card);
 
     transform: rotateY(180deg);
@@ -373,11 +372,9 @@ header {
 }
 
 .memory-card.matched .card-back {
-
     border-color: #22c55e;
 
     background: #dcfce7;
-
 }
 
 /* =========================
@@ -385,7 +382,6 @@ header {
 ========================= */
 
 .buttons {
-
     display: flex;
 
     justify-content: center;
@@ -398,7 +394,6 @@ header {
 }
 
 .main-button {
-
     border: none;
 
     background: var(--main);
@@ -419,10 +414,13 @@ header {
 }
 
 .main-button:hover {
-
     background: #1d4ed8;
 
     transform: translateY(-2px);
+}
+
+.main-button:active {
+    transform: translateY(0);
 }
 
 /* =========================
@@ -430,7 +428,6 @@ header {
 ========================= */
 
 .message {
-
     min-height: 28px;
 
     text-align: center;
@@ -440,6 +437,8 @@ header {
     font-weight: bold;
 
     font-size: 18px;
+
+    color: var(--text);
 }
 
 .message.success {
@@ -455,12 +454,11 @@ header {
 ========================= */
 
 .records {
-
     background: var(--card);
 
     border: 1px solid var(--border);
 
-    border-radius: 18px;
+    border-radius: var(--radius);
 
     padding: 25px;
 
@@ -468,14 +466,12 @@ header {
 }
 
 .records h2 {
-
     text-align: center;
 
     margin-bottom: 18px;
 }
 
 .record-row {
-
     display: flex;
 
     justify-content: space-between;
@@ -495,7 +491,6 @@ header {
 ========================= */
 
 footer {
-
     margin-top: 40px;
 
     background: #111827;
@@ -514,50 +509,45 @@ footer {
 @media (max-width: 600px) {
 
     .header {
-
-        flex-direction: column;
-
+        flex-direction: row;
     }
 
     .container {
-
-        padding:
-            25px 10px;
-
+        padding: 25px 10px;
     }
 
     .title h1 {
-
         font-size: 32px;
+    }
 
+    .title p {
+        font-size: 15px;
     }
 
     .game-box {
-
         padding: 15px 10px;
-
     }
 
     .memory-board {
-
         gap: 7px;
-
     }
 
     .card-front,
     .card-back {
-
         border-radius: 9px;
-
     }
 
     .stat {
-
         min-width: 95px;
+        padding: 11px 12px;
+    }
 
-        padding:
-            11px 12px;
+    .logo {
+        font-size: 24px;
+    }
 
+    .back {
+        font-size: 14px;
     }
 
 }
@@ -630,6 +620,7 @@ footer {
 <div class="levels">
 
 <button
+    type="button"
     class="level easy active"
     id="easyButton"
     onclick="selectDifficulty('easy')"
@@ -638,6 +629,7 @@ footer {
 </button>
 
 <button
+    type="button"
     class="level medium"
     id="mediumButton"
     onclick="selectDifficulty('medium')"
@@ -646,6 +638,7 @@ footer {
 </button>
 
 <button
+    type="button"
     class="level hard"
     id="hardButton"
     onclick="selectDifficulty('hard')"
@@ -730,6 +723,7 @@ footer {
 <div class="buttons">
 
 <button
+    type="button"
     class="main-button"
     onclick="startGame()"
 >
@@ -806,7 +800,7 @@ footer {
 <script>
 
 /* =====================================
-   НАСТРОЙКИ
+   НАСТРОЙКИ ИГРЫ
 ===================================== */
 
 const settings = {
@@ -830,7 +824,7 @@ const settings = {
 
 
 /* =====================================
-   ЭМОДЗИ
+   СИМВОЛЫ
 ===================================== */
 
 const symbols = [
@@ -864,7 +858,27 @@ const symbols = [
 
 
 /* =====================================
-   ПЕРЕМЕННЫЕ
+   DOM
+===================================== */
+
+const boardElement =
+    document.getElementById("memoryBoard");
+
+const movesElement =
+    document.getElementById("moves");
+
+const timeElement =
+    document.getElementById("time");
+
+const recordElement =
+    document.getElementById("record");
+
+const messageElement =
+    document.getElementById("message");
+
+
+/* =====================================
+   СОСТОЯНИЕ ИГРЫ
 ===================================== */
 
 let difficulty = "easy";
@@ -895,11 +909,9 @@ let timer = null;
 function getRecord(level) {
 
     return Number(
-
         localStorage.getItem(
             "easyflow_memory_record_" + level
         ) || 0
-
     );
 
 }
@@ -908,11 +920,8 @@ function getRecord(level) {
 function saveRecord(level, value) {
 
     localStorage.setItem(
-
         "easyflow_memory_record_" + level,
-
-        value
-
+        String(value)
     );
 
 }
@@ -938,9 +947,7 @@ function updateRecords() {
         getRecord("hard");
 
 
-    document.getElementById(
-        "record"
-    ).textContent =
+    recordElement.textContent =
         getRecord(difficulty);
 
 }
@@ -951,6 +958,11 @@ function updateRecords() {
 ===================================== */
 
 function selectDifficulty(level) {
+
+    if (!settings[level]) {
+        return;
+    }
+
 
     if (gameRunning) {
 
@@ -970,18 +982,24 @@ function selectDifficulty(level) {
         .querySelectorAll(".level")
         .forEach(function(button) {
 
-            button.classList.remove(
-                "active"
-            );
+            button.classList.remove("active");
 
         });
 
 
-    document
-        .getElementById(
+    const selectedButton =
+        document.getElementById(
             level + "Button"
-        )
-        .classList.add("active");
+        );
+
+
+    if (selectedButton) {
+
+        selectedButton.classList.add(
+            "active"
+        );
+
+    }
 
 
     updateRecords();
@@ -999,6 +1017,7 @@ function shuffle(array) {
 
     const result = [...array];
 
+
     for (
         let i = result.length - 1;
         i > 0;
@@ -1011,6 +1030,7 @@ function shuffle(array) {
                 (i + 1)
             );
 
+
         [
             result[i],
             result[j]
@@ -1020,6 +1040,7 @@ function shuffle(array) {
         ];
 
     }
+
 
     return result;
 
@@ -1050,25 +1071,15 @@ function startGame() {
     gameRunning = true;
 
 
-    document.getElementById(
-        "moves"
-    ).textContent = "0";
+    movesElement.textContent = "0";
+
+    timeElement.textContent = "0";
 
 
-    document.getElementById(
-        "time"
-    ).textContent = "0";
-
-
-    document.getElementById(
-        "message"
-    ).textContent =
+    messageElement.textContent =
         "Найди все одинаковые пары!";
 
-
-    document.getElementById(
-        "message"
-    ).className =
+    messageElement.className =
         "message";
 
 
@@ -1080,136 +1091,170 @@ function startGame() {
 
 
 /* =====================================
-   СОЗДАНИЕ ПОЛЯ
+   СОЗДАНИЕ ИГРОВОГО ПОЛЯ
 ===================================== */
 
 function createBoard() {
 
-    const board =
-        document.getElementById(
-            "memoryBoard"
-        );
-
-
-    board.innerHTML = "";
+    boardElement.innerHTML = "";
 
 
     const pairCount =
         settings[difficulty].pairs;
 
 
+    /*
+       Берём необходимое количество
+       уникальных символов.
+    */
+
     const selectedSymbols =
         shuffle(symbols)
-        .slice(0, pairCount);
+            .slice(0, pairCount);
 
+
+    /*
+       Каждому символу создаём пару.
+    */
 
     cards = shuffle([
-
         ...selectedSymbols,
-
         ...selectedSymbols
-
     ]);
 
 
-    board.style.gridTemplateColumns =
+    boardElement.style.gridTemplateColumns =
         "repeat(" +
         settings[difficulty].columns +
-        ", 1fr)";
+        ", minmax(0, 1fr))";
 
 
-    cards.forEach(function(symbol, index) {
+    cards.forEach(
+        function(symbol, index) {
 
-        const card =
-            document.createElement(
-                "button"
+            const card =
+                document.createElement(
+                    "button"
+                );
+
+
+            card.type = "button";
+
+            card.className =
+                "memory-card";
+
+
+            card.dataset.symbol =
+                symbol;
+
+
+            card.dataset.index =
+                String(index);
+
+
+            card.setAttribute(
+                "aria-label",
+                "Закрытая карточка"
             );
 
 
-        card.className =
-            "memory-card";
+            card.innerHTML = `
 
+                <div class="card-inner">
 
-        card.setAttribute(
-            "type",
-            "button"
-        );
+                    <div class="card-front"></div>
 
+                    <div class="card-back">
+                        ${symbol}
+                    </div>
 
-        card.dataset.symbol =
-            symbol;
-
-
-        card.dataset.index =
-            index;
-
-
-        card.innerHTML = `
-
-            <div class="card-inner">
-
-                <div class="card-front"></div>
-
-                <div class="card-back">
-                    ${symbol}
                 </div>
 
-            </div>
-
-        `;
+            `;
 
 
-        card.addEventListener(
-            "click",
-            function() {
+            card.addEventListener(
+                "click",
+                function() {
 
-                flipCard(card);
+                    flipCard(card);
 
-            }
-        );
+                }
+            );
 
 
-        board.appendChild(card);
+            boardElement.appendChild(card);
 
-    });
+        }
+    );
 
 }
 
 
 /* =====================================
-   ОТКРЫТИЕ КАРТЫ
+   ОТКРЫТИЕ КАРТОЧКИ
 ===================================== */
 
 function flipCard(card) {
+
+    /*
+       Игру нельзя продолжать после окончания.
+    */
 
     if (!gameRunning) {
         return;
     }
 
 
+    /*
+       Пока две разные карты
+       сравниваются — блокируем поле.
+    */
+
     if (lockBoard) {
         return;
     }
 
 
-    if (
-        card === firstCard
-    ) {
+    /*
+       Нельзя нажать ту же карту дважды.
+    */
+
+    if (card === firstCard) {
         return;
     }
 
 
-    if (
-        card.classList.contains(
-            "matched"
-        )
-    ) {
+    /*
+       Уже найденную пару открывать нельзя.
+    */
+
+    if (card.classList.contains("matched")) {
+        return;
+    }
+
+
+    /*
+       Уже открытую карту повторно
+       тоже не открываем.
+    */
+
+    if (card.classList.contains("open")) {
         return;
     }
 
 
     card.classList.add("open");
 
+    card.setAttribute(
+        "aria-label",
+        "Открытая карточка"
+    );
+
+
+    /*
+       Первая карта.
+    */
 
     if (!firstCard) {
 
@@ -1220,15 +1265,17 @@ function flipCard(card) {
     }
 
 
+    /*
+       Вторая карта.
+    */
+
     secondCard = card;
 
     moves++;
 
 
-    document.getElementById(
-        "moves"
-    ).textContent =
-        moves;
+    movesElement.textContent =
+        String(moves);
 
 
     checkMatch();
@@ -1241,6 +1288,11 @@ function flipCard(card) {
 ===================================== */
 
 function checkMatch() {
+
+    if (!firstCard || !secondCard) {
+        return;
+    }
+
 
     lockBoard = true;
 
@@ -1261,14 +1313,19 @@ function checkMatch() {
         );
 
 
+        firstCard.disabled = true;
+
+        secondCard.disabled = true;
+
+
         matchedPairs++;
 
 
-        resetCards();
+        resetSelectedCards();
 
 
         if (
-            matchedPairs ===
+            matchedPairs >=
             settings[difficulty].pairs
         ) {
 
@@ -1276,33 +1333,60 @@ function checkMatch() {
 
         }
 
-    } else {
-
-        setTimeout(function() {
-
-            firstCard.classList.remove(
-                "open"
-            );
-
-            secondCard.classList.remove(
-                "open"
-            );
-
-
-            resetCards();
-
-        }, 750);
-
+        return;
     }
+
+
+    /*
+       Если карты не совпали,
+       через небольшую задержку закрываем их.
+    */
+
+    setTimeout(
+        function() {
+
+            if (firstCard) {
+
+                firstCard.classList.remove(
+                    "open"
+                );
+
+                firstCard.setAttribute(
+                    "aria-label",
+                    "Закрытая карточка"
+                );
+
+            }
+
+
+            if (secondCard) {
+
+                secondCard.classList.remove(
+                    "open"
+                );
+
+                secondCard.setAttribute(
+                    "aria-label",
+                    "Закрытая карточка"
+                );
+
+            }
+
+
+            resetSelectedCards();
+
+        },
+        750
+    );
 
 }
 
 
 /* =====================================
-   СБРОС ВЫБРАННЫХ КАРТОЧЕК
+   СБРОС ВЫБРАННЫХ КАРТ
 ===================================== */
 
-function resetCards() {
+function resetSelectedCards() {
 
     firstCard = null;
 
@@ -1333,10 +1417,8 @@ function startTimer() {
             seconds++;
 
 
-            document.getElementById(
-                "time"
-            ).textContent =
-                seconds;
+            timeElement.textContent =
+                String(seconds);
 
         },
         1000
@@ -1347,7 +1429,7 @@ function startTimer() {
 
 function stopTimer() {
 
-    if (timer) {
+    if (timer !== null) {
 
         clearInterval(timer);
 
@@ -1359,23 +1441,44 @@ function stopTimer() {
 
 
 /* =====================================
-   КОНЕЦ ИГРЫ
+   ОКОНЧАНИЕ ИГРЫ
 ===================================== */
 
 function finishGame() {
 
+    /*
+       Сначала останавливаем игру,
+       чтобы пользователь не мог нажимать карты.
+    */
+
     gameRunning = false;
 
+    lockBoard = true;
+
     stopTimer();
+
+
+    /*
+       Отключаем все карточки.
+    */
+
+    boardElement
+        .querySelectorAll(".memory-card")
+        .forEach(function(card) {
+
+            card.disabled = true;
+
+        });
 
 
     const oldRecord =
         getRecord(difficulty);
 
 
-    let message =
-        "🎉 Победа! Все пары найдены!";
-
+    /*
+       Меньшее количество ходов —
+       лучший результат.
+    */
 
     if (
         oldRecord === 0 ||
@@ -1388,16 +1491,17 @@ function finishGame() {
         );
 
 
-        message =
+        messageElement.textContent =
             "🏆 Новый рекорд! " +
             moves +
             " ходов за " +
             seconds +
             " сек.";
 
+
     } else {
 
-        message =
+        messageElement.textContent =
             "🎉 Победа! " +
             moves +
             " ходов за " +
@@ -1407,15 +1511,7 @@ function finishGame() {
     }
 
 
-    document.getElementById(
-        "message"
-    ).textContent =
-        message;
-
-
-    document.getElementById(
-        "message"
-    ).className =
+    messageElement.className =
         "message success";
 
 
@@ -1435,54 +1531,49 @@ function resetBoard() {
 
     gameRunning = false;
 
+    lockBoard = false;
+
+
     moves = 0;
 
     matchedPairs = 0;
 
     seconds = 0;
 
+
     firstCard = null;
 
     secondCard = null;
 
-    lockBoard = false;
+    cards = [];
 
 
-    document.getElementById(
-        "moves"
-    ).textContent =
+    movesElement.textContent =
         "0";
 
 
-    document.getElementById(
-        "time"
-    ).textContent =
+    timeElement.textContent =
         "0";
 
 
-    document.getElementById(
-        "message"
-    ).textContent =
+    messageElement.textContent =
         "Нажми «Начать игру»";
 
 
-    document.getElementById(
-        "message"
-    ).className =
+    messageElement.className =
         "message";
 
 
-    document.getElementById(
-        "memoryBoard"
-    ).innerHTML = "";
+    boardElement.innerHTML = "";
 
 
-    document.getElementById(
-        "memoryBoard"
-    ).style.gridTemplateColumns =
+    boardElement.style.gridTemplateColumns =
         "repeat(" +
         settings[difficulty].columns +
-        ", 1fr)";
+        ", minmax(0, 1fr))";
+
+
+    updateRecords();
 
 }
 
@@ -1491,84 +1582,106 @@ function resetBoard() {
    НАСТРОЙКИ EASYFLOW
 ===================================== */
 
+function applyEasyFlowSettings() {
+
+    /*
+       ЦВЕТ
+    */
+
+    const color =
+        localStorage.getItem(
+            "easyflow_color"
+        );
+
+
+    if (color) {
+
+        document.documentElement
+            .style
+            .setProperty(
+                "--main",
+                color
+            );
+
+    }
+
+
+    /*
+       ШРИФТ
+    */
+
+    const font =
+        localStorage.getItem(
+            "easyflow_font"
+        );
+
+
+    if (font) {
+
+        document.body.style.fontFamily =
+            font;
+
+    }
+
+
+    /*
+       СКРУГЛЕНИЕ
+    */
+
+    const radius =
+        localStorage.getItem(
+            "easyflow_radius"
+        );
+
+
+    if (radius) {
+
+        document.documentElement
+            .style
+            .setProperty(
+                "--radius",
+                radius
+            );
+
+    }
+
+
+    /*
+       ТЕМА
+    */
+
+    const theme =
+        localStorage.getItem(
+            "easyflow_theme"
+        );
+
+
+    if (theme === "dark") {
+
+        document.body.classList.add(
+            "dark"
+        );
+
+    } else {
+
+        document.body.classList.remove(
+            "dark"
+        );
+
+    }
+
+}
+
+
+/* =====================================
+   ЗАПУСК
+===================================== */
+
 window.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        /* ЦВЕТ */
-
-        const color =
-            localStorage.getItem(
-                "easyflow_color"
-            );
-
-
-        if (color) {
-
-            document
-                .documentElement
-                .style
-                .setProperty(
-                    "--main",
-                    color
-                );
-
-        }
-
-
-        /* ШРИФТ */
-
-        const font =
-            localStorage.getItem(
-                "easyflow_font"
-            );
-
-
-        if (font) {
-
-            document.body.style.fontFamily =
-                font;
-
-        }
-
-
-        /* СКРУГЛЕНИЕ */
-
-        const radius =
-            localStorage.getItem(
-                "easyflow_radius"
-            );
-
-
-        if (radius) {
-
-            document
-                .documentElement
-                .style
-                .setProperty(
-                    "--radius",
-                    radius
-                );
-
-        }
-
-
-        /* ТЕМА */
-
-        const theme =
-            localStorage.getItem(
-                "easyflow_theme"
-            );
-
-
-        if (theme === "dark") {
-
-            document.body.classList.add(
-                "dark"
-            );
-
-        }
-
+        applyEasyFlowSettings();
 
         updateRecords();
 
@@ -1580,4 +1693,5 @@ window.addEventListener(
 </script>
 
 </body>
+
 </html>
