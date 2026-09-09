@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>EasyFlow — Игра на память</title>
+
+<style>
+
+/* =========================
+   ОСНОВНЫЕ НАСТРОЙКИ
+========================= */
+
+:root {
+    --main: #2563eb;
+    --background: #f4f7fb;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #64748b;
+    --border: #e5e7eb;
+    --radius: 16px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* =========================
+   ТЁМНАЯ ТЕМА
+========================= */
+
+body.dark {
+    --background: #0f172a;
+    --card: #1e293b;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --border: #334155;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 5%;
+}
+
+.header {
+    max-width: 1000px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    color: var(--main);
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back {
+    color: var(--main);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+    padding: 35px 20px;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.title h1 {
+    color: var(--main);
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.title p {
+    color: var(--muted);
+    font-size: 17px;
+}
+
+/* =========================
+   СЛОЖНОСТЬ
+========================= */
+
+.difficulty {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    padding: 20px;
+    margin-bottom: 20px;
+
+    text-align: center;
+}
+
+.difficulty h2 {
+    margin-bottom: 15px;
+}
+
+.levels {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.level {
+    border: 2px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+
+    padding: 12px 20px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.level:hover {
+    transform: translateY(-2px);
+}
+
+.level.active.easy {
+    border-color: #22c55e;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.level.active.medium {
+    border-color: #eab308;
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.level.active.hard {
+    border-color: #ef4444;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* =========================
+   СТАТИСТИКА
+========================= */
+
+.info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.stat {
+    min-width: 125px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 13px 20px;
+
+    text-align: center;
+}
+
+.stat span {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+}
+
+.stat strong {
+    font-size: 23px;
+}
+
+/* =========================
+   ИГРА
+========================= */
+
+.game-box {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 15px 35px
+        rgba(0,0,0,0.08);
+}
+
+/* =========================
+   ПОЛЕ
+========================= */
+
+.memory-board {
+
+    width: 100%;
+
+    max-width: 720px;
+
+    margin: auto;
+
+    display: grid;
+
+    gap: 12px;
+
+    justify-content: center;
+
+    perspective: 1000px;
+}
+
+/* =========================
+   КАРТОЧКА
+========================= */
+
+.memory-card {
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    min-width: 0;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    padding: 0;
+
+    perspective: 800px;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.card-inner {
+
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    transition:
+        transform 0.45s;
+
+    transform-style: preserve-3d;
+}
+
+.memory-card.open .card-inner,
+.memory-card.matched .card-inner {
+
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    backface-visibility: hidden;
+
+    -webkit-backface-visibility: hidden;
+
+    border: 2px solid var(--border);
+}
+
+/* =========================
+   ЗАКРЫТАЯ КАРТА
+========================= */
+
+.card-front {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--main),
+            #1d4ed8
+        );
+
+    color: white;
+
+    font-size: clamp(22px, 5vw, 38px);
+
+    box-shadow:
+        0 5px 12px
+        rgba(0,0,0,0.12);
+}
+
+.card-front::after {
+    content: "?";
+
+    font-weight: bold;
+
+    opacity: 0.9;
+}
+
+/* =========================
+   ОТКРЫТАЯ КАРТА
+========================= */
+
+.card-back {
+
+    background: var(--card);
+
+    transform: rotateY(180deg);
+
+    font-size: clamp(28px, 7vw, 48px);
+
+    box-shadow:
+        0 5px 15px
+        rgba(0,0,0,0.08);
+}
+
+.memory-card.matched .card-back {
+
+    border-color: #22c55e;
+
+    background: #dcfce7;
+
+}
+
+/* =========================
+   КНОПКИ
+========================= */
+
+.buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+.main-button {
+
+    border: none;
+
+    background: var(--main);
+
+    color: white;
+
+    padding: 13px 23px;
+
+    border-radius: 11px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    font-size: 16px;
+
+    transition: 0.2s;
+}
+
+.main-button:hover {
+
+    background: #1d4ed8;
+
+    transform: translateY(-2px);
+}
+
+/* =========================
+   СООБЩЕНИЕ
+========================= */
+
+.message {
+
+    min-height: 28px;
+
+    text-align: center;
+
+    margin-top: 20px;
+
+    font-weight: bold;
+
+    font-size: 18px;
+}
+
+.message.success {
+    color: #16a34a;
+}
+
+.message.error {
+    color: #dc2626;
+}
+
+/* =========================
+   РЕКОРДЫ
+========================= */
+
+.records {
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-top: 30px;
+}
+
+.records h2 {
+
+    text-align: center;
+
+    margin-bottom: 18px;
+}
+
+.record-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 12px 5px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.record-row:last-child {
+    border-bottom: none;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    margin-top: 40px;
+
+    background: #111827;
+
+    color: #9ca3af;
+
+    text-align: center;
+
+    padding: 25px;
+}
+
+/* =========================
+   МОБИЛЬНАЯ ВЕРСИЯ
+========================= */
+
+@media (max-width: 600px) {
+
+    .header {
+
+        flex-direction: column;
+
+    }
+
+    .container {
+
+        padding:
+            25px 10px;
+
+    }
+
+    .title h1 {
+
+        font-size: 32px;
+
+    }
+
+    .game-box {
+
+        padding: 15px 10px;
+
+    }
+
+    .memory-board {
+
+        gap: 7px;
+
+    }
+
+    .card-front,
+    .card-back {
+
+        border-radius: 9px;
+
+    }
+
+    .stat {
+
+        min-width: 95px;
+
+        padding:
+            11px 12px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+<div class="header">
+
+<a
+    href="index.html"
+    class="logo"
+>
+    EasyFlow
+</a>
+
+<a
+    href="games.html"
+    class="back"
+>
+    ← Игры
+</a>
+
+</div>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
+
+
+<div class="title">
+
+<h1>
+    🧠 Игра на память
+</h1>
+
+<p>
+    Открывай карточки и находи одинаковые пары!
+</p>
+
+</div>
+
+
+<!-- =========================
+     СЛОЖНОСТЬ
+========================= -->
+
+<div class="difficulty">
+
+<h2>
+    Выбери сложность
+</h2>
+
+<div class="levels">
+
+<button
+    class="level easy active"
+    id="easyButton"
+    onclick="selectDifficulty('easy')"
+>
+    🟢 Лёгкий
+</button>
+
+<button
+    class="level medium"
+    id="mediumButton"
+    onclick="selectDifficulty('medium')"
+>
+    🟡 Средний
+</button>
+
+<button
+    class="level hard"
+    id="hardButton"
+    onclick="selectDifficulty('hard')"
+>
+    🔴 Сложный
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     СТАТИСТИКА
+========================= -->
+
+<div class="info">
+
+<div class="stat">
+
+<span>
+    Ходы
+</span>
+
+<strong id="moves">
+    0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>
+    ⏱️ Время
+</span>
+
+<strong id="time">
+    0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>
+    🏆 Рекорд
+</span>
+
+<strong id="record">
+    0
+</strong>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     ИГРА
+========================= -->
+
+<div class="game-box">
+
+
+<div
+    id="memoryBoard"
+    class="memory-board"
+>
+</div>
+
+
+<div
+    id="message"
+    class="message"
+>
+    Нажми «Начать игру»
+</div>
+
+
+<div class="buttons">
+
+<button
+    class="main-button"
+    onclick="startGame()"
+>
+    ▶️ Начать игру
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     РЕКОРДЫ
+========================= -->
+
+<div class="records">
+
+<h2>
+    🏆 Мои рекорды
+</h2>
+
+
+<div class="record-row">
+
+<span>
+    🟢 Лёгкий
+</span>
+
+<strong id="easyRecord">
+    0
+</strong>
+
+</div>
+
+
+<div class="record-row">
+
+<span>
+    🟡 Средний
+</span>
+
+<strong id="mediumRecord">
+    0
+</strong>
+
+</div>
+
+
+<div class="record-row">
+
+<span>
+    🔴 Сложный
+</span>
+
+<strong id="hardRecord">
+    0
+</strong>
+
+</div>
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+© 2026 EasyFlow — Игра на память
+
+</footer>
+
+
+<script>
+
+/* =====================================
+   НАСТРОЙКИ
+===================================== */
+
+const settings = {
+
+    easy: {
+        pairs: 6,
+        columns: 4
+    },
+
+    medium: {
+        pairs: 8,
+        columns: 4
+    },
+
+    hard: {
+        pairs: 12,
+        columns: 6
+    }
+
+};
+
+
+/* =====================================
+   ЭМОДЗИ
+===================================== */
+
+const symbols = [
+
+    "🍎",
+    "🍌",
+    "🍇",
+    "🍉",
+    "🍓",
+    "🍒",
+    "🍍",
+    "🥝",
+    "🍋",
+    "🥥",
+    "🍑",
+    "🍊",
+    "🥕",
+    "🌽",
+    "🍔",
+    "🍕",
+    "🍩",
+    "🍪",
+    "⚽",
+    "🏀",
+    "🎮",
+    "🚗",
+    "✈️",
+    "🚀"
+
+];
+
+
+/* =====================================
+   ПЕРЕМЕННЫЕ
+===================================== */
+
+let difficulty = "easy";
+
+let cards = [];
+
+let firstCard = null;
+
+let secondCard = null;
+
+let lockBoard = false;
+
+let moves = 0;
+
+let matchedPairs = 0;
+
+let gameRunning = false;
+
+let seconds = 0;
+
+let timer = null;
+
+
+/* =====================================
+   РЕКОРДЫ
+===================================== */
+
+function getRecord(level) {
+
+    return Number(
+
+        localStorage.getItem(
+            "easyflow_memory_record_" + level
+        ) || 0
+
+    );
+
+}
+
+
+function saveRecord(level, value) {
+
+    localStorage.setItem(
+
+        "easyflow_memory_record_" + level,
+
+        value
+
+    );
+
+}
+
+
+function updateRecords() {
+
+    document.getElementById(
+        "easyRecord"
+    ).textContent =
+        getRecord("easy");
+
+
+    document.getElementById(
+        "mediumRecord"
+    ).textContent =
+        getRecord("medium");
+
+
+    document.getElementById(
+        "hardRecord"
+    ).textContent =
+        getRecord("hard");
+
+
+    document.getElementById(
+        "record"
+    ).textContent =
+        getRecord(difficulty);
+
+}
+
+
+/* =====================================
+   ВЫБОР СЛОЖНОСТИ
+===================================== */
+
+function selectDifficulty(level) {
+
+    if (gameRunning) {
+
+        alert(
+            "Сначала закончи текущую игру."
+        );
+
+        return;
+
+    }
+
+
+    difficulty = level;
+
+
+    document
+        .querySelectorAll(".level")
+        .forEach(function(button) {
+
+            button.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    document
+        .getElementById(
+            level + "Button"
+        )
+        .classList.add("active");
+
+
+    updateRecords();
+
+    resetBoard();
+
+}
+
+
+/* =====================================
+   ПЕРЕМЕШИВАНИЕ
+===================================== */
+
+function shuffle(array) {
+
+    const result = [...array];
+
+    for (
+        let i = result.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() *
+                (i + 1)
+            );
+
+        [
+            result[i],
+            result[j]
+        ] = [
+            result[j],
+            result[i]
+        ];
+
+    }
+
+    return result;
+
+}
+
+
+/* =====================================
+   НАЧАЛО ИГРЫ
+===================================== */
+
+function startGame() {
+
+    stopTimer();
+
+
+    moves = 0;
+
+    matchedPairs = 0;
+
+    seconds = 0;
+
+    firstCard = null;
+
+    secondCard = null;
+
+    lockBoard = false;
+
+    gameRunning = true;
+
+
+    document.getElementById(
+        "moves"
+    ).textContent = "0";
+
+
+    document.getElementById(
+        "time"
+    ).textContent = "0";
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "Найди все одинаковые пары!";
+
+
+    document.getElementById(
+        "message"
+    ).className =
+        "message";
+
+
+    createBoard();
+
+    startTimer();
+
+}
+
+
+/* =====================================
+   СОЗДАНИЕ ПОЛЯ
+===================================== */
+
+function createBoard() {
+
+    const board =
+        document.getElementById(
+            "memoryBoard"
+        );
+
+
+    board.innerHTML = "";
+
+
+    const pairCount =
+        settings[difficulty].pairs;
+
+
+    const selectedSymbols =
+        shuffle(symbols)
+        .slice(0, pairCount);
+
+
+    cards = shuffle([
+
+        ...selectedSymbols,
+
+        ...selectedSymbols
+
+    ]);
+
+
+    board.style.gridTemplateColumns =
+        "repeat(" +
+        settings[difficulty].columns +
+        ", 1fr)";
+
+
+    cards.forEach(function(symbol, index) {
+
+        const card =
+            document.createElement(
+                "button"
+            );
+
+
+        card.className =
+            "memory-card";
+
+
+        card.setAttribute(
+            "type",
+            "button"
+        );
+
+
+        card.dataset.symbol =
+            symbol;
+
+
+        card.dataset.index =
+            index;
+
+
+        card.innerHTML = `
+
+            <div class="card-inner">
+
+                <div class="card-front"></div>
+
+                <div class="card-back">
+                    ${symbol}
+                </div>
+
+            </div>
+
+        `;
+
+
+        card.addEventListener(
+            "click",
+            function() {
+
+                flipCard(card);
+
+            }
+        );
+
+
+        board.appendChild(card);
+
+    });
+
+}
+
+
+/* =====================================
+   ОТКРЫТИЕ КАРТЫ
+===================================== */
+
+function flipCard(card) {
+
+    if (!gameRunning) {
+        return;
+    }
+
+
+    if (lockBoard) {
+        return;
+    }
+
+
+    if (
+        card === firstCard
+    ) {
+        return;
+    }
+
+
+    if (
+        card.classList.contains(
+            "matched"
+        )
+    ) {
+        return;
+    }
+
+
+    card.classList.add("open");
+
+
+    if (!firstCard) {
+
+        firstCard = card;
+
+        return;
+
+    }
+
+
+    secondCard = card;
+
+    moves++;
+
+
+    document.getElementById(
+        "moves"
+    ).textContent =
+        moves;
+
+
+    checkMatch();
+
+}
+
+
+/* =====================================
+   ПРОВЕРКА ПАРЫ
+===================================== */
+
+function checkMatch() {
+
+    lockBoard = true;
+
+
+    const isMatch =
+        firstCard.dataset.symbol ===
+        secondCard.dataset.symbol;
+
+
+    if (isMatch) {
+
+        firstCard.classList.add(
+            "matched"
+        );
+
+        secondCard.classList.add(
+            "matched"
+        );
+
+
+        matchedPairs++;
+
+
+        resetCards();
+
+
+        if (
+            matchedPairs ===
+            settings[difficulty].pairs
+        ) {
+
+            finishGame();
+
+        }
+
+    } else {
+
+        setTimeout(function() {
+
+            firstCard.classList.remove(
+                "open"
+            );
+
+            secondCard.classList.remove(
+                "open"
+            );
+
+
+            resetCards();
+
+        }, 750);
+
+    }
+
+}
+
+
+/* =====================================
+   СБРОС ВЫБРАННЫХ КАРТОЧЕК
+===================================== */
+
+function resetCards() {
+
+    firstCard = null;
+
+    secondCard = null;
+
+    lockBoard = false;
+
+}
+
+
+/* =====================================
+   ТАЙМЕР
+===================================== */
+
+function startTimer() {
+
+    stopTimer();
+
+
+    timer = setInterval(
+        function() {
+
+            if (!gameRunning) {
+                return;
+            }
+
+
+            seconds++;
+
+
+            document.getElementById(
+                "time"
+            ).textContent =
+                seconds;
+
+        },
+        1000
+    );
+
+}
+
+
+function stopTimer() {
+
+    if (timer) {
+
+        clearInterval(timer);
+
+        timer = null;
+
+    }
+
+}
+
+
+/* =====================================
+   КОНЕЦ ИГРЫ
+===================================== */
+
+function finishGame() {
+
+    gameRunning = false;
+
+    stopTimer();
+
+
+    const oldRecord =
+        getRecord(difficulty);
+
+
+    let message =
+        "🎉 Победа! Все пары найдены!";
+
+
+    if (
+        oldRecord === 0 ||
+        moves < oldRecord
+    ) {
+
+        saveRecord(
+            difficulty,
+            moves
+        );
+
+
+        message =
+            "🏆 Новый рекорд! " +
+            moves +
+            " ходов за " +
+            seconds +
+            " сек.";
+
+    } else {
+
+        message =
+            "🎉 Победа! " +
+            moves +
+            " ходов за " +
+            seconds +
+            " сек.";
+
+    }
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        message;
+
+
+    document.getElementById(
+        "message"
+    ).className =
+        "message success";
+
+
+    updateRecords();
+
+}
+
+
+/* =====================================
+   СБРОС ПОЛЯ
+===================================== */
+
+function resetBoard() {
+
+    stopTimer();
+
+
+    gameRunning = false;
+
+    moves = 0;
+
+    matchedPairs = 0;
+
+    seconds = 0;
+
+    firstCard = null;
+
+    secondCard = null;
+
+    lockBoard = false;
+
+
+    document.getElementById(
+        "moves"
+    ).textContent =
+        "0";
+
+
+    document.getElementById(
+        "time"
+    ).textContent =
+        "0";
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "Нажми «Начать игру»";
+
+
+    document.getElementById(
+        "message"
+    ).className =
+        "message";
+
+
+    document.getElementById(
+        "memoryBoard"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "memoryBoard"
+    ).style.gridTemplateColumns =
+        "repeat(" +
+        settings[difficulty].columns +
+        ", 1fr)";
+
+}
+
+
+/* =====================================
+   НАСТРОЙКИ EASYFLOW
+===================================== */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        /* ЦВЕТ */
+
+        const color =
+            localStorage.getItem(
+                "easyflow_color"
+            );
+
+
+        if (color) {
+
+            document
+                .documentElement
+                .style
+                .setProperty(
+                    "--main",
+                    color
+                );
+
+        }
+
+
+        /* ШРИФТ */
+
+        const font =
+            localStorage.getItem(
+                "easyflow_font"
+            );
+
+
+        if (font) {
+
+            document.body.style.fontFamily =
+                font;
+
+        }
+
+
+        /* СКРУГЛЕНИЕ */
+
+        const radius =
+            localStorage.getItem(
+                "easyflow_radius"
+            );
+
+
+        if (radius) {
+
+            document
+                .documentElement
+                .style
+                .setProperty(
+                    "--radius",
+                    radius
+                );
+
+        }
+
+
+        /* ТЕМА */
+
+        const theme =
+            localStorage.getItem(
+                "easyflow_theme"
+            );
+
+
+        if (theme === "dark") {
+
+            document.body.classList.add(
+                "dark"
+            );
+
+        }
+
+
+        updateRecords();
+
+        resetBoard();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
