@@ -55,6 +55,18 @@
             margin-bottom: 20px;
         }
 
+        /* ФОТО */
+
+        .main-photo {
+            width: 400px;
+            max-width: 90%;
+            height: auto;
+            margin: 10px auto 30px;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
         .hero p {
             font-size: 20px;
             color: #666;
@@ -81,17 +93,26 @@
 <body>
 
 <header>
-    <div class="logo">EasyFlow</div>
+
+    <div class="logo">
+        EasyFlow
+    </div>
 
     <nav>
         <a href="#home">Главная</a>
         <a href="#about">О нас</a>
         <a href="#contacts">Контакты</a>
     </nav>
+
 </header>
 
+
 <section class="hero" id="home">
+
     <h1>EasyFlow</h1>
+
+    <!-- ТВОЯ ФОТОГРАФИЯ -->
+    <img src="photo.jpg" alt="Фото EasyFlow" class="main-photo">
 
     <p>
         Добро пожаловать на мой сайт!
@@ -100,25 +121,40 @@
     <a href="#about" class="button">
         Начать
     </a>
+
 </section>
 
+
 <section id="about" style="padding:80px 20px; text-align:center;">
-    <h2>О сайте</h2>
+
+    <h2>
+        О сайте
+    </h2>
+
     <p style="margin-top:20px;">
         Здесь я буду размещать всё, что захочу.
     </p>
+
 </section>
 
+
 <section id="contacts" style="padding:80px 20px; text-align:center;">
-    <h2>Контакты</h2>
+
+    <h2>
+        Контакты
+    </h2>
+
     <p style="margin-top:20px;">
         Здесь будут мои контакты.
     </p>
+
 </section>
+
 
 <footer>
     © 2026 EasyFlow
 </footer>
+
 
 </body>
 </html>
