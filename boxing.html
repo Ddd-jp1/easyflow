@@ -2,307 +2,671 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>EasyFlow — 3D Бокс</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>EasyFlow — Boxing</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    overflow: hidden;
-    background: #05070b;
-    font-family: Arial, sans-serif;
-    color: white;
-    touch-action: none;
+:root{
+    --red:#e11d48;
+    --red2:#be123c;
+    --bg:#090b10;
+    --panel:#11151d;
+    --panel2:#171c26;
+    --border:#2b3340;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --green:#22c55e;
+    --yellow:#f59e0b;
 }
 
-#game {
-    position: fixed;
-    inset: 0;
+body{
+    font-family:Arial,sans-serif;
+    background:
+        radial-gradient(circle at top,#242b38 0,#090b10 55%);
+    color:var(--text);
+    min-height:100vh;
 }
 
-canvas {
-    display: block;
+/* HEADER */
+
+header{
+    background:rgba(10,13,18,.95);
+    border-bottom:1px solid var(--border);
+    padding:15px 20px;
+    position:sticky;
+    top:0;
+    z-index:20;
 }
 
-/* =========================
-   ВЕРХНИЙ ИНТЕРФЕЙС
-========================= */
-
-.hud {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    z-index: 10;
-    pointer-events: none;
+.header{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
 }
 
-.top {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
+.logo{
+    color:#fff;
+    font-size:26px;
+    font-weight:bold;
 }
 
-.fighter {
-    width: 42%;
+.money{
+    background:#172033;
+    border:1px solid #334155;
+    padding:9px 15px;
+    border-radius:12px;
+    color:#facc15;
+    font-weight:bold;
 }
 
-.name {
-    font-weight: bold;
-    margin-bottom: 5px;
-    text-shadow: 0 2px 5px #000;
+/* MAIN */
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:25px 15px 50px;
 }
 
-.bar {
-    height: 18px;
-    background: rgba(0,0,0,.65);
-    border: 2px solid white;
-    border-radius: 20px;
-    overflow: hidden;
+.screen{
+    display:none;
 }
 
-.health {
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(90deg,#22c55e,#16a34a);
-    transition: width .2s;
+.screen.active{
+    display:block;
 }
 
-.enemy-health {
-    background: linear-gradient(90deg,#ef4444,#b91c1c);
+/* TITLE */
+
+.title{
+    text-align:center;
+    margin-bottom:25px;
 }
 
-.stamina {
-    height: 9px;
-    margin-top: 5px;
-    background: #facc15;
-    border-radius: 10px;
-    width: 100%;
+.title h1{
+    font-size:38px;
+    margin-bottom:8px;
+    color:#fff;
 }
 
-.score {
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
+.title p{
+    color:var(--muted);
 }
 
-/* =========================
-   КОМБО
-========================= */
+/* BUTTON */
 
-.combo {
-    margin: 15px auto;
-    width: fit-content;
-    min-height: 38px;
-    padding: 9px 16px;
-    border-radius: 20px;
-    background: rgba(0,0,0,.65);
-    font-weight: bold;
-    color: #facc15;
-    text-align: center;
+button{
+    font-family:inherit;
 }
 
-.message {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 8px;
-    text-shadow: 0 3px 8px #000;
+.main-btn{
+    border:0;
+    background:var(--red);
+    color:#fff;
+    padding:13px 22px;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
 }
 
-/* =========================
-   МЕНЮ
-========================= */
-
-.menu {
-    position: fixed;
-    inset: 0;
-    z-index: 20;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,.82);
+.main-btn:hover{
+    background:var(--red2);
+    transform:translateY(-2px);
 }
 
-.menu-box {
-    width: min(92%, 500px);
-    background: #111827;
-    border: 1px solid #334155;
-    border-radius: 22px;
-    padding: 30px 22px;
-    text-align: center;
-    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+.secondary{
+    background:#263142;
 }
 
-.menu h1 {
-    color: #60a5fa;
-    font-size: 35px;
-    margin-bottom: 10px;
+.secondary:hover{
+    background:#344155;
 }
 
-.menu p {
-    color: #94a3b8;
-    margin-bottom: 22px;
-    line-height: 1.5;
+/* FIGHTERS */
+
+.fighters{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
 }
 
-.settings-title {
-    margin: 15px 0 10px;
-    font-weight: bold;
+.fighter{
+    background:linear-gradient(145deg,#171d27,#0f131a);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+    transition:.2s;
 }
 
-.graphics {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 8px;
+.fighter:hover{
+    transform:translateY(-5px);
+    border-color:#64748b;
 }
 
-.graphics button,
-.start {
-    border: 0;
-    padding: 13px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: bold;
+.avatar{
+    width:130px;
+    height:130px;
+    margin:0 auto 15px;
+    border-radius:50%;
+    background:
+        radial-gradient(circle at 50% 28%,#dca77d 0 17%,transparent 18%),
+        radial-gradient(circle at 50% 42%,#c88c67 0 29%,transparent 30%),
+        radial-gradient(circle at 50% 22%,#17120f 0 20%,transparent 21%),
+        linear-gradient(#303846,#11151d);
+    border:4px solid #374151;
+    position:relative;
+    overflow:hidden;
 }
 
-.graphics button {
-    background: #1e293b;
-    color: white;
+.avatar:before{
+    content:"";
+    position:absolute;
+    width:15px;
+    height:7px;
+    background:#17120f;
+    border-radius:50%;
+    left:34px;
+    top:54px;
+    box-shadow:46px 0 #17120f;
 }
 
-.graphics button.active {
-    background: #2563eb;
+.avatar:after{
+    content:"";
+    position:absolute;
+    width:45px;
+    height:8px;
+    background:#6b3f2d;
+    border-radius:50%;
+    left:39px;
+    bottom:34px;
 }
 
-.start {
-    width: 100%;
-    margin-top: 20px;
-    background: #16a34a;
-    color: white;
-    font-size: 18px;
+.fighter h2{
+    margin-bottom:5px;
 }
 
-.start:hover {
-    background: #15803d;
+.country{
+    color:var(--muted);
+    margin-bottom:12px;
 }
 
-/* =========================
-   УПРАВЛЕНИЕ
-========================= */
-
-.controls {
-    position: fixed;
-    bottom: 20px;
-    left: 15px;
-    right: 15px;
-    z-index: 15;
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
+.style{
+    color:#facc15;
+    font-weight:bold;
+    margin-bottom:15px;
 }
 
-.left-controls,
-.right-controls {
-    display: flex;
-    gap: 9px;
+.stats{
+    text-align:left;
+    margin-bottom:15px;
 }
 
-.control {
-    width: 67px;
-    height: 67px;
-    border: 2px solid rgba(255,255,255,.25);
-    border-radius: 50%;
-    background: rgba(15,23,42,.85);
-    color: white;
-    font-size: 27px;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: none;
+.stat{
+    margin:7px 0;
 }
 
-.control:active {
-    background: #2563eb;
-    transform: scale(.94);
+.stat-top{
+    display:flex;
+    justify-content:space-between;
+    color:#cbd5e1;
+    font-size:13px;
+    margin-bottom:4px;
 }
 
-.left-controls .control {
-    font-size: 23px;
+.bar{
+    height:7px;
+    background:#293241;
+    border-radius:20px;
+    overflow:hidden;
 }
 
-.hint {
-    position: fixed;
-    bottom: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgba(255,255,255,.55);
-    font-size: 12px;
-    z-index: 10;
-    white-space: nowrap;
+.fill{
+    height:100%;
+    background:linear-gradient(90deg,#ef4444,#f97316);
+    border-radius:20px;
 }
 
-/* =========================
-   GAME OVER
-========================= */
-
-.game-over {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 30;
-    background: rgba(0,0,0,.75);
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+.price{
+    color:#facc15;
+    margin-bottom:12px;
+    font-weight:bold;
 }
 
-.game-over-box {
-    background: #111827;
-    padding: 35px;
-    border-radius: 22px;
-    width: min(90%,400px);
+.locked{
+    opacity:.65;
 }
 
-.game-over h2 {
-    font-size: 35px;
-    margin-bottom: 15px;
+/* GAME */
+
+.game-layout{
+    display:grid;
+    grid-template-columns:1fr 300px;
+    gap:18px;
 }
 
-.restart {
-    border: 0;
-    background: #2563eb;
-    color: white;
-    padding: 14px 25px;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: bold;
-    margin-top: 20px;
+.arena{
+    position:relative;
+    min-height:620px;
+    border:2px solid #303947;
+    border-radius:20px;
+    overflow:hidden;
+    background:
+        linear-gradient(rgba(10,12,18,.15),rgba(10,12,18,.55)),
+        radial-gradient(circle at 50% 20%,#4b5563,#171b23 45%,#080a0f);
 }
 
-@media(max-width:600px) {
+/* lights */
 
-    .control {
-        width: 58px;
-        height: 58px;
-        font-size: 23px;
+.arena:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at 15% 0,#fff8 0,transparent 15%),
+        radial-gradient(circle at 50% 0,#fff8 0,transparent 17%),
+        radial-gradient(circle at 85% 0,#fff8 0,transparent 15%);
+    pointer-events:none;
+}
+
+.rope{
+    position:absolute;
+    left:8%;
+    right:8%;
+    height:4px;
+    background:#dc2626;
+    box-shadow:0 70px #fff,0 140px #dc2626;
+    top:40%;
+    opacity:.8;
+}
+
+.ring-floor{
+    position:absolute;
+    left:7%;
+    right:7%;
+    bottom:0;
+    height:34%;
+    background:
+        linear-gradient(150deg,#b8c0c9,#68717d);
+    transform:perspective(500px) rotateX(55deg);
+    transform-origin:bottom;
+}
+
+/* FIGHTERS IN ARENA */
+
+.fighter-body{
+    position:absolute;
+    bottom:125px;
+    width:125px;
+    height:250px;
+    transition:.18s;
+}
+
+.player{
+    left:20%;
+}
+
+.enemy{
+    right:20%;
+    transform:scaleX(-1);
+}
+
+.head{
+    position:absolute;
+    width:62px;
+    height:70px;
+    border-radius:45%;
+    background:#bd825d;
+    left:31px;
+    top:0;
+    border:3px solid #7c4a35;
+}
+
+.hair{
+    position:absolute;
+    width:60px;
+    height:28px;
+    background:#17120f;
+    border-radius:50% 50% 20% 20%;
+    left:1px;
+    top:-3px;
+}
+
+.body-shape{
+    position:absolute;
+    width:100px;
+    height:125px;
+    left:12px;
+    top:62px;
+    background:#2563eb;
+    clip-path:polygon(18% 0,82% 0,100% 100%,0 100%);
+}
+
+.enemy .body-shape{
+    background:#dc2626;
+}
+
+.arm{
+    position:absolute;
+    width:28px;
+    height:110px;
+    background:#bd825d;
+    border-radius:20px;
+    top:70px;
+    transform-origin:top;
+}
+
+.arm.left{
+    left:0;
+    transform:rotate(25deg);
+}
+
+.arm.right{
+    right:0;
+    transform:rotate(-25deg);
+}
+
+.glove{
+    position:absolute;
+    width:42px;
+    height:35px;
+    border-radius:50%;
+    background:#ef4444;
+    border:3px solid #991b1b;
+    bottom:-10px;
+    left:-7px;
+}
+
+.leg{
+    position:absolute;
+    width:31px;
+    height:105px;
+    background:#222936;
+    top:178px;
+    border-radius:15px;
+}
+
+.leg.left{
+    left:25px;
+}
+
+.leg.right{
+    right:25px;
+}
+
+.health-area{
+    position:absolute;
+    left:20px;
+    right:20px;
+    top:20px;
+    z-index:5;
+}
+
+.health-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+.health-bar{
+    height:15px;
+    background:#252b36;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.health-fill{
+    height:100%;
+    background:linear-gradient(90deg,#22c55e,#84cc16);
+    width:100%;
+    transition:.25s;
+}
+
+.enemy-health{
+    background:linear-gradient(90deg,#ef4444,#f97316);
+}
+
+/* COMBAT EFFECTS */
+
+.damage{
+    position:absolute;
+    color:#facc15;
+    font-size:30px;
+    font-weight:bold;
+    animation:damage .7s forwards;
+    pointer-events:none;
+    z-index:10;
+}
+
+@keyframes damage{
+    from{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+    to{
+        opacity:0;
+        transform:translateY(-70px) scale(1.5);
+    }
+}
+
+.hit{
+    animation:hit .2s;
+}
+
+@keyframes hit{
+    0%{transform:translateX(0)}
+    50%{transform:translateX(18px)}
+    100%{transform:translateX(0)}
+}
+
+.enemy.hit{
+    animation:enemyHit .2s;
+}
+
+@keyframes enemyHit{
+    0%{transform:scaleX(-1) translateX(0)}
+    50%{transform:scaleX(-1) translateX(18px)}
+    100%{transform:scaleX(-1) translateX(0)}
+}
+
+/* CONTROLS */
+
+.controls{
+    background:rgba(15,20,28,.96);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:15px;
+}
+
+.controls h3{
+    text-align:center;
+    margin-bottom:12px;
+}
+
+.control-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+
+.control{
+    min-height:58px;
+    border:1px solid #374151;
+    background:#202938;
+    color:white;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:14px;
+    touch-action:manipulation;
+}
+
+.control:hover{
+    background:#303c50;
+}
+
+.control:active{
+    transform:scale(.96);
+}
+
+.control.attack{
+    background:#991b1b;
+}
+
+.control.defense{
+    background:#1d4ed8;
+}
+
+.control.movement{
+    background:#374151;
+}
+
+.stamina-box{
+    margin:15px 0;
+}
+
+.stamina-bar{
+    height:12px;
+    background:#293241;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.stamina-fill{
+    height:100%;
+    width:100%;
+    background:#f59e0b;
+    transition:.2s;
+}
+
+.combo{
+    background:#0b1017;
+    border:1px solid #273142;
+    border-radius:12px;
+    padding:12px;
+    margin-top:12px;
+    min-height:65px;
+}
+
+.combo-title{
+    color:#facc15;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+#comboText{
+    font-size:13px;
+    color:#cbd5e1;
+    line-height:1.5;
+}
+
+/* BOTTOM GAME */
+
+.game-message{
+    position:absolute;
+    left:50%;
+    top:48%;
+    transform:translate(-50%,-50%);
+    z-index:15;
+    background:rgba(0,0,0,.75);
+    padding:20px 30px;
+    border-radius:16px;
+    text-align:center;
+    display:none;
+}
+
+.game-message.show{
+    display:block;
+}
+
+.game-message h2{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+/* SETTINGS */
+
+.settings{
+    max-width:700px;
+    margin:auto;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:25px;
+}
+
+.setting{
+    margin-bottom:20px;
+}
+
+.setting label{
+    display:block;
+    margin-bottom:8px;
+    color:#cbd5e1;
+    font-weight:bold;
+}
+
+select{
+    width:100%;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#202938;
+    color:white;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+    .fighters{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .message {
-        font-size: 20px;
+    .game-layout{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+    .fighters{
+        grid-template-columns:1fr;
     }
 
-    .score {
-        font-size: 18px;
+    .title h1{
+        font-size:30px;
     }
 
-    .fighter {
-        width: 43%;
+    .arena{
+        min-height:500px;
+    }
+
+    .fighter-body{
+        transform:scale(.78);
+        transform-origin:bottom;
+    }
+
+    .player{
+        left:5%;
+    }
+
+    .enemy{
+        right:5%;
+    }
+
+    .control{
+        min-height:54px;
+        font-size:12px;
     }
 }
 </style>
@@ -310,1824 +674,1547 @@ canvas {
 
 <body>
 
-<div id="game"></div>
+<header>
+    <div class="header">
+        <div class="logo">🥊 EasyFlow Boxing</div>
+        <div class="money">💰 $<span id="money">1000</span></div>
+    </div>
+</header>
 
-<!-- =========================
-     HUD
-========================= -->
+<main class="container">
 
-<div class="hud">
+<!-- ==============================
+     ГЛАВНОЕ МЕНЮ
+============================== -->
 
-    <div class="top">
+<section id="menu" class="screen active">
 
-        <div class="fighter">
+    <div class="title">
+        <h1>🥊 EasyFlow Boxing</h1>
+        <p>Выбери бойца и выходи на ринг!</p>
+    </div>
 
-            <div class="name">🥊 ТЫ</div>
+    <div style="text-align:center;margin-bottom:25px;">
+        <button class="main-btn" onclick="showScreen('fightersScreen')">
+            🥊 Выбрать бойца
+        </button>
 
-            <div class="bar">
-                <div id="playerHealth" class="health"></div>
-            </div>
+        <button class="main-btn secondary" onclick="showScreen('settingsScreen')">
+            ⚙️ Настройки
+        </button>
+    </div>
 
-            <div id="playerStamina" class="stamina"></div>
+    <div class="settings">
+        <h2 style="margin-bottom:15px;text-align:center;">
+            🎮 Управление
+        </h2>
 
+        <p style="color:var(--muted);line-height:1.7;text-align:center;">
+            В бою будет всего несколько кнопок.
+            А комбинации будут выполняться автоматически,
+            если нажимать правильную последовательность ударов.
+        </p>
+
+        <div style="margin-top:20px;text-align:center;">
+            <button class="main-btn" onclick="startFight()">
+                ▶️ Быстрый бой
+            </button>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- ==============================
+     ВЫБОР БОЙЦА
+============================== -->
+
+<section id="fightersScreen" class="screen">
+
+    <div class="title">
+        <h1>🥊 Выбор бойца</h1>
+        <p>Некоторые бойцы открываются за игровую валюту.</p>
+    </div>
+
+    <div class="fighters" id="fightersList"></div>
+
+    <div style="text-align:center;margin-top:25px;">
+        <button class="main-btn secondary" onclick="showScreen('menu')">
+            ← Назад
+        </button>
+    </div>
+
+</section>
+
+
+<!-- ==============================
+     НАСТРОЙКИ
+============================== -->
+
+<section id="settingsScreen" class="screen">
+
+    <div class="title">
+        <h1>⚙️ Настройки</h1>
+    </div>
+
+    <div class="settings">
+
+        <div class="setting">
+            <label>🎨 Качество графики</label>
+            <select id="graphics">
+                <option value="low">Низкое</option>
+                <option value="medium" selected>Среднее</option>
+                <option value="high">Высокое</option>
+                <option value="ultra">Ультра</option>
+            </select>
         </div>
 
-        <div class="score">
-            <span id="round">РАУНД 1</span>
+        <div class="setting">
+            <label>🎮 Управление</label>
+            <select id="controlMode">
+                <option value="buttons">Кнопки</option>
+                <option value="touch">Сенсорное</option>
+                <option value="keyboard">Клавиатура</option>
+            </select>
         </div>
 
-        <div class="fighter">
+        <div class="setting">
+            <label>🔊 Звук</label>
+            <select id="sound">
+                <option value="on">Включён</option>
+                <option value="off">Выключен</option>
+            </select>
+        </div>
 
-            <div class="name" style="text-align:right">
-                СОПЕРНИК 🥊
-            </div>
+        <button class="main-btn" onclick="saveSettings()">
+            💾 Сохранить
+        </button>
 
-            <div class="bar">
-                <div id="enemyHealth"
-                     class="health enemy-health">
+        <button class="main-btn secondary" onclick="showScreen('menu')">
+            ← Назад
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ==============================
+     БОЙ
+============================== -->
+
+<section id="fightScreen" class="screen">
+
+    <div class="title">
+        <h1>🥊 Бой</h1>
+        <p id="fightRound">Раунд 1</p>
+    </div>
+
+    <div class="game-layout">
+
+        <div class="arena" id="arena">
+
+            <div class="health-area">
+
+                <div class="health-row">
+                    <span id="playerName">Игрок</span>
+                    <span id="enemyName">Соперник</span>
                 </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+
+                    <div class="health-bar">
+                        <div id="playerHealth"
+                             class="health-fill"></div>
+                    </div>
+
+                    <div class="health-bar">
+                        <div id="enemyHealth"
+                             class="health-fill enemy-health"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="rope"></div>
+            <div class="ring-floor"></div>
+
+            <!-- ИГРОК -->
+
+            <div id="player" class="fighter-body player">
+
+                <div class="head">
+                    <div class="hair"></div>
+                </div>
+
+                <div class="body-shape"></div>
+
+                <div class="arm left">
+                    <div class="glove"></div>
+                </div>
+
+                <div class="arm right">
+                    <div class="glove"></div>
+                </div>
+
+                <div class="leg left"></div>
+                <div class="leg right"></div>
+
+            </div>
+
+
+            <!-- СОПЕРНИК -->
+
+            <div id="enemy" class="fighter-body enemy">
+
+                <div class="head">
+                    <div class="hair"></div>
+                </div>
+
+                <div class="body-shape"></div>
+
+                <div class="arm left">
+                    <div class="glove"></div>
+                </div>
+
+                <div class="arm right">
+                    <div class="glove"></div>
+                </div>
+
+                <div class="leg left"></div>
+                <div class="leg right"></div>
+
+            </div>
+
+
+            <div id="gameMessage" class="game-message">
+                <h2 id="resultTitle"></h2>
+                <p id="resultText"></p>
+                <br>
+                <button class="main-btn" onclick="newFight()">
+                    🔄 Новый бой
+                </button>
+                <button class="main-btn secondary" onclick="showScreen('menu')">
+                    🏠 Меню
+                </button>
+            </div>
+
+        </div>
+
+
+        <!-- ПАНЕЛЬ УПРАВЛЕНИЯ -->
+
+        <div class="controls">
+
+            <h3>🎮 Управление</h3>
+
+            <div class="stamina-box">
+
+                <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                    <span>⚡ Выносливость</span>
+                    <span id="staminaText">100</span>
+                </div>
+
+                <div class="stamina-bar">
+                    <div id="stamina" class="stamina-fill"></div>
+                </div>
+
+            </div>
+
+
+            <div class="control-grid">
+
+                <button class="control attack"
+                    onclick="action('jab')">
+                    👊 Левый прямой
+                </button>
+
+                <button class="control attack"
+                    onclick="action('cross')">
+                    👊 Правый прямой
+                </button>
+
+                <button class="control attack"
+                    onclick="action('hookL')">
+                    🥊 Левый хук
+                </button>
+
+                <button class="control attack"
+                    onclick="action('hookR')">
+                    🥊 Правый хук
+                </button>
+
+                <button class="control attack"
+                    onclick="action('upperL')">
+                    ⬆️ Левый апперкот
+                </button>
+
+                <button class="control attack"
+                    onclick="action('upperR')">
+                    ⬆️ Правый апперкот
+                </button>
+
+                <button class="control defense"
+                    onclick="action('block')">
+                    🛡️ Блок
+                </button>
+
+                <button class="control defense"
+                    onclick="action('dodgeL')">
+                    ↩️ Уклон влево
+                </button>
+
+                <button class="control defense"
+                    onclick="action('dodgeR')">
+                    ↪️ Уклон вправо
+                </button>
+
+                <button class="control defense"
+                    onclick="action('duck')">
+                    🧎 Нырок
+                </button>
+
+                <button class="control movement"
+                    onclick="action('back')">
+                    ◀️ Шаг назад
+                </button>
+
+                <button class="control movement"
+                    onclick="action('side')">
+                    ↔️ Шаг в сторону
+                </button>
+
+            </div>
+
+
+            <div class="combo">
+
+                <div class="combo-title">
+                    🔥 Последовательность
+                </div>
+
+                <div id="comboText">
+                    Нажимай удары последовательно.
+                </div>
+
             </div>
 
         </div>
 
     </div>
 
-    <div id="combo" class="combo">
-        Готов к бою
-    </div>
-
-    <div id="message" class="message">
-    </div>
-
-</div>
-
-
-<!-- =========================
-     МЕНЮ
-========================= -->
-
-<div id="menu" class="menu">
-
-<div class="menu-box">
-
-<h1>🥊 EASYFLOW BOXING</h1>
-
-<p>
-Реалистичный 3D-бокс.<br>
-Собирай комбинации и отправь соперника в нокаут!
-</p>
-
-<div class="settings-title">
-🎨 Качество графики
-</div>
-
-<div class="graphics">
-
-<button data-quality="low">
-🟢 Низкая
-</button>
-
-<button data-quality="medium" class="active">
-🟡 Средняя
-</button>
-
-<button data-quality="high">
-🔴 Высокая
-</button>
-
-<button data-quality="ultra">
-💎 Ультра
-</button>
-
-</div>
-
-<button id="startButton" class="start">
-▶️ НАЧАТЬ БОЙ
-</button>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-     УПРАВЛЕНИЕ
-========================= -->
-
-<div class="controls">
-
-<div class="left-controls">
-
-<button class="control"
-        data-action="left">
-◀
-</button>
-
-<button class="control"
-        data-action="block">
-🛡️
-</button>
-
-<button class="control"
-        data-action="right">
-▶
-</button>
-
-</div>
-
-
-<div class="right-controls">
-
-<button class="control"
-        data-action="leftPunch">
-👊
-</button>
-
-<button class="control"
-        data-action="rightPunch">
-👊
-</button>
-
-<button class="control"
-        data-action="dodge">
-↪️
-</button>
-
-</div>
-
-</div>
-
-<div class="hint">
-Свайп по кнопке удара: ↑ апперкот • ↔ хук
-</div>
-
-
-<!-- =========================
-     GAME OVER
-========================= -->
-
-<div id="gameOver" class="game-over">
-
-<div class="game-over-box">
-
-<h2 id="result">
-🏆 ПОБЕДА!
-</h2>
-
-<p id="resultText">
-</p>
-
-<button class="restart"
-        onclick="restartGame()">
-🔄 Играть снова
-</button>
-
-</div>
-
-</div>
-
-
-<!-- THREE.JS -->
-
-<script type="importmap">
-{
-    "imports": {
-        "three":
-        "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
-    }
-}
-</script>
-
-
-<script type="module">
-
-import * as THREE from "three";
-
-
-/* =====================================
-   НАСТРОЙКИ
-===================================== */
-
-let quality = "medium";
-
-let scene;
-let camera;
-let renderer;
-
-let player;
-let enemy;
-
-let gameStarted = false;
-let gameFinished = false;
-
-let playerHealth = 100;
-let enemyHealth = 100;
-
-let stamina = 100;
-
-let playerX = 0;
-
-let enemyAttackTimer = 0;
-
-let attackCooldown = 0;
-
-let comboSequence = [];
-
-let comboTimer = null;
-
-
-/* =====================================
-   КАЧЕСТВО
-===================================== */
-
-const qualitySettings = {
-
-    low: {
-        pixelRatio: 1,
-        shadows: false,
-        lights: 2
+</section>
+
+</main>
+
+
+<script>
+/* =====================================================
+   БОЙЦЫ
+===================================================== */
+
+const fighters = [
+
+    {
+        id:1,
+        name:"Геннадий Головкин",
+        country:"🇰🇿 Казахстан",
+        style:"Сильный панчер",
+        power:96,
+        speed:88,
+        defense:90,
+        stamina:96,
+        price:0
     },
 
-    medium: {
-        pixelRatio: 1.5,
-        shadows: true,
-        lights: 3
+    {
+        id:2,
+        name:"Дмитрий Бивол",
+        country:"🇰🇬 Кыргызстан",
+        style:"Техничный боец",
+        power:91,
+        speed:93,
+        defense:95,
+        stamina:94,
+        price:5000
     },
 
-    high: {
-        pixelRatio: 2,
-        shadows: true,
-        lights: 5
+    {
+        id:3,
+        name:"Майк Тайсон",
+        country:"🇺🇸 США",
+        style:"Агрессивный панчер",
+        power:100,
+        speed:94,
+        defense:82,
+        stamina:90,
+        price:10000
     },
 
-    ultra: {
-        pixelRatio: Math.min(
-            window.devicePixelRatio,
-            2.5
-        ),
-        shadows: true,
-        lights: 7
+    {
+        id:4,
+        name:"Флойд Мейвезер",
+        country:"🇺🇸 США",
+        style:"Мастер защиты",
+        power:82,
+        speed:96,
+        defense:100,
+        stamina:94,
+        price:12000
+    },
+
+    {
+        id:5,
+        name:"Райан Гарсия",
+        country:"🇺🇸 США",
+        style:"Скоростной боец",
+        power:88,
+        speed:99,
+        defense:84,
+        stamina:87,
+        price:8000
+    },
+
+    {
+        id:6,
+        name:"Сауль Альварес",
+        country:"🇲🇽 Мексика",
+        style:"Контрпанчер",
+        power:95,
+        speed:89,
+        defense:94,
+        stamina:95,
+        price:15000
+    },
+
+    {
+        id:7,
+        name:"Александр Усик",
+        country:"🇺🇦 Украина",
+        style:"Техничный универсал",
+        power:91,
+        speed:96,
+        defense:94,
+        stamina:99,
+        price:18000
+    },
+
+    {
+        id:8,
+        name:"Энтони Джошуа",
+        country:"🇬🇧 Великобритания",
+        style:"Мощный тяжеловес",
+        power:97,
+        speed:85,
+        defense:87,
+        stamina:91,
+        price:14000
+    },
+
+    {
+        id:9,
+        name:"Тайсон Фьюри",
+        country:"🇬🇧 Великобритания",
+        style:"Большой универсал",
+        power:94,
+        speed:82,
+        defense:91,
+        stamina:97,
+        price:16000
+    },
+
+    {
+        id:10,
+        name:"Мэнни Пакьяо",
+        country:"🇵🇭 Филиппины",
+        style:"Скоростной атакующий",
+        power:91,
+        speed:98,
+        defense:91,
+        stamina:96,
+        price:13000
+    },
+
+    {
+        id:11,
+        name:"Василий Ломаченко",
+        country:"🇺🇦 Украина",
+        style:"Технарь",
+        power:87,
+        speed:97,
+        defense:96,
+        stamina:92,
+        price:11000
+    },
+
+    {
+        id:12,
+        name:"Наоя Иноуэ",
+        country:"🇯🇵 Япония",
+        style:"Мощный комбинатор",
+        power:96,
+        speed:97,
+        defense:94,
+        stamina:93,
+        price:17000
+    },
+
+    {
+        id:13,
+        name:"Теренс Кроуфорд",
+        country:"🇺🇸 США",
+        style:"Тактик",
+        power:93,
+        speed:95,
+        defense:97,
+        stamina:95,
+        price:19000
+    },
+
+    {
+        id:14,
+        name:"Шакур Стивенсон",
+        country:"🇺🇸 США",
+        style:"Защитник",
+        power:84,
+        speed:94,
+        defense:98,
+        stamina:92,
+        price:9000
+    },
+
+    {
+        id:15,
+        name:"Джервонта Дэвис",
+        country:"🇺🇸 США",
+        style:"Нокаутёр",
+        power:97,
+        speed:95,
+        defense:89,
+        stamina:91,
+        price:20000
     }
-
-};
-
-
-/* =====================================
-   СЦЕНА
-===================================== */
-
-function createScene() {
-
-    scene = new THREE.Scene();
-
-    scene.background =
-        new THREE.Color("#090b10");
-
-
-    camera =
-        new THREE.PerspectiveCamera(
-            55,
-            window.innerWidth /
-            window.innerHeight,
-            0.1,
-            100
-        );
-
-    camera.position.set(
-        0,
-        4,
-        10
-    );
-
-
-    renderer =
-        new THREE.WebGLRenderer({
-            antialias:
-                quality !== "low"
-        });
-
-    renderer.setSize(
-        window.innerWidth,
-        window.innerHeight
-    );
-
-    renderer.setPixelRatio(
-        qualitySettings[quality].pixelRatio
-    );
-
-
-    renderer.shadowMap.enabled =
-        qualitySettings[quality].shadows;
-
-    renderer.shadowMap.type =
-        THREE.PCFSoftShadowMap;
-
-
-    document
-        .getElementById("game")
-        .appendChild(renderer.domElement);
-
-
-    createArena();
-
-    createLights();
-
-    player =
-        createBoxer(
-            0x2563eb,
-            -1.4
-        );
-
-    enemy =
-        createBoxer(
-            0xef4444,
-            1.4
-        );
-
-    enemy.rotation.y =
-        -Math.PI;
-
-
-    window.addEventListener(
-        "resize",
-        resize
-    );
-
-    animate();
-
-}
-
-
-/* =====================================
-   АРЕНА
-===================================== */
-
-function createArena() {
-
-    const floor =
-        new THREE.Mesh(
-
-            new THREE.BoxGeometry(
-                12,
-                .25,
-                9
-            ),
-
-            new THREE.MeshStandardMaterial({
-                color: 0x151a23,
-                roughness: .75
-            })
-
-        );
-
-    floor.position.y = -1;
-
-    floor.receiveShadow = true;
-
-    scene.add(floor);
-
-
-    const ring =
-        new THREE.Mesh(
-
-            new THREE.BoxGeometry(
-                9,
-                .15,
-                6
-            ),
-
-            new THREE.MeshStandardMaterial({
-                color: 0xeeeeee,
-                roughness: .5
-            })
-
-        );
-
-    ring.position.y = -.8;
-
-    ring.receiveShadow = true;
-
-    scene.add(ring);
-
-
-    const postMaterial =
-        new THREE.MeshStandardMaterial({
-            color: 0x222222
-        });
-
-
-    const positions = [
-
-        [-4,-.8,-2.5],
-        [-4,-.8,2.5],
-        [4,-.8,-2.5],
-        [4,-.8,2.5]
-
-    ];
-
-
-    positions.forEach(
-        position => {
-
-            const post =
-                new THREE.Mesh(
-
-                    new THREE.CylinderGeometry(
-                        .08,
-                        .08,
-                        3.2,
-                        12
-                    ),
-
-                    postMaterial
-
-                );
-
-            post.position.set(
-                position[0],
-                .8,
-                position[2]
-            );
-
-            scene.add(post);
-
-        }
-    );
-
-
-    const ropeMaterial =
-        new THREE.MeshStandardMaterial({
-            color: 0xef4444
-        });
-
-
-    [-0.2,.5,1.2].forEach(
-        y => {
-
-            const rope =
-                new THREE.Mesh(
-
-                    new THREE.BoxGeometry(
-                        8.3,
-                        .06,
-                        .06
-                    ),
-
-                    ropeMaterial
-
-                );
-
-            rope.position.set(
-                0,
-                y,
-                -2.5
-            );
-
-            scene.add(rope);
-
-
-            const rope2 =
-                rope.clone();
-
-            rope2.position.z = 2.5;
-
-            scene.add(rope2);
-
-        }
-    );
-
-
-    /* Задний фон */
-
-    const wall =
-        new THREE.Mesh(
-
-            new THREE.PlaneGeometry(
-                30,
-                15
-            ),
-
-            new THREE.MeshStandardMaterial({
-                color: 0x080b12
-            })
-
-        );
-
-    wall.position.set(
-        0,
-        4,
-        -5
-    );
-
-    scene.add(wall);
-
-}
-
-
-/* =====================================
-   СВЕТ
-===================================== */
-
-function createLights() {
-
-    const ambient =
-        new THREE.AmbientLight(
-            0xffffff,
-            .65
-        );
-
-    scene.add(ambient);
-
-
-    const spot =
-        new THREE.SpotLight(
-            0xffffff,
-            8,
-            30,
-            Math.PI / 5,
-            .4
-        );
-
-    spot.position.set(
-        0,
-        9,
-        4
-    );
-
-    spot.castShadow =
-        qualitySettings[quality].shadows;
-
-    scene.add(spot);
-
-
-    if (quality !== "low") {
-
-        const blue =
-            new THREE.PointLight(
-                0x2563eb,
-                15,
-                12
-            );
-
-        blue.position.set(
-            -5,
-            4,
-            2
-        );
-
-        scene.add(blue);
-
-
-        const red =
-            new THREE.PointLight(
-                0xef4444,
-                15,
-                12
-            );
-
-        red.position.set(
-            5,
-            4,
-            2
-        );
-
-        scene.add(red);
-
-    }
-
-}
-
-
-/* =====================================
-   СОЗДАНИЕ БОКСЁРА
-===================================== */
-
-function createBoxer(color,x) {
-
-    const group =
-        new THREE.Group();
-
-    group.position.x = x;
-
-
-    const material =
-        new THREE.MeshStandardMaterial({
-            color: color,
-            roughness: .7
-        });
-
-
-    const skin =
-        new THREE.MeshStandardMaterial({
-            color: 0xc68662,
-            roughness: .8
-        });
-
-
-    /* Тело */
-
-    const body =
-        new THREE.Mesh(
-
-            new THREE.CylinderGeometry(
-                .55,
-                .7,
-                1.7,
-                16
-            ),
-
-            material
-
-        );
-
-    body.position.y = .45;
-
-    body.castShadow = true;
-
-    group.add(body);
-
-
-    /* Голова */
-
-    const head =
-        new THREE.Mesh(
-
-            new THREE.SphereGeometry(
-                .42,
-                20,
-                20
-            ),
-
-            skin
-
-        );
-
-    head.position.y = 1.65;
-
-    head.castShadow = true;
-
-    group.add(head);
-
-
-    /* Шорты */
-
-    const shorts =
-        new THREE.Mesh(
-
-            new THREE.BoxGeometry(
-                1.15,
-                .55,
-                .65
-            ),
-
-            new THREE.MeshStandardMaterial({
-                color: 0x111827
-            })
-
-        );
-
-    shorts.position.y = -.35;
-
-    shorts.castShadow = true;
-
-    group.add(shorts);
-
-
-    /* Руки */
-
-    const armGeometry =
-        new THREE.CylinderGeometry(
-            .16,
-            .2,
-            1,
-            12
-        );
-
-
-    const leftArm =
-        new THREE.Mesh(
-            armGeometry,
-            skin
-        );
-
-    leftArm.position.set(
-        -.72,
-        .55,
-        .05
-    );
-
-    leftArm.rotation.z =
-        -.25;
-
-    leftArm.castShadow = true;
-
-    group.add(leftArm);
-
-
-    const rightArm =
-        leftArm.clone();
-
-    rightArm.position.x =
-        .72;
-
-    rightArm.rotation.z =
-        .25;
-
-    group.add(rightArm);
-
-
-    /* Перчатки */
-
-    const gloveGeometry =
-        new THREE.SphereGeometry(
-            .25,
-            16,
-            16
-        );
-
-
-    const gloveMaterial =
-        new THREE.MeshStandardMaterial({
-            color: color,
-            roughness: .5
-        });
-
-
-    const leftGlove =
-        new THREE.Mesh(
-            gloveGeometry,
-            gloveMaterial
-        );
-
-    leftGlove.position.set(
-        -.9,
-        .2,
-        .05
-    );
-
-    leftGlove.castShadow = true;
-
-    group.add(leftGlove);
-
-
-    const rightGlove =
-        leftGlove.clone();
-
-    rightGlove.position.x =
-        .9;
-
-    group.add(rightGlove);
-
-
-    /* Ноги */
-
-    const legMaterial =
-        new THREE.MeshStandardMaterial({
-            color: 0x202020
-        });
-
-
-    const leftLeg =
-        new THREE.Mesh(
-
-            new THREE.CylinderGeometry(
-                .18,
-                .22,
-                1.1,
-                12
-            ),
-
-            legMaterial
-
-        );
-
-    leftLeg.position.set(
-        -.3,
-        -1,
-        0
-    );
-
-    leftLeg.castShadow = true;
-
-    group.add(leftLeg);
-
-
-    const rightLeg =
-        leftLeg.clone();
-
-    rightLeg.position.x =
-        .3;
-
-    group.add(rightLeg);
-
-
-    scene.add(group);
-
-    return group;
-
-}
-
-
-/* =====================================
-   УДАР
-===================================== */
-
-function punch(type) {
-
-    if (
-        !gameStarted ||
-        gameFinished ||
-        attackCooldown > 0
-    ) {
-        return;
-    }
-
-
-    if (stamina < 8) {
-
-        showMessage(
-            "😮 Нет выносливости!"
-        );
-
-        return;
-
-    }
-
-
-    stamina -= 8;
-
-    attackCooldown = .22;
-
-
-    let damage = 7;
-
-
-    if (type === "leftPunch") {
-
-        damage = 7;
-
-        player.rotation.z =
-            -.08;
-
-        setTimeout(() => {
-
-            if (player)
-                player.rotation.z = 0;
-
-        },100);
-
-        addCombo("ЛП");
-
-    }
-
-
-    if (type === "rightPunch") {
-
-        damage = 9;
-
-        player.rotation.z =
-            .08;
-
-        setTimeout(() => {
-
-            if (player)
-                player.rotation.z = 0;
-
-        },100);
-
-        addCombo("ПП");
-
-    }
-
-
-    if (type === "leftHook") {
-
-        damage = 10;
-
-        addCombo("ЛХ");
-
-    }
-
-
-    if (type === "rightHook") {
-
-        damage = 11;
-
-        addCombo("ПХ");
-
-    }
-
-
-    if (type === "leftUpper") {
-
-        damage = 13;
-
-        addCombo("ЛА");
-
-    }
-
-
-    if (type === "rightUpper") {
-
-        damage = 14;
-
-        addCombo("ПА");
-
-    }
-
-
-    enemyHealth =
-        Math.max(
-            0,
-            enemyHealth - damage
-        );
-
-
-    updateHUD();
-
-
-    if (enemyHealth <= 0) {
-
-        finish(true);
-
-    }
-
-}
-
-
-/* =====================================
-   КОМБО
-===================================== */
-
-const combos = [
-
-    ["ЛП","ПП"],
-
-    ["ЛХ","ПХ"],
-
-    ["ЛП","ПП","ЛХ"],
-
-    ["ЛП","ПП","ЛА","ПХ"],
-
-    ["БЛ","ЛХ","ПП"],
-
-    ["УЛ","ПА","ЛХ"],
-
-    ["ЛП","ЛП","ПП"],
-
-    ["ЛП","ПП","ПХ"],
-
-    ["ЛП","ПА","ЛХ"],
-
-    ["ЛХ","ПП","ЛХ"],
-
-    ["ПП","ЛХ","ПП"],
-
-    ["ЛА","ПП","ЛХ"],
-
-    ["ПА","ЛХ","ПП"],
-
-    ["ЛП","ПП","ЛА","ПП"],
-
-    ["ЛП","ЛХ","ПП","ПХ"],
-
-    ["ПП","ЛХ","ПА","ЛХ"],
-
-    ["УП","ЛХ","ПП"],
-
-    ["УЛ","ПП","ЛХ"],
-
-    ["НР","ЛХ","ПП"],
-
-    ["БЛ","ПП","ЛХ"],
-
-    ["БЛ","ЛА","ПХ"],
-
-    ["ША","ПП","ЛХ"],
-
-    ["СТ","ЛП","ПП"],
-
-    ["ЛП","ПП","УП","ЛХ"],
-
-    ["ЛП","ПП","НР","ЛХ"],
-
-    ["ЛХ","ПП","ПА","ЛХ"],
-
-    ["ЛП","ПХ","ЛХ"],
-
-    ["ПП","ЛА","ПХ"],
-
-    ["ЛА","ПА","ЛХ"],
-
-    ["ЛП","ПП","ЛХ","ПП","ЛХ"],
-
-    ["БЛ","УЛ","ПП","ЛХ"],
-
-    ["УП","ЛА","ПХ","ЛХ"],
-
-    ["ЛП","ПП","СТ","ЛХ"],
-
-    ["ЛХ","ПП","УЛ","ПА"],
-
-    ["ПП","ЛХ","НР","ЛА","ПХ"],
-
-    ["ЛП","ПП","ЛА","ПХ","ЛХ"],
-
-    ["УЛ","ПП","ЛХ","ПА"],
-
-    ["БЛ","ЛХ","ПП","ЛА"],
-
-    ["ША","ЛП","ПП","ЛХ"],
-
-    ["ЛП","ПП","ПХ","ЛХ","ПП"]
 
 ];
 
 
-function addCombo(action) {
+/* =====================================================
+   СОСТОЯНИЕ
+===================================================== */
 
-    comboSequence.push(action);
+let money =
+    Number(localStorage.getItem("boxingMoney")) || 1000;
+
+let selectedFighter =
+    Number(localStorage.getItem("selectedFighter")) || 1;
+
+let owned =
+    JSON.parse(
+        localStorage.getItem("boxingOwned")
+    ) || [1];
+
+let playerHealth = 100;
+let enemyHealth = 100;
+let stamina = 100;
+
+let fightActive = false;
+let blocking = false;
+
+let combo = [];
+
+let enemyTimer;
 
 
-    if (comboSequence.length > 5) {
+/* =====================================================
+   СОХРАНЕНИЕ
+===================================================== */
 
-        comboSequence.shift();
+function saveData(){
+
+    localStorage.setItem(
+        "boxingMoney",
+        money
+    );
+
+    localStorage.setItem(
+        "selectedFighter",
+        selectedFighter
+    );
+
+    localStorage.setItem(
+        "boxingOwned",
+        JSON.stringify(owned)
+    );
+
+    document.getElementById(
+        "money"
+    ).textContent = money;
+
+}
+
+
+/* =====================================================
+   ЭКРАНЫ
+===================================================== */
+
+function showScreen(id){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen =>
+            screen.classList.remove("active")
+        );
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
+    if(id === "fightersScreen"){
+        renderFighters();
+    }
+
+}
+
+
+/* =====================================================
+   КАРТОЧКИ БОЙЦОВ
+===================================================== */
+
+function renderFighters(){
+
+    const list =
+        document.getElementById("fightersList");
+
+    list.innerHTML = "";
+
+    fighters.forEach(fighter => {
+
+        const isOwned =
+            owned.includes(fighter.id);
+
+        const selected =
+            selectedFighter === fighter.id;
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "fighter " +
+            (!isOwned ? "locked" : "");
+
+        card.innerHTML = `
+
+            <div class="avatar"></div>
+
+            <h2>${fighter.name}</h2>
+
+            <div class="country">
+                ${fighter.country}
+            </div>
+
+            <div class="style">
+                ${fighter.style}
+            </div>
+
+            <div class="stats">
+
+                ${createStat("💪 Сила",fighter.power)}
+
+                ${createStat("⚡ Скорость",fighter.speed)}
+
+                ${createStat("🛡️ Защита",fighter.defense)}
+
+                ${createStat("❤️ Выносливость",fighter.stamina)}
+
+            </div>
+
+            ${
+                isOwned
+                ? `
+                    <button
+                        class="main-btn"
+                        onclick="selectFighter(${fighter.id})"
+                    >
+                        ${
+                            selected
+                            ? "✅ Выбран"
+                            : "🥊 Выбрать"
+                        }
+                    </button>
+                  `
+                : `
+                    <div class="price">
+                        💰 ${fighter.price}
+                    </div>
+
+                    <button
+                        class="main-btn"
+                        onclick="buyFighter(${fighter.id})"
+                    >
+                        🛒 Купить
+                    </button>
+                  `
+            }
+
+        `;
+
+        list.appendChild(card);
+
+    });
+
+}
+
+
+function createStat(name,value){
+
+    return `
+
+        <div class="stat">
+
+            <div class="stat-top">
+                <span>${name}</span>
+                <span>${value}</span>
+            </div>
+
+            <div class="bar">
+                <div
+                    class="fill"
+                    style="width:${value}%"
+                ></div>
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   ПОКУПКА
+===================================================== */
+
+function buyFighter(id){
+
+    const fighter =
+        fighters.find(f => f.id === id);
+
+    if(!fighter) return;
+
+    if(money < fighter.price){
+
+        alert("Недостаточно денег!");
+
+        return;
 
     }
 
+    money -= fighter.price;
 
-    clearTimeout(comboTimer);
+    owned.push(id);
+
+    selectedFighter = id;
+
+    saveData();
+
+    renderFighters();
+
+}
 
 
-    comboTimer =
-        setTimeout(() => {
+/* =====================================================
+   ВЫБОР
+===================================================== */
 
-            comboSequence = [];
+function selectFighter(id){
 
-            updateCombo();
+    if(!owned.includes(id)){
+        return;
+    }
 
-        },1200);
+    selectedFighter = id;
 
+    saveData();
+
+    renderFighters();
+
+}
+
+
+/* =====================================================
+   НАЧАЛО БОЯ
+===================================================== */
+
+function startFight(){
+
+    const player =
+        fighters.find(
+            f => f.id === selectedFighter
+        );
+
+    if(!player){
+        return;
+    }
+
+    const opponents =
+        fighters.filter(
+            f => f.id !== selectedFighter
+        );
+
+    const enemy =
+        opponents[
+            Math.floor(
+                Math.random() *
+                opponents.length
+            )
+        ];
+
+    window.currentEnemy = enemy;
+
+    playerHealth = 100;
+    enemyHealth = 100;
+    stamina = 100;
+
+    combo = [];
+
+    blocking = false;
+
+    fightActive = true;
+
+    document.getElementById(
+        "playerName"
+    ).textContent = player.name;
+
+    document.getElementById(
+        "enemyName"
+    ).textContent = enemy.name;
+
+    updateBars();
 
     updateCombo();
 
+    showScreen("fightScreen");
 
-    combos.forEach(
-        (combo,index) => {
+    document.getElementById(
+        "gameMessage"
+    ).classList.remove("show");
 
-            if (
-                arraysEqual(
-                    comboSequence,
-                    combo
-                )
-            ) {
+    clearInterval(enemyTimer);
 
-                activateCombo(index + 1);
+    enemyTimer =
+        setInterval(
+            enemyAttack,
+            1800
+        );
 
+}
+
+
+function newFight(){
+
+    startFight();
+
+}
+
+
+/* =====================================================
+   ДЕЙСТВИЯ
+===================================================== */
+
+const actionNames = {
+
+    jab:"Левый прямой",
+
+    cross:"Правый прямой",
+
+    hookL:"Левый хук",
+
+    hookR:"Правый хук",
+
+    upperL:"Левый апперкот",
+
+    upperR:"Правый апперкот",
+
+    block:"Блок",
+
+    dodgeL:"Уклон влево",
+
+    dodgeR:"Уклон вправо",
+
+    duck:"Нырок",
+
+    back:"Шаг назад",
+
+    side:"Шаг в сторону"
+
+};
+
+
+function action(type){
+
+    if(!fightActive){
+        return;
+    }
+
+    /* защита */
+
+    if(
+        type === "block" ||
+        type === "dodgeL" ||
+        type === "dodgeR" ||
+        type === "duck"
+    ){
+
+        blocking = true;
+
+        combo.push(actionNames[type]);
+
+        if(combo.length > 5){
+            combo.shift();
+        }
+
+        updateCombo();
+
+        setTimeout(() => {
+            blocking = false;
+        },600);
+
+        return;
+    }
+
+
+    /* движение */
+
+    if(
+        type === "back" ||
+        type === "side"
+    ){
+
+        combo.push(actionNames[type]);
+
+        if(combo.length > 5){
+            combo.shift();
+        }
+
+        updateCombo();
+
+        return;
+    }
+
+
+    /* удар */
+
+    if(stamina < 8){
+
+        showTemporaryMessage(
+            "⚡ Нет выносливости!"
+        );
+
+        return;
+    }
+
+    stamina -= 8;
+
+    combo.push(actionNames[type]);
+
+    if(combo.length > 5){
+        combo.shift();
+    }
+
+    updateCombo();
+
+    const player =
+        fighters.find(
+            f => f.id === selectedFighter
+        );
+
+    let damage =
+        5 + player.power / 12;
+
+    if(type === "hookL" || type === "hookR"){
+        damage += 3;
+    }
+
+    if(type === "upperL" || type === "upperR"){
+        damage += 5;
+    }
+
+    /* случайный критический удар */
+
+    if(Math.random() < player.power / 500){
+
+        damage *= 1.7;
+
+        showDamage(
+            Math.round(damage),
+            true
+        );
+
+    }else{
+
+        showDamage(
+            Math.round(damage),
+            false
+        );
+
+    }
+
+    enemyHealth -= damage;
+
+    if(enemyHealth < 0){
+        enemyHealth = 0;
+    }
+
+    hitAnimation("enemy");
+
+    updateBars();
+
+    checkCombo();
+
+    if(enemyHealth <= 0){
+
+        winFight();
+
+    }
+
+}
+
+
+/* =====================================================
+   КОМБИНАЦИИ
+===================================================== */
+
+const combinations = [
+
+    ["Левый прямой","Правый прямой"],
+
+    ["Левый хук","Правый хук"],
+
+    ["Левый прямой","Правый прямой","Левый хук"],
+
+    ["Левый прямой","Правый прямой","Левый апперкот","Правый хук"],
+
+    ["Блок","Левый хук","Правый прямой"],
+
+    ["Уклон влево","Правый апперкот","Левый хук"],
+
+    ["Левый прямой","Левый прямой","Правый прямой"],
+
+    ["Левый прямой","Правый прямой","Правый хук"],
+
+    ["Левый прямой","Правый апперкот","Левый хук"],
+
+    ["Левый хук","Правый прямой","Левый хук"],
+
+    ["Правый прямой","Левый хук","Правый прямой"],
+
+    ["Левый апперкот","Правый прямой","Левый хук"],
+
+    ["Правый апперкот","Левый хук","Правый прямой"],
+
+    ["Левый прямой","Правый прямой","Левый апперкот","Правый прямой"],
+
+    ["Левый прямой","Левый хук","Правый прямой","Правый хук"],
+
+    ["Правый прямой","Левый хук","Правый апперкот","Левый хук"],
+
+    ["Уклон вправо","Левый хук","Правый прямой"],
+
+    ["Уклон влево","Правый прямой","Левый хук"],
+
+    ["Нырок","Левый хук","Правый прямой"],
+
+    ["Блок","Правый прямой","Левый хук"],
+
+    ["Блок","Левый апперкот","Правый хук"],
+
+    ["Шаг назад","Правый прямой","Левый хук"],
+
+    ["Шаг в сторону","Левый прямой","Правый прямой"],
+
+    ["Левый прямой","Уклон вправо","Правый прямой","Левый хук"],
+
+    ["Левый прямой","Правый прямой","Нырок","Левый хук"],
+
+    ["Левый хук","Правый прямой","Правый апперкот","Левый хук"],
+
+    ["Левый прямой","Правый хук","Левый хук"],
+
+    ["Правый прямой","Левый апперкот","Правый хук"],
+
+    ["Левый апперкот","Правый апперкот","Левый хук"],
+
+    ["Левый прямой","Правый прямой","Левый хук","Правый прямой","Левый хук"],
+
+    ["Блок","Уклон влево","Правый прямой","Левый хук"],
+
+    ["Уклон вправо","Левый апперкот","Правый хук","Левый хук"],
+
+    ["Левый прямой","Правый прямой","Шаг в сторону","Левый хук"],
+
+    ["Левый хук","Правый прямой","Уклон влево","Правый апперкот"],
+
+    ["Правый прямой","Левый хук","Нырок","Левый апперкот","Правый хук"],
+
+    ["Левый прямой","Правый прямой","Левый апперкот","Правый хук","Левый хук"],
+
+    ["Уклон влево","Правый прямой","Левый хук","Правый апперкот"],
+
+    ["Блок","Левый хук","Правый прямой","Левый апперкот"],
+
+    ["Шаг назад","Левый прямой","Правый прямой","Левый хук"],
+
+    ["Левый прямой","Правый прямой","Правый хук","Левый хук","Правый прямой"]
+
+];
+
+
+function checkCombo(){
+
+    for(
+        let i=0;
+        i<combinations.length;
+        i++
+    ){
+
+        const c =
+            combinations[i];
+
+        if(
+            combo.length >= c.length
+        ){
+
+            const last =
+                combo.slice(
+                    combo.length-c.length
+                );
+
+            if(
+                JSON.stringify(last) ===
+                JSON.stringify(c)
+            ){
+
+                comboBonus(c);
+
+                break;
             }
 
         }
-    );
-
-}
-
-
-function arraysEqual(a,b) {
-
-    return (
-        a.length === b.length &&
-        a.every(
-            (value,index) =>
-                value === b[index]
-        )
-    );
-
-}
-
-
-function activateCombo(number) {
-
-    const bonus = 15;
-
-    enemyHealth =
-        Math.max(
-            0,
-            enemyHealth - bonus
-        );
-
-
-    showMessage(
-        "🔥 КОМБО #" +
-        number +
-        "!"
-    );
-
-
-    comboSequence = [];
-
-    updateCombo();
-    updateHUD();
-
-
-    if (enemyHealth <= 0) {
-
-        finish(true);
 
     }
 
 }
 
 
-function updateCombo() {
+function comboBonus(c){
+
+    const player =
+        fighters.find(
+            f => f.id === selectedFighter
+        );
+
+    const bonus =
+        8 + c.length * 3;
+
+    enemyHealth -= bonus;
+
+    if(enemyHealth < 0){
+        enemyHealth = 0;
+    }
+
+    showDamage(
+        Math.round(bonus),
+        true
+    );
+
+    updateBars();
+
+    showTemporaryMessage(
+        "🔥 КОМБИНАЦИЯ! +" +
+        Math.round(bonus) +
+        " урона"
+    );
+
+    if(enemyHealth <= 0){
+        winFight();
+    }
+
+}
+
+
+/* =====================================================
+   ИИ СОПЕРНИКА
+===================================================== */
+
+function enemyAttack(){
+
+    if(!fightActive){
+        return;
+    }
+
+    const player =
+        fighters.find(
+            f => f.id === selectedFighter
+        );
+
+    const enemy =
+        window.currentEnemy;
+
+    if(!enemy){
+        return;
+    }
+
+    const chance =
+        Math.random();
+
+    if(
+        blocking ||
+        chance < player.defense / 180
+    ){
+
+        showTemporaryMessage(
+            "🛡️ Ты заблокировал удар!"
+        );
+
+        return;
+    }
+
+    let damage =
+        4 + enemy.power / 15;
+
+    if(
+        Math.random() <
+        enemy.power / 250
+    ){
+        damage *= 1.6;
+    }
+
+    playerHealth -= damage;
+
+    if(playerHealth < 0){
+        playerHealth = 0;
+    }
+
+    hitAnimation("player");
+
+    showDamage(
+        Math.round(damage),
+        false
+    );
+
+    updateBars();
+
+    if(playerHealth <= 0){
+
+        loseFight();
+
+    }
+
+}
+
+
+/* =====================================================
+   ПОБЕДА
+===================================================== */
+
+function winFight(){
+
+    if(!fightActive){
+        return;
+    }
+
+    fightActive = false;
+
+    clearInterval(enemyTimer);
+
+    const reward =
+        500 +
+        Math.floor(
+            Math.random()*1000
+        );
+
+    money += reward;
+
+    saveData();
+
+    document.getElementById(
+        "resultTitle"
+    ).textContent =
+        "🏆 ПОБЕДА!";
+
+    document.getElementById(
+        "resultText"
+    ).textContent =
+        "Ты победил и заработал $" +
+        reward;
+
+    document.getElementById(
+        "gameMessage"
+    ).classList.add("show");
+
+}
+
+
+function loseFight(){
+
+    if(!fightActive){
+        return;
+    }
+
+    fightActive = false;
+
+    clearInterval(enemyTimer);
+
+    document.getElementById(
+        "resultTitle"
+    ).textContent =
+        "💥 ПОРАЖЕНИЕ";
+
+    document.getElementById(
+        "resultText"
+    ).textContent =
+        "Попробуй другой стиль боя.";
+
+    document.getElementById(
+        "gameMessage"
+    ).classList.add("show");
+
+}
+
+
+/* =====================================================
+   ПОЛОСЫ
+===================================================== */
+
+function updateBars(){
+
+    document.getElementById(
+        "playerHealth"
+    ).style.width =
+        playerHealth + "%";
+
+    document.getElementById(
+        "enemyHealth"
+    ).style.width =
+        enemyHealth + "%";
+
+    document.getElementById(
+        "stamina"
+    ).style.width =
+        stamina + "%";
+
+    document.getElementById(
+        "staminaText"
+    ).textContent =
+        Math.round(stamina);
+
+}
+
+
+/* =====================================================
+   ВОССТАНОВЛЕНИЕ ВЫНОСЛИВОСТИ
+===================================================== */
+
+setInterval(() => {
+
+    if(
+        fightActive &&
+        stamina < 100
+    ){
+
+        stamina += 2;
+
+        if(stamina > 100){
+            stamina = 100;
+        }
+
+        updateBars();
+
+    }
+
+},300);
+
+
+/* =====================================================
+   КОМБО НА ЭКРАНЕ
+===================================================== */
+
+function updateCombo(){
 
     const element =
         document.getElementById(
-            "combo"
+            "comboText"
         );
 
-
-    if (
-        comboSequence.length === 0
-    ) {
+    if(combo.length === 0){
 
         element.textContent =
-            "Готов к бою";
+            "Нажимай удары последовательно.";
 
         return;
-
     }
-
 
     element.textContent =
-        comboSequence.join(" → ");
+        combo.join(" → ");
 
 }
 
 
-/* =====================================
-   ЗАЩИТА
-===================================== */
+/* =====================================================
+   АНИМАЦИЯ УДАРА
+===================================================== */
 
-let blocking = false;
+function hitAnimation(who){
 
-function setBlock(value) {
+    const element =
+        document.getElementById(who);
 
-    blocking = value;
+    element.classList.remove("hit");
 
-    if (value) {
+    void element.offsetWidth;
 
-        addCombo("БЛ");
+    element.classList.add("hit");
 
-        showMessage(
-            "🛡️ Блок"
+}
+
+
+/* =====================================================
+   УРОН
+===================================================== */
+
+function showDamage(amount,critical){
+
+    const arena =
+        document.getElementById(
+            "arena"
         );
 
-    }
+    const element =
+        document.createElement("div");
 
-}
+    element.className =
+        "damage";
 
+    element.textContent =
+        critical
+        ? "🔥 -" + amount
+        : "-" + amount;
 
-/* =====================================
-   УКЛОН
-===================================== */
+    element.style.left =
+        (45 + Math.random()*15) + "%";
 
-function dodge(direction) {
+    element.style.top =
+        (35 + Math.random()*20) + "%";
 
-    if (
-        !gameStarted ||
-        stamina < 12
-    ) {
-        return;
-    }
-
-
-    stamina -= 12;
-
-
-    if (direction === "left") {
-
-        player.position.x -= .7;
-
-        addCombo("УЛ");
-
-    } else {
-
-        player.position.x += .7;
-
-        addCombo("УП");
-
-    }
-
+    arena.appendChild(element);
 
     setTimeout(() => {
-
-        if (!player) return;
-
-        player.position.x =
-            THREE.MathUtils.clamp(
-                player.position.x,
-                -2.8,
-                2.8
-            );
-
-    },220);
+        element.remove();
+    },700);
 
 }
 
 
-/* =====================================
-   ДВИЖЕНИЕ
-===================================== */
-
-function move(direction) {
-
-    if (!gameStarted) return;
-
-
-    if (direction === "left") {
-
-        playerX -= .12;
-
-    } else {
-
-        playerX += .12;
-
-    }
-
-
-    playerX =
-        THREE.MathUtils.clamp(
-            playerX,
-            -2.8,
-            2.8
-        );
-
-
-    player.position.x =
-        THREE.MathUtils.lerp(
-            player.position.x,
-            playerX,
-            .5
-        );
-
-}
-
-
-/* =====================================
-   ИИ СОПЕРНИКА
-===================================== */
-
-function enemyAI(delta) {
-
-    if (!gameStarted) return;
-
-
-    enemyAttackTimer -= delta;
-
-
-    const distance =
-        Math.abs(
-            player.position.x -
-            enemy.position.x
-        );
-
-
-    if (
-        enemyAttackTimer <= 0 &&
-        distance < 3
-    ) {
-
-        enemyAttackTimer =
-            1.3 +
-            Math.random() * 1.5;
-
-
-        if (blocking) {
-
-            showMessage(
-                "🛡️ Ты заблокировал удар!"
-            );
-
-            return;
-
-        }
-
-
-        const damage =
-            5 +
-            Math.floor(
-                Math.random() * 6
-            );
-
-
-        playerHealth =
-            Math.max(
-                0,
-                playerHealth - damage
-            );
-
-
-        showMessage(
-            "💥 Соперник попал!"
-        );
-
-
-        updateHUD();
-
-
-        if (playerHealth <= 0) {
-
-            finish(false);
-
-        }
-
-    }
-
-}
-
-
-/* =====================================
-   ВЫНОСЛИВОСТЬ
-===================================== */
-
-function updateStamina(delta) {
-
-    if (!gameStarted) return;
-
-
-    if (!blocking) {
-
-        stamina +=
-            delta * 8;
-
-    }
-
-
-    stamina =
-        Math.min(
-            100,
-            stamina
-        );
-
-
-    document
-        .getElementById(
-            "playerStamina"
-        )
-        .style.width =
-            stamina + "%";
-
-}
-
-
-/* =====================================
-   HUD
-===================================== */
-
-function updateHUD() {
-
-    document
-        .getElementById(
-            "playerHealth"
-        )
-        .style.width =
-            playerHealth + "%";
-
-
-    document
-        .getElementById(
-            "enemyHealth"
-        )
-        .style.width =
-            enemyHealth + "%";
-
-}
-
-
-/* =====================================
-   СООБЩЕНИЕ
-===================================== */
-
-function showMessage(text) {
+/* =====================================================
+   ВРЕМЕННОЕ СООБЩЕНИЕ
+===================================================== */
+
+function showTemporaryMessage(text){
 
     const element =
         document.getElementById(
-            "message"
+            "comboText"
         );
 
     element.textContent = text;
 
-
-    setTimeout(() => {
-
-        if (
-            element.textContent ===
-            text
-        ) {
-
-            element.textContent = "";
-
-        }
-
-    },800);
-
 }
 
 
-/* =====================================
-   КОНЕЦ БОЯ
-===================================== */
+/* =====================================================
+   НАСТРОЙКИ
+===================================================== */
 
-function finish(playerWon) {
+function saveSettings(){
 
-    gameFinished = true;
-    gameStarted = false;
-
-
-    document
-        .getElementById(
-            "gameOver"
-        )
-        .style.display = "flex";
-
-
-    const result =
+    const graphics =
         document.getElementById(
-            "result"
-        );
+            "graphics"
+        ).value;
 
-
-    const text =
+    const controls =
         document.getElementById(
-            "resultText"
-        );
+            "controlMode"
+        ).value;
 
+    const sound =
+        document.getElementById(
+            "sound"
+        ).value;
 
-    if (playerWon) {
-
-        result.textContent =
-            "🏆 ПОБЕДА!";
-
-        text.textContent =
-            "Ты отправил соперника в нокаут!";
-
-    } else {
-
-        result.textContent =
-            "💥 ПОРАЖЕНИЕ";
-
-        text.textContent =
-            "Соперник оказался сильнее.";
-
-    }
-
-}
-
-
-/* =====================================
-   СТАРТ
-===================================== */
-
-function startGame() {
-
-    document
-        .getElementById(
-            "menu"
-        )
-        .style.display = "none";
-
-
-    document
-        .getElementById(
-            "gameOver"
-        )
-        .style.display = "none";
-
-
-    playerHealth = 100;
-
-    enemyHealth = 100;
-
-    stamina = 100;
-
-    playerX = -1.4;
-
-    comboSequence = [];
-
-    gameFinished = false;
-
-    gameStarted = true;
-
-    updateHUD();
-
-    updateCombo();
-
-}
-
-
-/* =====================================
-   ПЕРЕЗАПУСК
-===================================== */
-
-window.restartGame =
-    function() {
-
-        startGame();
-
-    };
-
-
-/* =====================================
-   КНОПКИ
-===================================== */
-
-document
-    .querySelectorAll(
-        ".graphics button"
-    )
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                quality =
-                    button.dataset.quality;
-
-
-                document
-                    .querySelectorAll(
-                        ".graphics button"
-                    )
-                    .forEach(
-                        b =>
-                        b.classList.remove(
-                            "active"
-                        )
-                    );
-
-
-                button.classList.add(
-                    "active"
-                );
-
-            }
-        );
-
-    });
-
-
-document
-    .getElementById(
-        "startButton"
-    )
-    .addEventListener(
-        "click",
-        startGame
+    localStorage.setItem(
+        "boxingGraphics",
+        graphics
     );
 
+    localStorage.setItem(
+        "boxingControls",
+        controls
+    );
 
-/* =====================================
-   УПРАВЛЕНИЕ КНОПКАМИ
-===================================== */
+    localStorage.setItem(
+        "boxingSound",
+        sound
+    );
 
-document
-    .querySelectorAll(
-        ".control"
-    )
-    .forEach(button => {
+    alert("Настройки сохранены!");
 
-        const action =
-            button.dataset.action;
+}
 
 
-        let startX = 0;
-        let startY = 0;
-
-
-        button.addEventListener(
-            "pointerdown",
-            event => {
-
-                event.preventDefault();
-
-                startX =
-                    event.clientX;
-
-                startY =
-                    event.clientY;
-
-
-                if (
-                    action ===
-                    "left"
-                ) {
-
-                    move("left");
-
-                }
-
-
-                if (
-                    action ===
-                    "right"
-                ) {
-
-                    move("right");
-
-                }
-
-
-                if (
-                    action ===
-                    "block"
-                ) {
-
-                    setBlock(true);
-
-                }
-
-
-                if (
-                    action ===
-                    "leftPunch"
-                ) {
-
-                    punch("leftPunch");
-
-                }
-
-
-                if (
-                    action ===
-                    "rightPunch"
-                ) {
-
-                    punch("rightPunch");
-
-                }
-
-            }
-        );
-
-
-        button.addEventListener(
-            "pointerup",
-            event => {
-
-                event.preventDefault();
-
-
-                const dx =
-                    event.clientX -
-                    startX;
-
-                const dy =
-                    event.clientY -
-                    startY;
-
-
-                if (
-                    action ===
-                    "block"
-                ) {
-
-                    setBlock(false);
-
-                }
-
-
-                /* Свайп */
-
-                if (
-                    action ===
-                    "leftPunch"
-                ) {
-
-                    if (
-                        Math.abs(dx) > 25
-                    ) {
-
-                        punch("leftHook");
-
-                    } else if (
-                        dy < -25
-                    ) {
-
-                        punch("leftUpper");
-
-                    }
-
-                }
-
-
-                if (
-                    action ===
-                    "rightPunch"
-                ) {
-
-                    if (
-                        Math.abs(dx) > 25
-                    ) {
-
-                        punch("rightHook");
-
-                    } else if (
-                        dy < -25
-                    ) {
-
-                        punch("rightUpper");
-
-                    }
-
-                }
-
-
-                if (
-                    action ===
-                    "dodge"
-                ) {
-
-                    if (
-                        dx < -25
-                    ) {
-
-                        dodge("left");
-
-                    } else {
-
-                        dodge("right");
-
-                    }
-
-                }
-
-            }
-        );
-
-    });
-
-
-/* =====================================
+/* =====================================================
    КЛАВИАТУРА
-===================================== */
+===================================================== */
 
 document.addEventListener(
     "keydown",
-    event => {
+    function(event){
 
-        if (
-            event.repeat
-        ) return;
+        if(!fightActive){
+            return;
+        }
 
+        const key =
+            event.key.toLowerCase();
 
-        switch(
-            event.key.toLowerCase()
-        ) {
+        const keys = {
 
-            case "a":
-                move("left");
-                break;
+            "a":"jab",
+            "d":"cross",
+            "q":"hookL",
+            "e":"hookR",
+            "z":"upperL",
+            "c":"upperR",
 
-            case "d":
-                move("right");
-                break;
+            "s":"block",
 
-            case "j":
-                punch("leftPunch");
-                break;
+            "arrowleft":"dodgeL",
+            "arrowright":"dodgeR",
 
-            case "k":
-                punch("rightPunch");
-                break;
+            "arrowdown":"duck",
 
-            case "u":
-                punch("leftHook");
-                break;
+            "arrowup":"back",
 
-            case "i":
-                punch("rightHook");
-                break;
+            " " :"side"
 
-            case "o":
-                punch("leftUpper");
-                break;
+        };
 
-            case "p":
-                punch("rightUpper");
-                break;
+        if(keys[key]){
 
-            case " ":
-                setBlock(true);
-                break;
+            event.preventDefault();
 
-            case "q":
-                dodge("left");
-                break;
-
-            case "e":
-                dodge("right");
-                break;
+            action(keys[key]);
 
         }
 
@@ -2135,114 +2222,60 @@ document.addEventListener(
 );
 
 
-document.addEventListener(
-    "keyup",
-    event => {
+/* =====================================================
+   ЗАГРУЗКА
+===================================================== */
 
-        if (
-            event.key === " "
-        ) {
+function loadSettings(){
 
-            setBlock(false);
-
-        }
-
-    }
-);
-
-
-/* =====================================
-   ANIMATION
-===================================== */
-
-let lastTime = 0;
-
-function animate(time = 0) {
-
-    requestAnimationFrame(
-        animate
-    );
-
-
-    const delta =
-        Math.min(
-            .05,
-            (time - lastTime) /
-            1000
+    const graphics =
+        localStorage.getItem(
+            "boxingGraphics"
         );
 
+    const controls =
+        localStorage.getItem(
+            "boxingControls"
+        );
 
-    lastTime = time;
+    const sound =
+        localStorage.getItem(
+            "boxingSound"
+        );
 
+    if(graphics){
 
-    if (attackCooldown > 0) {
-
-        attackCooldown -= delta;
-
-    }
-
-
-    updateStamina(delta);
-
-    enemyAI(delta);
-
-
-    if (player && enemy) {
-
-        /* Соперник слегка двигается */
-
-        enemy.position.z =
-            Math.sin(
-                time * .001
-            ) * .03;
-
-
-        /* Камера следует за игроком */
-
-        camera.position.x =
-            THREE.MathUtils.lerp(
-                camera.position.x,
-                player.position.x * .15,
-                .03
-            );
+        document.getElementById(
+            "graphics"
+        ).value = graphics;
 
     }
 
+    if(controls){
 
-    renderer.render(
-        scene,
-        camera
-    );
+        document.getElementById(
+            "controlMode"
+        ).value = controls;
+
+    }
+
+    if(sound){
+
+        document.getElementById(
+            "sound"
+        ).value = sound;
+
+    }
 
 }
 
 
-/* =====================================
-   RESIZE
-===================================== */
+/* =====================================================
+   ЗАПУСК
+===================================================== */
 
-function resize() {
-
-    camera.aspect =
-        window.innerWidth /
-        window.innerHeight;
-
-    camera.updateProjectionMatrix();
-
-
-    renderer.setSize(
-        window.innerWidth,
-        window.innerHeight
-    );
-
-}
-
-
-/* =====================================
-   ЗАПУСК 3D
-===================================== */
-
-createScene();
+saveData();
+loadSettings();
 
 </script>
 
