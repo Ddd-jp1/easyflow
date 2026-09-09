@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>EasyFlow — Boxing</title>
 
 <style>
+
+/* =====================================================
+   ОСНОВА
+===================================================== */
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -15,64 +22,102 @@
 :root{
     --red:#e11d48;
     --red2:#be123c;
+
     --bg:#090b10;
     --panel:#11151d;
     --panel2:#171c26;
+
     --border:#2b3340;
+
     --text:#f8fafc;
     --muted:#94a3b8;
+
     --green:#22c55e;
     --yellow:#f59e0b;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     font-family:Arial,sans-serif;
+
     background:
-        radial-gradient(circle at top,#242b38 0,#090b10 55%);
+        radial-gradient(
+            circle at top,
+            #242b38 0,
+            #090b10 55%
+        );
+
     color:var(--text);
+
     min-height:100vh;
 }
 
-/* HEADER */
+
+/* =====================================================
+   HEADER
+===================================================== */
 
 header{
     background:rgba(10,13,18,.95);
+
     border-bottom:1px solid var(--border);
+
     padding:15px 20px;
+
     position:sticky;
     top:0;
+
     z-index:20;
 }
 
 .header{
     max-width:1200px;
+
     margin:auto;
+
     display:flex;
+
     justify-content:space-between;
     align-items:center;
+
     gap:15px;
 }
 
 .logo{
     color:#fff;
+
     font-size:26px;
+
     font-weight:bold;
 }
 
 .money{
     background:#172033;
+
     border:1px solid #334155;
+
     padding:9px 15px;
+
     border-radius:12px;
+
     color:#facc15;
+
     font-weight:bold;
 }
 
-/* MAIN */
+
+/* =====================================================
+   MAIN
+===================================================== */
 
 .container{
     max-width:1200px;
+
     margin:auto;
+
     padding:25px 15px 50px;
 }
 
@@ -84,16 +129,22 @@ header{
     display:block;
 }
 
-/* TITLE */
+
+/* =====================================================
+   TITLE
+===================================================== */
 
 .title{
     text-align:center;
+
     margin-bottom:25px;
 }
 
 .title h1{
     font-size:38px;
+
     margin-bottom:8px;
+
     color:#fff;
 }
 
@@ -101,7 +152,10 @@ header{
     color:var(--muted);
 }
 
-/* BUTTON */
+
+/* =====================================================
+   BUTTONS
+===================================================== */
 
 button{
     font-family:inherit;
@@ -109,18 +163,29 @@ button{
 
 .main-btn{
     border:0;
+
     background:var(--red);
+
     color:#fff;
+
     padding:13px 22px;
+
     border-radius:12px;
+
     font-size:16px;
+
     font-weight:bold;
+
     cursor:pointer;
+
     transition:.2s;
+
+    margin:3px;
 }
 
 .main-btn:hover{
     background:var(--red2);
+
     transform:translateY(-2px);
 }
 
@@ -132,62 +197,115 @@ button{
     background:#344155;
 }
 
-/* FIGHTERS */
+
+/* =====================================================
+   FIGHTERS
+===================================================== */
 
 .fighters{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:18px;
 }
 
 .fighter{
-    background:linear-gradient(145deg,#171d27,#0f131a);
+    background:
+        linear-gradient(
+            145deg,
+            #171d27,
+            #0f131a
+        );
+
     border:1px solid var(--border);
+
     border-radius:18px;
+
     padding:20px;
+
     text-align:center;
+
     transition:.2s;
 }
 
 .fighter:hover{
     transform:translateY(-5px);
+
     border-color:#64748b;
 }
 
 .avatar{
     width:130px;
     height:130px;
+
     margin:0 auto 15px;
+
     border-radius:50%;
+
     background:
-        radial-gradient(circle at 50% 28%,#dca77d 0 17%,transparent 18%),
-        radial-gradient(circle at 50% 42%,#c88c67 0 29%,transparent 30%),
-        radial-gradient(circle at 50% 22%,#17120f 0 20%,transparent 21%),
-        linear-gradient(#303846,#11151d);
+        radial-gradient(
+            circle at 50% 28%,
+            #dca77d 0 17%,
+            transparent 18%
+        ),
+
+        radial-gradient(
+            circle at 50% 42%,
+            #c88c67 0 29%,
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 50% 22%,
+            #17120f 0 20%,
+            transparent 21%
+        ),
+
+        linear-gradient(
+            #303846,
+            #11151d
+        );
+
     border:4px solid #374151;
+
     position:relative;
+
     overflow:hidden;
 }
 
 .avatar:before{
     content:"";
+
     position:absolute;
+
     width:15px;
     height:7px;
+
     background:#17120f;
+
     border-radius:50%;
+
     left:34px;
     top:54px;
-    box-shadow:46px 0 #17120f;
+
+    box-shadow:
+        46px 0 #17120f;
 }
 
 .avatar:after{
     content:"";
+
     position:absolute;
+
     width:45px;
     height:8px;
+
     background:#6b3f2d;
+
     border-radius:50%;
+
     left:39px;
     bottom:34px;
 }
@@ -198,17 +316,21 @@ button{
 
 .country{
     color:var(--muted);
+
     margin-bottom:12px;
 }
 
 .style{
     color:#facc15;
+
     font-weight:bold;
+
     margin-bottom:15px;
 }
 
 .stats{
     text-align:left;
+
     margin-bottom:15px;
 }
 
@@ -218,28 +340,44 @@ button{
 
 .stat-top{
     display:flex;
+
     justify-content:space-between;
+
     color:#cbd5e1;
+
     font-size:13px;
+
     margin-bottom:4px;
 }
 
 .bar{
     height:7px;
+
     background:#293241;
+
     border-radius:20px;
+
     overflow:hidden;
 }
 
 .fill{
     height:100%;
-    background:linear-gradient(90deg,#ef4444,#f97316);
+
+    background:
+        linear-gradient(
+            90deg,
+            #ef4444,
+            #f97316
+        );
+
     border-radius:20px;
 }
 
 .price{
     color:#facc15;
+
     margin-bottom:12px;
+
     font-weight:bold;
 }
 
@@ -247,68 +385,140 @@ button{
     opacity:.65;
 }
 
-/* GAME */
+
+/* =====================================================
+   GAME
+===================================================== */
 
 .game-layout{
     display:grid;
-    grid-template-columns:1fr 300px;
+
+    grid-template-columns:
+        1fr 300px;
+
     gap:18px;
 }
 
 .arena{
     position:relative;
+
     min-height:620px;
+
     border:2px solid #303947;
+
     border-radius:20px;
+
     overflow:hidden;
+
     background:
-        linear-gradient(rgba(10,12,18,.15),rgba(10,12,18,.55)),
-        radial-gradient(circle at 50% 20%,#4b5563,#171b23 45%,#080a0f);
+        linear-gradient(
+            rgba(10,12,18,.15),
+            rgba(10,12,18,.55)
+        ),
+
+        radial-gradient(
+            circle at 50% 20%,
+            #4b5563,
+            #171b23 45%,
+            #080a0f
+        );
 }
 
-/* lights */
+
+/* =====================================================
+   LIGHTS
+===================================================== */
 
 .arena:before{
     content:"";
+
     position:absolute;
+
     inset:0;
+
     background:
-        radial-gradient(circle at 15% 0,#fff8 0,transparent 15%),
-        radial-gradient(circle at 50% 0,#fff8 0,transparent 17%),
-        radial-gradient(circle at 85% 0,#fff8 0,transparent 15%);
+        radial-gradient(
+            circle at 15% 0,
+            #fff8 0,
+            transparent 15%
+        ),
+
+        radial-gradient(
+            circle at 50% 0,
+            #fff8 0,
+            transparent 17%
+        ),
+
+        radial-gradient(
+            circle at 85% 0,
+            #fff8 0,
+            transparent 15%
+        );
+
     pointer-events:none;
 }
 
+
+/* =====================================================
+   RING
+===================================================== */
+
 .rope{
     position:absolute;
+
     left:8%;
     right:8%;
+
     height:4px;
+
     background:#dc2626;
-    box-shadow:0 70px #fff,0 140px #dc2626;
+
+    box-shadow:
+        0 70px #fff,
+        0 140px #dc2626;
+
     top:40%;
+
     opacity:.8;
 }
 
 .ring-floor{
     position:absolute;
+
     left:7%;
     right:7%;
+
     bottom:0;
+
     height:34%;
+
     background:
-        linear-gradient(150deg,#b8c0c9,#68717d);
-    transform:perspective(500px) rotateX(55deg);
+        linear-gradient(
+            150deg,
+            #b8c0c9,
+            #68717d
+        );
+
+    transform:
+        perspective(500px)
+        rotateX(55deg);
+
     transform-origin:bottom;
 }
 
-/* FIGHTERS IN ARENA */
+
+/* =====================================================
+   FIGHTERS IN ARENA
+===================================================== */
 
 .fighter-body{
     position:absolute;
+
     bottom:125px;
+
     width:125px;
     height:250px;
+
     transition:.18s;
 }
 
@@ -318,38 +528,59 @@ button{
 
 .enemy{
     right:20%;
+
     transform:scaleX(-1);
 }
 
 .head{
     position:absolute;
+
     width:62px;
     height:70px;
+
     border-radius:45%;
+
     background:#bd825d;
+
     left:31px;
     top:0;
+
     border:3px solid #7c4a35;
 }
 
 .hair{
     position:absolute;
+
     width:60px;
     height:28px;
+
     background:#17120f;
-    border-radius:50% 50% 20% 20%;
+
+    border-radius:
+        50% 50% 20% 20%;
+
     left:1px;
     top:-3px;
 }
 
 .body-shape{
     position:absolute;
+
     width:100px;
     height:125px;
+
     left:12px;
     top:62px;
+
     background:#2563eb;
-    clip-path:polygon(18% 0,82% 0,100% 100%,0 100%);
+
+    clip-path:
+        polygon(
+            18% 0,
+            82% 0,
+            100% 100%,
+            0 100%
+        );
 }
 
 .enemy .body-shape{
@@ -358,41 +589,58 @@ button{
 
 .arm{
     position:absolute;
+
     width:28px;
     height:110px;
+
     background:#bd825d;
+
     border-radius:20px;
+
     top:70px;
+
     transform-origin:top;
 }
 
 .arm.left{
     left:0;
+
     transform:rotate(25deg);
 }
 
 .arm.right{
     right:0;
+
     transform:rotate(-25deg);
 }
 
 .glove{
     position:absolute;
+
     width:42px;
     height:35px;
+
     border-radius:50%;
+
     background:#ef4444;
+
     border:3px solid #991b1b;
+
     bottom:-10px;
+
     left:-7px;
 }
 
 .leg{
     position:absolute;
+
     width:31px;
     height:105px;
+
     background:#222936;
+
     top:178px;
+
     border-radius:15px;
 }
 
@@ -404,70 +652,128 @@ button{
     right:25px;
 }
 
+
+/* =====================================================
+   HEALTH
+===================================================== */
+
 .health-area{
     position:absolute;
+
     left:20px;
     right:20px;
+
     top:20px;
+
     z-index:5;
 }
 
 .health-row{
     display:flex;
+
     justify-content:space-between;
+
     margin-bottom:6px;
+
     font-weight:bold;
 }
 
 .health-bar{
     height:15px;
+
     background:#252b36;
+
     border-radius:20px;
+
     overflow:hidden;
 }
 
 .health-fill{
     height:100%;
-    background:linear-gradient(90deg,#22c55e,#84cc16);
+
+    background:
+        linear-gradient(
+            90deg,
+            #22c55e,
+            #84cc16
+        );
+
     width:100%;
+
     transition:.25s;
 }
 
 .enemy-health{
-    background:linear-gradient(90deg,#ef4444,#f97316);
+    background:
+        linear-gradient(
+            90deg,
+            #ef4444,
+            #f97316
+        );
 }
 
-/* COMBAT EFFECTS */
+
+/* =====================================================
+   DAMAGE
+===================================================== */
 
 .damage{
     position:absolute;
+
     color:#facc15;
+
     font-size:30px;
+
     font-weight:bold;
+
     animation:damage .7s forwards;
+
     pointer-events:none;
+
     z-index:10;
 }
 
 @keyframes damage{
+
     from{
         opacity:1;
-        transform:translateY(0) scale(1);
+
+        transform:
+            translateY(0)
+            scale(1);
     }
+
     to{
         opacity:0;
-        transform:translateY(-70px) scale(1.5);
+
+        transform:
+            translateY(-70px)
+            scale(1.5);
     }
 }
+
+
+/* =====================================================
+   HIT
+===================================================== */
 
 .hit{
     animation:hit .2s;
 }
 
 @keyframes hit{
-    0%{transform:translateX(0)}
-    50%{transform:translateX(18px)}
-    100%{transform:translateX(0)}
+
+    0%{
+        transform:translateX(0);
+    }
+
+    50%{
+        transform:translateX(18px);
+    }
+
+    100%{
+        transform:translateX(0);
+    }
 }
 
 .enemy.hit{
@@ -475,41 +781,76 @@ button{
 }
 
 @keyframes enemyHit{
-    0%{transform:scaleX(-1) translateX(0)}
-    50%{transform:scaleX(-1) translateX(18px)}
-    100%{transform:scaleX(-1) translateX(0)}
+
+    0%{
+        transform:
+            scaleX(-1)
+            translateX(0);
+    }
+
+    50%{
+        transform:
+            scaleX(-1)
+            translateX(18px);
+    }
+
+    100%{
+        transform:
+            scaleX(-1)
+            translateX(0);
+    }
 }
 
-/* CONTROLS */
+
+/* =====================================================
+   CONTROLS
+===================================================== */
 
 .controls{
     background:rgba(15,20,28,.96);
+
     border:1px solid var(--border);
+
     border-radius:18px;
+
     padding:15px;
 }
 
 .controls h3{
     text-align:center;
+
     margin-bottom:12px;
 }
 
 .control-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+
+    grid-template-columns:
+        repeat(2,1fr);
+
     gap:8px;
 }
 
 .control{
     min-height:58px;
+
     border:1px solid #374151;
+
     background:#202938;
+
     color:white;
+
     border-radius:12px;
+
     font-weight:bold;
+
     cursor:pointer;
+
     font-size:14px;
+
     touch-action:manipulation;
+
+    transition:.15s;
 }
 
 .control:hover{
@@ -532,58 +873,98 @@ button{
     background:#374151;
 }
 
+
+/* =====================================================
+   STAMINA
+===================================================== */
+
 .stamina-box{
     margin:15px 0;
 }
 
 .stamina-bar{
     height:12px;
+
     background:#293241;
+
     border-radius:20px;
+
     overflow:hidden;
 }
 
 .stamina-fill{
     height:100%;
+
     width:100%;
+
     background:#f59e0b;
+
     transition:.2s;
 }
 
+
+/* =====================================================
+   COMBO
+===================================================== */
+
 .combo{
     background:#0b1017;
+
     border:1px solid #273142;
+
     border-radius:12px;
+
     padding:12px;
+
     margin-top:12px;
+
     min-height:65px;
 }
 
 .combo-title{
     color:#facc15;
+
     font-size:13px;
+
     margin-bottom:5px;
 }
 
 #comboText{
     font-size:13px;
+
     color:#cbd5e1;
+
     line-height:1.5;
 }
 
-/* BOTTOM GAME */
+
+/* =====================================================
+   GAME MESSAGE
+===================================================== */
 
 .game-message{
     position:absolute;
+
     left:50%;
     top:48%;
-    transform:translate(-50%,-50%);
+
+    transform:
+        translate(-50%,-50%);
+
     z-index:15;
-    background:rgba(0,0,0,.75);
+
+    background:
+        rgba(0,0,0,.85);
+
     padding:20px 30px;
+
     border-radius:16px;
+
     text-align:center;
+
     display:none;
+
+    min-width:280px;
 }
 
 .game-message.show{
@@ -592,17 +973,32 @@ button{
 
 .game-message h2{
     font-size:35px;
+
     margin-bottom:10px;
 }
 
-/* SETTINGS */
+.game-message p{
+    color:#cbd5e1;
+
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
 
 .settings{
     max-width:700px;
+
     margin:auto;
+
     background:var(--panel);
+
     border:1px solid var(--border);
+
     border-radius:18px;
+
     padding:25px;
 }
 
@@ -612,33 +1008,67 @@ button{
 
 .setting label{
     display:block;
+
     margin-bottom:8px;
+
     color:#cbd5e1;
+
     font-weight:bold;
 }
 
 select{
     width:100%;
+
     padding:13px;
+
     border-radius:10px;
+
     border:1px solid var(--border);
+
     background:#202938;
+
     color:white;
+
+    font-size:15px;
 }
 
-/* MOBILE */
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:900px){
+
     .fighters{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
     .game-layout{
         grid-template-columns:1fr;
     }
+
 }
 
+
 @media(max-width:600px){
+
+    header{
+        padding:12px;
+    }
+
+    .header{
+        flex-direction:column;
+    }
+
+    .logo{
+        font-size:22px;
+    }
+
+    .container{
+        padding:20px 10px 40px;
+    }
+
     .fighters{
         grid-template-columns:1fr;
     }
@@ -651,146 +1081,352 @@ select{
         min-height:500px;
     }
 
-    .fighter-body{
-        transform:scale(.78);
-        transform-origin:bottom;
-    }
+    /* Игрок */
 
-    .player{
+    .fighter-body.player{
         left:5%;
+
+        transform:
+            scale(.78);
+
+        transform-origin:
+            bottom center;
     }
 
-    .enemy{
+    /* Соперник */
+
+    .fighter-body.enemy{
         right:5%;
+
+        transform:
+            scaleX(-.78)
+            scaleY(.78);
+
+        transform-origin:
+            bottom center;
     }
 
     .control{
         min-height:54px;
+
         font-size:12px;
     }
+
+    .game-message{
+        width:90%;
+
+        padding:20px 15px;
+    }
+
+    .game-message h2{
+        font-size:28px;
+    }
+
 }
+
+
+/* =====================================================
+   VERY SMALL SCREENS
+===================================================== */
+
+@media(max-width:380px){
+
+    .control-grid{
+        grid-template-columns:1fr;
+    }
+
+    .fighter-body.player{
+        left:0;
+    }
+
+    .fighter-body.enemy{
+        right:0;
+    }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header>
+
     <div class="header">
-        <div class="logo">🥊 EasyFlow Boxing</div>
-        <div class="money">💰 $<span id="money">1000</span></div>
+
+        <div class="logo">
+            🥊 EasyFlow Boxing
+        </div>
+
+        <div class="money">
+            💰 $<span id="money">1000</span>
+        </div>
+
     </div>
+
 </header>
+
 
 <main class="container">
 
-<!-- ==============================
-     ГЛАВНОЕ МЕНЮ
-============================== -->
 
-<section id="menu" class="screen active">
+<!-- =====================================================
+     МЕНЮ
+===================================================== -->
+
+<section
+    id="menu"
+    class="screen active"
+>
 
     <div class="title">
-        <h1>🥊 EasyFlow Boxing</h1>
-        <p>Выбери бойца и выходи на ринг!</p>
+
+        <h1>
+            🥊 EasyFlow Boxing
+        </h1>
+
+        <p>
+            Выбери бойца и выходи на ринг!
+        </p>
+
     </div>
 
-    <div style="text-align:center;margin-bottom:25px;">
-        <button class="main-btn" onclick="showScreen('fightersScreen')">
+
+    <div
+        style="
+            text-align:center;
+            margin-bottom:25px;
+        "
+    >
+
+        <button
+            class="main-btn"
+            onclick="showScreen('fightersScreen')"
+        >
             🥊 Выбрать бойца
         </button>
 
-        <button class="main-btn secondary" onclick="showScreen('settingsScreen')">
+
+        <button
+            class="main-btn secondary"
+            onclick="showScreen('settingsScreen')"
+        >
             ⚙️ Настройки
         </button>
+
     </div>
 
+
     <div class="settings">
-        <h2 style="margin-bottom:15px;text-align:center;">
+
+        <h2
+            style="
+                margin-bottom:15px;
+                text-align:center;
+            "
+        >
             🎮 Управление
         </h2>
 
-        <p style="color:var(--muted);line-height:1.7;text-align:center;">
-            В бою будет всего несколько кнопок.
-            А комбинации будут выполняться автоматически,
-            если нажимать правильную последовательность ударов.
+
+        <p
+            style="
+                color:var(--muted);
+                line-height:1.7;
+                text-align:center;
+            "
+        >
+            В бою есть атаки, защита и движение.
+            Выполняй правильные последовательности,
+            чтобы делать комбинации.
         </p>
 
-        <div style="margin-top:20px;text-align:center;">
-            <button class="main-btn" onclick="startFight()">
+
+        <div
+            style="
+                margin-top:20px;
+                text-align:center;
+            "
+        >
+
+            <button
+                class="main-btn"
+                onclick="startFight()"
+            >
                 ▶️ Быстрый бой
             </button>
+
         </div>
+
     </div>
 
 </section>
 
 
-<!-- ==============================
+<!-- =====================================================
      ВЫБОР БОЙЦА
-============================== -->
+===================================================== -->
 
-<section id="fightersScreen" class="screen">
+<section
+    id="fightersScreen"
+    class="screen"
+>
 
     <div class="title">
-        <h1>🥊 Выбор бойца</h1>
-        <p>Некоторые бойцы открываются за игровую валюту.</p>
+
+        <h1>
+            🥊 Выбор бойца
+        </h1>
+
+        <p>
+            Некоторые бойцы открываются за игровую валюту.
+        </p>
+
     </div>
 
-    <div class="fighters" id="fightersList"></div>
 
-    <div style="text-align:center;margin-top:25px;">
-        <button class="main-btn secondary" onclick="showScreen('menu')">
+    <div
+        class="fighters"
+        id="fightersList"
+    ></div>
+
+
+    <div
+        style="
+            text-align:center;
+            margin-top:25px;
+        "
+    >
+
+        <button
+            class="main-btn secondary"
+            onclick="showScreen('menu')"
+        >
             ← Назад
         </button>
+
     </div>
 
 </section>
 
 
-<!-- ==============================
+<!-- =====================================================
      НАСТРОЙКИ
-============================== -->
+===================================================== -->
 
-<section id="settingsScreen" class="screen">
+<section
+    id="settingsScreen"
+    class="screen"
+>
 
     <div class="title">
-        <h1>⚙️ Настройки</h1>
+
+        <h1>
+            ⚙️ Настройки
+        </h1>
+
     </div>
+
 
     <div class="settings">
 
+
         <div class="setting">
-            <label>🎨 Качество графики</label>
+
+            <label>
+                🎨 Качество графики
+            </label>
+
             <select id="graphics">
-                <option value="low">Низкое</option>
-                <option value="medium" selected>Среднее</option>
-                <option value="high">Высокое</option>
-                <option value="ultra">Ультра</option>
+
+                <option value="low">
+                    Низкое
+                </option>
+
+                <option
+                    value="medium"
+                    selected
+                >
+                    Среднее
+                </option>
+
+                <option value="high">
+                    Высокое
+                </option>
+
+                <option value="ultra">
+                    Ультра
+                </option>
+
             </select>
+
         </div>
 
+
         <div class="setting">
-            <label>🎮 Управление</label>
+
+            <label>
+                🎮 Управление
+            </label>
+
             <select id="controlMode">
-                <option value="buttons">Кнопки</option>
-                <option value="touch">Сенсорное</option>
-                <option value="keyboard">Клавиатура</option>
+
+                <option value="buttons">
+                    Кнопки
+                </option>
+
+                <option value="touch">
+                    Сенсорное
+                </option>
+
+                <option value="keyboard">
+                    Клавиатура
+                </option>
+
             </select>
+
         </div>
+
 
         <div class="setting">
-            <label>🔊 Звук</label>
+
+            <label>
+                🔊 Звук
+            </label>
+
             <select id="sound">
-                <option value="on">Включён</option>
-                <option value="off">Выключен</option>
+
+                <option value="on">
+                    Включён
+                </option>
+
+                <option value="off">
+                    Выключен
+                </option>
+
             </select>
+
         </div>
 
-        <button class="main-btn" onclick="saveSettings()">
+
+        <button
+            class="main-btn"
+            onclick="saveSettings()"
+        >
             💾 Сохранить
         </button>
 
-        <button class="main-btn secondary" onclick="showScreen('menu')">
+
+        <button
+            class="main-btn secondary"
+            onclick="showScreen('menu')"
+        >
             ← Назад
         </button>
 
@@ -799,66 +1435,126 @@ select{
 </section>
 
 
-<!-- ==============================
+<!-- =====================================================
      БОЙ
-============================== -->
+===================================================== -->
 
-<section id="fightScreen" class="screen">
+<section
+    id="fightScreen"
+    class="screen"
+>
 
     <div class="title">
-        <h1>🥊 Бой</h1>
-        <p id="fightRound">Раунд 1</p>
+
+        <h1>
+            🥊 Бой
+        </h1>
+
+        <p id="fightRound">
+            Раунд 1
+        </p>
+
     </div>
+
 
     <div class="game-layout">
 
-        <div class="arena" id="arena">
+
+        <!-- ARENA -->
+
+        <div
+            class="arena"
+            id="arena"
+        >
+
+
+            <!-- HEALTH -->
 
             <div class="health-area">
 
                 <div class="health-row">
-                    <span id="playerName">Игрок</span>
-                    <span id="enemyName">Соперник</span>
+
+                    <span id="playerName">
+                        Игрок
+                    </span>
+
+                    <span id="enemyName">
+                        Соперник
+                    </span>
+
                 </div>
 
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+
+                <div
+                    style="
+                        display:grid;
+                        grid-template-columns:1fr 1fr;
+                        gap:10px;
+                    "
+                >
 
                     <div class="health-bar">
-                        <div id="playerHealth"
-                             class="health-fill"></div>
+
+                        <div
+                            id="playerHealth"
+                            class="health-fill"
+                        ></div>
+
                     </div>
 
+
                     <div class="health-bar">
-                        <div id="enemyHealth"
-                             class="health-fill enemy-health"></div>
+
+                        <div
+                            id="enemyHealth"
+                            class="health-fill enemy-health"
+                        ></div>
+
                     </div>
 
                 </div>
 
             </div>
 
+
             <div class="rope"></div>
+
             <div class="ring-floor"></div>
+
 
             <!-- ИГРОК -->
 
-            <div id="player" class="fighter-body player">
+            <div
+                id="player"
+                class="fighter-body player"
+            >
 
                 <div class="head">
+
                     <div class="hair"></div>
+
                 </div>
+
 
                 <div class="body-shape"></div>
 
+
                 <div class="arm left">
+
                     <div class="glove"></div>
+
                 </div>
+
 
                 <div class="arm right">
+
                     <div class="glove"></div>
+
                 </div>
 
+
                 <div class="leg left"></div>
+
                 <div class="leg right"></div>
 
             </div>
@@ -866,127 +1562,224 @@ select{
 
             <!-- СОПЕРНИК -->
 
-            <div id="enemy" class="fighter-body enemy">
+            <div
+                id="enemy"
+                class="fighter-body enemy"
+            >
 
                 <div class="head">
+
                     <div class="hair"></div>
+
                 </div>
+
 
                 <div class="body-shape"></div>
 
+
                 <div class="arm left">
+
                     <div class="glove"></div>
+
                 </div>
+
 
                 <div class="arm right">
+
                     <div class="glove"></div>
+
                 </div>
 
+
                 <div class="leg left"></div>
+
                 <div class="leg right"></div>
 
             </div>
 
 
-            <div id="gameMessage" class="game-message">
+            <!-- РЕЗУЛЬТАТ -->
+
+            <div
+                id="gameMessage"
+                class="game-message"
+            >
+
                 <h2 id="resultTitle"></h2>
+
                 <p id="resultText"></p>
+
                 <br>
-                <button class="main-btn" onclick="newFight()">
+
+
+                <button
+                    class="main-btn"
+                    onclick="newFight()"
+                >
                     🔄 Новый бой
                 </button>
-                <button class="main-btn secondary" onclick="showScreen('menu')">
+
+
+                <button
+                    class="main-btn secondary"
+                    onclick="showScreen('menu')"
+                >
                     🏠 Меню
                 </button>
+
             </div>
 
         </div>
 
 
-        <!-- ПАНЕЛЬ УПРАВЛЕНИЯ -->
+        <!-- CONTROLS -->
 
         <div class="controls">
 
-            <h3>🎮 Управление</h3>
+            <h3>
+                🎮 Управление
+            </h3>
+
+
+            <!-- STAMINA -->
 
             <div class="stamina-box">
 
-                <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-                    <span>⚡ Выносливость</span>
-                    <span id="staminaText">100</span>
+                <div
+                    style="
+                        display:flex;
+                        justify-content:space-between;
+                        margin-bottom:5px;
+                    "
+                >
+
+                    <span>
+                        ⚡ Выносливость
+                    </span>
+
+                    <span id="staminaText">
+                        100
+                    </span>
+
                 </div>
 
+
                 <div class="stamina-bar">
-                    <div id="stamina" class="stamina-fill"></div>
+
+                    <div
+                        id="stamina"
+                        class="stamina-fill"
+                    ></div>
+
                 </div>
 
             </div>
 
 
+            <!-- BUTTONS -->
+
             <div class="control-grid">
 
-                <button class="control attack"
-                    onclick="action('jab')">
+
+                <button
+                    class="control attack"
+                    onclick="action('jab')"
+                >
                     👊 Левый прямой
                 </button>
 
-                <button class="control attack"
-                    onclick="action('cross')">
+
+                <button
+                    class="control attack"
+                    onclick="action('cross')"
+                >
                     👊 Правый прямой
                 </button>
 
-                <button class="control attack"
-                    onclick="action('hookL')">
+
+                <button
+                    class="control attack"
+                    onclick="action('hookL')"
+                >
                     🥊 Левый хук
                 </button>
 
-                <button class="control attack"
-                    onclick="action('hookR')">
+
+                <button
+                    class="control attack"
+                    onclick="action('hookR')"
+                >
                     🥊 Правый хук
                 </button>
 
-                <button class="control attack"
-                    onclick="action('upperL')">
+
+                <button
+                    class="control attack"
+                    onclick="action('upperL')"
+                >
                     ⬆️ Левый апперкот
                 </button>
 
-                <button class="control attack"
-                    onclick="action('upperR')">
+
+                <button
+                    class="control attack"
+                    onclick="action('upperR')"
+                >
                     ⬆️ Правый апперкот
                 </button>
 
-                <button class="control defense"
-                    onclick="action('block')">
+
+                <button
+                    class="control defense"
+                    onclick="action('block')"
+                >
                     🛡️ Блок
                 </button>
 
-                <button class="control defense"
-                    onclick="action('dodgeL')">
+
+                <button
+                    class="control defense"
+                    onclick="action('dodgeL')"
+                >
                     ↩️ Уклон влево
                 </button>
 
-                <button class="control defense"
-                    onclick="action('dodgeR')">
+
+                <button
+                    class="control defense"
+                    onclick="action('dodgeR')"
+                >
                     ↪️ Уклон вправо
                 </button>
 
-                <button class="control defense"
-                    onclick="action('duck')">
+
+                <button
+                    class="control defense"
+                    onclick="action('duck')"
+                >
                     🧎 Нырок
                 </button>
 
-                <button class="control movement"
-                    onclick="action('back')">
+
+                <button
+                    class="control movement"
+                    onclick="action('back')"
+                >
                     ◀️ Шаг назад
                 </button>
 
-                <button class="control movement"
-                    onclick="action('side')">
+
+                <button
+                    class="control movement"
+                    onclick="action('side')"
+                >
                     ↔️ Шаг в сторону
                 </button>
 
             </div>
 
+
+            <!-- COMBO -->
 
             <div class="combo">
 
@@ -1010,6 +1803,7 @@ select{
 
 
 <script>
+
 /* =====================================================
    БОЙЦЫ
 ===================================================== */
@@ -1200,19 +1994,74 @@ const fighters = [
 
 
 /* =====================================================
-   СОСТОЯНИЕ
+   СОСТОЯНИЕ ИГРЫ
 ===================================================== */
 
 let money =
-    Number(localStorage.getItem("boxingMoney")) || 1000;
+    Number(
+        localStorage.getItem("boxingMoney")
+    );
+
+if(
+    !Number.isFinite(money) ||
+    money < 0
+){
+    money = 1000;
+}
+
 
 let selectedFighter =
-    Number(localStorage.getItem("selectedFighter")) || 1;
+    Number(
+        localStorage.getItem("selectedFighter")
+    );
 
-let owned =
-    JSON.parse(
-        localStorage.getItem("boxingOwned")
-    ) || [1];
+if(
+    !fighters.some(
+        fighter => fighter.id === selectedFighter
+    )
+){
+    selectedFighter = 1;
+}
+
+
+let owned;
+
+try{
+
+    owned =
+        JSON.parse(
+            localStorage.getItem("boxingOwned")
+        );
+
+}catch(error){
+
+    owned = null;
+
+}
+
+
+if(!Array.isArray(owned)){
+    owned = [1];
+}
+
+
+if(!owned.includes(1)){
+    owned.unshift(1);
+}
+
+
+owned = [
+    ...new Set(
+        owned.filter(
+            id =>
+                fighters.some(
+                    fighter =>
+                        fighter.id === id
+                )
+        )
+    )
+];
+
 
 let playerHealth = 100;
 let enemyHealth = 100;
@@ -1223,7 +2072,11 @@ let blocking = false;
 
 let combo = [];
 
-let enemyTimer;
+let enemyTimer = null;
+let staminaTimer = null;
+let blockTimer = null;
+
+let currentEnemy = null;
 
 
 /* =====================================================
@@ -1234,12 +2087,12 @@ function saveData(){
 
     localStorage.setItem(
         "boxingMoney",
-        money
+        String(money)
     );
 
     localStorage.setItem(
         "selectedFighter",
-        selectedFighter
+        String(selectedFighter)
     );
 
     localStorage.setItem(
@@ -1247,9 +2100,13 @@ function saveData(){
         JSON.stringify(owned)
     );
 
-    document.getElementById(
-        "money"
-    ).textContent = money;
+    const moneyElement =
+        document.getElementById("money");
+
+    if(moneyElement){
+        moneyElement.textContent =
+            money;
+    }
 
 }
 
@@ -1260,18 +2117,45 @@ function saveData(){
 
 function showScreen(id){
 
+    const target =
+        document.getElementById(id);
+
+    if(!target){
+        return;
+    }
+
+
     document
         .querySelectorAll(".screen")
-        .forEach(screen =>
-            screen.classList.remove("active")
-        );
+        .forEach(screen => {
 
-    document
-        .getElementById(id)
-        .classList.add("active");
+            screen.classList.remove("active");
+
+        });
+
+
+    target.classList.add("active");
+
 
     if(id === "fightersScreen"){
+
         renderFighters();
+
+    }
+
+
+    if(id !== "fightScreen"){
+
+        if(fightActive){
+
+            fightActive = false;
+
+            clearInterval(enemyTimer);
+
+            enemyTimer = null;
+
+        }
+
     }
 
 }
@@ -1284,30 +2168,50 @@ function showScreen(id){
 function renderFighters(){
 
     const list =
-        document.getElementById("fightersList");
+        document.getElementById(
+            "fightersList"
+        );
+
+    if(!list){
+        return;
+    }
+
 
     list.innerHTML = "";
+
 
     fighters.forEach(fighter => {
 
         const isOwned =
-            owned.includes(fighter.id);
+            owned.includes(
+                fighter.id
+            );
 
         const selected =
-            selectedFighter === fighter.id;
+            selectedFighter ===
+            fighter.id;
+
 
         const card =
             document.createElement("div");
 
+
         card.className =
             "fighter " +
-            (!isOwned ? "locked" : "");
+            (
+                !isOwned
+                ? "locked"
+                : ""
+            );
+
 
         card.innerHTML = `
 
             <div class="avatar"></div>
 
-            <h2>${fighter.name}</h2>
+            <h2>
+                ${fighter.name}
+            </h2>
 
             <div class="country">
                 ${fighter.country}
@@ -1319,19 +2223,34 @@ function renderFighters(){
 
             <div class="stats">
 
-                ${createStat("💪 Сила",fighter.power)}
+                ${createStat(
+                    "💪 Сила",
+                    fighter.power
+                )}
 
-                ${createStat("⚡ Скорость",fighter.speed)}
+                ${createStat(
+                    "⚡ Скорость",
+                    fighter.speed
+                )}
 
-                ${createStat("🛡️ Защита",fighter.defense)}
+                ${createStat(
+                    "🛡️ Защита",
+                    fighter.defense
+                )}
 
-                ${createStat("❤️ Выносливость",fighter.stamina)}
+                ${createStat(
+                    "❤️ Выносливость",
+                    fighter.stamina
+                )}
 
             </div>
 
             ${
                 isOwned
-                ? `
+
+                ?
+
+                `
                     <button
                         class="main-btn"
                         onclick="selectFighter(${fighter.id})"
@@ -1342,8 +2261,11 @@ function renderFighters(){
                             : "🥊 Выбрать"
                         }
                     </button>
-                  `
-                : `
+                `
+
+                :
+
+                `
                     <div class="price">
                         💰 ${fighter.price}
                     </div>
@@ -1354,10 +2276,11 @@ function renderFighters(){
                     >
                         🛒 Купить
                     </button>
-                  `
+                `
             }
 
         `;
+
 
         list.appendChild(card);
 
@@ -1366,6 +2289,10 @@ function renderFighters(){
 }
 
 
+/* =====================================================
+   СТАТИСТИКА
+===================================================== */
+
 function createStat(name,value){
 
     return `
@@ -1373,15 +2300,24 @@ function createStat(name,value){
         <div class="stat">
 
             <div class="stat-top">
-                <span>${name}</span>
-                <span>${value}</span>
+
+                <span>
+                    ${name}
+                </span>
+
+                <span>
+                    ${value}
+                </span>
+
             </div>
 
             <div class="bar">
+
                 <div
                     class="fill"
                     style="width:${value}%"
                 ></div>
+
             </div>
 
         </div>
@@ -1398,23 +2334,44 @@ function createStat(name,value){
 function buyFighter(id){
 
     const fighter =
-        fighters.find(f => f.id === id);
+        fighters.find(
+            f => f.id === id
+        );
 
-    if(!fighter) return;
 
-    if(money < fighter.price){
+    if(!fighter){
+        return;
+    }
 
-        alert("Недостаточно денег!");
+
+    if(owned.includes(id)){
+
+        selectFighter(id);
 
         return;
 
     }
 
+
+    if(money < fighter.price){
+
+        alert(
+            "Недостаточно денег!"
+        );
+
+        return;
+
+    }
+
+
     money -= fighter.price;
+
 
     owned.push(id);
 
+
     selectedFighter = id;
+
 
     saveData();
 
@@ -1424,7 +2381,7 @@ function buyFighter(id){
 
 
 /* =====================================================
-   ВЫБОР
+   ВЫБОР БОЙЦА
 ===================================================== */
 
 function selectFighter(id){
@@ -1433,7 +2390,9 @@ function selectFighter(id){
         return;
     }
 
+
     selectedFighter = id;
+
 
     saveData();
 
@@ -1450,19 +2409,41 @@ function startFight(){
 
     const player =
         fighters.find(
-            f => f.id === selectedFighter
+            f =>
+                f.id ===
+                selectedFighter
         );
 
+
     if(!player){
+
+        alert(
+            "Боец не найден."
+        );
+
+        selectedFighter = 1;
+
+        saveData();
+
         return;
+
     }
+
 
     const opponents =
         fighters.filter(
-            f => f.id !== selectedFighter
+            f =>
+                f.id !==
+                selectedFighter
         );
 
-    const enemy =
+
+    if(opponents.length === 0){
+        return;
+    }
+
+
+    currentEnemy =
         opponents[
             Math.floor(
                 Math.random() *
@@ -1470,10 +2451,11 @@ function startFight(){
             )
         ];
 
-    window.currentEnemy = enemy;
 
     playerHealth = 100;
+
     enemyHealth = 100;
+
     stamina = 100;
 
     combo = [];
@@ -1482,25 +2464,42 @@ function startFight(){
 
     fightActive = true;
 
+
+    clearInterval(enemyTimer);
+
+    clearInterval(staminaTimer);
+
+    clearTimeout(blockTimer);
+
+
     document.getElementById(
         "playerName"
-    ).textContent = player.name;
+    ).textContent =
+        player.name;
+
 
     document.getElementById(
         "enemyName"
-    ).textContent = enemy.name;
+    ).textContent =
+        currentEnemy.name;
+
+
+    document.getElementById(
+        "gameMessage"
+    ).classList.remove(
+        "show"
+    );
+
 
     updateBars();
 
     updateCombo();
 
-    showScreen("fightScreen");
 
-    document.getElementById(
-        "gameMessage"
-    ).classList.remove("show");
+    showScreen(
+        "fightScreen"
+    );
 
-    clearInterval(enemyTimer);
 
     enemyTimer =
         setInterval(
@@ -1508,8 +2507,19 @@ function startFight(){
             1800
         );
 
+
+    staminaTimer =
+        setInterval(
+            recoverStamina,
+            300
+        );
+
 }
 
+
+/* =====================================================
+   НОВЫЙ БОЙ
+===================================================== */
 
 function newFight(){
 
@@ -1524,32 +2534,74 @@ function newFight(){
 
 const actionNames = {
 
-    jab:"Левый прямой",
+    jab:
+        "Левый прямой",
 
-    cross:"Правый прямой",
+    cross:
+        "Правый прямой",
 
-    hookL:"Левый хук",
+    hookL:
+        "Левый хук",
 
-    hookR:"Правый хук",
+    hookR:
+        "Правый хук",
 
-    upperL:"Левый апперкот",
+    upperL:
+        "Левый апперкот",
 
-    upperR:"Правый апперкот",
+    upperR:
+        "Правый апперкот",
 
-    block:"Блок",
+    block:
+        "Блок",
 
-    dodgeL:"Уклон влево",
+    dodgeL:
+        "Уклон влево",
 
-    dodgeR:"Уклон вправо",
+    dodgeR:
+        "Уклон вправо",
 
-    duck:"Нырок",
+    duck:
+        "Нырок",
 
-    back:"Шаг назад",
+    back:
+        "Шаг назад",
 
-    side:"Шаг в сторону"
+    side:
+        "Шаг в сторону"
 
 };
 
+
+/* =====================================================
+   ДОБАВЛЕНИЕ В КОМБО
+===================================================== */
+
+function addCombo(type){
+
+    if(!actionNames[type]){
+        return;
+    }
+
+
+    combo.push(
+        actionNames[type]
+    );
+
+
+    if(combo.length > 5){
+        combo.shift();
+    }
+
+
+    updateCombo();
+
+}
+
+
+/* =====================================================
+   ДЕЙСТВИЕ ИГРОКА
+===================================================== */
 
 function action(type){
 
@@ -1557,7 +2609,8 @@ function action(type){
         return;
     }
 
-    /* защита */
+
+    /* ЗАЩИТА */
 
     if(
         type === "block" ||
@@ -1566,44 +2619,30 @@ function action(type){
         type === "duck"
     ){
 
-        blocking = true;
+        setBlocking();
 
-        combo.push(actionNames[type]);
-
-        if(combo.length > 5){
-            combo.shift();
-        }
-
-        updateCombo();
-
-        setTimeout(() => {
-            blocking = false;
-        },600);
+        addCombo(type);
 
         return;
+
     }
 
 
-    /* движение */
+    /* ДВИЖЕНИЕ */
 
     if(
         type === "back" ||
         type === "side"
     ){
 
-        combo.push(actionNames[type]);
-
-        if(combo.length > 5){
-            combo.shift();
-        }
-
-        updateCombo();
+        addCombo(type);
 
         return;
+
     }
 
 
-    /* удар */
+    /* УДАР */
 
     if(stamina < 8){
 
@@ -1612,65 +2651,97 @@ function action(type){
         );
 
         return;
+
     }
+
 
     stamina -= 8;
 
-    combo.push(actionNames[type]);
 
-    if(combo.length > 5){
-        combo.shift();
-    }
+    addCombo(type);
 
-    updateCombo();
 
     const player =
         fighters.find(
-            f => f.id === selectedFighter
+            f =>
+                f.id ===
+                selectedFighter
         );
 
+
+    if(!player){
+        return;
+    }
+
+
     let damage =
-        5 + player.power / 12;
+        5 +
+        player.power / 12;
 
-    if(type === "hookL" || type === "hookR"){
+
+    if(
+        type === "hookL" ||
+        type === "hookR"
+    ){
+
         damage += 3;
+
     }
 
-    if(type === "upperL" || type === "upperR"){
+
+    if(
+        type === "upperL" ||
+        type === "upperR"
+    ){
+
         damage += 5;
+
     }
 
-    /* случайный критический удар */
 
-    if(Math.random() < player.power / 500){
+    let critical = false;
+
+
+    if(
+        Math.random() <
+        player.power / 500
+    ){
 
         damage *= 1.7;
 
-        showDamage(
-            Math.round(damage),
-            true
-        );
-
-    }else{
-
-        showDamage(
-            Math.round(damage),
-            false
-        );
+        critical = true;
 
     }
 
+
+    damage =
+        Math.round(damage);
+
+
     enemyHealth -= damage;
+
 
     if(enemyHealth < 0){
         enemyHealth = 0;
     }
 
-    hitAnimation("enemy");
+
+    showDamage(
+        damage,
+        critical
+    );
+
+
+    hitAnimation(
+        "enemy"
+    );
+
 
     updateBars();
 
+
     checkCombo();
+
 
     if(enemyHealth <= 0){
 
@@ -1687,118 +2758,310 @@ function action(type){
 
 const combinations = [
 
-    ["Левый прямой","Правый прямой"],
+    [
+        "Левый прямой",
+        "Правый прямой"
+    ],
 
-    ["Левый хук","Правый хук"],
+    [
+        "Левый хук",
+        "Правый хук"
+    ],
 
-    ["Левый прямой","Правый прямой","Левый хук"],
+    [
+        "Левый прямой",
+        "Правый прямой",
+        "Левый хук"
+    ],
 
-    ["Левый прямой","Правый прямой","Левый апперкот","Правый хук"],
+    [
+        "Левый прямой",
+        "Правый прямой",
+        "Левый апперкот",
+        "Правый хук"
+    ],
 
-    ["Блок","Левый хук","Правый прямой"],
+    [
+        "Блок",
+        "Левый хук",
+        "Правый прямой"
+    ],
 
-    ["Уклон влево","Правый апперкот","Левый хук"],
+    [
+        "Уклон влево",
+        "Правый апперкот",
+        "Левый хук"
+    ],
 
-    ["Левый прямой","Левый прямой","Правый прямой"],
+    [
+        "Левый прямой",
+        "Левый прямой",
+        "Правый прямой"
+    ],
 
-    ["Левый прямой","Правый прямой","Правый хук"],
+    [
+        "Левый прямой",
+        "Правый прямой",
+        "Правый хук"
+    ],
 
-    ["Левый прямой","Правый апперкот","Левый хук"],
+    [
+        "Левый прямой",
+        "Правый апперкот",
+        "Левый хук"
+    ],
 
-    ["Левый хук","Правый прямой","Левый хук"],
+    [
+        "Левый хук",
+        "Правый прямой",
+        "Левый хук"
+    ],
 
-    ["Правый прямой","Левый хук","Правый прямой"],
+    [
+        "Правый прямой",
+        "Левый хук",
+        "Правый прямой"
+    ],
 
-    ["Левый апперкот","Правый прямой","Левый хук"],
+    [
+        "Левый апперкот",
+        "Правый прямой",
+        "Левый хук"
+    ],
 
-    ["Правый апперкот","Левый хук","Правый прямой"],
+    [
+        "Правый апперкот",
+        "Левый хук",
+        "Правый прямой"
+    ],
 
-    ["Левый прямой","Правый прямой","Левый апперкот","Правый прямой"],
+    [
+        "Левый прямой",
+        "Правый прямой",
+        "Левый апперкот",
+        "Правый прямой"
+    ],
 
-    ["Левый прямой","Левый хук","Правый прямой","Правый хук"],
+    [
+        "Левый прямой",
+        "Левый хук",
+        "Правый прямой",
+        "Правый хук"
+    ],
 
-    ["Правый прямой","Левый хук","Правый апперкот","Левый хук"],
+    [
+        "Правый прямой",
+        "Левый хук",
+        "Правый апперкот",
+        "Левый хук"
+    ],
 
-    ["Уклон вправо","Левый хук","Правый прямой"],
+    [
+        "Уклон вправо",
+        "Левый хук",
+        "Правый прямой"
+    ],
 
-    ["Уклон влево","Правый прямой","Левый хук"],
+    [
+        "Уклон влево",
+        "Правый прямой",
+        "Левый хук"
+    ],
 
-    ["Нырок","Левый хук","Правый прямой"],
+    [
+        "Нырок",
+        "Левый хук",
+        "Правый прямой"
+    ],
 
-    ["Блок","Правый прямой","Левый хук"],
+    [
+        "Блок",
+        "Правый прямой",
+        "Левый хук"
+    ],
 
-    ["Блок","Левый апперкот","Правый хук"],
+    [
+        "Блок",
+        "Левый апперкот",
+        "Правый хук"
+    ],
 
-    ["Шаг назад","Правый прямой","Левый хук"],
+    [
+        "Шаг назад",
+        "Правый прямой",
+        "Левый хук"
+    ],
 
-    ["Шаг в сторону","Левый прямой","Правый прямой"],
+    [
+        "Шаг в сторону",
+        "Левый прямой",
+        "Правый прямой"
+    ],
 
-    ["Левый прямой","Уклон вправо","Правый прямой","Левый хук"],
+    [
+        "Левый прямой",
+        "Уклон вправо",
+        "Правый прямой",
+        "Левый хук"
+    ],
 
-    ["Левый прямой","Правый прямой","Нырок","Левый хук"],
+    [
+        "Левый прямой",
+        "Правый прямой",
+        "Нырок",
+        "Левый хук"
+    ],
 
-    ["Левый хук","Правый прямой","Правый апперкот","Левый хук"],
+    [
+        "Левый хук",
+        "Правый прямой",
+        "Правый апперкот",
+        "Левый хук"
+    ],
 
-    ["Левый прямой","Правый хук","Левый хук"],
+    [
+        "Левый прямой",
+        "Правый хук",
+        "Левый хук"
+    ],
 
-    ["Правый прямой","Левый апперкот","Правый хук"],
+    [
+        "Правый прямой",
+        "Левый апперкот",
+        "Правый хук"
+    ],
 
-    ["Левый апперкот","Правый апперкот","Левый хук"],
+    [
+        "Левый апперкот",
+        "Правый апперкот",
+        "Левый хук"
+    ],
 
-    ["Левый прямой","Правый прямой","Левый хук","Правый прямой","Левый хук"],
+    [
+        "Левый прямой",
+        "Правый прямой",
+        "Левый хук",
+        "Правый прямой",
+        "Левый хук"
+    ],
 
-    ["Блок","Уклон влево","Правый прямой","Левый хук"],
+    [
+        "Блок",
+        "Уклон влево",
+        "Правый прямой",
+        "Левый хук"
+    ],
 
-    ["Уклон вправо","Левый апперкот","Правый хук","Левый хук"],
+    [
+        "Уклон вправо",
+        "Левый апперкот",
+        "Правый хук",
+        "Левый хук"
+    ],
 
-    ["Левый прямой","Правый прямой","Шаг в сторону","Левый хук"],
+    [
+        "Левый прямой",
+        "Правый прямой",
+        "Шаг в сторону",
+        "Левый хук"
+    ],
 
-    ["Левый хук","Правый прямой","Уклон влево","Правый апперкот"],
+    [
+        "Левый хук",
+        "Правый прямой",
+        "Уклон влево",
+        "Правый апперкот"
+    ],
 
-    ["Правый прямой","Левый хук","Нырок","Левый апперкот","Правый хук"],
+    [
+        "Правый прямой",
+        "Левый хук",
+        "Нырок",
+        "Левый апперкот",
+        "Правый хук"
+    ],
 
-    ["Левый прямой","Правый прямой","Левый апперкот","Правый хук","Левый хук"],
+    [
+        "Левый прямой",
+        "Правый прямой",
+        "Левый апперкот",
+        "Правый хук",
+        "Левый хук"
+    ],
 
-    ["Уклон влево","Правый прямой","Левый хук","Правый апперкот"],
+    [
+        "Уклон влево",
+        "Правый прямой",
+        "Левый хук",
+        "Правый апперкот"
+    ],
 
-    ["Блок","Левый хук","Правый прямой","Левый апперкот"],
+    [
+        "Блок",
+        "Левый хук",
+        "Правый прямой",
+        "Левый апперкот"
+    ],
 
-    ["Шаг назад","Левый прямой","Правый прямой","Левый хук"],
+    [
+        "Шаг назад",
+        "Левый прямой",
+        "Правый прямой",
+        "Левый хук"
+    ],
 
-    ["Левый прямой","Правый прямой","Правый хук","Левый хук","Правый прямой"]
+    [
+        "Левый прямой",
+        "Правый прямой",
+        "Правый хук",
+        "Левый хук",
+        "Правый прямой"
+    ]
 
 ];
 
 
+/* =====================================================
+   ПРОВЕРКА КОМБО
+===================================================== */
+
 function checkCombo(){
 
     for(
-        let i=0;
-        i<combinations.length;
+        let i = 0;
+        i < combinations.length;
         i++
     ){
 
-        const c =
+        const combination =
             combinations[i];
 
+
         if(
-            combo.length >= c.length
+            combo.length <
+            combination.length
+        ){
+            continue;
+        }
+
+
+        const last =
+            combo.slice(
+                combo.length -
+                combination.length
+            );
+
+
+        if(
+            JSON.stringify(last) ===
+            JSON.stringify(combination)
         ){
 
-            const last =
-                combo.slice(
-                    combo.length-c.length
-                );
+            comboBonus(
+                combination
+            );
 
-            if(
-                JSON.stringify(last) ===
-                JSON.stringify(c)
-            ){
-
-                comboBonus(c);
-
-                break;
-            }
+            return;
 
         }
 
@@ -1807,28 +3070,38 @@ function checkCombo(){
 }
 
 
-function comboBonus(c){
+/* =====================================================
+   БОНУС КОМБО
+===================================================== */
 
-    const player =
-        fighters.find(
-            f => f.id === selectedFighter
-        );
+function comboBonus(combination){
+
+    if(!fightActive){
+        return;
+    }
+
 
     const bonus =
-        8 + c.length * 3;
+        8 +
+        combination.length * 3;
+
 
     enemyHealth -= bonus;
+
 
     if(enemyHealth < 0){
         enemyHealth = 0;
     }
+
 
     showDamage(
         Math.round(bonus),
         true
     );
 
+
     updateBars();
+
 
     showTemporaryMessage(
         "🔥 КОМБИНАЦИЯ! +" +
@@ -1836,9 +3109,39 @@ function comboBonus(c){
         " урона"
     );
 
+
     if(enemyHealth <= 0){
+
         winFight();
+
     }
+
+}
+
+
+/* =====================================================
+   БЛОКИРОВКА
+===================================================== */
+
+function setBlocking(){
+
+    blocking = true;
+
+
+    clearTimeout(
+        blockTimer
+    );
+
+
+    blockTimer =
+        setTimeout(
+            () => {
+
+                blocking = false;
+
+            },
+            600
+        );
 
 }
 
@@ -1853,24 +3156,32 @@ function enemyAttack(){
         return;
     }
 
+
     const player =
         fighters.find(
-            f => f.id === selectedFighter
+            f =>
+                f.id ===
+                selectedFighter
         );
 
-    const enemy =
-        window.currentEnemy;
 
-    if(!enemy){
+    const enemy =
+        currentEnemy;
+
+
+    if(!player || !enemy){
         return;
     }
+
 
     const chance =
         Math.random();
 
+
     if(
         blocking ||
-        chance < player.defense / 180
+        chance <
+        player.defense / 180
     ){
 
         showTemporaryMessage(
@@ -1878,32 +3189,50 @@ function enemyAttack(){
         );
 
         return;
+
     }
 
+
     let damage =
-        4 + enemy.power / 15;
+        4 +
+        enemy.power / 15;
+
 
     if(
         Math.random() <
         enemy.power / 250
     ){
+
         damage *= 1.6;
+
     }
 
+
+    damage =
+        Math.round(damage);
+
+
     playerHealth -= damage;
+
 
     if(playerHealth < 0){
         playerHealth = 0;
     }
 
-    hitAnimation("player");
+
+    hitAnimation(
+        "player"
+    );
+
 
     showDamage(
-        Math.round(damage),
+        damage,
         false
     );
 
+
     updateBars();
+
 
     if(playerHealth <= 0){
 
@@ -1924,24 +3253,47 @@ function winFight(){
         return;
     }
 
+
     fightActive = false;
 
-    clearInterval(enemyTimer);
+
+    clearInterval(
+        enemyTimer
+    );
+
+    enemyTimer = null;
+
+
+    clearInterval(
+        staminaTimer
+    );
+
+    staminaTimer = null;
+
+
+    clearTimeout(
+        blockTimer
+    );
+
 
     const reward =
         500 +
         Math.floor(
-            Math.random()*1000
+            Math.random() * 1000
         );
+
 
     money += reward;
 
+
     saveData();
+
 
     document.getElementById(
         "resultTitle"
     ).textContent =
         "🏆 ПОБЕДА!";
+
 
     document.getElementById(
         "resultText"
@@ -1949,12 +3301,19 @@ function winFight(){
         "Ты победил и заработал $" +
         reward;
 
+
     document.getElementById(
         "gameMessage"
-    ).classList.add("show");
+    ).classList.add(
+        "show"
+    );
 
 }
 
+
+/* =====================================================
+   ПОРАЖЕНИЕ
+===================================================== */
 
 function loseFight(){
 
@@ -1962,23 +3321,41 @@ function loseFight(){
         return;
     }
 
+
     fightActive = false;
 
-    clearInterval(enemyTimer);
+
+    clearInterval(
+        enemyTimer
+    );
+
+    enemyTimer = null;
+
+
+    clearInterval(
+        staminaTimer
+    );
+
+    staminaTimer = null;
+
 
     document.getElementById(
         "resultTitle"
     ).textContent =
         "💥 ПОРАЖЕНИЕ";
 
+
     document.getElementById(
         "resultText"
     ).textContent =
         "Попробуй другой стиль боя.";
 
+
     document.getElementById(
         "gameMessage"
-    ).classList.add("show");
+    ).classList.add(
+        "show"
+    );
 
 }
 
@@ -1989,25 +3366,78 @@ function loseFight(){
 
 function updateBars(){
 
-    document.getElementById(
-        "playerHealth"
-    ).style.width =
-        playerHealth + "%";
+    const playerHealthElement =
+        document.getElementById(
+            "playerHealth"
+        );
 
-    document.getElementById(
-        "enemyHealth"
-    ).style.width =
-        enemyHealth + "%";
 
-    document.getElementById(
-        "stamina"
-    ).style.width =
-        stamina + "%";
+    const enemyHealthElement =
+        document.getElementById(
+            "enemyHealth"
+        );
 
-    document.getElementById(
-        "staminaText"
-    ).textContent =
-        Math.round(stamina);
+
+    const staminaElement =
+        document.getElementById(
+            "stamina"
+        );
+
+
+    const staminaTextElement =
+        document.getElementById(
+            "staminaText"
+        );
+
+
+    if(playerHealthElement){
+
+        playerHealthElement.style.width =
+            Math.max(
+                0,
+                Math.min(
+                    100,
+                    playerHealth
+                )
+            ) + "%";
+
+    }
+
+
+    if(enemyHealthElement){
+
+        enemyHealthElement.style.width =
+            Math.max(
+                0,
+                Math.min(
+                    100,
+                    enemyHealth
+                )
+            ) + "%";
+
+    }
+
+
+    if(staminaElement){
+
+        staminaElement.style.width =
+            Math.max(
+                0,
+                Math.min(
+                    100,
+                    stamina
+                )
+            ) + "%";
+
+    }
+
+
+    if(staminaTextElement){
+
+        staminaTextElement.textContent =
+            Math.round(stamina);
+
+    }
 
 }
 
@@ -2016,24 +3446,27 @@ function updateBars(){
    ВОССТАНОВЛЕНИЕ ВЫНОСЛИВОСТИ
 ===================================================== */
 
-setInterval(() => {
+function recoverStamina(){
 
     if(
-        fightActive &&
-        stamina < 100
+        !fightActive ||
+        stamina >= 100
     ){
-
-        stamina += 2;
-
-        if(stamina > 100){
-            stamina = 100;
-        }
-
-        updateBars();
-
+        return;
     }
 
-},300);
+
+    stamina += 2;
+
+
+    if(stamina > 100){
+        stamina = 100;
+    }
+
+
+    updateBars();
+
+}
 
 
 /* =====================================================
@@ -2047,13 +3480,21 @@ function updateCombo(){
             "comboText"
         );
 
+
+    if(!element){
+        return;
+    }
+
+
     if(combo.length === 0){
 
         element.textContent =
             "Нажимай удары последовательно.";
 
         return;
+
     }
+
 
     element.textContent =
         combo.join(" → ");
@@ -2068,13 +3509,39 @@ function updateCombo(){
 function hitAnimation(who){
 
     const element =
-        document.getElementById(who);
+        document.getElementById(
+            who
+        );
 
-    element.classList.remove("hit");
+
+    if(!element){
+        return;
+    }
+
+
+    element.classList.remove(
+        "hit"
+    );
+
 
     void element.offsetWidth;
 
-    element.classList.add("hit");
+
+    element.classList.add(
+        "hit"
+    );
+
+
+    setTimeout(
+        () => {
+
+            element.classList.remove(
+                "hit"
+            );
+
+        },
+        250
+    );
 
 }
 
@@ -2083,35 +3550,69 @@ function hitAnimation(who){
    УРОН
 ===================================================== */
 
-function showDamage(amount,critical){
+function showDamage(
+    amount,
+    critical
+){
 
     const arena =
         document.getElementById(
             "arena"
         );
 
+
+    if(!arena){
+        return;
+    }
+
+
     const element =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     element.className =
         "damage";
+
 
     element.textContent =
         critical
         ? "🔥 -" + amount
         : "-" + amount;
 
+
     element.style.left =
-        (45 + Math.random()*15) + "%";
+        (
+            45 +
+            Math.random() * 15
+        ) + "%";
+
 
     element.style.top =
-        (35 + Math.random()*20) + "%";
+        (
+            35 +
+            Math.random() * 20
+        ) + "%";
 
-    arena.appendChild(element);
 
-    setTimeout(() => {
-        element.remove();
-    },700);
+    arena.appendChild(
+        element
+    );
+
+
+    setTimeout(
+        () => {
+
+            if(element.parentNode){
+
+                element.remove();
+
+            }
+
+        },
+        700
+    );
 
 }
 
@@ -2127,7 +3628,14 @@ function showTemporaryMessage(text){
             "comboText"
         );
 
-    element.textContent = text;
+
+    if(!element){
+        return;
+    }
+
+
+    element.textContent =
+        text;
 
 }
 
@@ -2143,32 +3651,40 @@ function saveSettings(){
             "graphics"
         ).value;
 
+
     const controls =
         document.getElementById(
             "controlMode"
         ).value;
+
 
     const sound =
         document.getElementById(
             "sound"
         ).value;
 
+
     localStorage.setItem(
         "boxingGraphics",
         graphics
     );
+
 
     localStorage.setItem(
         "boxingControls",
         controls
     );
 
+
     localStorage.setItem(
         "boxingSound",
         sound
     );
 
-    alert("Настройки сохранены!");
+
+    alert(
+        "Настройки сохранены!"
+    );
 
 }
 
@@ -2185,36 +3701,48 @@ document.addEventListener(
             return;
         }
 
+
         const key =
             event.key.toLowerCase();
+
 
         const keys = {
 
             "a":"jab",
+
             "d":"cross",
+
             "q":"hookL",
+
             "e":"hookR",
+
             "z":"upperL",
+
             "c":"upperR",
 
             "s":"block",
 
             "arrowleft":"dodgeL",
+
             "arrowright":"dodgeR",
 
             "arrowdown":"duck",
 
             "arrowup":"back",
 
-            " " :"side"
+            " ":"side"
 
         };
+
 
         if(keys[key]){
 
             event.preventDefault();
 
-            action(keys[key]);
+
+            action(
+                keys[key]
+            );
 
         }
 
@@ -2223,7 +3751,7 @@ document.addEventListener(
 
 
 /* =====================================================
-   ЗАГРУЗКА
+   ЗАГРУЗКА НАСТРОЕК
 ===================================================== */
 
 function loadSettings(){
@@ -2233,37 +3761,45 @@ function loadSettings(){
             "boxingGraphics"
         );
 
+
     const controls =
         localStorage.getItem(
             "boxingControls"
         );
+
 
     const sound =
         localStorage.getItem(
             "boxingSound"
         );
 
+
     if(graphics){
 
         document.getElementById(
             "graphics"
-        ).value = graphics;
+        ).value =
+            graphics;
 
     }
+
 
     if(controls){
 
         document.getElementById(
             "controlMode"
-        ).value = controls;
+        ).value =
+            controls;
 
     }
+
 
     if(sound){
 
         document.getElementById(
             "sound"
-        ).value = sound;
+        ).value =
+            sound;
 
     }
 
@@ -2275,7 +3811,34 @@ function loadSettings(){
 ===================================================== */
 
 saveData();
+
 loadSettings();
+
+renderFighters();
+
+
+/* =====================================================
+   ЗАЩИТА ОТ ВЫХОДА СО СТРАНИЦЫ ВО ВРЕМЯ БОЯ
+===================================================== */
+
+window.addEventListener(
+    "beforeunload",
+    function(){
+
+        clearInterval(
+            enemyTimer
+        );
+
+        clearInterval(
+            staminaTimer
+        );
+
+        clearTimeout(
+            blockTimer
+        );
+
+    }
+);
 
 </script>
 
