@@ -8,7 +8,6 @@
 <title>EasyFlow — Крестики-нолики</title>
 
 <style>
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -31,7 +30,6 @@ header {
 .header {
     max-width: 900px;
     margin: auto;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -72,9 +70,8 @@ header {
     color: #64748b;
 }
 
-/* СЛОЖНОСТЬ */
-
-.difficulty {
+.difficulty,
+.first-player {
     background: white;
     padding: 20px;
     border-radius: 18px;
@@ -83,27 +80,32 @@ header {
     text-align: center;
 }
 
-.difficulty h2 {
+.difficulty h2,
+.first-player h2 {
     margin-bottom: 15px;
 }
 
-.levels {
+.levels,
+.first-buttons {
     display: flex;
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
 }
 
-.level {
+.level,
+.first-button {
     border: 2px solid #e5e7eb;
     background: white;
     padding: 12px 20px;
     border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
+    transition: .15s;
 }
 
-.level:hover {
+.level:hover,
+.first-button:hover {
     transform: translateY(-2px);
 }
 
@@ -125,44 +127,11 @@ header {
     color: #991b1b;
 }
 
-/* КТО ПЕРВЫЙ */
-
-.first-player {
-    background: white;
-    padding: 20px;
-    border-radius: 18px;
-    margin-bottom: 20px;
-    border: 1px solid #e5e7eb;
-    text-align: center;
-}
-
-.first-player h2 {
-    margin-bottom: 15px;
-}
-
-.first-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.first-button {
-    border: 2px solid #e5e7eb;
-    background: white;
-    padding: 12px 20px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
 .first-button.active {
     border-color: #2563eb;
     background: #dbeafe;
     color: #1d4ed8;
 }
-
-/* ИНФОРМАЦИЯ */
 
 .info {
     display: flex;
@@ -192,8 +161,6 @@ header {
     font-size: 23px;
 }
 
-/* ИГРОВОЕ ПОЛЕ */
-
 .board-wrapper {
     display: flex;
     justify-content: center;
@@ -202,36 +169,24 @@ header {
 .board {
     width: min(90vw, 450px);
     height: min(90vw, 450px);
-
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-
     gap: 8px;
-
     background: #2563eb;
     padding: 8px;
-
     border-radius: 18px;
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 35px rgba(0,0,0,.15);
 }
 
 .cell {
     border: none;
-
     background: white;
-
     border-radius: 12px;
-
     font-size: clamp(50px, 15vw, 90px);
-
     font-weight: bold;
-
     cursor: pointer;
-
-    transition: 0.15s;
+    transition: .15s;
 }
 
 .cell:hover {
@@ -250,17 +205,15 @@ header {
     background: #dcfce7;
 }
 
-/* СООБЩЕНИЕ */
+.cell:disabled {
+    cursor: default;
+}
 
 .message {
     text-align: center;
-
     margin-top: 20px;
-
     min-height: 28px;
-
     font-size: 18px;
-
     font-weight: bold;
 }
 
@@ -272,35 +225,22 @@ header {
     color: #ef4444;
 }
 
-/* КНОПКИ */
-
 .buttons {
     display: flex;
-
     justify-content: center;
-
     gap: 10px;
-
     flex-wrap: wrap;
-
     margin-top: 20px;
 }
 
 .main-button {
     border: none;
-
     background: #2563eb;
-
     color: white;
-
     padding: 13px 22px;
-
     border-radius: 11px;
-
     cursor: pointer;
-
     font-weight: bold;
-
     font-size: 16px;
 }
 
@@ -316,33 +256,23 @@ header {
     background: #475569;
 }
 
-/* РЕКОРДЫ */
-
 .records {
     background: white;
-
     border: 1px solid #e5e7eb;
-
     border-radius: 18px;
-
     padding: 25px;
-
     margin-top: 30px;
 }
 
 .records h2 {
     text-align: center;
-
     margin-bottom: 20px;
 }
 
 .record-row {
     display: flex;
-
     justify-content: space-between;
-
     padding: 12px 5px;
-
     border-bottom: 1px solid #eef0f3;
 }
 
@@ -354,41 +284,26 @@ header {
     color: #2563eb;
 }
 
-/* ПОДСКАЗКА */
-
 .tip {
     background: #eff6ff;
-
     border: 1px solid #bfdbfe;
-
     color: #1e40af;
-
     padding: 15px;
-
     border-radius: 14px;
-
     margin-top: 20px;
-
     text-align: center;
-
     line-height: 1.5;
 }
 
 footer {
     margin-top: 40px;
-
     background: #111827;
-
     color: #9ca3af;
-
     text-align: center;
-
     padding: 25px;
 }
 
-/* МОБИЛЬНАЯ ВЕРСИЯ */
-
-@media(max-width: 600px) {
+@media(max-width:600px) {
 
     .title h1 {
         font-size: 32px;
@@ -411,15 +326,12 @@ footer {
     .cell {
         border-radius: 9px;
     }
-
 }
-
 </style>
 
 </head>
 
 <body>
-
 
 <header>
 
@@ -437,9 +349,7 @@ EasyFlow
 
 </header>
 
-
 <main class="container">
-
 
 <div class="title">
 
@@ -451,38 +361,30 @@ EasyFlow
 
 </div>
 
-
-<!-- СЛОЖНОСТЬ -->
-
 <div class="difficulty">
 
-<h2>
-🎯 Выбери сложность
-</h2>
+<h2>🎯 Выбери сложность</h2>
 
 <div class="levels">
 
 <button
 class="level easy active"
 id="easyButton"
-onclick="selectDifficulty('easy')"
->
+onclick="selectDifficulty('easy')">
 🟢 Лёгкий
 </button>
 
 <button
 class="level medium"
 id="mediumButton"
-onclick="selectDifficulty('medium')"
->
+onclick="selectDifficulty('medium')">
 🟡 Средний
 </button>
 
 <button
 class="level hard"
 id="hardButton"
-onclick="selectDifficulty('hard')"
->
+onclick="selectDifficulty('hard')">
 🔴 Сложный
 </button>
 
@@ -490,30 +392,23 @@ onclick="selectDifficulty('hard')"
 
 </div>
 
-
-<!-- ПЕРВЫЙ ХОД -->
-
 <div class="first-player">
 
-<h2>
-👤 Кто ходит первым?
-</h2>
+<h2>👤 Кто ходит первым?</h2>
 
 <div class="first-buttons">
 
 <button
 class="first-button active"
 id="playerFirstButton"
-onclick="setFirstPlayer('player')"
->
+onclick="setFirstPlayer('player')">
 ❌ Я
 </button>
 
 <button
 class="first-button"
 id="computerFirstButton"
-onclick="setFirstPlayer('computer')"
->
+onclick="setFirstPlayer('computer')">
 ⭕ Компьютер
 </button>
 
@@ -521,16 +416,11 @@ onclick="setFirstPlayer('computer')"
 
 </div>
 
-
-<!-- СТАТИСТИКА -->
-
 <div class="info">
 
 <div class="stat">
 
-<span>
-Твои победы
-</span>
+<span>Твои победы</span>
 
 <strong id="wins">
 0
@@ -538,12 +428,9 @@ onclick="setFirstPlayer('computer')"
 
 </div>
 
-
 <div class="stat">
 
-<span>
-🏆 Рекорд
-</span>
+<span>🏆 Рекорд</span>
 
 <strong id="record">
 0
@@ -551,12 +438,9 @@ onclick="setFirstPlayer('computer')"
 
 </div>
 
-
 <div class="stat">
 
-<span>
-Сложность
-</span>
+<span>Сложность</span>
 
 <strong id="difficultyName">
 Лёгкий
@@ -566,114 +450,41 @@ onclick="setFirstPlayer('computer')"
 
 </div>
 
-
-<!-- ПОЛЕ -->
-
 <div class="board-wrapper">
 
-<div
-id="board"
-class="board"
->
+<div id="board" class="board">
 
-<button
-class="cell"
-data-index="0"
-onclick="playerMove(0)"
->
-</button>
+<button class="cell" data-index="0" onclick="playerMove(0)"></button>
+<button class="cell" data-index="1" onclick="playerMove(1)"></button>
+<button class="cell" data-index="2" onclick="playerMove(2)"></button>
 
-<button
-class="cell"
-data-index="1"
-onclick="playerMove(1)"
->
-</button>
+<button class="cell" data-index="3" onclick="playerMove(3)"></button>
+<button class="cell" data-index="4" onclick="playerMove(4)"></button>
+<button class="cell" data-index="5" onclick="playerMove(5)"></button>
 
-<button
-class="cell"
-data-index="2"
-onclick="playerMove(2)"
->
-</button>
-
-<button
-class="cell"
-data-index="3"
-onclick="playerMove(3)"
->
-</button>
-
-<button
-class="cell"
-data-index="4"
-onclick="playerMove(4)"
->
-</button>
-
-<button
-class="cell"
-data-index="5"
-onclick="playerMove(5)"
->
-</button>
-
-<button
-class="cell"
-data-index="6"
-onclick="playerMove(6)"
->
-</button>
-
-<button
-class="cell"
-data-index="7"
-onclick="playerMove(7)"
->
-</button>
-
-<button
-class="cell"
-data-index="8"
-onclick="playerMove(8)"
->
-</button>
+<button class="cell" data-index="6" onclick="playerMove(6)"></button>
+<button class="cell" data-index="7" onclick="playerMove(7)"></button>
+<button class="cell" data-index="8" onclick="playerMove(8)"></button>
 
 </div>
 
 </div>
 
-
-<!-- СООБЩЕНИЕ -->
-
-<div
-id="message"
-class="message"
->
+<div id="message" class="message">
 Твой ход ❌
 </div>
 
-
-<!-- КНОПКИ -->
-
 <div class="buttons">
 
-<button
-class="main-button"
-onclick="newGame()"
->
+<button class="main-button" onclick="newGame()">
 🔄 Новая игра
 </button>
 
-<button
-class="main-button reset-button"
-onclick="resetRecords()"
->
+<button class="main-button reset-button" onclick="resetRecords()">
 🗑️ Сбросить рекорды
 </button>
 
 </div>
-
 
 <div class="tip">
 
@@ -683,350 +494,236 @@ onclick="resetRecords()"
 
 </div>
 
-
-<!-- РЕКОРДЫ -->
-
 <div class="records">
 
-<h2>
-🏆 Мои рекорды
-</h2>
-
+<h2>🏆 Мои рекорды</h2>
 
 <div class="record-row">
-
-<span>
-🟢 Лёгкий
-</span>
-
-<strong id="easyRecord">
-0
-</strong>
-
+<span>🟢 Лёгкий</span>
+<strong id="easyRecord">0</strong>
 </div>
 
-
 <div class="record-row">
-
-<span>
-🟡 Средний
-</span>
-
-<strong id="mediumRecord">
-0
-</strong>
-
+<span>🟡 Средний</span>
+<strong id="mediumRecord">0</strong>
 </div>
 
-
 <div class="record-row">
-
-<span>
-🔴 Сложный
-</span>
-
-<strong id="hardRecord">
-0
-</strong>
-
+<span>🔴 Сложный</span>
+<strong id="hardRecord">0</strong>
 </div>
 
 </div>
 
 </main>
 
-
 <footer>
-
 © 2026 EasyFlow
-
 </footer>
 
-
 <script>
-
-/* =====================================
-   НАСТРОЙКИ
-===================================== */
-
 let board = [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
+    "", "", "",
+    "", "", "",
+    "", "", ""
 ];
 
 let gameOver = false;
-
 let difficulty = "easy";
-
 let firstPlayer = "player";
 
-let playerSymbol = "X";
+const playerSymbol = "X";
+const computerSymbol = "O";
 
-let computerSymbol = "O";
-
+let computerThinking = false;
+let computerTimer = null;
 
 const difficultyNames = {
-
     easy: "Лёгкий",
-
     medium: "Средний",
-
     hard: "Сложный"
-
 };
 
-
-/* =====================================
-   КОМБИНАЦИИ ПОБЕДЫ
-===================================== */
-
 const winningCombinations = [
-
     [0, 1, 2],
-
     [3, 4, 5],
-
     [6, 7, 8],
-
     [0, 3, 6],
-
     [1, 4, 7],
-
     [2, 5, 8],
-
     [0, 4, 8],
-
     [2, 4, 6]
-
 ];
 
-
-/* =====================================
+/* =========================
    РЕКОРДЫ
-===================================== */
+========================= */
 
 function getRecord(level) {
 
-    return Number(
-        localStorage.getItem(
-            "easyflow_tictactoe_record_" + level
-        ) || 0
-    );
-
+    try {
+        return Number(
+            localStorage.getItem(
+                "easyflow_tictactoe_record_" + level
+            ) || 0
+        );
+    } catch {
+        return 0;
+    }
 }
-
 
 function saveRecord(level, value) {
 
-    localStorage.setItem(
-        "easyflow_tictactoe_record_" + level,
-        value
-    );
-
+    try {
+        localStorage.setItem(
+            "easyflow_tictactoe_record_" + level,
+            String(value)
+        );
+    } catch {}
 }
-
 
 function getWins() {
 
-    return Number(
-        localStorage.getItem(
-            "easyflow_tictactoe_wins"
-        ) || 0
-    );
-
+    try {
+        return Number(
+            localStorage.getItem(
+                "easyflow_tictactoe_wins"
+            ) || 0
+        );
+    } catch {
+        return 0;
+    }
 }
-
 
 function saveWins(value) {
 
-    localStorage.setItem(
-        "easyflow_tictactoe_wins",
-        value
-    );
-
+    try {
+        localStorage.setItem(
+            "easyflow_tictactoe_wins",
+            String(value)
+        );
+    } catch {}
 }
-
-
-/* =====================================
-   ОБНОВЛЕНИЕ РЕКОРДОВ
-===================================== */
 
 function updateRecords() {
 
-    document.getElementById(
-        "easyRecord"
-    ).textContent =
+    document.getElementById("easyRecord").textContent =
         getRecord("easy");
 
-
-    document.getElementById(
-        "mediumRecord"
-    ).textContent =
+    document.getElementById("mediumRecord").textContent =
         getRecord("medium");
 
-
-    document.getElementById(
-        "hardRecord"
-    ).textContent =
+    document.getElementById("hardRecord").textContent =
         getRecord("hard");
 
-
-    document.getElementById(
-        "record"
-    ).textContent =
+    document.getElementById("record").textContent =
         getRecord(difficulty);
 
-
-    document.getElementById(
-        "wins"
-    ).textContent =
+    document.getElementById("wins").textContent =
         getWins();
 
-
-    document.getElementById(
-        "difficultyName"
-    ).textContent =
+    document.getElementById("difficultyName").textContent =
         difficultyNames[difficulty];
-
 }
 
-
-/* =====================================
-   ВЫБОР СЛОЖНОСТИ
-===================================== */
+/* =========================
+   СЛОЖНОСТЬ
+========================= */
 
 function selectDifficulty(level) {
 
-    if (!gameOver && board.some(cell => cell !== "")) {
+    if (hasMoves()) {
 
         alert(
             "Сначала закончи текущую игру."
         );
 
         return;
-
     }
 
+    cancelComputerMove();
 
     difficulty = level;
 
-
     document
         .querySelectorAll(".level")
-        .forEach(function(button) {
-
-            button.classList.remove("active");
-
-        });
-
+        .forEach(button =>
+            button.classList.remove("active")
+        );
 
     document
-        .getElementById(
-            level + "Button"
-        )
+        .getElementById(level + "Button")
         .classList.add("active");
-
 
     updateRecords();
 
     newGame();
-
 }
 
-
-/* =====================================
+/* =========================
    КТО ПЕРВЫЙ
-===================================== */
+========================= */
 
 function setFirstPlayer(player) {
 
-    if (!gameOver && board.some(cell => cell !== "")) {
+    if (hasMoves()) {
 
         alert(
             "Сначала начни новую игру."
         );
 
         return;
-
     }
 
+    cancelComputerMove();
 
     firstPlayer = player;
 
-
     document
         .querySelectorAll(".first-button")
-        .forEach(function(button) {
-
-            button.classList.remove("active");
-
-        });
-
+        .forEach(button =>
+            button.classList.remove("active")
+        );
 
     if (player === "player") {
 
         document
-            .getElementById(
-                "playerFirstButton"
-            )
+            .getElementById("playerFirstButton")
             .classList.add("active");
 
     } else {
 
         document
-            .getElementById(
-                "computerFirstButton"
-            )
+            .getElementById("computerFirstButton")
             .classList.add("active");
-
     }
 
-
     newGame();
-
 }
 
-
-/* =====================================
+/* =========================
    НОВАЯ ИГРА
-===================================== */
+========================= */
 
 function newGame() {
 
+    cancelComputerMove();
+
     board = [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "", "", "",
+        "", "", "",
+        "", "", ""
     ];
 
-
     gameOver = false;
-
+    computerThinking = false;
 
     renderBoard();
 
-
     const message =
-        document.getElementById(
-            "message"
-        );
+        document.getElementById("message");
 
-
-    message.className =
-        "message";
-
+    message.className = "message";
 
     if (firstPlayer === "player") {
 
@@ -1038,520 +735,449 @@ function newGame() {
         message.textContent =
             "Компьютер думает... ⭕";
 
-        setTimeout(
-            computerMove,
-            500
-        );
-
+        scheduleComputerMove(450);
     }
-
 }
 
+/* =========================
+   ПРОВЕРКА: ЕСТЬ ЛИ ХОДЫ
+========================= */
 
-/* =====================================
+function hasMoves() {
+
+    return board.some(
+        cell => cell !== ""
+    );
+}
+
+/* =========================
    ХОД ИГРОКА
-===================================== */
+========================= */
 
 function playerMove(index) {
 
-    if (gameOver) {
+    if (gameOver || computerThinking) {
         return;
     }
 
-
-    if (firstPlayer === "computer") {
-
-        if (
-            board.filter(
-                cell => cell !== ""
-            ).length % 2 === 0
-        ) {
-
-            return;
-
-        }
-
+    /*
+     * Если компьютер ходит первым,
+     * первый ход игрока невозможен,
+     * пока компьютер не сходил.
+     */
+    if (
+        firstPlayer === "computer" &&
+        countMoves() === 0
+    ) {
+        return;
     }
-
 
     if (board[index] !== "") {
         return;
     }
 
-
-    board[index] =
-        playerSymbol;
-
+    board[index] = playerSymbol;
 
     renderBoard();
 
-
-    const result =
-        checkGame();
-
+    const result = checkGame();
 
     if (result) {
 
         finishGame(result);
 
         return;
-
     }
 
-
-    document.getElementById(
-        "message"
-    ).textContent =
-        "Компьютер думает... ⭕";
-
-
-    setTimeout(
-        computerMove,
-        400
-    );
-
+    scheduleComputerMove(400);
 }
 
+/* =========================
+   ОТЛОЖЕННЫЙ ХОД КОМПЬЮТЕРА
+========================= */
 
-/* =====================================
-   ХОД КОМПЬЮТЕРА
-===================================== */
+function scheduleComputerMove(delay) {
 
-function computerMove() {
+    cancelComputerMove();
 
     if (gameOver) {
         return;
     }
 
+    computerThinking = true;
 
-    let move;
+    document.getElementById("message").textContent =
+        "Компьютер думает... ⭕";
 
+    computerTimer = setTimeout(() => {
 
-    if (difficulty === "easy") {
+        computerTimer = null;
 
-        move =
-            randomMove();
+        if (gameOver) {
+            computerThinking = false;
+            return;
+        }
 
+        computerMove();
+
+    }, delay);
+}
+
+function cancelComputerMove() {
+
+    if (computerTimer !== null) {
+
+        clearTimeout(computerTimer);
+
+        computerTimer = null;
     }
 
+    computerThinking = false;
+}
 
-    if (difficulty === "medium") {
+/* =========================
+   ХОД КОМПЬЮТЕРА
+========================= */
 
-        move =
-            mediumMove();
+function computerMove() {
 
-    }
-
-
-    if (difficulty === "hard") {
-
-        move =
-            bestMove();
-
-    }
-
-
-    if (move === null) {
+    if (gameOver) {
+        computerThinking = false;
         return;
     }
 
+    const empty = getEmptyCells();
 
-    board[move] =
-        computerSymbol;
+    if (empty.length === 0) {
 
+        computerThinking = false;
+
+        const result = checkGame();
+
+        if (result) {
+            finishGame(result);
+        }
+
+        return;
+    }
+
+    let move;
+
+    if (difficulty === "easy") {
+        move = randomMove();
+    }
+
+    else if (difficulty === "medium") {
+        move = mediumMove();
+    }
+
+    else {
+        move = bestMove();
+    }
+
+    if (move === null) {
+
+        computerThinking = false;
+        return;
+    }
+
+    board[move] = computerSymbol;
+
+    computerThinking = false;
 
     renderBoard();
 
-
-    const result =
-        checkGame();
-
+    const result = checkGame();
 
     if (result) {
 
         finishGame(result);
 
         return;
-
     }
 
-
-    document.getElementById(
-        "message"
-    ).textContent =
+    document.getElementById("message").textContent =
         "Твой ход ❌";
-
 }
 
-
-/* =====================================
-   ЛЁГКИЙ УРОВЕНЬ
-===================================== */
+/* =========================
+   ЛЁГКИЙ
+========================= */
 
 function randomMove() {
 
-    const empty =
-        getEmptyCells();
-
+    const empty = getEmptyCells();
 
     if (empty.length === 0) {
         return null;
     }
 
-
     return empty[
         Math.floor(
-            Math.random() *
-            empty.length
+            Math.random() * empty.length
         )
     ];
-
 }
 
-
-/* =====================================
-   СРЕДНИЙ УРОВЕНЬ
-===================================== */
+/* =========================
+   СРЕДНИЙ
+========================= */
 
 function mediumMove() {
 
-    /* Сначала пытаемся выиграть */
-
     const winning =
-        findWinningMove(
-            computerSymbol
-        );
-
+        findWinningMove(computerSymbol);
 
     if (winning !== null) {
         return winning;
     }
 
-
-    /* Затем блокируем игрока */
-
     const block =
-        findWinningMove(
-            playerSymbol
-        );
-
+        findWinningMove(playerSymbol);
 
     if (block !== null) {
         return block;
     }
 
-
-    /* Берём центр */
-
     if (board[4] === "") {
         return 4;
     }
 
+    const corners =
+        [0, 2, 6, 8]
+            .filter(index => board[index] === "");
 
-    /* Потом случайная клетка */
+    if (corners.length > 0) {
+
+        return corners[
+            Math.floor(
+                Math.random() * corners.length
+            )
+        ];
+    }
 
     return randomMove();
-
 }
 
-
-/* =====================================
-   ПОИСК ПОБЕДНОГО ХОДА
-===================================== */
+/* =========================
+   ПОБЕДНЫЙ ХОД
+========================= */
 
 function findWinningMove(symbol) {
 
-    const empty =
-        getEmptyCells();
+    const empty = getEmptyCells();
 
+    for (const index of empty) {
 
-    for (let i = 0; i < empty.length; i++) {
+        board[index] = symbol;
 
-        const index =
-            empty[i];
+        const winner = getWinner();
 
-
-        board[index] =
-            symbol;
-
-
-        const winner =
-            getWinner();
-
-
-        board[index] =
-            "";
-
+        board[index] = "";
 
         if (winner === symbol) {
-
             return index;
-
         }
-
     }
 
-
     return null;
-
 }
 
-
-/* =====================================
-   СЛОЖНЫЙ УРОВЕНЬ
-===================================== */
+/* =========================
+   СЛОЖНЫЙ
+========================= */
 
 function bestMove() {
 
-    let bestScore =
-        -Infinity;
-
+    let bestScore = -Infinity;
     let move = null;
 
+    const empty = getEmptyCells();
 
-    const empty =
-        getEmptyCells();
+    /*
+     * Центр и углы проверяем первыми.
+     * Это также делает поведение компьютера
+     * более естественным.
+     */
+    const orderedMoves = [
+        4,
+        0,
+        2,
+        6,
+        8,
+        1,
+        3,
+        5,
+        7
+    ].filter(index => empty.includes(index));
 
+    for (const index of orderedMoves) {
 
-    for (let i = 0; i < empty.length; i++) {
+        board[index] = computerSymbol;
 
-        const index =
-            empty[i];
+        const score = minimax(
+            board,
+            false,
+            0
+        );
 
-
-        board[index] =
-            computerSymbol;
-
-
-        const score =
-            minimax(
-                board,
-                false
-            );
-
-
-        board[index] =
-            "";
-
+        board[index] = "";
 
         if (score > bestScore) {
 
-            bestScore =
-                score;
-
-            move =
-                index;
-
+            bestScore = score;
+            move = index;
         }
-
     }
-
 
     return move;
-
 }
 
-
-/* =====================================
+/* =========================
    MINIMAX
-===================================== */
+========================= */
 
-function minimax(currentBoard, maximizing) {
+function minimax(currentBoard, maximizing, depth) {
 
     const winner =
-        getWinnerForBoard(
-            currentBoard
-        );
-
+        getWinnerForBoard(currentBoard);
 
     if (winner === computerSymbol) {
-        return 10;
-    }
 
+        return 10 - depth;
+    }
 
     if (winner === playerSymbol) {
-        return -10;
-    }
 
+        return depth - 10;
+    }
 
     if (
         currentBoard.every(
             cell => cell !== ""
         )
     ) {
-
         return 0;
-
     }
-
 
     if (maximizing) {
 
-        let bestScore =
-            -Infinity;
+        let bestScore = -Infinity;
 
+        for (let i = 0; i < 9; i++) {
 
-        for (
-            let i = 0;
-            i < 9;
-            i++
-        ) {
-
-            if (
-                currentBoard[i] === ""
-            ) {
+            if (currentBoard[i] === "") {
 
                 currentBoard[i] =
                     computerSymbol;
 
-
                 const score =
                     minimax(
                         currentBoard,
-                        false
+                        false,
+                        depth + 1
                     );
 
-
-                currentBoard[i] =
-                    "";
-
+                currentBoard[i] = "";
 
                 bestScore =
                     Math.max(
                         bestScore,
                         score
                     );
-
             }
-
         }
-
 
         return bestScore;
 
     } else {
 
-        let bestScore =
-            Infinity;
+        let bestScore = Infinity;
 
+        for (let i = 0; i < 9; i++) {
 
-        for (
-            let i = 0;
-            i < 9;
-            i++
-        ) {
-
-            if (
-                currentBoard[i] === ""
-            ) {
+            if (currentBoard[i] === "") {
 
                 currentBoard[i] =
                     playerSymbol;
 
-
                 const score =
                     minimax(
                         currentBoard,
-                        true
+                        true,
+                        depth + 1
                     );
 
-
-                currentBoard[i] =
-                    "";
-
+                currentBoard[i] = "";
 
                 bestScore =
                     Math.min(
                         bestScore,
                         score
                     );
-
             }
-
         }
 
-
         return bestScore;
-
     }
-
 }
 
-
-/* =====================================
+/* =========================
    ПУСТЫЕ КЛЕТКИ
-===================================== */
+========================= */
 
 function getEmptyCells() {
 
     const empty = [];
 
-
-    for (
-        let i = 0;
-        i < 9;
-        i++
-    ) {
+    for (let i = 0; i < 9; i++) {
 
         if (board[i] === "") {
-
             empty.push(i);
-
         }
-
     }
 
-
     return empty;
-
 }
 
+function countMoves() {
 
-/* =====================================
-   ПРОВЕРКА ИГРЫ
-===================================== */
+    return board.filter(
+        cell => cell !== ""
+    ).length;
+}
+
+/* =========================
+   ПРОВЕРКА
+========================= */
 
 function checkGame() {
 
-    const winner =
-        getWinner();
-
+    const winner = getWinner();
 
     if (winner) {
-
         return winner;
-
     }
-
 
     if (
         board.every(
             cell => cell !== ""
         )
     ) {
-
         return "draw";
-
     }
 
-
     return null;
-
 }
 
-
-/* =====================================
+/* =========================
    ПОБЕДИТЕЛЬ
-===================================== */
+========================= */
 
 function getWinner() {
 
-    return getWinnerForBoard(
-        board
-    );
-
+    return getWinnerForBoard(board);
 }
-
 
 function getWinnerForBoard(currentBoard) {
 
@@ -1560,39 +1186,25 @@ function getWinnerForBoard(currentBoard) {
         of winningCombinations
     ) {
 
-        const a =
-            combination[0];
-
-        const b =
-            combination[1];
-
-        const c =
-            combination[2];
-
+        const [a, b, c] =
+            combination;
 
         if (
             currentBoard[a] !== "" &&
-            currentBoard[a] ===
-            currentBoard[b] &&
-            currentBoard[a] ===
-            currentBoard[c]
+            currentBoard[a] === currentBoard[b] &&
+            currentBoard[a] === currentBoard[c]
         ) {
 
             return currentBoard[a];
-
         }
-
     }
 
-
     return null;
-
 }
 
-
-/* =====================================
-   ПОКАЗ ПОБЕДНОЙ ЛИНИИ
-===================================== */
+/* =========================
+   ПОБЕДНАЯ ЛИНИЯ
+========================= */
 
 function getWinningCombination() {
 
@@ -1601,15 +1213,8 @@ function getWinningCombination() {
         of winningCombinations
     ) {
 
-        const a =
-            combination[0];
-
-        const b =
-            combination[1];
-
-        const c =
-            combination[2];
-
+        const [a, b, c] =
+            combination;
 
         if (
             board[a] !== "" &&
@@ -1618,176 +1223,134 @@ function getWinningCombination() {
         ) {
 
             return combination;
-
         }
-
     }
 
-
     return null;
-
 }
 
-
-/* =====================================
-   ЗАВЕРШЕНИЕ ИГРЫ
-===================================== */
+/* =========================
+   ЗАВЕРШЕНИЕ
+========================= */
 
 function finishGame(result) {
 
+    cancelComputerMove();
+
     gameOver = true;
 
-
     const message =
-        document.getElementById(
-            "message"
-        );
-
+        document.getElementById("message");
 
     const winning =
         getWinningCombination();
 
-
     if (winning) {
 
-        winning.forEach(
-            function(index) {
+        winning.forEach(index => {
 
-                document
-                    .querySelector(
-                        `.cell[data-index="${index}"]`
-                    )
-                    .classList.add("win");
+            const cell =
+                document.querySelector(
+                    `.cell[data-index="${index}"]`
+                );
 
+            if (cell) {
+                cell.classList.add("win");
             }
-        );
-
+        });
     }
-
 
     if (result === playerSymbol) {
 
         message.textContent =
             "🏆 Ты победил!";
 
-
         message.className =
             "message win-message";
 
-
-        let wins =
-            getWins();
-
+        let wins = getWins();
 
         wins++;
 
-
         saveWins(wins);
 
-
-        const oldRecord =
+        /*
+         * Рекорд теперь означает количество побед
+         * именно на этой сложности.
+         */
+        const currentRecord =
             getRecord(difficulty);
 
-
-        if (wins > oldRecord) {
+        if (wins > currentRecord) {
 
             saveRecord(
                 difficulty,
                 wins
             );
-
         }
-
 
         updateRecords();
 
-    }
-
-
-    else if (
-        result === computerSymbol
-    ) {
+    } else if (result === computerSymbol) {
 
         message.textContent =
             "💥 Компьютер победил!";
 
-
         message.className =
             "message lose-message";
 
-    }
-
-
-    else {
+    } else {
 
         message.textContent =
             "🤝 Ничья!";
 
-
         message.className =
             "message";
-
     }
 
+    renderBoard();
 }
 
-
-/* =====================================
+/* =========================
    ОТРИСОВКА
-===================================== */
+========================= */
 
 function renderBoard() {
 
     const cells =
-        document.querySelectorAll(
-            ".cell"
+        document.querySelectorAll(".cell");
+
+    cells.forEach((cell, index) => {
+
+        cell.textContent =
+            board[index];
+
+        cell.classList.remove(
+            "x",
+            "o",
+            "win"
         );
 
+        cell.disabled =
+            gameOver ||
+            computerThinking ||
+            board[index] !== "";
 
-    cells.forEach(
-        function(cell, index) {
+        if (board[index] === "X") {
 
-            cell.textContent =
-                board[index];
-
-
-            cell.classList.remove(
-                "x",
-                "o",
-                "win"
-            );
-
-
-            if (
-                board[index] === "X"
-            ) {
-
-                cell.classList.add(
-                    "x"
-                );
-
-            }
-
-
-            if (
-                board[index] === "O"
-            ) {
-
-                cell.classList.add(
-                    "o"
-                );
-
-            }
-
+            cell.classList.add("x");
         }
-    );
 
+        if (board[index] === "O") {
+
+            cell.classList.add("o");
+        }
+    });
 }
 
-
-/* =====================================
+/* =========================
    СБРОС РЕКОРДОВ
-===================================== */
+========================= */
 
 function resetRecords() {
 
@@ -1796,51 +1359,49 @@ function resetRecords() {
             "Ты действительно хочешь сбросить все рекорды?"
         );
 
-
     if (!confirmReset) {
         return;
     }
 
+    cancelComputerMove();
 
-    localStorage.removeItem(
-        "easyflow_tictactoe_record_easy"
-    );
+    try {
 
-    localStorage.removeItem(
-        "easyflow_tictactoe_record_medium"
-    );
+        localStorage.removeItem(
+            "easyflow_tictactoe_record_easy"
+        );
 
-    localStorage.removeItem(
-        "easyflow_tictactoe_record_hard"
-    );
+        localStorage.removeItem(
+            "easyflow_tictactoe_record_medium"
+        );
 
-    localStorage.removeItem(
-        "easyflow_tictactoe_wins"
-    );
+        localStorage.removeItem(
+            "easyflow_tictactoe_record_hard"
+        );
 
+        localStorage.removeItem(
+            "easyflow_tictactoe_wins"
+        );
+
+    } catch {}
 
     updateRecords();
 
-
     newGame();
-
 
     document.getElementById(
         "message"
     ).textContent =
         "Рекорды сброшены.";
-
 }
 
-
-/* =====================================
+/* =========================
    ЗАПУСК
-===================================== */
+========================= */
 
 updateRecords();
 
 newGame();
-
 </script>
 
 </body>
