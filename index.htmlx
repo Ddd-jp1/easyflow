@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyFlow</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+        }
+
+        header {
+            padding: 20px 7%;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .hero h1 {
+            font-size: 70px;
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            padding: 14px 28px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+        footer {
+            padding: 25px;
+            text-align: center;
+            background: #111827;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">EasyFlow</div>
+
+    <nav>
+        <a href="#home">Главная</a>
+        <a href="#about">О нас</a>
+        <a href="#contacts">Контакты</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <h1>EasyFlow</h1>
+
+    <p>
+        Добро пожаловать на мой сайт!
+    </p>
+
+    <a href="#about" class="button">
+        Начать
+    </a>
+</section>
+
+<section id="about" style="padding:80px 20px; text-align:center;">
+    <h2>О сайте</h2>
+    <p style="margin-top:20px;">
+        Здесь я буду размещать всё, что захочу.
+    </p>
+</section>
+
+<section id="contacts" style="padding:80px 20px; text-align:center;">
+    <h2>Контакты</h2>
+    <p style="margin-top:20px;">
+        Здесь будут мои контакты.
+    </p>
+</section>
+
+<footer>
+    © 2026 EasyFlow
+</footer>
+
+</body>
+</html>
