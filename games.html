@@ -1,123 +1,210 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>EasyFlow — Мои игры</title>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Мои игры — EasyFlow</title>
+
 
 <style>
 
+/* =========================
+   ОСНОВНЫЕ НАСТРОЙКИ
+========================= */
+
 :root {
+
     --main: #2563eb;
+
     --background: #f4f7fb;
+
     --card: #ffffff;
+
     --text: #111827;
+
     --muted: #64748b;
+
     --border: #e5e7eb;
+
+    --radius: 16px;
+
 }
+
 
 * {
+
     box-sizing: border-box;
+
     margin: 0;
+
     padding: 0;
+
 }
 
+
 body {
+
     font-family: Arial, sans-serif;
 
     background: var(--background);
+
     color: var(--text);
 
     min-height: 100vh;
+
 }
 
 
-/* HEADER */
+/* =========================
+   DARK THEME
+========================= */
+
+body.dark {
+
+    --background: #0f172a;
+
+    --card: #1e293b;
+
+    --text: #f8fafc;
+
+    --muted: #94a3b8;
+
+    --border: #334155;
+
+}
+
+
+/* =========================
+   HEADER
+========================= */
 
 header {
+
     background: var(--card);
 
     border-bottom: 1px solid var(--border);
 
-    padding: 18px 6%;
+    padding: 15px 5%;
+
 }
 
-.header {
-    max-width: 1000px;
+
+.header-inner {
+
+    max-width: 1200px;
 
     margin: auto;
 
     display: flex;
 
-    justify-content: space-between;
-
     align-items: center;
 
+    justify-content: space-between;
+
     gap: 20px;
+
 }
+
 
 .logo {
+
     color: var(--main);
 
-    font-size: 27px;
+    font-size: 28px;
 
     font-weight: bold;
 
+    cursor: pointer;
+
     text-decoration: none;
+
 }
 
-.back {
-    color: var(--main);
+
+.back-button {
+
+    display: inline-block;
 
     text-decoration: none;
+
+    background: var(--main);
+
+    color: white;
+
+    padding: 11px 18px;
+
+    border-radius: 10px;
 
     font-weight: bold;
+
+    transition: 0.2s;
+
 }
 
-.back:hover {
-    text-decoration: underline;
+
+.back-button:hover {
+
+    transform: translateY(-2px);
+
+    opacity: 0.9;
+
 }
 
 
-/* CONTAINER */
+/* =========================
+   MAIN
+========================= */
 
 .container {
-    width: 100%;
 
-    max-width: 1000px;
+    max-width: 1100px;
 
     margin: auto;
 
-    padding: 40px 20px;
+    padding: 45px 20px;
+
 }
 
-
-/* TITLE */
 
 .title {
+
     text-align: center;
 
-    margin-bottom: 35px;
+    margin-bottom: 40px;
+
 }
 
+
 .title h1 {
+
     font-size: 42px;
+
+    margin-bottom: 10px;
 
     color: var(--main);
 
-    margin-bottom: 10px;
 }
+
 
 .title p {
+
     color: var(--muted);
 
-    font-size: 17px;
+    font-size: 18px;
+
 }
 
 
-/* GAMES GRID */
+/* =========================
+   GAMES GRID
+========================= */
 
 .games-grid {
 
@@ -126,11 +213,14 @@ header {
     grid-template-columns:
         repeat(2, 1fr);
 
-    gap: 22px;
+    gap: 25px;
+
 }
 
 
-/* GAME CARD */
+/* =========================
+   GAME CARD
+========================= */
 
 .game-card {
 
@@ -138,9 +228,9 @@ header {
 
     border: 1px solid var(--border);
 
-    border-radius: 20px;
+    border-radius: var(--radius);
 
-    padding: 30px;
+    padding: 35px 25px;
 
     text-align: center;
 
@@ -151,56 +241,69 @@ header {
     transition:
         transform 0.2s,
         box-shadow 0.2s;
+
 }
+
 
 .game-card:hover {
 
-    transform:
-        translateY(-5px);
+    transform: translateY(-6px);
 
     box-shadow:
         0 15px 35px
-        rgba(0,0,0,0.10);
+        rgba(0,0,0,0.12);
+
 }
 
 
-/* ICON */
+/* =========================
+   ICON
+========================= */
 
 .game-icon {
 
     font-size: 70px;
 
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+
 }
 
 
-/* NAME */
+/* =========================
+   GAME TITLE
+========================= */
 
 .game-card h2 {
 
     font-size: 25px;
 
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+
 }
 
 
-/* DESCRIPTION */
+/* =========================
+   DESCRIPTION
+========================= */
 
 .game-card p {
 
     color: var(--muted);
 
-    line-height: 1.5;
+    line-height: 1.6;
 
-    min-height: 48px;
+    min-height: 50px;
 
-    margin-bottom: 22px;
+    margin-bottom: 25px;
+
 }
 
 
-/* BUTTON */
+/* =========================
+   PLAY BUTTON
+========================= */
 
-.game-button {
+.play-button {
 
     display: inline-block;
 
@@ -212,27 +315,33 @@ header {
 
     padding: 13px 25px;
 
-    border-radius: 12px;
+    border-radius: var(--radius);
 
     font-weight: bold;
 
     transition: 0.2s;
-}
 
-.game-button:hover {
-
-    background: #1d4ed8;
-
-    transform:
-        translateY(-2px);
 }
 
 
-/* FOOTER */
+.play-button:hover {
+
+    opacity: 0.9;
+
+    transform: scale(1.03);
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
 
 footer {
 
     margin-top: 50px;
+
+    padding: 25px;
 
     background: #111827;
 
@@ -240,25 +349,21 @@ footer {
 
     text-align: center;
 
-    padding: 25px;
 }
 
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
-@media(max-width: 700px) {
+@media (max-width: 750px) {
 
-    .header {
+    .header-inner {
 
         flex-direction: column;
 
     }
 
-    .title h1 {
-
-        font-size: 34px;
-
-    }
 
     .games-grid {
 
@@ -266,9 +371,17 @@ footer {
 
     }
 
+
+    .title h1 {
+
+        font-size: 34px;
+
+    }
+
+
     .game-card {
 
-        padding: 25px 20px;
+        padding: 30px 20px;
 
     }
 
@@ -282,26 +395,28 @@ footer {
 <body>
 
 
-<!-- HEADER -->
+<!-- =========================
+     HEADER
+========================= -->
 
 <header>
 
-<div class="header">
+<div class="header-inner">
 
 
 <a
-href="index.html"
-class="logo"
+    href="index.html"
+    class="logo"
 >
-EasyFlow
+    EasyFlow
 </a>
 
 
 <a
-href="index.html"
-class="back"
+    href="index.html"
+    class="back-button"
 >
-← На главную
+    ← Вернуться в EasyFlow
 </a>
 
 
@@ -310,7 +425,9 @@ class="back"
 </header>
 
 
-<!-- MAIN -->
+<!-- =========================
+     MAIN
+========================= -->
 
 <main class="container">
 
@@ -318,147 +435,255 @@ class="back"
 <div class="title">
 
 <h1>
-🎮 Мои игры
+    🎮 Мои игры
 </h1>
 
+
 <p>
-Выбери игру и попробуй установить новый рекорд!
+    Выбирай игру и начинай играть!
 </p>
 
 </div>
 
+
+<!-- =========================
+     GAMES
+========================= -->
 
 <div class="games-grid">
 
 
-<!-- =========================
-     ЗМЕЙКА
-========================= -->
+<!-- КРЕСТИКИ-НОЛИКИ -->
 
 <div class="game-card">
 
 <div class="game-icon">
-🐍
+    ❌⭕
 </div>
 
+
 <h2>
-Змейка
+    Крестики-нолики
 </h2>
 
+
 <p>
-Собирай еду, увеличивай змейку
-и постарайся побить свой рекорд.
+    Сыграй против компьютера.
+    Выбирай уровень сложности
+    и постарайся победить!
 </p>
 
+
 <a
-href="snake.html"
-class="game-button"
+    href="tictactoe.html"
+    class="play-button"
 >
-🎮 Играть
+    🎮 Играть
 </a>
 
 </div>
 
 
-<!-- =========================
-     КРЕСТИКИ НОЛИКИ
-========================= -->
+<!-- ПИНГ-ПОНГ -->
 
 <div class="game-card">
 
 <div class="game-icon">
-❌⭕
+    🏓
 </div>
 
+
 <h2>
-Крестики-нолики
+    Пинг-понг
 </h2>
 
+
 <p>
-Сыграй против компьютера
-и постарайся победить.
+    Управляй ракеткой и отбивай
+    мяч. Набери больше очков,
+    чем соперник!
 </p>
 
+
 <a
-href="tictactoe.html"
-class="game-button"
+    href="pingpong.html"
+    class="play-button"
 >
-🎮 Играть
+    🎮 Играть
 </a>
 
 </div>
 
 
-<!-- =========================
-     ФЛАГИ
-========================= -->
+<!-- УГАДАЙ СТРАНУ -->
 
 <div class="game-card">
 
 <div class="game-icon">
-🌍
+    🚩
 </div>
 
+
 <h2>
-Угадай страну
+    Угадай страну по флагу
 </h2>
 
+
 <p>
-Посмотри на флаг и выбери
-правильную страну.
+    Посмотри на флаг и выбери
+    правильную страну. Проверь
+    свои знания географии!
 </p>
 
+
 <a
-href="flags.html"
-class="game-button"
+    href="flags.html"
+    class="play-button"
 >
-🎮 Играть
+    🎮 Играть
 </a>
 
 </div>
 
 
-<!-- =========================
-     ПИНГ-ПОНГ
-========================= -->
+<!-- ИГРА НА ПАМЯТЬ -->
 
 <div class="game-card">
 
 <div class="game-icon">
-🏓
+    🧠
 </div>
 
+
 <h2>
-Пинг-понг
+    Игра на память
 </h2>
 
+
 <p>
-Отбивай мяч ракеткой
-и набирай очки против компьютера.
+    Открывай карточки и находи
+    одинаковые пары. Постарайся
+    сделать это за меньшее число ходов!
 </p>
 
+
 <a
-href="pingpong.html"
-class="game-button"
+    href="memory.html"
+    class="play-button"
 >
-🎮 Играть
+    🎮 Играть
 </a>
 
 </div>
 
 
 </div>
-
 
 </main>
 
 
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
 
-© 2026 EasyFlow
+© 2026 EasyFlow — Мои игры
 
 </footer>
 
 
+<script>
+
+/* =========================
+   ЗАГРУЗКА НАСТРОЕК EASYFLOW
+========================= */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+
+        /* Цвет */
+
+        const color =
+            localStorage.getItem(
+                "easyflow_color"
+            );
+
+
+        if (color) {
+
+            document
+                .documentElement
+                .style
+                .setProperty(
+                    "--main",
+                    color
+                );
+
+        }
+
+
+        /* Шрифт */
+
+        const font =
+            localStorage.getItem(
+                "easyflow_font"
+            );
+
+
+        if (font) {
+
+            document.body.style.fontFamily =
+                font;
+
+        }
+
+
+        /* Скругление */
+
+        const radius =
+            localStorage.getItem(
+                "easyflow_radius"
+            );
+
+
+        if (radius) {
+
+            document
+                .documentElement
+                .style
+                .setProperty(
+                    "--radius",
+                    radius
+                );
+
+        }
+
+
+        /* Тема */
+
+        const theme =
+            localStorage.getItem(
+                "easyflow_theme"
+            );
+
+
+        if (theme === "dark") {
+
+            document.body.classList.add(
+                "dark"
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
 </body>
+
 </html>
