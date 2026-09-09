@@ -21,7 +21,7 @@ body {
 }
 
 header {
-    background: white;
+    background: #fff;
     border-bottom: 1px solid #e5e7eb;
     padding: 18px 6%;
 }
@@ -72,7 +72,7 @@ header {
 /* СЛОЖНОСТЬ */
 
 .difficulty {
-    background: white;
+    background: #fff;
     padding: 20px;
     border-radius: 18px;
     margin-bottom: 20px;
@@ -93,12 +93,12 @@ header {
 
 .level {
     border: 2px solid #e5e7eb;
-    background: white;
+    background: #fff;
     padding: 12px 20px;
     border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
-    transition: 0.2s;
+    transition: .2s;
 }
 
 .level:hover {
@@ -134,7 +134,7 @@ header {
 }
 
 .stat {
-    background: white;
+    background: #fff;
     border: 1px solid #e5e7eb;
     border-radius: 14px;
     padding: 14px 25px;
@@ -156,12 +156,12 @@ header {
 /* ИГРА */
 
 .game-box {
-    background: white;
+    background: #fff;
     border: 1px solid #e5e7eb;
     border-radius: 20px;
     padding: 30px;
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    box-shadow: 0 15px 35px rgba(0,0,0,.08);
 }
 
 .flag-wrapper {
@@ -185,8 +185,7 @@ header {
     max-height: 85%;
     width: auto;
     height: auto;
-
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
 }
 
 .question {
@@ -195,20 +194,19 @@ header {
     margin-bottom: 20px;
 }
 
-/* ВАРИАНТЫ */
+/* ОТВЕТЫ */
 
 .answers {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
-
     max-width: 600px;
     margin: auto;
 }
 
 .answer {
     border: 2px solid #e5e7eb;
-    background: white;
+    background: #fff;
     color: #111827;
 
     padding: 15px 12px;
@@ -219,7 +217,7 @@ header {
     font-size: 17px;
     font-weight: bold;
 
-    transition: 0.2s;
+    transition: .2s;
 }
 
 .answer:hover:not(:disabled) {
@@ -249,22 +247,20 @@ header {
 .message {
     min-height: 28px;
     margin: 20px 0;
-
     text-align: center;
-
     font-weight: bold;
     font-size: 18px;
 }
 
-.message.correct-message {
+.correct-message {
     color: #16a34a;
 }
 
-.message.wrong-message {
+.wrong-message {
     color: #dc2626;
 }
 
-.message.win-message {
+.win-message {
     color: #2563eb;
 }
 
@@ -281,10 +277,9 @@ header {
 .main-button {
     border: none;
     background: #2563eb;
-    color: white;
+    color: #fff;
 
     padding: 13px 22px;
-
     border-radius: 11px;
 
     cursor: pointer;
@@ -292,19 +287,25 @@ header {
     font-weight: bold;
     font-size: 16px;
 
-    transition: 0.2s;
+    transition: .2s;
 }
 
-.main-button:hover {
+.main-button:hover:not(:disabled) {
     background: #1d4ed8;
     transform: translateY(-2px);
+}
+
+.main-button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .next-button {
     display: none;
 }
 
-/* СЧЁТЧИК */
+/* ПРОГРЕСС */
 
 .progress {
     margin-top: 15px;
@@ -315,14 +316,10 @@ header {
 /* РЕКОРДЫ */
 
 .records {
-    background: white;
-
+    background: #fff;
     border: 1px solid #e5e7eb;
-
     border-radius: 18px;
-
     padding: 25px;
-
     margin-top: 30px;
 }
 
@@ -334,9 +331,7 @@ header {
 .record-row {
     display: flex;
     justify-content: space-between;
-
     padding: 12px 5px;
-
     border-bottom: 1px solid #eef0f3;
 }
 
@@ -354,7 +349,7 @@ footer {
 
 /* МОБИЛЬНАЯ ВЕРСИЯ */
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
 
     .title h1 {
         font-size: 32px;
@@ -384,7 +379,6 @@ footer {
     .level {
         width: 100%;
     }
-
 }
 </style>
 </head>
@@ -393,31 +387,23 @@ footer {
 
 <header>
     <div class="header">
-
-        <a href="index.html" class="logo">
-            EasyFlow
-        </a>
+        <a href="index.html" class="logo">EasyFlow</a>
 
         <a href="games.html" class="back">
             ← Игры
         </a>
-
     </div>
 </header>
-
 
 <main class="container">
 
     <div class="title">
-
         <h1>🌍 Угадай флаг</h1>
 
         <p>
             Угадай страну по её флагу и установи свой рекорд!
         </p>
-
     </div>
-
 
     <!-- СЛОЖНОСТЬ -->
 
@@ -430,6 +416,7 @@ footer {
             <button
                 class="level easy active"
                 id="easyButton"
+                type="button"
                 onclick="selectDifficulty('easy')"
             >
                 🟢 Лёгкий
@@ -438,6 +425,7 @@ footer {
             <button
                 class="level medium"
                 id="mediumButton"
+                type="button"
                 onclick="selectDifficulty('medium')"
             >
                 🟡 Средний
@@ -446,6 +434,7 @@ footer {
             <button
                 class="level hard"
                 id="hardButton"
+                type="button"
                 onclick="selectDifficulty('hard')"
             >
                 🔴 Сложный
@@ -454,7 +443,6 @@ footer {
         </div>
 
     </div>
-
 
     <!-- СТАТИСТИКА -->
 
@@ -477,7 +465,6 @@ footer {
 
     </div>
 
-
     <!-- ИГРА -->
 
     <div class="game-box">
@@ -492,34 +479,22 @@ footer {
 
         </div>
 
-
-        <div
-            id="question"
-            class="question"
-        >
+        <div id="question" class="question">
             Какая это страна?
         </div>
 
+        <div id="answers" class="answers"></div>
 
-        <div
-            id="answers"
-            class="answers"
-        >
-        </div>
-
-
-        <div
-            id="message"
-            class="message"
-        >
+        <div id="message" class="message">
             Нажми «Начать игру»
         </div>
-
 
         <div class="buttons">
 
             <button
+                id="startButton"
                 class="main-button"
+                type="button"
                 onclick="startGame()"
             >
                 ▶️ Начать игру
@@ -528,6 +503,7 @@ footer {
             <button
                 id="nextButton"
                 class="main-button next-button"
+                type="button"
                 onclick="nextQuestion()"
             >
                 ➡️ Следующий флаг
@@ -535,15 +511,9 @@ footer {
 
         </div>
 
-
-        <div
-            id="progress"
-            class="progress"
-        >
-        </div>
+        <div id="progress" class="progress"></div>
 
     </div>
-
 
     <!-- РЕКОРДЫ -->
 
@@ -570,299 +540,251 @@ footer {
 
 </main>
 
-
 <footer>
     © 2026 EasyFlow
 </footer>
 
-
 <script>
 
 /* =====================================================
-   196 СТРАН
-   193 страны ООН + Ватикан + Палестина + Косово
+   СТРАНЫ
+   Каждая страна встречается только один раз.
 ===================================================== */
 
 const countries = [
 
     /* ================= ЛЁГКИЕ ================= */
 
-    {name:"Казахстан", code:"kz", difficulty:"easy"},
-    {name:"Россия", code:"ru", difficulty:"easy"},
-    {name:"Украина", code:"ua", difficulty:"easy"},
-    {name:"Беларусь", code:"by", difficulty:"easy"},
-    {name:"Германия", code:"de", difficulty:"easy"},
-    {name:"Франция", code:"fr", difficulty:"easy"},
-    {name:"Италия", code:"it", difficulty:"easy"},
-    {name:"Испания", code:"es", difficulty:"easy"},
-    {name:"Португалия", code:"pt", difficulty:"easy"},
-    {name:"Великобритания", code:"gb", difficulty:"easy"},
-    {name:"США", code:"us", difficulty:"easy"},
-    {name:"Канада", code:"ca", difficulty:"easy"},
-    {name:"Мексика", code:"mx", difficulty:"easy"},
-    {name:"Бразилия", code:"br", difficulty:"easy"},
-    {name:"Аргентина", code:"ar", difficulty:"easy"},
-    {name:"Чили", code:"cl", difficulty:"easy"},
-    {name:"Китай", code:"cn", difficulty:"easy"},
-    {name:"Япония", code:"jp", difficulty:"easy"},
-    {name:"Южная Корея", code:"kr", difficulty:"easy"},
-    {name:"Индия", code:"in", difficulty:"easy"},
-    {name:"Австралия", code:"au", difficulty:"easy"},
-    {name:"Турция", code:"tr", difficulty:"easy"},
-    {name:"Египет", code:"eg", difficulty:"easy"},
-    {name:"Швейцария", code:"ch", difficulty:"easy"},
-    {name:"Греция", code:"gr", difficulty:"easy"},
-    {name:"Нидерланды", code:"nl", difficulty:"easy"},
-    {name:"Бельгия", code:"be", difficulty:"easy"},
-    {name:"Польша", code:"pl", difficulty:"easy"},
-    {name:"Швеция", code:"se", difficulty:"easy"},
-    {name:"Норвегия", code:"no", difficulty:"easy"},
-    {name:"Финляндия", code:"fi", difficulty:"easy"},
-    {name:"Дания", code:"dk", difficulty:"easy"},
-    {name:"Исландия", code:"is", difficulty:"easy"},
-    {name:"Южная Африка", code:"za", difficulty:"easy"},
-    {name:"Израиль", code:"il", difficulty:"easy"},
-    {name:"Саудовская Аравия", code:"sa", difficulty:"easy"},
-    {name:"ОАЭ", code:"ae", difficulty:"easy"},
-    {name:"Таиланд", code:"th", difficulty:"easy"},
-    {name:"Вьетнам", code:"vn", difficulty:"easy"},
+    { name:"Казахстан", code:"kz", difficulty:"easy" },
+    { name:"Россия", code:"ru", difficulty:"easy" },
+    { name:"Украина", code:"ua", difficulty:"easy" },
+    { name:"Беларусь", code:"by", difficulty:"easy" },
+    { name:"Германия", code:"de", difficulty:"easy" },
+    { name:"Франция", code:"fr", difficulty:"easy" },
+    { name:"Италия", code:"it", difficulty:"easy" },
+    { name:"Испания", code:"es", difficulty:"easy" },
+    { name:"Португалия", code:"pt", difficulty:"easy" },
+    { name:"Великобритания", code:"gb", difficulty:"easy" },
+    { name:"США", code:"us", difficulty:"easy" },
+    { name:"Канада", code:"ca", difficulty:"easy" },
+    { name:"Мексика", code:"mx", difficulty:"easy" },
+    { name:"Бразилия", code:"br", difficulty:"easy" },
+    { name:"Аргентина", code:"ar", difficulty:"easy" },
+    { name:"Чили", code:"cl", difficulty:"easy" },
+    { name:"Китай", code:"cn", difficulty:"easy" },
+    { name:"Япония", code:"jp", difficulty:"easy" },
+    { name:"Южная Корея", code:"kr", difficulty:"easy" },
+    { name:"Индия", code:"in", difficulty:"easy" },
+    { name:"Австралия", code:"au", difficulty:"easy" },
+    { name:"Турция", code:"tr", difficulty:"easy" },
+    { name:"Египет", code:"eg", difficulty:"easy" },
+    { name:"Швейцария", code:"ch", difficulty:"easy" },
+    { name:"Греция", code:"gr", difficulty:"easy" },
+    { name:"Нидерланды", code:"nl", difficulty:"easy" },
+    { name:"Бельгия", code:"be", difficulty:"easy" },
+    { name:"Польша", code:"pl", difficulty:"easy" },
+    { name:"Швеция", code:"se", difficulty:"easy" },
+    { name:"Норвегия", code:"no", difficulty:"easy" },
+    { name:"Финляндия", code:"fi", difficulty:"easy" },
+    { name:"Дания", code:"dk", difficulty:"easy" },
+    { name:"Исландия", code:"is", difficulty:"easy" },
+    { name:"Южная Африка", code:"za", difficulty:"easy" },
+    { name:"Израиль", code:"il", difficulty:"easy" },
+    { name:"Саудовская Аравия", code:"sa", difficulty:"easy" },
+    { name:"ОАЭ", code:"ae", difficulty:"easy" },
+    { name:"Таиланд", code:"th", difficulty:"easy" },
+    { name:"Вьетнам", code:"vn", difficulty:"easy" },
 
     /* ================= СРЕДНИЕ ================= */
 
-    {name:"Австрия", code:"at", difficulty:"medium"},
-    {name:"Ирландия", code:"ie", difficulty:"medium"},
-    {name:"Чехия", code:"cz", difficulty:"medium"},
-    {name:"Словакия", code:"sk", difficulty:"medium"},
-    {name:"Венгрия", code:"hu", difficulty:"medium"},
-    {name:"Румыния", code:"ro", difficulty:"medium"},
-    {name:"Болгария", code:"bg", difficulty:"medium"},
-    {name:"Хорватия", code:"hr", difficulty:"medium"},
-    {name:"Сербия", code:"rs", difficulty:"medium"},
-    {name:"Словения", code:"si", difficulty:"medium"},
-    {name:"Босния и Герцеговина", code:"ba", difficulty:"medium"},
-    {name:"Черногория", code:"me", difficulty:"medium"},
-    {name:"Северная Македония", code:"mk", difficulty:"medium"},
-    {name:"Албания", code:"al", difficulty:"medium"},
-    {name:"Молдова", code:"md", difficulty:"medium"},
-    {name:"Литва", code:"lt", difficulty:"medium"},
-    {name:"Латвия", code:"lv", difficulty:"medium"},
-    {name:"Эстония", code:"ee", difficulty:"medium"},
-    {name:"Грузия", code:"ge", difficulty:"medium"},
-    {name:"Армения", code:"am", difficulty:"medium"},
-    {name:"Азербайджан", code:"az", difficulty:"medium"},
-    {name:"Узбекистан", code:"uz", difficulty:"medium"},
-    {name:"Кыргызстан", code:"kg", difficulty:"medium"},
-    {name:"Таджикистан", code:"tj", difficulty:"medium"},
-    {name:"Туркменистан", code:"tm", difficulty:"medium"},
-    {name:"Монголия", code:"mn", difficulty:"medium"},
-    {name:"Непал", code:"np", difficulty:"medium"},
-    {name:"Пакистан", code:"pk", difficulty:"medium"},
-    {name:"Бангладеш", code:"bd", difficulty:"medium"},
-    {name:"Индонезия", code:"id", difficulty:"medium"},
-    {name:"Малайзия", code:"my", difficulty:"medium"},
-    {name:"Сингапур", code:"sg", difficulty:"medium"},
-    {name:"Филиппины", code:"ph", difficulty:"medium"},
-    {name:"Мьянма", code:"mm", difficulty:"medium"},
-    {name:"Камбоджа", code:"kh", difficulty:"medium"},
-    {name:"Лаос", code:"la", difficulty:"medium"},
-    {name:"Бутан", code:"bt", difficulty:"medium"},
-    {name:"Шри-Ланка", code:"lk", difficulty:"medium"},
-    {name:"Мальдивы", code:"mv", difficulty:"medium"},
-    {name:"Иордания", code:"jo", difficulty:"medium"},
-    {name:"Ливан", code:"lb", difficulty:"medium"},
-    {name:"Катар", code:"qa", difficulty:"medium"},
-    {name:"Кувейт", code:"kw", difficulty:"medium"},
-    {name:"Бахрейн", code:"bh", difficulty:"medium"},
-    {name:"Оман", code:"om", difficulty:"medium"},
-    {name:"Ирак", code:"iq", difficulty:"medium"},
-    {name:"Иран", code:"ir", difficulty:"medium"},
-    {name:"Сирия", code:"sy", difficulty:"medium"},
-    {name:"Йемен", code:"ye", difficulty:"medium"},
-    {name:"Алжир", code:"dz", difficulty:"medium"},
-    {name:"Марокко", code:"ma", difficulty:"medium"},
-    {name:"Тунис", code:"tn", difficulty:"medium"},
-    {name:"Ливия", code:"ly", difficulty:"medium"},
-    {name:"Нигерия", code:"ng", difficulty:"medium"},
-    {name:"Гана", code:"gh", difficulty:"medium"},
-    {name:"Кения", code:"ke", difficulty:"medium"},
-    {name:"Эфиопия", code:"et", difficulty:"medium"},
-    {name:"Танзания", code:"tz", difficulty:"medium"},
-    {name:"Уганда", code:"ug", difficulty:"medium"},
-    {name:"Зимбабве", code:"zw", difficulty:"medium"},
-    {name:"Замбия", code:"zm", difficulty:"medium"},
-    {name:"Намибия", code:"na", difficulty:"medium"},
-    {name:"Ботсвана", code:"bw", difficulty:"medium"},
-    {name:"Мозамбик", code:"mz", difficulty:"medium"},
-    {name:"Ангола", code:"ao", difficulty:"medium"},
-    {name:"Мадагаскар", code:"mg", difficulty:"medium"},
-    {name:"Маврикий", code:"mu", difficulty:"medium"},
-    {name:"Сейшельские Острова", code:"sc", difficulty:"medium"},
-    {name:"Куба", code:"cu", difficulty:"medium"},
-    {name:"Доминиканская Республика", code:"do", difficulty:"medium"},
-    {name:"Ямайка", code:"jm", difficulty:"medium"},
-    {name:"Гаити", code:"ht", difficulty:"medium"},
-    {name:"Коста-Рика", code:"cr", difficulty:"medium"},
-    {name:"Панама", code:"pa", difficulty:"medium"},
-    {name:"Колумбия", code:"co", difficulty:"medium"},
-    {name:"Перу", code:"pe", difficulty:"medium"},
-    {name:"Эквадор", code:"ec", difficulty:"medium"},
-    {name:"Боливия", code:"bo", difficulty:"medium"},
-    {name:"Парагвай", code:"py", difficulty:"medium"},
-    {name:"Уругвай", code:"uy", difficulty:"medium"},
-    {name:"Венесуэла", code:"ve", difficulty:"medium"},
-    {name:"Фиджи", code:"fj", difficulty:"medium"},
-    {name:"Новая Зеландия", code:"nz", difficulty:"medium"},
-    {name:"Папуа — Новая Гвинея", code:"pg", difficulty:"medium"},
-    {name:"Самоа", code:"ws", difficulty:"medium"},
-    {name:"Тонга", code:"to", difficulty:"medium"},
+    { name:"Австрия", code:"at", difficulty:"medium" },
+    { name:"Ирландия", code:"ie", difficulty:"medium" },
+    { name:"Чехия", code:"cz", difficulty:"medium" },
+    { name:"Словакия", code:"sk", difficulty:"medium" },
+    { name:"Венгрия", code:"hu", difficulty:"medium" },
+    { name:"Румыния", code:"ro", difficulty:"medium" },
+    { name:"Болгария", code:"bg", difficulty:"medium" },
+    { name:"Хорватия", code:"hr", difficulty:"medium" },
+    { name:"Сербия", code:"rs", difficulty:"medium" },
+    { name:"Словения", code:"si", difficulty:"medium" },
+    { name:"Босния и Герцеговина", code:"ba", difficulty:"medium" },
+    { name:"Черногория", code:"me", difficulty:"medium" },
+    { name:"Северная Македония", code:"mk", difficulty:"medium" },
+    { name:"Албания", code:"al", difficulty:"medium" },
+    { name:"Молдова", code:"md", difficulty:"medium" },
+    { name:"Литва", code:"lt", difficulty:"medium" },
+    { name:"Латвия", code:"lv", difficulty:"medium" },
+    { name:"Эстония", code:"ee", difficulty:"medium" },
+    { name:"Грузия", code:"ge", difficulty:"medium" },
+    { name:"Армения", code:"am", difficulty:"medium" },
+    { name:"Азербайджан", code:"az", difficulty:"medium" },
+    { name:"Узбекистан", code:"uz", difficulty:"medium" },
+    { name:"Кыргызстан", code:"kg", difficulty:"medium" },
+    { name:"Таджикистан", code:"tj", difficulty:"medium" },
+    { name:"Туркменистан", code:"tm", difficulty:"medium" },
+    { name:"Монголия", code:"mn", difficulty:"medium" },
+    { name:"Непал", code:"np", difficulty:"medium" },
+    { name:"Пакистан", code:"pk", difficulty:"medium" },
+    { name:"Бангладеш", code:"bd", difficulty:"medium" },
+    { name:"Индонезия", code:"id", difficulty:"medium" },
+    { name:"Малайзия", code:"my", difficulty:"medium" },
+    { name:"Сингапур", code:"sg", difficulty:"medium" },
+    { name:"Филиппины", code:"ph", difficulty:"medium" },
+    { name:"Мьянма", code:"mm", difficulty:"medium" },
+    { name:"Камбоджа", code:"kh", difficulty:"medium" },
+    { name:"Лаос", code:"la", difficulty:"medium" },
+    { name:"Бутан", code:"bt", difficulty:"medium" },
+    { name:"Шри-Ланка", code:"lk", difficulty:"medium" },
+    { name:"Мальдивы", code:"mv", difficulty:"medium" },
+    { name:"Иордания", code:"jo", difficulty:"medium" },
+    { name:"Ливан", code:"lb", difficulty:"medium" },
+    { name:"Катар", code:"qa", difficulty:"medium" },
+    { name:"Кувейт", code:"kw", difficulty:"medium" },
+    { name:"Бахрейн", code:"bh", difficulty:"medium" },
+    { name:"Оман", code:"om", difficulty:"medium" },
+    { name:"Ирак", code:"iq", difficulty:"medium" },
+    { name:"Иран", code:"ir", difficulty:"medium" },
+    { name:"Сирия", code:"sy", difficulty:"medium" },
+    { name:"Йемен", code:"ye", difficulty:"medium" },
+    { name:"Алжир", code:"dz", difficulty:"medium" },
+    { name:"Марокко", code:"ma", difficulty:"medium" },
+    { name:"Тунис", code:"tn", difficulty:"medium" },
+    { name:"Ливия", code:"ly", difficulty:"medium" },
+    { name:"Нигерия", code:"ng", difficulty:"medium" },
+    { name:"Гана", code:"gh", difficulty:"medium" },
+    { name:"Кения", code:"ke", difficulty:"medium" },
+    { name:"Эфиопия", code:"et", difficulty:"medium" },
+    { name:"Танзания", code:"tz", difficulty:"medium" },
+    { name:"Уганда", code:"ug", difficulty:"medium" },
+    { name:"Зимбабве", code:"zw", difficulty:"medium" },
+    { name:"Замбия", code:"zm", difficulty:"medium" },
+    { name:"Намибия", code:"na", difficulty:"medium" },
+    { name:"Ботсвана", code:"bw", difficulty:"medium" },
+    { name:"Мозамбик", code:"mz", difficulty:"medium" },
+    { name:"Ангола", code:"ao", difficulty:"medium" },
+    { name:"Мадагаскар", code:"mg", difficulty:"medium" },
+    { name:"Маврикий", code:"mu", difficulty:"medium" },
+    { name:"Сейшельские Острова", code:"sc", difficulty:"medium" },
+    { name:"Куба", code:"cu", difficulty:"medium" },
+    { name:"Доминиканская Республика", code:"do", difficulty:"medium" },
+    { name:"Ямайка", code:"jm", difficulty:"medium" },
+    { name:"Гаити", code:"ht", difficulty:"medium" },
+    { name:"Коста-Рика", code:"cr", difficulty:"medium" },
+    { name:"Панама", code:"pa", difficulty:"medium" },
+    { name:"Колумбия", code:"co", difficulty:"medium" },
+    { name:"Перу", code:"pe", difficulty:"medium" },
+    { name:"Эквадор", code:"ec", difficulty:"medium" },
+    { name:"Боливия", code:"bo", difficulty:"medium" },
+    { name:"Парагвай", code:"py", difficulty:"medium" },
+    { name:"Уругвай", code:"uy", difficulty:"medium" },
+    { name:"Венесуэла", code:"ve", difficulty:"medium" },
+    { name:"Фиджи", code:"fj", difficulty:"medium" },
+    { name:"Новая Зеландия", code:"nz", difficulty:"medium" },
+    { name:"Папуа — Новая Гвинея", code:"pg", difficulty:"medium" },
+    { name:"Самоа", code:"ws", difficulty:"medium" },
+    { name:"Тонга", code:"to", difficulty:"medium" },
 
     /* ================= СЛОЖНЫЕ ================= */
 
-    {name:"Андорра", code:"ad", difficulty:"hard"},
-    {name:"Антигуа и Барбуда", code:"ag", difficulty:"hard"},
-    {name:"Багамы", code:"bs", difficulty:"hard"},
-    {name:"Барбадос", code:"bb", difficulty:"hard"},
-    {name:"Белиз", code:"bz", difficulty:"hard"},
-    {name:"Бенин", code:"bj", difficulty:"hard"},
-    {name:"Буркина-Фасо", code:"bf", difficulty:"hard"},
-    {name:"Бурунди", code:"bi", difficulty:"hard"},
-    {name:"Кабо-Верде", code:"cv", difficulty:"hard"},
-    {name:"Камерун", code:"cm", difficulty:"hard"},
-    {name:"Центральноафриканская Республика", code:"cf", difficulty:"hard"},
-    {name:"Чад", code:"td", difficulty:"hard"},
-    {name:"Коморы", code:"km", difficulty:"hard"},
-    {name:"Республика Конго", code:"cg", difficulty:"hard"},
-    {name:"Демократическая Республика Конго", code:"cd", difficulty:"hard"},
-    {name:"Кот-д'Ивуар", code:"ci", difficulty:"hard"},
-    {name:"Джибути", code:"dj", difficulty:"hard"},
-    {name:"Экваториальная Гвинея", code:"gq", difficulty:"hard"},
-    {name:"Эритрея", code:"er", difficulty:"hard"},
-    {name:"Эсватини", code:"sz", difficulty:"hard"},
-    {name:"Габон", code:"ga", difficulty:"hard"},
-    {name:"Гамбия", code:"gm", difficulty:"hard"},
-    {name:"Гвинея", code:"gn", difficulty:"hard"},
-    {name:"Гвинея-Бисау", code:"gw", difficulty:"hard"},
-    {name:"Лесото", code:"ls", difficulty:"hard"},
-    {name:"Либерия", code:"lr", difficulty:"hard"},
-    {name:"Малави", code:"mw", difficulty:"hard"},
-    {name:"Мали", code:"ml", difficulty:"hard"},
-    {name:"Мавритания", code:"mr", difficulty:"hard"},
-    {name:"Нигер", code:"ne", difficulty:"hard"},
-    {name:"Руанда", code:"rw", difficulty:"hard"},
-    {name:"Сан-Томе и Принсипи", code:"st", difficulty:"hard"},
-    {name:"Сенегал", code:"sn", difficulty:"hard"},
-    {name:"Сьерра-Леоне", code:"sl", difficulty:"hard"},
-    {name:"Сомали", code:"so", difficulty:"hard"},
-    {name:"Судан", code:"sd", difficulty:"hard"},
-    {name:"Южный Судан", code:"ss", difficulty:"hard"},
-    {name:"Того", code:"tg", difficulty:"hard"},
-    {name:"Малави", code:"mw", difficulty:"hard"},
+    { name:"Андорра", code:"ad", difficulty:"hard" },
+    { name:"Антигуа и Барбуда", code:"ag", difficulty:"hard" },
+    { name:"Багамы", code:"bs", difficulty:"hard" },
+    { name:"Барбадос", code:"bb", difficulty:"hard" },
+    { name:"Белиз", code:"bz", difficulty:"hard" },
+    { name:"Бенин", code:"bj", difficulty:"hard" },
+    { name:"Буркина-Фасо", code:"bf", difficulty:"hard" },
+    { name:"Бурунди", code:"bi", difficulty:"hard" },
+    { name:"Кабо-Верде", code:"cv", difficulty:"hard" },
+    { name:"Камерун", code:"cm", difficulty:"hard" },
+    { name:"Центральноафриканская Республика", code:"cf", difficulty:"hard" },
+    { name:"Чад", code:"td", difficulty:"hard" },
+    { name:"Коморы", code:"km", difficulty:"hard" },
+    { name:"Республика Конго", code:"cg", difficulty:"hard" },
+    { name:"Демократическая Республика Конго", code:"cd", difficulty:"hard" },
+    { name:"Кот-д'Ивуар", code:"ci", difficulty:"hard" },
+    { name:"Джибути", code:"dj", difficulty:"hard" },
+    { name:"Экваториальная Гвинея", code:"gq", difficulty:"hard" },
+    { name:"Эритрея", code:"er", difficulty:"hard" },
+    { name:"Эсватини", code:"sz", difficulty:"hard" },
+    { name:"Габон", code:"ga", difficulty:"hard" },
+    { name:"Гамбия", code:"gm", difficulty:"hard" },
+    { name:"Гвинея", code:"gn", difficulty:"hard" },
+    { name:"Гвинея-Бисау", code:"gw", difficulty:"hard" },
+    { name:"Лесото", code:"ls", difficulty:"hard" },
+    { name:"Либерия", code:"lr", difficulty:"hard" },
+    { name:"Малави", code:"mw", difficulty:"hard" },
+    { name:"Мали", code:"ml", difficulty:"hard" },
+    { name:"Мавритания", code:"mr", difficulty:"hard" },
+    { name:"Нигер", code:"ne", difficulty:"hard" },
+    { name:"Руанда", code:"rw", difficulty:"hard" },
+    { name:"Сан-Томе и Принсипи", code:"st", difficulty:"hard" },
+    { name:"Сенегал", code:"sn", difficulty:"hard" },
+    { name:"Сьерра-Леоне", code:"sl", difficulty:"hard" },
+    { name:"Сомали", code:"so", difficulty:"hard" },
+    { name:"Судан", code:"sd", difficulty:"hard" },
+    { name:"Южный Судан", code:"ss", difficulty:"hard" },
+    { name:"Того", code:"tg", difficulty:"hard" },
+    { name:"Бруней", code:"bn", difficulty:"hard" },
+    { name:"Тимор-Лешти", code:"tl", difficulty:"hard" },
+    { name:"Микронезия", code:"fm", difficulty:"hard" },
+    { name:"Маршалловы Острова", code:"mh", difficulty:"hard" },
+    { name:"Палау", code:"pw", difficulty:"hard" },
+    { name:"Науру", code:"nr", difficulty:"hard" },
+    { name:"Кирибати", code:"ki", difficulty:"hard" },
+    { name:"Тувалу", code:"tv", difficulty:"hard" },
+    { name:"Вануату", code:"vu", difficulty:"hard" },
+    { name:"Соломоновы Острова", code:"sb", difficulty:"hard" },
+    { name:"Мальта", code:"mt", difficulty:"hard" },
+    { name:"Кипр", code:"cy", difficulty:"hard" },
+    { name:"Люксембург", code:"lu", difficulty:"hard" },
+    { name:"Лихтенштейн", code:"li", difficulty:"hard" },
+    { name:"Монако", code:"mc", difficulty:"hard" },
+    { name:"Сан-Марино", code:"sm", difficulty:"hard" },
+    { name:"Ватикан", code:"va", difficulty:"hard" },
+    { name:"Палестина", code:"ps", difficulty:"hard" },
+    { name:"Косово", code:"xk", difficulty:"hard" },
+    { name:"Северная Корея", code:"kp", difficulty:"hard" },
+    { name:"Тайвань", code:"tw", difficulty:"hard" },
+    { name:"Афганистан", code:"af", difficulty:"hard" },
+    { name:"Суринам", code:"sr", difficulty:"hard" },
+    { name:"Гайана", code:"gy", difficulty:"hard" },
+    { name:"Гренада", code:"gd", difficulty:"hard" },
+    { name:"Доминика", code:"dm", difficulty:"hard" },
+    { name:"Сент-Люсия", code:"lc", difficulty:"hard" },
+    { name:"Сент-Китс и Невис", code:"kn", difficulty:"hard" },
+    { name:"Сент-Винсент и Гренадины", code:"vc", difficulty:"hard" }
 
-    {name:"Бруней", code:"bn", difficulty:"hard"},
-    {name:"Тимор-Лешти", code:"tl", difficulty:"hard"},
-
-    {name:"Микронезия", code:"fm", difficulty:"hard"},
-    {name:"Маршалловы Острова", code:"mh", difficulty:"hard"},
-    {name:"Палау", code:"pw", difficulty:"hard"},
-    {name:"Науру", code:"nr", difficulty:"hard"},
-    {name:"Кирибати", code:"ki", difficulty:"hard"},
-    {name:"Тувалу", code:"tv", difficulty:"hard"},
-    {name:"Вануату", code:"vu", difficulty:"hard"},
-    {name:"Соломоновы Острова", code:"sb", difficulty:"hard"},
-
-    {name:"Мальта", code:"mt", difficulty:"hard"},
-    {name:"Кипр", code:"cy", difficulty:"hard"},
-    {name:"Люксембург", code:"lu", difficulty:"hard"},
-    {name:"Лихтенштейн", code:"li", difficulty:"hard"},
-    {name:"Монако", code:"mc", difficulty:"hard"},
-    {name:"Сан-Марино", code:"sm", difficulty:"hard"},
-    {name:"Ватикан", code:"va", difficulty:"hard"},
-
-    {name:"Палестина", code:"ps", difficulty:"hard"},
-    {name:"Косово", code:"xk", difficulty:"hard"},
-
-    {name:"Северная Корея", code:"kp", difficulty:"hard"},
-    {name:"Тайвань", code:"tw", difficulty:"hard"},
-
-    {name:"Афганистан", code:"af", difficulty:"hard"},
-    {name:"Таджикистан", code:"tj", difficulty:"hard"},
-
-    {name:"Суринам", code:"sr", difficulty:"hard"},
-    {name:"Гайана", code:"gy", difficulty:"hard"},
-    {name:"Гренада", code:"gd", difficulty:"hard"},
-    {name:"Доминика", code:"dm", difficulty:"hard"},
-    {name:"Сент-Люсия", code:"lc", difficulty:"hard"},
-    {name:"Сент-Китс и Невис", code:"kn", difficulty:"hard"},
-    {name:"Сент-Винсент и Гренадины", code:"vc", difficulty:"hard"},
-
-    {name:"Беларусь", code:"by", difficulty:"hard"}
 ];
 
 
 /* =====================================================
-   УБИРАЕМ СЛУЧАЙНЫЕ ДУБЛИКАТЫ
+   ПРОВЕРКА УНИКАЛЬНОСТИ
 ===================================================== */
 
 const uniqueCountries = [];
-
 const countryCodes = new Set();
 
-countries.forEach(function(country) {
+countries.forEach(country => {
 
     if (!countryCodes.has(country.code)) {
-
         countryCodes.add(country.code);
-
         uniqueCountries.push(country);
-
-    }
-
-});
-
-
-/*
-   Если список получился меньше 196,
-   добавляем недостающие страны.
-*/
-
-const extraCountries = [
-
-    {name:"Сент-Китс и Невис", code:"kn", difficulty:"hard"},
-    {name:"Сент-Люсия", code:"lc", difficulty:"hard"},
-    {name:"Сент-Винсент и Гренадины", code:"vc", difficulty:"hard"},
-    {name:"Гренада", code:"gd", difficulty:"hard"},
-    {name:"Доминика", code:"dm", difficulty:"hard"},
-    {name:"Гайана", code:"gy", difficulty:"hard"},
-    {name:"Суринам", code:"sr", difficulty:"hard"}
-];
-
-extraCountries.forEach(function(country) {
-
-    if (!countryCodes.has(country.code)) {
-
-        countryCodes.add(country.code);
-
-        uniqueCountries.push(country);
-
     }
 
 });
 
 
 /* =====================================================
-   НАСТРОЙКИ
+   НАСТРОЙКИ ИГРЫ
 ===================================================== */
 
 let difficulty = "easy";
-
 let currentCountry = null;
 
 let score = 0;
-
 let lives = 3;
 
 let gameRunning = false;
-
 let questionAnswered = false;
 
 let usedCountries = [];
@@ -872,29 +794,18 @@ let usedCountries = [];
    DOM
 ===================================================== */
 
-const flagElement =
-    document.getElementById("flag");
+const flagElement = document.getElementById("flag");
+const answersElement = document.getElementById("answers");
 
-const answersElement =
-    document.getElementById("answers");
+const scoreElement = document.getElementById("score");
+const livesElement = document.getElementById("lives");
+const recordElement = document.getElementById("record");
 
-const scoreElement =
-    document.getElementById("score");
+const messageElement = document.getElementById("message");
+const nextButton = document.getElementById("nextButton");
+const startButton = document.getElementById("startButton");
 
-const livesElement =
-    document.getElementById("lives");
-
-const recordElement =
-    document.getElementById("record");
-
-const messageElement =
-    document.getElementById("message");
-
-const nextButton =
-    document.getElementById("nextButton");
-
-const progressElement =
-    document.getElementById("progress");
+const progressElement = document.getElementById("progress");
 
 
 /* =====================================================
@@ -916,7 +827,7 @@ function saveRecord(level, value) {
 
     localStorage.setItem(
         "easyflow_flags_record_" + level,
-        value
+        String(value)
     );
 
 }
@@ -924,23 +835,14 @@ function saveRecord(level, value) {
 
 function updateRecords() {
 
-    document.getElementById(
-        "easyRecord"
-    ).textContent =
+    document.getElementById("easyRecord").textContent =
         getRecord("easy");
 
-
-    document.getElementById(
-        "mediumRecord"
-    ).textContent =
+    document.getElementById("mediumRecord").textContent =
         getRecord("medium");
 
-
-    document.getElementById(
-        "hardRecord"
-    ).textContent =
+    document.getElementById("hardRecord").textContent =
         getRecord("hard");
-
 
     recordElement.textContent =
         getRecord(difficulty);
@@ -956,35 +858,26 @@ function selectDifficulty(level) {
 
     if (gameRunning) {
 
-        alert(
-            "Сначала закончи текущую игру."
-        );
+        messageElement.textContent =
+            "⚠️ Сначала закончи текущую игру.";
+
+        messageElement.className =
+            "message wrong-message";
 
         return;
-
     }
-
 
     difficulty = level;
 
-
     document
         .querySelectorAll(".level")
-        .forEach(function(button) {
-
+        .forEach(button => {
             button.classList.remove("active");
-
         });
 
-
     document
-        .getElementById(
-            level + "Button"
-        )
-        .classList.add("active");
-
-
-    updateRecords();
+        .getElementById(level + "Button")
+        .classList.add("active", level);
 
     resetScreen();
 
@@ -999,29 +892,30 @@ function shuffle(array) {
 
     const result = [...array];
 
-    for (
-        let i = result.length - 1;
-        i > 0;
-        i--
-    ) {
+    for (let i = result.length - 1; i > 0; i--) {
 
-        const j =
-            Math.floor(
-                Math.random() * (i + 1)
-            );
+        const j = Math.floor(
+            Math.random() * (i + 1)
+        );
 
-        [
-            result[i],
-            result[j]
-        ] =
-        [
-            result[j],
-            result[i]
-        ];
+        [result[i], result[j]] =
+        [result[j], result[i]];
 
     }
 
     return result;
+}
+
+
+/* =====================================================
+   СТРАНЫ ТЕКУЩЕЙ СЛОЖНОСТИ
+===================================================== */
+
+function getAvailableCountries() {
+
+    return uniqueCountries.filter(country =>
+        country.difficulty === difficulty
+    );
 
 }
 
@@ -1032,35 +926,41 @@ function shuffle(array) {
 
 function startGame() {
 
-    score = 0;
+    const available = getAvailableCountries();
 
+    if (available.length < 4) {
+
+        messageElement.textContent =
+            "❌ Недостаточно стран для игры.";
+
+        messageElement.className =
+            "message wrong-message";
+
+        return;
+    }
+
+    score = 0;
     lives = 3;
 
     gameRunning = true;
-
     questionAnswered = false;
 
     usedCountries = [];
 
-
     scoreElement.textContent = "0";
-
     livesElement.textContent = "3";
-
 
     messageElement.textContent =
         "Выбери правильную страну!";
 
-    messageElement.className =
-        "message";
+    messageElement.className = "message";
 
+    nextButton.style.display = "none";
 
-    nextButton.style.display =
-        "none";
-
+    startButton.textContent =
+        "🔄 Новая игра";
 
     nextQuestion();
-
 }
 
 
@@ -1074,43 +974,25 @@ function nextQuestion() {
         return;
     }
 
+    const available = getAvailableCountries();
+
+    if (available.length < 4) {
+        endGame();
+        return;
+    }
 
     questionAnswered = false;
 
+    nextButton.style.display = "none";
 
-    nextButton.style.display =
-        "none";
-
-
-    const available =
-        uniqueCountries.filter(
-            function(country) {
-
-                return (
-                    country.difficulty ===
-                    difficulty
-                );
-
-            }
-        );
-
+    let unused = available.filter(country =>
+        !usedCountries.includes(country.code)
+    );
 
     /*
-       Если все страны уровня уже использованы,
+       Если все страны были показаны,
        начинаем новый круг.
     */
-
-    let unused =
-        available.filter(
-            function(country) {
-
-                return !usedCountries.includes(
-                    country.code
-                );
-
-            }
-        );
-
 
     if (unused.length === 0) {
 
@@ -1120,37 +1002,37 @@ function nextQuestion() {
 
     }
 
-
-    const randomIndex =
-        Math.floor(
-            Math.random() * unused.length
-        );
-
-
     currentCountry =
-        unused[randomIndex];
+        unused[
+            Math.floor(
+                Math.random() * unused.length
+            )
+        ];
 
+    /*
+       Страна считается использованной
+       после показа вопроса.
+    */
 
     usedCountries.push(
         currentCountry.code
     );
 
 
-    /* Флаг */
+    /* ФЛАГ */
 
     flagElement.src =
         "https://flagcdn.com/w640/" +
         currentCountry.code +
         ".png";
 
-
     flagElement.alt =
-        "Флаг " +
-        currentCountry.name;
+        "Флаг " + currentCountry.name;
 
+
+    /* ОТВЕТЫ */
 
     createAnswers(available);
-
 
     updateProgress();
 
@@ -1158,92 +1040,51 @@ function nextQuestion() {
 
 
 /* =====================================================
-   СОЗДАНИЕ ОТВЕТОВ
+   СОЗДАНИЕ 4 ОТВЕТОВ
 ===================================================== */
 
 function createAnswers(available) {
 
     answersElement.innerHTML = "";
 
-
-    let options = [
-        currentCountry
-    ];
-
-
-    const wrongAnswers =
-        shuffle(
-            available.filter(
-                function(country) {
-
-                    return (
-                        country.code !==
-                        currentCountry.code
-                    );
-
-                }
-            )
-        );
-
+    const wrongAnswers = shuffle(
+        available.filter(country =>
+            country.code !== currentCountry.code
+        )
+    );
 
     /*
-       Всегда 4 варианта ответа.
+       Всегда выбираем:
+       1 правильный + 3 неправильных.
     */
 
-    while (
-        options.length < 4 &&
-        wrongAnswers.length > 0
-    ) {
+    const options = [
+        currentCountry,
+        ...wrongAnswers.slice(0, 3)
+    ];
 
-        options.push(
-            wrongAnswers.shift()
-        );
-
-    }
-
-
-    options =
+    const shuffledOptions =
         shuffle(options);
 
+    shuffledOptions.forEach(country => {
 
-    options.forEach(
-        function(country) {
+        const button =
+            document.createElement("button");
 
-            const button =
-                document.createElement(
-                    "button"
-                );
+        button.className = "answer";
+        button.type = "button";
 
+        button.textContent =
+            country.name;
 
-            button.className =
-                "answer";
+        button.addEventListener(
+            "click",
+            () => checkAnswer(country, button)
+        );
 
+        answersElement.appendChild(button);
 
-            button.textContent =
-                country.name;
-
-
-            button.type =
-                "button";
-
-
-            button.onclick =
-                function() {
-
-                    checkAnswer(
-                        country,
-                        button
-                    );
-
-                };
-
-
-            answersElement.appendChild(
-                button
-            );
-
-        }
-    );
+    });
 
 }
 
@@ -1252,37 +1093,23 @@ function createAnswers(available) {
    ПРОВЕРКА ОТВЕТА
 ===================================================== */
 
-function checkAnswer(
-    country,
-    button
-) {
+function checkAnswer(country, button) {
 
     if (
         !gameRunning ||
         questionAnswered
     ) {
-
         return;
-
     }
-
 
     questionAnswered = true;
 
-
     const buttons =
-        document.querySelectorAll(
-            ".answer"
-        );
+        document.querySelectorAll(".answer");
 
-
-    buttons.forEach(
-        function(btn) {
-
-            btn.disabled = true;
-
-        }
-    );
+    buttons.forEach(btn => {
+        btn.disabled = true;
+    });
 
 
     /* ПРАВИЛЬНО */
@@ -1292,77 +1119,55 @@ function checkAnswer(
         currentCountry.code
     ) {
 
-        button.classList.add(
-            "correct"
-        );
-
+        button.classList.add("correct");
 
         score++;
-
 
         scoreElement.textContent =
             score;
 
-
         messageElement.textContent =
             "✅ Правильно!";
-
 
         messageElement.className =
             "message correct-message";
 
-
         updateBestScore();
-
 
         nextButton.style.display =
             "inline-block";
 
-
         updateProgress();
 
-
         return;
-
     }
 
 
     /* НЕПРАВИЛЬНО */
 
-    button.classList.add(
-        "wrong"
-    );
+    button.classList.add("wrong");
 
+    buttons.forEach(btn => {
 
-    buttons.forEach(
-        function(btn) {
+        if (
+            btn.textContent ===
+            currentCountry.name
+        ) {
 
-            if (
-                btn.textContent ===
-                currentCountry.name
-            ) {
-
-                btn.classList.add(
-                    "correct"
-                );
-
-            }
+            btn.classList.add("correct");
 
         }
-    );
 
+    });
 
     lives--;
-
 
     livesElement.textContent =
         lives;
 
-
     messageElement.textContent =
         "❌ Неправильно! Правильный ответ: " +
         currentCountry.name;
-
 
     messageElement.className =
         "message wrong-message";
@@ -1379,7 +1184,6 @@ function checkAnswer(
 
     }
 
-
     updateProgress();
 
 }
@@ -1394,13 +1198,15 @@ function updateBestScore() {
     const record =
         getRecord(difficulty);
 
-
     if (score > record) {
 
         saveRecord(
             difficulty,
             score
         );
+
+        recordElement.textContent =
+            score;
 
         updateRecords();
 
@@ -1416,26 +1222,15 @@ function updateBestScore() {
 function updateProgress() {
 
     const total =
-        uniqueCountries.filter(
-            function(country) {
-
-                return (
-                    country.difficulty ===
-                    difficulty
-                );
-
-            }
-        ).length;
-
+        getAvailableCountries().length;
 
     const used =
         usedCountries.length;
 
-
     progressElement.textContent =
         "🌍 Стран в уровне: " +
         total +
-        " • Пройдено: " +
+        " • Показано: " +
         used;
 
 }
@@ -1449,95 +1244,96 @@ function endGame() {
 
     gameRunning = false;
 
-    updateBestScore();
+    questionAnswered = true;
 
+    updateBestScore();
 
     messageElement.textContent =
         "💥 Игра окончена! Твой результат: " +
         score +
         " очков";
 
-
     messageElement.className =
         "message wrong-message";
-
 
     nextButton.style.display =
         "none";
 
+    startButton.textContent =
+        "▶️ Начать игру";
 
     document
         .querySelectorAll(".answer")
-        .forEach(
-            function(button) {
-
-                button.disabled = true;
-
-            }
-        );
+        .forEach(button => {
+            button.disabled = true;
+        });
 
 }
 
 
 /* =====================================================
-   СБРОС
+   СБРОС ЭКРАНА
 ===================================================== */
 
 function resetScreen() {
 
     score = 0;
-
     lives = 3;
 
     gameRunning = false;
-
     questionAnswered = false;
 
     currentCountry = null;
-
     usedCountries = [];
 
-
-    scoreElement.textContent =
-        "0";
-
-
-    livesElement.textContent =
-        "3";
-
+    scoreElement.textContent = "0";
+    livesElement.textContent = "3";
 
     messageElement.textContent =
         "Нажми «Начать игру»";
 
-
     messageElement.className =
         "message";
 
+    flagElement.removeAttribute("src");
 
-    flagElement.removeAttribute(
-        "src"
-    );
+    flagElement.alt = "Флаг";
 
-
-    flagElement.alt =
-        "Флаг";
-
-
-    answersElement.innerHTML =
-        "";
-
+    answersElement.innerHTML = "";
 
     nextButton.style.display =
         "none";
 
+    startButton.textContent =
+        "▶️ Начать игру";
 
-    progressElement.textContent =
-        "";
-
+    progressElement.textContent = "";
 
     updateRecords();
 
 }
+
+
+/* =====================================================
+   ОШИБКА ЗАГРУЗКИ ФЛАГА
+===================================================== */
+
+flagElement.addEventListener(
+    "error",
+    function() {
+
+        if (!currentCountry) {
+            return;
+        }
+
+        messageElement.textContent =
+            "⚠️ Не удалось загрузить флаг. Проверь подключение к интернету.";
+
+        messageElement.className =
+            "message wrong-message";
+
+    }
+);
 
 
 /* =====================================================
@@ -1555,33 +1351,20 @@ document.addEventListener(
             return;
         }
 
+        const keys = ["1", "2", "3", "4"];
+
+        if (!keys.includes(event.key)) {
+            return;
+        }
+
+        const index =
+            Number(event.key) - 1;
 
         const buttons =
-            document.querySelectorAll(
-                ".answer"
-            );
+            document.querySelectorAll(".answer");
 
-
-        /*
-           Клавиши 1,2,3,4
-           выбирают ответ.
-        */
-
-        if (
-            ["1","2","3","4"]
-            .includes(event.key)
-        ) {
-
-            const index =
-                Number(event.key) - 1;
-
-
-            if (buttons[index]) {
-
-                buttons[index].click();
-
-            }
-
+        if (buttons[index]) {
+            buttons[index].click();
         }
 
     }
@@ -1593,7 +1376,6 @@ document.addEventListener(
 ===================================================== */
 
 updateRecords();
-
 resetScreen();
 
 </script>
