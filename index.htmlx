@@ -14,78 +14,392 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #f5f7fb;
+            background: #f4f7fb;
             color: #111827;
         }
 
+        /* ===== HEADER ===== */
+
         header {
-            padding: 20px 7%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
             background: white;
+            border-bottom: 1px solid #e5e7eb;
+
+            padding: 15px 5%;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #ddd;
         }
 
         .logo {
             font-size: 28px;
-            font-weight: bold;
+            font-weight: 800;
             color: #2563eb;
         }
 
-        nav a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: #333;
+        nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
         }
 
+        nav button {
+            border: none;
+            background: transparent;
+
+            padding: 11px 15px;
+            border-radius: 10px;
+
+            color: #374151;
+            font-weight: 600;
+
+            cursor: pointer;
+            white-space: nowrap;
+
+            transition: 0.2s;
+        }
+
+        nav button:hover {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        nav button.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* ===== MAIN ===== */
+
+        main {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .page {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== HOME ===== */
+
         .hero {
-            min-height: 80vh;
+            min-height: 70vh;
+
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+
             text-align: center;
-            padding: 40px 20px;
+
+            padding: 50px 20px;
         }
 
         .hero h1 {
-            font-size: 70px;
+            font-size: clamp(55px, 10vw, 100px);
             color: #2563eb;
             margin-bottom: 20px;
         }
 
-        /* ФОТО */
-
-        .main-photo {
-            width: 400px;
-            max-width: 90%;
-            height: auto;
-            margin: 10px auto 30px;
-            display: block;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
         .hero p {
             font-size: 20px;
-            color: #666;
+            color: #64748b;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .welcome-box {
+            margin-top: 35px;
+            padding: 25px 35px;
+
+            background: white;
+            border-radius: 18px;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+
+        /* ===== TITLES ===== */
+
+        .title {
             margin-bottom: 30px;
         }
 
-        .button {
-            padding: 14px 28px;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
+        .title h2 {
+            font-size: 36px;
+            margin-bottom: 8px;
         }
 
-        footer {
-            padding: 25px;
+        .title p {
+            color: #64748b;
+        }
+
+        /* ===== CARDS ===== */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+
+            border-radius: 18px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* ===== GALLERY ===== */
+
+        .empty-gallery {
+            background: white;
+
+            border: 2px dashed #d1d5db;
+
+            border-radius: 20px;
+
+            padding: 80px 20px;
+
             text-align: center;
-            background: #111827;
+
+            color: #64748b;
+        }
+
+        .empty-gallery .icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .empty-gallery h3 {
+            color: #111827;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* ===== PROFILE ===== */
+
+        .profile {
+            background: white;
+
+            max-width: 650px;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+
+        .profile-icon {
+            width: 90px;
+            height: 90px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eff6ff;
+            color: #2563eb;
+
+            border-radius: 50%;
+
+            font-size: 40px;
+
+            margin-bottom: 20px;
+        }
+
+        .profile h2 {
+            margin-bottom: 10px;
+        }
+
+        .profile p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* ===== LINKS ===== */
+
+        .links {
+            display: grid;
+            gap: 15px;
+        }
+
+        .link-card {
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 15px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+
+        .link-card h3 {
+            margin-bottom: 5px;
+        }
+
+        .link-card p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .link-button {
+            background: #2563eb;
             color: white;
+
+            text-decoration: none;
+
+            padding: 10px 18px;
+
+            border-radius: 9px;
+        }
+
+        /* ===== SETTINGS ===== */
+
+        .settings {
+            max-width: 650px;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .setting {
+            margin-bottom: 20px;
+        }
+
+        .setting label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+        }
+
+        .setting input {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 9px;
+
+            font-size: 16px;
+        }
+
+        .save-button {
+            border: none;
+
+            background: #2563eb;
+            color: white;
+
+            padding: 13px 25px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+        .save-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* ===== FOOTER ===== */
+
+        footer {
+            margin-top: 50px;
+
+            padding: 25px;
+
+            background: #111827;
+
+            color: #9ca3af;
+
+            text-align: center;
+        }
+
+        /* ===== MOBILE ===== */
+
+        @media (max-width: 800px) {
+
+            header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            nav {
+                width: 100%;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .link-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 55px;
+            }
         }
     </style>
 </head>
@@ -99,62 +413,357 @@
     </div>
 
     <nav>
-        <a href="#home">Главная</a>
-        <a href="#about">О нас</a>
-        <a href="#contacts">Контакты</a>
+
+        <button class="active" onclick="showPage('home', this)">
+            🏠 Главная
+        </button>
+
+        <button onclick="showPage('images', this)">
+            🖼️ Картинки
+        </button>
+
+        <button onclick="showPage('profile', this)">
+            👤 Профиль
+        </button>
+
+        <button onclick="showPage('links', this)">
+            🔗 Мои ссылки
+        </button>
+
+        <button onclick="showPage('settings', this)">
+            ⚙️ Настройки
+        </button>
+
     </nav>
 
 </header>
 
 
-<section class="hero" id="home">
+<main>
 
-    <h1>EasyFlow</h1>
+    <!-- ===== ГЛАВНАЯ ===== -->
 
-    <!-- ТВОЯ ФОТОГРАФИЯ -->
-    <img src="photo.jpg" alt="Фото EasyFlow" class="main-photo">
+    <section id="home" class="page active">
 
-    <p>
-        Добро пожаловать на мой сайт!
-    </p>
+        <div class="hero">
 
-    <a href="#about" class="button">
-        Начать
-    </a>
+            <h1>EasyFlow</h1>
 
-</section>
+            <p>
+                Твоя собственная платформа.
+                Здесь ты можешь создавать,
+                добавлять и управлять своим контентом.
+            </p>
+
+            <div class="welcome-box">
+
+                <h2>
+                    Добро пожаловать 👋
+                </h2>
+
+                <p style="margin-top: 10px;">
+                    EasyFlow только начинается.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
 
 
-<section id="about" style="padding:80px 20px; text-align:center;">
+    <!-- ===== КАРТИНКИ ===== -->
 
-    <h2>
-        О сайте
-    </h2>
+    <section id="images" class="page">
 
-    <p style="margin-top:20px;">
-        Здесь я буду размещать всё, что захочу.
-    </p>
+        <div class="title">
 
-</section>
+            <h2>🖼️ Картинки</h2>
+
+            <p>
+                Здесь будут твои изображения.
+            </p>
+
+        </div>
+
+        <div class="empty-gallery">
+
+            <div class="icon">
+                🖼️
+            </div>
+
+            <h3>
+                Пока нет картинок
+            </h3>
+
+            <p>
+                Позже здесь можно будет добавить изображения.
+            </p>
+
+        </div>
+
+    </section>
 
 
-<section id="contacts" style="padding:80px 20px; text-align:center;">
+    <!-- ===== ПРОФИЛЬ ===== -->
 
-    <h2>
-        Контакты
-    </h2>
+    <section id="profile" class="page">
 
-    <p style="margin-top:20px;">
-        Здесь будут мои контакты.
-    </p>
+        <div class="title">
 
-</section>
+            <h2>👤 Профиль</h2>
+
+            <p>
+                Твоя персональная страница.
+            </p>
+
+        </div>
+
+        <div class="profile">
+
+            <div class="profile-icon">
+                👤
+            </div>
+
+            <h2 id="profileName">
+                Мой профиль
+            </h2>
+
+            <p id="profileDescription">
+                Здесь будет информация о пользователе.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===== ССЫЛКИ ===== -->
+
+    <section id="links" class="page">
+
+        <div class="title">
+
+            <h2>🔗 Мои ссылки</h2>
+
+            <p>
+                Здесь ты можешь размещать свои ссылки.
+            </p>
+
+        </div>
+
+        <div class="links">
+
+            <div class="link-card">
+
+                <div>
+
+                    <h3>
+                        Моя ссылка
+                    </h3>
+
+                    <p>
+                        Здесь будет твоя ссылка.
+                    </p>
+
+                </div>
+
+                <a
+                    href="#"
+                    class="link-button"
+                >
+                    Открыть
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===== НАСТРОЙКИ ===== -->
+
+    <section id="settings" class="page">
+
+        <div class="title">
+
+            <h2>⚙️ Настройки</h2>
+
+            <p>
+                Настрой свой профиль.
+            </p>
+
+        </div>
+
+        <div class="settings">
+
+            <div class="setting">
+
+                <label>
+                    Имя
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Введите имя"
+                >
+
+            </div>
+
+
+            <div class="setting">
+
+                <label>
+                    Описание
+                </label>
+
+                <input
+                    type="text"
+                    id="description"
+                    placeholder="Введите описание"
+                >
+
+            </div>
+
+
+            <button
+                class="save-button"
+                onclick="saveSettings()"
+            >
+                Сохранить
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
 
 
 <footer>
+
     © 2026 EasyFlow
+
 </footer>
 
+
+<script>
+
+    /* ===== ПЕРЕКЛЮЧЕНИЕ РАЗДЕЛОВ ===== */
+
+    function showPage(pageId, button) {
+
+        const pages = document.querySelectorAll(".page");
+
+        pages.forEach(function(page) {
+            page.classList.remove("active");
+        });
+
+        document
+            .getElementById(pageId)
+            .classList.add("active");
+
+
+        const buttons =
+            document.querySelectorAll("nav button");
+
+        buttons.forEach(function(btn) {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* ===== СОХРАНЕНИЕ ПРОФИЛЯ ===== */
+
+    function saveSettings() {
+
+        const name =
+            document.getElementById("name").value;
+
+        const description =
+            document.getElementById("description").value;
+
+
+        if (name) {
+
+            localStorage.setItem(
+                "easyflow_name",
+                name
+            );
+
+            document.getElementById(
+                "profileName"
+            ).textContent = name;
+
+        }
+
+
+        if (description) {
+
+            localStorage.setItem(
+                "easyflow_description",
+                description
+            );
+
+            document.getElementById(
+                "profileDescription"
+            ).textContent = description;
+
+        }
+
+
+        alert("Настройки сохранены!");
+    }
+
+
+    /* ===== ЗАГРУЗКА ПРОФИЛЯ ===== */
+
+    window.onload = function() {
+
+        const name =
+            localStorage.getItem("easyflow_name");
+
+        const description =
+            localStorage.getItem(
+                "easyflow_description"
+            );
+
+
+        if (name) {
+
+            document.getElementById(
+                "name"
+            ).value = name;
+
+            document.getElementById(
+                "profileName"
+            ).textContent = name;
+        }
+
+
+        if (description) {
+
+            document.getElementById(
+                "description"
+            ).value = description;
+
+            document.getElementById(
+                "profileDescription"
+            ).textContent = description;
+        }
+
+    };
+
+</script>
 
 </body>
 </html>
