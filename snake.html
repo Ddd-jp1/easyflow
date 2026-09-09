@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>EasyFlow — Змейка</title>
 
 <style>
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+:root {
+    --blue: #2563eb;
+    --dark: #111827;
+    --green: #22c55e;
+    --red: #ef4444;
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #64748b;
+    --border: #e5e7eb;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background: #f4f7fb;
-    color: #111827;
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
 }
 
 header {
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 18px 6%;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
 }
 
 .header {
@@ -35,222 +45,203 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
 }
 
 .logo {
-    color: #2563eb;
+    color: var(--blue);
     font-size: 27px;
     font-weight: bold;
     text-decoration: none;
 }
 
 .back {
-    color: #2563eb;
+    color: var(--blue);
     text-decoration: none;
     font-weight: bold;
 }
 
 .container {
-    width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     margin: auto;
-    padding: 35px 20px;
+    padding: 30px 15px;
 }
 
-.title {
+h1 {
     text-align: center;
-    margin-bottom: 25px;
-}
-
-.title h1 {
-    font-size: 40px;
-    color: #2563eb;
+    color: var(--blue);
     margin-bottom: 8px;
 }
 
-.title p {
-    color: #64748b;
+.subtitle {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 25px;
 }
 
-/* СЛОЖНОСТЬ */
+/* Сложность */
 
 .difficulty {
-    background: white;
-    padding: 20px;
-    border-radius: 18px;
-    margin-bottom: 20px;
-    border: 1px solid #e5e7eb;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 15px;
     text-align: center;
 }
 
 .difficulty h2 {
-    margin-bottom: 15px;
+    font-size: 18px;
+    margin-bottom: 12px;
 }
 
 .levels {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
 .level {
-    border: 2px solid #e5e7eb;
+    border: 2px solid var(--border);
     background: white;
-    padding: 12px 20px;
-    border-radius: 12px;
+    padding: 10px 16px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
-    transition: 0.2s;
 }
 
-.level:hover {
-    transform: translateY(-2px);
+.level.active {
+    border-color: var(--blue);
+    background: #dbeafe;
+    color: #1d4ed8;
 }
 
-.level.active.easy {
-    border-color: #22c55e;
-    background: #dcfce7;
-    color: #166534;
-}
-
-.level.active.medium {
-    border-color: #eab308;
-    background: #fef9c3;
-    color: #854d0e;
-}
-
-.level.active.hard {
-    border-color: #ef4444;
-    background: #fee2e2;
-    color: #991b1b;
-}
-
-/* ИНФОРМАЦИЯ */
+/* Статистика */
 
 .info {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 10px;
+    margin-bottom: 15px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
 }
 
 .stat {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    padding: 14px 25px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 20px;
     text-align: center;
-    min-width: 130px;
+    min-width: 110px;
 }
 
 .stat span {
     display: block;
-    color: #64748b;
-    font-size: 14px;
-    margin-bottom: 5px;
+    color: var(--muted);
+    font-size: 13px;
 }
 
 .stat strong {
-    font-size: 23px;
+    font-size: 22px;
 }
 
-/* ИГРА */
+/* Игра */
 
-.game-wrapper {
+.game-box {
     display: flex;
     justify-content: center;
 }
 
-#game {
-    display: block;
-
-    width: min(90vw, 500px);
-    height: min(90vw, 500px);
-
-    max-width: 500px;
-    max-height: 500px;
+canvas {
+    width: min(92vw, 500px);
+    height: min(92vw, 500px);
 
     background: #111827;
 
-    border: 5px solid #2563eb;
-    border-radius: 15px;
+    border: 4px solid var(--blue);
+    border-radius: 14px;
 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    display: block;
 
     touch-action: none;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,.15);
 }
 
-/* КНОПКИ */
+/* Сообщение */
+
+.message {
+    text-align: center;
+    min-height: 24px;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.error {
+    color: var(--red);
+}
+
+.success {
+    color: var(--green);
+}
+
+/* Кнопки */
 
 .buttons {
     display: flex;
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
-    margin-top: 20px;
 }
 
 .main-button {
     border: none;
-    background: #2563eb;
+    background: var(--blue);
     color: white;
 
-    padding: 13px 22px;
+    padding: 12px 22px;
+    border-radius: 10px;
 
-    border-radius: 11px;
+    font-size: 16px;
+    font-weight: bold;
 
     cursor: pointer;
-
-    font-weight: bold;
-    font-size: 16px;
-
-    transition: 0.2s;
 }
 
 .main-button:hover {
     background: #1d4ed8;
-    transform: translateY(-2px);
 }
 
-.pause-button {
+.pause {
     background: #64748b;
 }
 
-.pause-button:hover {
+.pause:hover {
     background: #475569;
 }
 
-/* УПРАВЛЕНИЕ */
+/* Управление */
 
 .controls {
     width: 210px;
-    margin: 25px auto 0;
+    margin: 20px auto;
 
     display: grid;
     grid-template-columns: repeat(3, 65px);
     gap: 7px;
-
-    justify-content: center;
 }
 
 .control {
     width: 65px;
     height: 55px;
 
-    border: 1px solid #dbe1e8;
+    border: 1px solid var(--border);
     border-radius: 12px;
 
     background: white;
 
-    font-size: 25px;
-
+    font-size: 23px;
     cursor: pointer;
-
-    user-select: none;
-    -webkit-user-select: none;
 
     touch-action: manipulation;
 }
@@ -263,324 +254,238 @@ header {
     visibility: hidden;
 }
 
-/* СООБЩЕНИЕ */
-
-.message {
-    text-align: center;
-    margin-top: 20px;
-
-    min-height: 25px;
-
-    font-weight: bold;
-}
-
-.game-over {
-    color: #ef4444;
-}
-
-.new-record {
-    color: #16a34a;
-}
-
-/* РЕКОРДЫ */
+/* Рекорды */
 
 .records {
-    background: white;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
 
-    border: 1px solid #e5e7eb;
-
-    border-radius: 18px;
-
-    padding: 25px;
-
-    margin-top: 30px;
+    padding: 20px;
+    margin-top: 20px;
 }
 
 .records h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-.record-row {
+.record {
     display: flex;
     justify-content: space-between;
 
-    padding: 12px 5px;
+    padding: 10px 5px;
 
-    border-bottom: 1px solid #eef0f3;
+    border-bottom: 1px solid var(--border);
 }
 
-.record-row:last-child {
+.record:last-child {
     border-bottom: none;
 }
 
-/* FOOTER */
-
 footer {
-    margin-top: 40px;
-
+    margin-top: 30px;
     background: #111827;
-
     color: #9ca3af;
-
     text-align: center;
-
-    padding: 25px;
+    padding: 20px;
 }
 
-/* MOBILE */
-
-@media(max-width: 600px) {
+@media(max-width:600px) {
 
     .header {
         flex-direction: column;
-    }
-
-    .title h1 {
-        font-size: 32px;
+        gap: 10px;
     }
 
     .container {
-        padding: 25px 12px;
+        padding: 25px 10px;
+    }
+
+    h1 {
+        font-size: 30px;
     }
 
     .stat {
-        min-width: 100px;
-        padding: 12px 15px;
+        min-width: 95px;
+        padding: 9px 12px;
     }
-
-    .difficulty {
-        padding: 15px 10px;
-    }
-
-    .level {
-        padding: 10px 14px;
-    }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
 <header>
+    <div class="header">
 
-<div class="header">
+        <a href="index.html" class="logo">
+            EasyFlow
+        </a>
 
-<a href="index.html" class="logo">
-EasyFlow
-</a>
+        <a href="games.html" class="back">
+            ← Все игры
+        </a>
 
-<a href="games.html" class="back">
-← Все игры
-</a>
-
-</div>
-
+    </div>
 </header>
 
 
 <main class="container">
 
-<div class="title">
-
 <h1>🐍 Змейка</h1>
 
-<p>
-Собери как можно больше еды и установи свой рекорд!
+<p class="subtitle">
+    Собирай еду, увеличивай змейку и побей свой рекорд!
 </p>
 
-</div>
 
-
-<!-- СЛОЖНОСТЬ -->
+<!-- Сложность -->
 
 <div class="difficulty">
 
-<h2>Выбери сложность</h2>
+    <h2>Сложность</h2>
 
-<div class="levels">
+    <div class="levels">
 
-<button
-class="level easy active"
-id="easyButton"
-onclick="selectDifficulty('easy')"
->
-🟢 Лёгкий
-</button>
+        <button
+            class="level active"
+            data-level="easy">
+            🟢 Лёгкий
+        </button>
 
-<button
-class="level medium"
-id="mediumButton"
-onclick="selectDifficulty('medium')"
->
-🟡 Средний
-</button>
+        <button
+            class="level"
+            data-level="medium">
+            🟡 Средний
+        </button>
 
-<button
-class="level hard"
-id="hardButton"
-onclick="selectDifficulty('hard')"
->
-🔴 Сложный
-</button>
+        <button
+            class="level"
+            data-level="hard">
+            🔴 Сложный
+        </button>
 
-</div>
+    </div>
 
 </div>
 
 
-<!-- СТАТИСТИКА -->
+<!-- Статистика -->
 
 <div class="info">
 
-<div class="stat">
+    <div class="stat">
+        <span>Очки</span>
+        <strong id="score">0</strong>
+    </div>
 
-<span>Очки</span>
+    <div class="stat">
+        <span>🏆 Рекорд</span>
+        <strong id="record">0</strong>
+    </div>
 
-<strong id="score">0</strong>
-
-</div>
-
-
-<div class="stat">
-
-<span>🏆 Рекорд</span>
-
-<strong id="record">0</strong>
-
-</div>
-
-
-<div class="stat">
-
-<span>Скорость</span>
-
-<strong id="speed">Медленно</strong>
-
-</div>
+    <div class="stat">
+        <span>Скорость</span>
+        <strong id="speed">Медленно</strong>
+    </div>
 
 </div>
 
 
-<!-- ИГРОВОЕ ПОЛЕ -->
+<!-- Игровое поле -->
 
-<div class="game-wrapper">
+<div class="game-box">
 
-<canvas
-id="game"
-width="500"
-height="500"
->
-</canvas>
+    <canvas
+        id="game"
+        width="500"
+        height="500">
+    </canvas>
 
 </div>
 
 
-<div
-id="message"
-class="message"
->
-Нажми «Начать игру»
+<div id="message" class="message">
+    Нажми «Начать игру»
 </div>
 
 
-<!-- КНОПКИ -->
+<!-- Основные кнопки -->
 
 <div class="buttons">
 
-<button
-class="main-button"
-onclick="startGame()"
->
-▶️ Начать игру
-</button>
+    <button
+        id="startButton"
+        class="main-button">
+        ▶️ Начать
+    </button>
 
-<button
-class="main-button pause-button"
-onclick="togglePause()"
->
-⏸️ Пауза
-</button>
+    <button
+        id="pauseButton"
+        class="main-button pause">
+        ⏸️ Пауза
+    </button>
 
 </div>
 
 
-<!-- МОБИЛЬНОЕ УПРАВЛЕНИЕ -->
+<!-- Управление -->
 
 <div class="controls">
 
-<button class="control empty"></button>
+    <button class="control empty"></button>
 
-<button
-class="control"
-onclick="changeDirection('up')"
->
-⬆️
-</button>
+    <button
+        class="control"
+        data-direction="up">
+        ⬆️
+    </button>
 
-<button class="control empty"></button>
+    <button class="control empty"></button>
 
 
-<button
-class="control"
-onclick="changeDirection('left')"
->
-⬅️
-</button>
+    <button
+        class="control"
+        data-direction="left">
+        ⬅️
+    </button>
 
-<button
-class="control"
-onclick="changeDirection('down')"
->
-⬇️
-</button>
+    <button
+        class="control"
+        data-direction="down">
+        ⬇️
+    </button>
 
-<button
-class="control"
-onclick="changeDirection('right')"
->
-➡️
-</button>
+    <button
+        class="control"
+        data-direction="right">
+        ➡️
+    </button>
 
 </div>
 
 
-<!-- РЕКОРДЫ -->
+<!-- Рекорды -->
 
 <div class="records">
 
-<h2>
-🏆 Мои рекорды
-</h2>
+    <h2>🏆 Рекорды</h2>
 
-<div class="record-row">
+    <div class="record">
+        <span>🟢 Лёгкий</span>
+        <strong id="easyRecord">0</strong>
+    </div>
 
-<span>🟢 Лёгкий</span>
+    <div class="record">
+        <span>🟡 Средний</span>
+        <strong id="mediumRecord">0</strong>
+    </div>
 
-<strong id="easyRecord">0</strong>
-
-</div>
-
-
-<div class="record-row">
-
-<span>🟡 Средний</span>
-
-<strong id="mediumRecord">0</strong>
-
-</div>
-
-
-<div class="record-row">
-
-<span>🔴 Сложный</span>
-
-<strong id="hardRecord">0</strong>
-
-</div>
+    <div class="record">
+        <span>🔴 Сложный</span>
+        <strong id="hardRecord">0</strong>
+    </div>
 
 </div>
 
@@ -588,54 +493,23 @@ onclick="changeDirection('right')"
 
 
 <footer>
-
-© 2026 EasyFlow
-
+    © 2026 EasyFlow
 </footer>
 
 
 <script>
 
-/* =====================================
-   ОСНОВНЫЕ НАСТРОЙКИ
-===================================== */
+/* =========================
+   НАСТРОЙКИ
+========================= */
 
-const canvas =
-document.getElementById("game");
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
 
-const ctx =
-canvas.getContext("2d");
+const SIZE = 25;
+const CELL = canvas.width / SIZE;
 
-const grid = 20;
-
-const cells = 25;
-
-let snake = [];
-
-let food = {
-    x: 15,
-    y: 15
-};
-
-let direction = "right";
-
-let nextDirection = "right";
-
-let score = 0;
-
-let gameTimer = null;
-
-let gameRunning = false;
-
-let paused = false;
-
-let gameOver = false;
-
-let difficulty = "easy";
-
-
-const settings = {
-
+const levels = {
     easy: {
         speed: 180,
         name: "Медленно"
@@ -650,19 +524,59 @@ const settings = {
         speed: 75,
         name: "Быстро"
     }
-
 };
 
 
-/* =====================================
+/* =========================
+   ПЕРЕМЕННЫЕ
+========================= */
+
+let snake = [];
+
+let food = {
+    x: 15,
+    y: 15
+};
+
+let direction = "right";
+let nextDirection = "right";
+
+let score = 0;
+
+let difficulty = "easy";
+
+let timer = null;
+
+let running = false;
+let paused = false;
+
+
+/* =========================
+   ЭЛЕМЕНТЫ
+========================= */
+
+const scoreElement =
+    document.getElementById("score");
+
+const recordElement =
+    document.getElementById("record");
+
+const speedElement =
+    document.getElementById("speed");
+
+const messageElement =
+    document.getElementById("message");
+
+
+/* =========================
    РЕКОРДЫ
-===================================== */
+========================= */
 
 function getRecord(level) {
 
     return Number(
         localStorage.getItem(
-            "easyflow_snake_record_" + level
+            "easyflow_snake_" + level
         ) || 0
     );
 
@@ -672,7 +586,7 @@ function getRecord(level) {
 function saveRecord(level, value) {
 
     localStorage.setItem(
-        "easyflow_snake_record_" + level,
+        "easyflow_snake_" + level,
         value
     );
 
@@ -681,205 +595,159 @@ function saveRecord(level, value) {
 
 function updateRecords() {
 
+    const easy =
+        getRecord("easy");
+
+    const medium =
+        getRecord("medium");
+
+    const hard =
+        getRecord("hard");
+
     document.getElementById(
         "easyRecord"
-    ).textContent = getRecord("easy");
-
+    ).textContent = easy;
 
     document.getElementById(
         "mediumRecord"
-    ).textContent = getRecord("medium");
-
+    ).textContent = medium;
 
     document.getElementById(
         "hardRecord"
-    ).textContent = getRecord("hard");
+    ).textContent = hard;
 
-
-    document.getElementById(
-        "record"
-    ).textContent = getRecord(difficulty);
-
+    recordElement.textContent =
+        getRecord(difficulty);
 }
 
 
-/* =====================================
-   ВЫБОР СЛОЖНОСТИ
-===================================== */
+/* =========================
+   СЛОЖНОСТЬ
+========================= */
 
-function selectDifficulty(level) {
+document
+.querySelectorAll(".level")
+.forEach(button => {
 
-    if (gameRunning) {
+    button.addEventListener(
+        "click",
+        () => {
 
-        alert(
-            "Сначала закончи текущую игру."
-        );
+            if (running) {
 
-        return;
-    }
+                messageElement.textContent =
+                    "Сначала закончи игру.";
 
-    difficulty = level;
+                return;
+            }
 
+            difficulty =
+                button.dataset.level;
 
-    document
-        .querySelectorAll(".level")
-        .forEach(function(button) {
+            document
+            .querySelectorAll(".level")
+            .forEach(b =>
+                b.classList.remove("active")
+            );
 
-            button.classList.remove("active");
+            button.classList.add("active");
 
-        });
+            speedElement.textContent =
+                levels[difficulty].name;
 
+            updateRecords();
 
-    document
-        .getElementById(level + "Button")
-        .classList.add("active");
+            drawStart();
 
+        }
+    );
 
-    document.getElementById(
-        "speed"
-    ).textContent =
-        settings[level].name;
-
-
-    updateRecords();
-
-    drawStartScreen();
-
-}
+});
 
 
-/* =====================================
-   НАЧАЛО ИГРЫ
-===================================== */
+/* =========================
+   НАЧАЛО
+========================= */
 
 function startGame() {
 
-    clearInterval(gameTimer);
-
+    clearInterval(timer);
 
     snake = [
-
-        {
-            x: 12,
-            y: 12
-        },
-
-        {
-            x: 11,
-            y: 12
-        },
-
-        {
-            x: 10,
-            y: 12
-        }
-
+        {x: 12, y: 12},
+        {x: 11, y: 12},
+        {x: 10, y: 12}
     ];
 
-
     direction = "right";
-
     nextDirection = "right";
 
     score = 0;
 
+    running = true;
     paused = false;
 
-    gameRunning = true;
+    scoreElement.textContent = "0";
 
-    gameOver = false;
-
-
-    document.getElementById(
-        "score"
-    ).textContent = "0";
-
-
-    document.getElementById(
-        "message"
-    ).textContent =
+    messageElement.textContent =
         "Игра началась!";
 
-
-    document.getElementById(
-        "message"
-    ).className =
+    messageElement.className =
         "message";
-
 
     createFood();
 
     draw();
 
-
-    gameTimer = setInterval(
+    timer = setInterval(
         gameLoop,
-        settings[difficulty].speed
+        levels[difficulty].speed
     );
-
 }
 
 
-/* =====================================
-   СОЗДАНИЕ ЕДЫ
-===================================== */
+/* =========================
+   ЕДА
+========================= */
 
 function createFood() {
 
-    let valid = false;
-
-
-    while (!valid) {
+    do {
 
         food = {
-
             x: Math.floor(
-                Math.random() * cells
+                Math.random() * SIZE
             ),
 
             y: Math.floor(
-                Math.random() * cells
+                Math.random() * SIZE
             )
-
         };
 
-
-        valid = !snake.some(
-            function(part) {
-
-                return (
-                    part.x === food.x &&
-                    part.y === food.y
-                );
-
-            }
-        );
-
-    }
-
+    } while (
+        snake.some(part =>
+            part.x === food.x &&
+            part.y === food.y
+        )
+    );
 }
 
 
-/* =====================================
+/* =========================
    ИГРОВОЙ ЦИКЛ
-===================================== */
+========================= */
 
 function gameLoop() {
 
-    if (!gameRunning || paused) {
+    if (!running || paused) {
         return;
     }
 
-
     direction = nextDirection;
 
-
     const head = {
-
         x: snake[0].x,
-
         y: snake[0].y
-
     };
 
 
@@ -903,43 +771,31 @@ function gameLoop() {
     /* Стена */
 
     if (
-
         head.x < 0 ||
-
-        head.x >= cells ||
-
+        head.x >= SIZE ||
         head.y < 0 ||
-
-        head.y >= cells
-
+        head.y >= SIZE
     ) {
 
-        endGame();
+        finishGame();
 
         return;
-
     }
 
 
-    /* Себя */
+    /* Столкновение с собой */
 
-    if (
+    const hitSelf =
+        snake.some(part =>
+            part.x === head.x &&
+            part.y === head.y
+        );
 
-        snake.some(function(part) {
+    if (hitSelf) {
 
-            return (
-                part.x === head.x &&
-                part.y === head.y
-            );
-
-        })
-
-    ) {
-
-        endGame();
+        finishGame();
 
         return;
-
     }
 
 
@@ -949,26 +805,20 @@ function gameLoop() {
     /* Еда */
 
     if (
-
         head.x === food.x &&
-
         head.y === food.y
-
     ) {
 
         score++;
 
-
-        document.getElementById(
-            "score"
-        ).textContent = score;
+        scoreElement.textContent =
+            score;
 
 
-        const record =
-            getRecord(difficulty);
-
-
-        if (score > record) {
+        if (
+            score >
+            getRecord(difficulty)
+        ) {
 
             saveRecord(
                 difficulty,
@@ -976,9 +826,7 @@ function gameLoop() {
             );
 
             updateRecords();
-
         }
-
 
         createFood();
 
@@ -990,227 +838,234 @@ function gameLoop() {
 
 
     draw();
-
 }
 
 
-/* =====================================
+/* =========================
    УПРАВЛЕНИЕ
-===================================== */
+========================= */
 
 function changeDirection(newDirection) {
 
-    if (!gameRunning || gameOver) {
+    if (!running || paused) {
         return;
     }
 
 
-    if (
+    const opposite = {
 
-        newDirection === "up" &&
+        up: "down",
+        down: "up",
+        left: "right",
+        right: "left"
 
-        direction !== "down"
-
-    ) {
-
-        nextDirection = "up";
-
-    }
+    };
 
 
     if (
-
-        newDirection === "down" &&
-
-        direction !== "up"
-
+        newDirection !==
+        opposite[direction]
     ) {
 
-        nextDirection = "down";
-
+        nextDirection =
+            newDirection;
     }
-
-
-    if (
-
-        newDirection === "left" &&
-
-        direction !== "right"
-
-    ) {
-
-        nextDirection = "left";
-
-    }
-
-
-    if (
-
-        newDirection === "right" &&
-
-        direction !== "left"
-
-    ) {
-
-        nextDirection = "right";
-
-    }
-
 }
 
 
-/* =====================================
+/* Кнопки телефона */
+
+document
+.querySelectorAll("[data-direction]")
+.forEach(button => {
+
+    button.addEventListener(
+        "pointerdown",
+        () => {
+
+            changeDirection(
+                button.dataset.direction
+            );
+
+        }
+    );
+
+});
+
+
+/* =========================
    КЛАВИАТУРА
-===================================== */
+========================= */
 
 document.addEventListener(
     "keydown",
-    function(event) {
+    event => {
+
+        const keys = {
+
+            ArrowUp: "up",
+            w: "up",
+
+            ArrowDown: "down",
+            s: "down",
+
+            ArrowLeft: "left",
+            a: "left",
+
+            ArrowRight: "right",
+            d: "right"
+
+        };
 
         const key =
-            event.key.toLowerCase();
+            event.key.length === 1
+                ? event.key.toLowerCase()
+                : event.key;
 
-
-        if (
-
-            event.key === "ArrowUp" ||
-            key === "w"
-
-        ) {
+        if (keys[key]) {
 
             event.preventDefault();
 
-            changeDirection("up");
-
+            changeDirection(
+                keys[key]
+            );
         }
 
 
         if (
-
-            event.key === "ArrowDown" ||
-            key === "s"
-
-        ) {
-
-            event.preventDefault();
-
-            changeDirection("down");
-
-        }
-
-
-        if (
-
-            event.key === "ArrowLeft" ||
-            key === "a"
-
-        ) {
-
-            event.preventDefault();
-
-            changeDirection("left");
-
-        }
-
-
-        if (
-
-            event.key === "ArrowRight" ||
-            key === "d"
-
-        ) {
-
-            event.preventDefault();
-
-            changeDirection("right");
-
-        }
-
-
-        if (
-
             event.key === " " ||
             event.key === "Escape"
-
         ) {
 
             event.preventDefault();
 
             togglePause();
-
         }
 
     }
 );
 
 
-/* =====================================
+/* =========================
+   СВАЙПЫ НА ТЕЛЕФОНЕ
+========================= */
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener(
+    "touchstart",
+    event => {
+
+        const touch =
+            event.changedTouches[0];
+
+        touchStartX =
+            touch.clientX;
+
+        touchStartY =
+            touch.clientY;
+
+    },
+    {passive: true}
+);
+
+
+canvas.addEventListener(
+    "touchend",
+    event => {
+
+        const touch =
+            event.changedTouches[0];
+
+        const dx =
+            touch.clientX -
+            touchStartX;
+
+        const dy =
+            touch.clientY -
+            touchStartY;
+
+
+        if (
+            Math.abs(dx) <
+            20 &&
+            Math.abs(dy) <
+            20
+        ) {
+            return;
+        }
+
+
+        if (
+            Math.abs(dx) >
+            Math.abs(dy)
+        ) {
+
+            changeDirection(
+                dx > 0
+                    ? "right"
+                    : "left"
+            );
+
+        } else {
+
+            changeDirection(
+                dy > 0
+                    ? "down"
+                    : "up"
+            );
+        }
+
+    },
+    {passive: true}
+);
+
+
+/* =========================
    ПАУЗА
-===================================== */
+========================= */
 
 function togglePause() {
 
-    if (!gameRunning || gameOver) {
+    if (!running) {
         return;
     }
 
-
     paused = !paused;
-
-
-    const message =
-        document.getElementById(
-            "message"
-        );
-
 
     if (paused) {
 
-        message.textContent =
-            "⏸️ Игра на паузе";
-
-        message.className =
-            "message";
+        messageElement.textContent =
+            "⏸️ Пауза";
 
     } else {
 
-        message.textContent =
-            "▶️ Игра продолжается";
-
-        message.className =
-            "message";
+        messageElement.textContent =
+            "▶️ Продолжаем!";
 
     }
-
 }
 
 
-/* =====================================
-   КОНЕЦ ИГРЫ
-===================================== */
+/* =========================
+   КОНЕЦ
+========================= */
 
-function endGame() {
+function finishGame() {
 
-    clearInterval(gameTimer);
+    clearInterval(timer);
 
-    gameTimer = null;
+    timer = null;
 
-    gameRunning = false;
-
-    gameOver = true;
-
-
-    const record =
-        getRecord(difficulty);
+    running = false;
+    paused = false;
 
 
-    const message =
-        document.getElementById(
-            "message"
-        );
-
-
-    if (score > record) {
+    if (
+        score >
+        getRecord(difficulty)
+    ) {
 
         saveRecord(
             difficulty,
@@ -1219,32 +1074,30 @@ function endGame() {
 
         updateRecords();
 
-        message.textContent =
-            "🏆 Новый рекорд! " + score;
+        messageElement.textContent =
+            "🏆 Новый рекорд: " +
+            score;
 
-        message.className =
-            "message new-record";
+        messageElement.className =
+            "message success";
 
     } else {
 
-        message.textContent =
+        messageElement.textContent =
             "💥 Игра окончена! Очки: " +
             score;
 
-        message.className =
-            "message game-over";
-
+        messageElement.className =
+            "message error";
     }
 
-
     draw();
-
 }
 
 
-/* =====================================
+/* =========================
    РИСОВАНИЕ
-===================================== */
+========================= */
 
 function draw() {
 
@@ -1263,46 +1116,42 @@ function draw() {
     /* Сетка */
 
     ctx.strokeStyle =
-        "rgba(255,255,255,0.04)";
-
+        "rgba(255,255,255,.04)";
 
     for (
-        let x = 0;
-        x < canvas.width;
-        x += grid
+        let i = 0;
+        i <= SIZE;
+        i++
     ) {
 
         ctx.beginPath();
 
-        ctx.moveTo(x, 0);
+        ctx.moveTo(
+            i * CELL,
+            0
+        );
 
         ctx.lineTo(
-            x,
+            i * CELL,
             canvas.height
         );
 
         ctx.stroke();
 
-    }
-
-
-    for (
-        let y = 0;
-        y < canvas.height;
-        y += grid
-    ) {
 
         ctx.beginPath();
 
-        ctx.moveTo(0, y);
+        ctx.moveTo(
+            0,
+            i * CELL
+        );
 
         ctx.lineTo(
             canvas.width,
-            y
+            i * CELL
         );
 
         ctx.stroke();
-
     }
 
 
@@ -1313,17 +1162,11 @@ function draw() {
     ctx.beginPath();
 
     ctx.arc(
-
-        food.x * grid + grid / 2,
-
-        food.y * grid + grid / 2,
-
-        grid / 2 - 3,
-
+        food.x * CELL + CELL / 2,
+        food.y * CELL + CELL / 2,
+        CELL / 2 - 4,
         0,
-
         Math.PI * 2
-
     );
 
     ctx.fill();
@@ -1332,50 +1175,67 @@ function draw() {
     /* Змейка */
 
     snake.forEach(
-        function(part, index) {
+        (part, index) => {
 
-            if (index === 0) {
-
-                ctx.fillStyle =
-                    "#22c55e";
-
-            } else {
-
-                ctx.fillStyle =
-                    "#16a34a";
-
-            }
-
+            ctx.fillStyle =
+                index === 0
+                    ? "#22c55e"
+                    : "#16a34a";
 
             ctx.beginPath();
 
             ctx.roundRect(
-
-                part.x * grid + 2,
-
-                part.y * grid + 2,
-
-                grid - 4,
-
-                grid - 4,
-
+                part.x * CELL + 2,
+                part.y * CELL + 2,
+                CELL - 4,
+                CELL - 4,
                 5
-
             );
 
             ctx.fill();
 
+
+            /* Глаза */
+
+            if (index === 0) {
+
+                ctx.fillStyle = "white";
+
+                ctx.beginPath();
+
+                ctx.arc(
+                    part.x * CELL + 7,
+                    part.y * CELL + 7,
+                    3,
+                    0,
+                    Math.PI * 2
+                );
+
+                ctx.fill();
+
+                ctx.beginPath();
+
+                ctx.arc(
+                    part.x * CELL + 14,
+                    part.y * CELL + 7,
+                    3,
+                    0,
+                    Math.PI * 2
+                );
+
+                ctx.fill();
+            }
+
         }
     );
-
 }
 
 
-/* =====================================
+/* =========================
    СТАРТОВЫЙ ЭКРАН
-===================================== */
+========================= */
 
-function drawStartScreen() {
+function drawStart() {
 
     ctx.fillStyle = "#111827";
 
@@ -1389,12 +1249,10 @@ function drawStartScreen() {
 
     ctx.textAlign = "center";
 
-
     ctx.fillStyle = "#2563eb";
 
     ctx.font =
-        "bold 38px Arial";
-
+        "bold 40px Arial";
 
     ctx.fillText(
         "🐍 ЗМЕЙКА",
@@ -1408,12 +1266,10 @@ function drawStartScreen() {
     ctx.font =
         "20px Arial";
 
-
     ctx.fillText(
-        "Сложность: " +
-        settings[difficulty].name,
+        levels[difficulty].name,
         canvas.width / 2,
-        255
+        250
     );
 
 
@@ -1422,30 +1278,48 @@ function drawStartScreen() {
     ctx.font =
         "16px Arial";
 
-
     ctx.fillText(
-        "Нажми «Начать игру»",
+        "Нажми «Начать»",
         canvas.width / 2,
-        300
+        290
     );
-
 }
 
 
-/* =====================================
-   ЗАПУСК ПРИ ОТКРЫТИИ
-===================================== */
+/* =========================
+   КНОПКА НАЧАТЬ
+========================= */
+
+document
+.getElementById("startButton")
+.addEventListener(
+    "click",
+    startGame
+);
+
+
+/* =========================
+   КНОПКА ПАУЗА
+========================= */
+
+document
+.getElementById("pauseButton")
+.addEventListener(
+    "click",
+    togglePause
+);
+
+
+/* =========================
+   ЗАПУСК
+========================= */
 
 updateRecords();
 
+speedElement.textContent =
+    levels[difficulty].name;
 
-document.getElementById(
-    "speed"
-).textContent =
-    settings[difficulty].name;
-
-
-drawStartScreen();
+drawStart();
 
 </script>
 
