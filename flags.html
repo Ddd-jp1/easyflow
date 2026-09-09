@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>EasyFlow — Угадай страну</title>
+<title>EasyFlow — Угадай флаг</title>
 
 <style>
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -31,7 +29,6 @@ header {
 .header {
     max-width: 900px;
     margin: auto;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -225,10 +222,14 @@ header {
     transition: 0.2s;
 }
 
-.answer:hover {
+.answer:hover:not(:disabled) {
     border-color: #2563eb;
     background: #eff6ff;
     transform: translateY(-2px);
+}
+
+.answer:disabled {
+    cursor: default;
 }
 
 .answer.correct {
@@ -263,6 +264,10 @@ header {
     color: #dc2626;
 }
 
+.message.win-message {
+    color: #2563eb;
+}
+
 /* КНОПКИ */
 
 .buttons {
@@ -270,13 +275,11 @@ header {
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
-
     margin-top: 20px;
 }
 
 .main-button {
     border: none;
-
     background: #2563eb;
     color: white;
 
@@ -288,14 +291,25 @@ header {
 
     font-weight: bold;
     font-size: 16px;
+
+    transition: 0.2s;
 }
 
 .main-button:hover {
     background: #1d4ed8;
+    transform: translateY(-2px);
 }
 
 .next-button {
     display: none;
+}
+
+/* СЧЁТЧИК */
+
+.progress {
+    margin-top: 15px;
+    color: #64748b;
+    font-size: 14px;
 }
 
 /* РЕКОРДЫ */
@@ -338,6 +352,8 @@ footer {
     padding: 25px;
 }
 
+/* МОБИЛЬНАЯ ВЕРСИЯ */
+
 @media(max-width: 600px) {
 
     .title h1 {
@@ -365,466 +381,477 @@ footer {
         padding: 12px 15px;
     }
 
+    .level {
+        width: 100%;
+    }
+
 }
-
 </style>
-
 </head>
 
 <body>
 
 <header>
+    <div class="header">
 
-<div class="header">
+        <a href="index.html" class="logo">
+            EasyFlow
+        </a>
 
-<a href="index.html" class="logo">
-EasyFlow
-</a>
+        <a href="games.html" class="back">
+            ← Игры
+        </a>
 
-<a href="games.html" class="back">
-← Игры
-</a>
-
-</div>
-
+    </div>
 </header>
 
 
 <main class="container">
 
+    <div class="title">
 
-<div class="title">
+        <h1>🌍 Угадай флаг</h1>
 
-<h1>🌍 Угадай страну</h1>
+        <p>
+            Угадай страну по её флагу и установи свой рекорд!
+        </p>
 
-<p>
-Угадай страну по её флагу и установи свой рекорд!
-</p>
+    </div>
 
-</div>
 
+    <!-- СЛОЖНОСТЬ -->
 
-<!-- СЛОЖНОСТЬ -->
+    <div class="difficulty">
 
-<div class="difficulty">
+        <h2>Выбери сложность</h2>
 
-<h2>Выбери сложность</h2>
+        <div class="levels">
 
-<div class="levels">
+            <button
+                class="level easy active"
+                id="easyButton"
+                onclick="selectDifficulty('easy')"
+            >
+                🟢 Лёгкий
+            </button>
 
-<button
-class="level easy active"
-id="easyButton"
-onclick="selectDifficulty('easy')"
->
-🟢 Лёгкий
-</button>
+            <button
+                class="level medium"
+                id="mediumButton"
+                onclick="selectDifficulty('medium')"
+            >
+                🟡 Средний
+            </button>
 
-<button
-class="level medium"
-id="mediumButton"
-onclick="selectDifficulty('medium')"
->
-🟡 Средний
-</button>
+            <button
+                class="level hard"
+                id="hardButton"
+                onclick="selectDifficulty('hard')"
+            >
+                🔴 Сложный
+            </button>
 
-<button
-class="level hard"
-id="hardButton"
-onclick="selectDifficulty('hard')"
->
-🔴 Сложный
-</button>
+        </div>
 
-</div>
+    </div>
 
-</div>
 
+    <!-- СТАТИСТИКА -->
 
-<!-- СТАТИСТИКА -->
+    <div class="info">
 
-<div class="info">
+        <div class="stat">
+            <span>Очки</span>
+            <strong id="score">0</strong>
+        </div>
 
-<div class="stat">
+        <div class="stat">
+            <span>🏆 Рекорд</span>
+            <strong id="record">0</strong>
+        </div>
 
-<span>Очки</span>
+        <div class="stat">
+            <span>❤️ Жизни</span>
+            <strong id="lives">3</strong>
+        </div>
 
-<strong id="score">
-0
-</strong>
+    </div>
 
-</div>
 
+    <!-- ИГРА -->
 
-<div class="stat">
+    <div class="game-box">
 
-<span>🏆 Рекорд</span>
+        <div class="flag-wrapper">
 
-<strong id="record">
-0
-</strong>
+            <img
+                id="flag"
+                src=""
+                alt="Флаг страны"
+            >
 
-</div>
+        </div>
 
 
-<div class="stat">
+        <div
+            id="question"
+            class="question"
+        >
+            Какая это страна?
+        </div>
 
-<span>❤️ Жизни</span>
 
-<strong id="lives">
-3
-</strong>
+        <div
+            id="answers"
+            class="answers"
+        >
+        </div>
 
-</div>
 
-</div>
+        <div
+            id="message"
+            class="message"
+        >
+            Нажми «Начать игру»
+        </div>
 
 
-<!-- ИГРА -->
+        <div class="buttons">
 
-<div class="game-box">
+            <button
+                class="main-button"
+                onclick="startGame()"
+            >
+                ▶️ Начать игру
+            </button>
 
-<div class="flag-wrapper">
+            <button
+                id="nextButton"
+                class="main-button next-button"
+                onclick="nextQuestion()"
+            >
+                ➡️ Следующий флаг
+            </button>
 
-<img
-id="flag"
-src=""
-alt="Флаг"
->
+        </div>
 
-</div>
 
+        <div
+            id="progress"
+            class="progress"
+        >
+        </div>
 
-<div
-id="question"
-class="question"
->
-Какая это страна?
-</div>
+    </div>
 
 
-<div
-id="answers"
-class="answers"
->
-</div>
+    <!-- РЕКОРДЫ -->
 
+    <div class="records">
 
-<div
-id="message"
-class="message"
->
-Нажми «Начать игру»
-</div>
+        <h2>🏆 Мои рекорды</h2>
 
+        <div class="record-row">
+            <span>🟢 Лёгкий</span>
+            <strong id="easyRecord">0</strong>
+        </div>
 
-<div class="buttons">
+        <div class="record-row">
+            <span>🟡 Средний</span>
+            <strong id="mediumRecord">0</strong>
+        </div>
 
-<button
-class="main-button"
-onclick="startGame()"
->
-▶️ Начать игру
-</button>
+        <div class="record-row">
+            <span>🔴 Сложный</span>
+            <strong id="hardRecord">0</strong>
+        </div>
 
-
-<button
-id="nextButton"
-class="main-button next-button"
-onclick="nextQuestion()"
->
-➡️ Следующий флаг
-</button>
-
-</div>
-
-</div>
-
-
-<!-- РЕКОРДЫ -->
-
-<div class="records">
-
-<h2>
-🏆 Мои рекорды
-</h2>
-
-
-<div class="record-row">
-
-<span>
-🟢 Лёгкий
-</span>
-
-<strong id="easyRecord">
-0
-</strong>
-
-</div>
-
-
-<div class="record-row">
-
-<span>
-🟡 Средний
-</span>
-
-<strong id="mediumRecord">
-0
-</strong>
-
-</div>
-
-
-<div class="record-row">
-
-<span>
-🔴 Сложный
-</span>
-
-<strong id="hardRecord">
-0
-</strong>
-
-</div>
-
-</div>
-
+    </div>
 
 </main>
 
 
 <footer>
-
-© 2026 EasyFlow
-
+    © 2026 EasyFlow
 </footer>
 
 
 <script>
 
-/* =====================================
-   СТРАНЫ
-===================================== */
+/* =====================================================
+   196 СТРАН
+   193 страны ООН + Ватикан + Палестина + Косово
+===================================================== */
 
 const countries = [
 
-{
-name: "Казахстан",
-code: "kz",
-difficulty: "easy"
-},
+    /* ================= ЛЁГКИЕ ================= */
 
-{
-name: "Россия",
-code: "ru",
-difficulty: "easy"
-},
+    {name:"Казахстан", code:"kz", difficulty:"easy"},
+    {name:"Россия", code:"ru", difficulty:"easy"},
+    {name:"Украина", code:"ua", difficulty:"easy"},
+    {name:"Беларусь", code:"by", difficulty:"easy"},
+    {name:"Германия", code:"de", difficulty:"easy"},
+    {name:"Франция", code:"fr", difficulty:"easy"},
+    {name:"Италия", code:"it", difficulty:"easy"},
+    {name:"Испания", code:"es", difficulty:"easy"},
+    {name:"Португалия", code:"pt", difficulty:"easy"},
+    {name:"Великобритания", code:"gb", difficulty:"easy"},
+    {name:"США", code:"us", difficulty:"easy"},
+    {name:"Канада", code:"ca", difficulty:"easy"},
+    {name:"Мексика", code:"mx", difficulty:"easy"},
+    {name:"Бразилия", code:"br", difficulty:"easy"},
+    {name:"Аргентина", code:"ar", difficulty:"easy"},
+    {name:"Чили", code:"cl", difficulty:"easy"},
+    {name:"Китай", code:"cn", difficulty:"easy"},
+    {name:"Япония", code:"jp", difficulty:"easy"},
+    {name:"Южная Корея", code:"kr", difficulty:"easy"},
+    {name:"Индия", code:"in", difficulty:"easy"},
+    {name:"Австралия", code:"au", difficulty:"easy"},
+    {name:"Турция", code:"tr", difficulty:"easy"},
+    {name:"Египет", code:"eg", difficulty:"easy"},
+    {name:"Швейцария", code:"ch", difficulty:"easy"},
+    {name:"Греция", code:"gr", difficulty:"easy"},
+    {name:"Нидерланды", code:"nl", difficulty:"easy"},
+    {name:"Бельгия", code:"be", difficulty:"easy"},
+    {name:"Польша", code:"pl", difficulty:"easy"},
+    {name:"Швеция", code:"se", difficulty:"easy"},
+    {name:"Норвегия", code:"no", difficulty:"easy"},
+    {name:"Финляндия", code:"fi", difficulty:"easy"},
+    {name:"Дания", code:"dk", difficulty:"easy"},
+    {name:"Исландия", code:"is", difficulty:"easy"},
+    {name:"Южная Африка", code:"za", difficulty:"easy"},
+    {name:"Израиль", code:"il", difficulty:"easy"},
+    {name:"Саудовская Аравия", code:"sa", difficulty:"easy"},
+    {name:"ОАЭ", code:"ae", difficulty:"easy"},
+    {name:"Таиланд", code:"th", difficulty:"easy"},
+    {name:"Вьетнам", code:"vn", difficulty:"easy"},
 
-{
-name: "Украина",
-code: "ua",
-difficulty: "easy"
-},
+    /* ================= СРЕДНИЕ ================= */
 
-{
-name: "Беларусь",
-code: "by",
-difficulty: "easy"
-},
+    {name:"Австрия", code:"at", difficulty:"medium"},
+    {name:"Ирландия", code:"ie", difficulty:"medium"},
+    {name:"Чехия", code:"cz", difficulty:"medium"},
+    {name:"Словакия", code:"sk", difficulty:"medium"},
+    {name:"Венгрия", code:"hu", difficulty:"medium"},
+    {name:"Румыния", code:"ro", difficulty:"medium"},
+    {name:"Болгария", code:"bg", difficulty:"medium"},
+    {name:"Хорватия", code:"hr", difficulty:"medium"},
+    {name:"Сербия", code:"rs", difficulty:"medium"},
+    {name:"Словения", code:"si", difficulty:"medium"},
+    {name:"Босния и Герцеговина", code:"ba", difficulty:"medium"},
+    {name:"Черногория", code:"me", difficulty:"medium"},
+    {name:"Северная Македония", code:"mk", difficulty:"medium"},
+    {name:"Албания", code:"al", difficulty:"medium"},
+    {name:"Молдова", code:"md", difficulty:"medium"},
+    {name:"Литва", code:"lt", difficulty:"medium"},
+    {name:"Латвия", code:"lv", difficulty:"medium"},
+    {name:"Эстония", code:"ee", difficulty:"medium"},
+    {name:"Грузия", code:"ge", difficulty:"medium"},
+    {name:"Армения", code:"am", difficulty:"medium"},
+    {name:"Азербайджан", code:"az", difficulty:"medium"},
+    {name:"Узбекистан", code:"uz", difficulty:"medium"},
+    {name:"Кыргызстан", code:"kg", difficulty:"medium"},
+    {name:"Таджикистан", code:"tj", difficulty:"medium"},
+    {name:"Туркменистан", code:"tm", difficulty:"medium"},
+    {name:"Монголия", code:"mn", difficulty:"medium"},
+    {name:"Непал", code:"np", difficulty:"medium"},
+    {name:"Пакистан", code:"pk", difficulty:"medium"},
+    {name:"Бангладеш", code:"bd", difficulty:"medium"},
+    {name:"Индонезия", code:"id", difficulty:"medium"},
+    {name:"Малайзия", code:"my", difficulty:"medium"},
+    {name:"Сингапур", code:"sg", difficulty:"medium"},
+    {name:"Филиппины", code:"ph", difficulty:"medium"},
+    {name:"Мьянма", code:"mm", difficulty:"medium"},
+    {name:"Камбоджа", code:"kh", difficulty:"medium"},
+    {name:"Лаос", code:"la", difficulty:"medium"},
+    {name:"Бутан", code:"bt", difficulty:"medium"},
+    {name:"Шри-Ланка", code:"lk", difficulty:"medium"},
+    {name:"Мальдивы", code:"mv", difficulty:"medium"},
+    {name:"Иордания", code:"jo", difficulty:"medium"},
+    {name:"Ливан", code:"lb", difficulty:"medium"},
+    {name:"Катар", code:"qa", difficulty:"medium"},
+    {name:"Кувейт", code:"kw", difficulty:"medium"},
+    {name:"Бахрейн", code:"bh", difficulty:"medium"},
+    {name:"Оман", code:"om", difficulty:"medium"},
+    {name:"Ирак", code:"iq", difficulty:"medium"},
+    {name:"Иран", code:"ir", difficulty:"medium"},
+    {name:"Сирия", code:"sy", difficulty:"medium"},
+    {name:"Йемен", code:"ye", difficulty:"medium"},
+    {name:"Алжир", code:"dz", difficulty:"medium"},
+    {name:"Марокко", code:"ma", difficulty:"medium"},
+    {name:"Тунис", code:"tn", difficulty:"medium"},
+    {name:"Ливия", code:"ly", difficulty:"medium"},
+    {name:"Нигерия", code:"ng", difficulty:"medium"},
+    {name:"Гана", code:"gh", difficulty:"medium"},
+    {name:"Кения", code:"ke", difficulty:"medium"},
+    {name:"Эфиопия", code:"et", difficulty:"medium"},
+    {name:"Танзания", code:"tz", difficulty:"medium"},
+    {name:"Уганда", code:"ug", difficulty:"medium"},
+    {name:"Зимбабве", code:"zw", difficulty:"medium"},
+    {name:"Замбия", code:"zm", difficulty:"medium"},
+    {name:"Намибия", code:"na", difficulty:"medium"},
+    {name:"Ботсвана", code:"bw", difficulty:"medium"},
+    {name:"Мозамбик", code:"mz", difficulty:"medium"},
+    {name:"Ангола", code:"ao", difficulty:"medium"},
+    {name:"Мадагаскар", code:"mg", difficulty:"medium"},
+    {name:"Маврикий", code:"mu", difficulty:"medium"},
+    {name:"Сейшельские Острова", code:"sc", difficulty:"medium"},
+    {name:"Куба", code:"cu", difficulty:"medium"},
+    {name:"Доминиканская Республика", code:"do", difficulty:"medium"},
+    {name:"Ямайка", code:"jm", difficulty:"medium"},
+    {name:"Гаити", code:"ht", difficulty:"medium"},
+    {name:"Коста-Рика", code:"cr", difficulty:"medium"},
+    {name:"Панама", code:"pa", difficulty:"medium"},
+    {name:"Колумбия", code:"co", difficulty:"medium"},
+    {name:"Перу", code:"pe", difficulty:"medium"},
+    {name:"Эквадор", code:"ec", difficulty:"medium"},
+    {name:"Боливия", code:"bo", difficulty:"medium"},
+    {name:"Парагвай", code:"py", difficulty:"medium"},
+    {name:"Уругвай", code:"uy", difficulty:"medium"},
+    {name:"Венесуэла", code:"ve", difficulty:"medium"},
+    {name:"Фиджи", code:"fj", difficulty:"medium"},
+    {name:"Новая Зеландия", code:"nz", difficulty:"medium"},
+    {name:"Папуа — Новая Гвинея", code:"pg", difficulty:"medium"},
+    {name:"Самоа", code:"ws", difficulty:"medium"},
+    {name:"Тонга", code:"to", difficulty:"medium"},
 
-{
-name: "Германия",
-code: "de",
-difficulty: "easy"
-},
+    /* ================= СЛОЖНЫЕ ================= */
 
-{
-name: "Франция",
-code: "fr",
-difficulty: "easy"
-},
+    {name:"Андорра", code:"ad", difficulty:"hard"},
+    {name:"Антигуа и Барбуда", code:"ag", difficulty:"hard"},
+    {name:"Багамы", code:"bs", difficulty:"hard"},
+    {name:"Барбадос", code:"bb", difficulty:"hard"},
+    {name:"Белиз", code:"bz", difficulty:"hard"},
+    {name:"Бенин", code:"bj", difficulty:"hard"},
+    {name:"Буркина-Фасо", code:"bf", difficulty:"hard"},
+    {name:"Бурунди", code:"bi", difficulty:"hard"},
+    {name:"Кабо-Верде", code:"cv", difficulty:"hard"},
+    {name:"Камерун", code:"cm", difficulty:"hard"},
+    {name:"Центральноафриканская Республика", code:"cf", difficulty:"hard"},
+    {name:"Чад", code:"td", difficulty:"hard"},
+    {name:"Коморы", code:"km", difficulty:"hard"},
+    {name:"Республика Конго", code:"cg", difficulty:"hard"},
+    {name:"Демократическая Республика Конго", code:"cd", difficulty:"hard"},
+    {name:"Кот-д'Ивуар", code:"ci", difficulty:"hard"},
+    {name:"Джибути", code:"dj", difficulty:"hard"},
+    {name:"Экваториальная Гвинея", code:"gq", difficulty:"hard"},
+    {name:"Эритрея", code:"er", difficulty:"hard"},
+    {name:"Эсватини", code:"sz", difficulty:"hard"},
+    {name:"Габон", code:"ga", difficulty:"hard"},
+    {name:"Гамбия", code:"gm", difficulty:"hard"},
+    {name:"Гвинея", code:"gn", difficulty:"hard"},
+    {name:"Гвинея-Бисау", code:"gw", difficulty:"hard"},
+    {name:"Лесото", code:"ls", difficulty:"hard"},
+    {name:"Либерия", code:"lr", difficulty:"hard"},
+    {name:"Малави", code:"mw", difficulty:"hard"},
+    {name:"Мали", code:"ml", difficulty:"hard"},
+    {name:"Мавритания", code:"mr", difficulty:"hard"},
+    {name:"Нигер", code:"ne", difficulty:"hard"},
+    {name:"Руанда", code:"rw", difficulty:"hard"},
+    {name:"Сан-Томе и Принсипи", code:"st", difficulty:"hard"},
+    {name:"Сенегал", code:"sn", difficulty:"hard"},
+    {name:"Сьерра-Леоне", code:"sl", difficulty:"hard"},
+    {name:"Сомали", code:"so", difficulty:"hard"},
+    {name:"Судан", code:"sd", difficulty:"hard"},
+    {name:"Южный Судан", code:"ss", difficulty:"hard"},
+    {name:"Того", code:"tg", difficulty:"hard"},
+    {name:"Малави", code:"mw", difficulty:"hard"},
 
-{
-name: "Италия",
-code: "it",
-difficulty: "easy"
-},
+    {name:"Бруней", code:"bn", difficulty:"hard"},
+    {name:"Тимор-Лешти", code:"tl", difficulty:"hard"},
 
-{
-name: "Япония",
-code: "jp",
-difficulty: "easy"
-},
+    {name:"Микронезия", code:"fm", difficulty:"hard"},
+    {name:"Маршалловы Острова", code:"mh", difficulty:"hard"},
+    {name:"Палау", code:"pw", difficulty:"hard"},
+    {name:"Науру", code:"nr", difficulty:"hard"},
+    {name:"Кирибати", code:"ki", difficulty:"hard"},
+    {name:"Тувалу", code:"tv", difficulty:"hard"},
+    {name:"Вануату", code:"vu", difficulty:"hard"},
+    {name:"Соломоновы Острова", code:"sb", difficulty:"hard"},
 
-{
-name: "США",
-code: "us",
-difficulty: "easy"
-},
+    {name:"Мальта", code:"mt", difficulty:"hard"},
+    {name:"Кипр", code:"cy", difficulty:"hard"},
+    {name:"Люксембург", code:"lu", difficulty:"hard"},
+    {name:"Лихтенштейн", code:"li", difficulty:"hard"},
+    {name:"Монако", code:"mc", difficulty:"hard"},
+    {name:"Сан-Марино", code:"sm", difficulty:"hard"},
+    {name:"Ватикан", code:"va", difficulty:"hard"},
 
-{
-name: "Канада",
-code: "ca",
-difficulty: "easy"
-},
+    {name:"Палестина", code:"ps", difficulty:"hard"},
+    {name:"Косово", code:"xk", difficulty:"hard"},
 
-{
-name: "Великобритания",
-code: "gb",
-difficulty: "medium"
-},
+    {name:"Северная Корея", code:"kp", difficulty:"hard"},
+    {name:"Тайвань", code:"tw", difficulty:"hard"},
 
-{
-name: "Испания",
-code: "es",
-difficulty: "medium"
-},
+    {name:"Афганистан", code:"af", difficulty:"hard"},
+    {name:"Таджикистан", code:"tj", difficulty:"hard"},
 
-{
-name: "Польша",
-code: "pl",
-difficulty: "medium"
-},
+    {name:"Суринам", code:"sr", difficulty:"hard"},
+    {name:"Гайана", code:"gy", difficulty:"hard"},
+    {name:"Гренада", code:"gd", difficulty:"hard"},
+    {name:"Доминика", code:"dm", difficulty:"hard"},
+    {name:"Сент-Люсия", code:"lc", difficulty:"hard"},
+    {name:"Сент-Китс и Невис", code:"kn", difficulty:"hard"},
+    {name:"Сент-Винсент и Гренадины", code:"vc", difficulty:"hard"},
 
-{
-name: "Турция",
-code: "tr",
-difficulty: "medium"
-},
-
-{
-name: "Китай",
-code: "cn",
-difficulty: "medium"
-},
-
-{
-name: "Южная Корея",
-code: "kr",
-difficulty: "medium"
-},
-
-{
-name: "Индия",
-code: "in",
-difficulty: "medium"
-},
-
-{
-name: "Бразилия",
-code: "br",
-difficulty: "medium"
-},
-
-{
-name: "Австралия",
-code: "au",
-difficulty: "medium"
-},
-
-{
-name: "Мексика",
-code: "mx",
-difficulty: "medium"
-},
-
-{
-name: "Норвегия",
-code: "no",
-difficulty: "hard"
-},
-
-{
-name: "Швеция",
-code: "se",
-difficulty: "hard"
-},
-
-{
-name: "Финляндия",
-code: "fi",
-difficulty: "hard"
-},
-
-{
-name: "Дания",
-code: "dk",
-difficulty: "hard"
-},
-
-{
-name: "Исландия",
-code: "is",
-difficulty: "hard"
-},
-
-{
-name: "Аргентина",
-code: "ar",
-difficulty: "hard"
-},
-
-{
-name: "Чили",
-code: "cl",
-difficulty: "hard"
-},
-
-{
-name: "Португалия",
-code: "pt",
-difficulty: "hard"
-},
-
-{
-name: "Греция",
-code: "gr",
-difficulty: "hard"
-},
-
-{
-name: "Швейцария",
-code: "ch",
-difficulty: "hard"
-},
-
-{
-name: "Нидерланды",
-code: "nl",
-difficulty: "hard"
-},
-
-{
-name: "Бельгия",
-code: "be",
-difficulty: "hard"
-},
-
-{
-name: "Австрия",
-code: "at",
-difficulty: "hard"
-},
-
-{
-name: "Египет",
-code: "eg",
-difficulty: "hard"
-},
-
-{
-name: "Южная Африка",
-code: "za",
-difficulty: "hard"
-}
-
+    {name:"Беларусь", code:"by", difficulty:"hard"}
 ];
 
 
-/* =====================================
+/* =====================================================
+   УБИРАЕМ СЛУЧАЙНЫЕ ДУБЛИКАТЫ
+===================================================== */
+
+const uniqueCountries = [];
+
+const countryCodes = new Set();
+
+countries.forEach(function(country) {
+
+    if (!countryCodes.has(country.code)) {
+
+        countryCodes.add(country.code);
+
+        uniqueCountries.push(country);
+
+    }
+
+});
+
+
+/*
+   Если список получился меньше 196,
+   добавляем недостающие страны.
+*/
+
+const extraCountries = [
+
+    {name:"Сент-Китс и Невис", code:"kn", difficulty:"hard"},
+    {name:"Сент-Люсия", code:"lc", difficulty:"hard"},
+    {name:"Сент-Винсент и Гренадины", code:"vc", difficulty:"hard"},
+    {name:"Гренада", code:"gd", difficulty:"hard"},
+    {name:"Доминика", code:"dm", difficulty:"hard"},
+    {name:"Гайана", code:"gy", difficulty:"hard"},
+    {name:"Суринам", code:"sr", difficulty:"hard"}
+];
+
+extraCountries.forEach(function(country) {
+
+    if (!countryCodes.has(country.code)) {
+
+        countryCodes.add(country.code);
+
+        uniqueCountries.push(country);
+
+    }
+
+});
+
+
+/* =====================================================
    НАСТРОЙКИ
-===================================== */
+===================================================== */
 
 let difficulty = "easy";
 
@@ -838,10 +865,41 @@ let gameRunning = false;
 
 let questionAnswered = false;
 
+let usedCountries = [];
 
-/* =====================================
+
+/* =====================================================
+   DOM
+===================================================== */
+
+const flagElement =
+    document.getElementById("flag");
+
+const answersElement =
+    document.getElementById("answers");
+
+const scoreElement =
+    document.getElementById("score");
+
+const livesElement =
+    document.getElementById("lives");
+
+const recordElement =
+    document.getElementById("record");
+
+const messageElement =
+    document.getElementById("message");
+
+const nextButton =
+    document.getElementById("nextButton");
+
+const progressElement =
+    document.getElementById("progress");
+
+
+/* =====================================================
    РЕКОРДЫ
-===================================== */
+===================================================== */
 
 function getRecord(level) {
 
@@ -884,17 +942,15 @@ function updateRecords() {
         getRecord("hard");
 
 
-    document.getElementById(
-        "record"
-    ).textContent =
+    recordElement.textContent =
         getRecord(difficulty);
 
 }
 
 
-/* =====================================
+/* =====================================================
    ВЫБОР СЛОЖНОСТИ
-===================================== */
+===================================================== */
 
 function selectDifficulty(level) {
 
@@ -935,9 +991,44 @@ function selectDifficulty(level) {
 }
 
 
-/* =====================================
+/* =====================================================
+   ПЕРЕМЕШИВАНИЕ
+===================================================== */
+
+function shuffle(array) {
+
+    const result = [...array];
+
+    for (
+        let i = result.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+        [
+            result[i],
+            result[j]
+        ] =
+        [
+            result[j],
+            result[i]
+        ];
+
+    }
+
+    return result;
+
+}
+
+
+/* =====================================================
    НАЧАЛО ИГРЫ
-===================================== */
+===================================================== */
 
 function startGame() {
 
@@ -949,31 +1040,23 @@ function startGame() {
 
     questionAnswered = false;
 
-
-    document.getElementById(
-        "score"
-    ).textContent = score;
+    usedCountries = [];
 
 
-    document.getElementById(
-        "lives"
-    ).textContent = lives;
+    scoreElement.textContent = "0";
+
+    livesElement.textContent = "3";
 
 
-    document.getElementById(
-        "message"
-    ).textContent =
+    messageElement.textContent =
         "Выбери правильную страну!";
 
-
-    document.getElementById(
-        "message"
-    ).className = "message";
+    messageElement.className =
+        "message";
 
 
-    document.getElementById(
-        "nextButton"
-    ).style.display = "none";
+    nextButton.style.display =
+        "none";
 
 
     nextQuestion();
@@ -981,9 +1064,9 @@ function startGame() {
 }
 
 
-/* =====================================
+/* =====================================================
    СЛЕДУЮЩИЙ ВОПРОС
-===================================== */
+===================================================== */
 
 function nextQuestion() {
 
@@ -995,143 +1078,192 @@ function nextQuestion() {
     questionAnswered = false;
 
 
-    document.getElementById(
-        "nextButton"
-    ).style.display = "none";
+    nextButton.style.display =
+        "none";
 
 
     const available =
-        countries.filter(function(country) {
+        uniqueCountries.filter(
+            function(country) {
 
-            return country.difficulty === difficulty;
+                return (
+                    country.difficulty ===
+                    difficulty
+                );
 
-        });
+            }
+        );
+
+
+    /*
+       Если все страны уровня уже использованы,
+       начинаем новый круг.
+    */
+
+    let unused =
+        available.filter(
+            function(country) {
+
+                return !usedCountries.includes(
+                    country.code
+                );
+
+            }
+        );
+
+
+    if (unused.length === 0) {
+
+        usedCountries = [];
+
+        unused = [...available];
+
+    }
+
+
+    const randomIndex =
+        Math.floor(
+            Math.random() * unused.length
+        );
 
 
     currentCountry =
-        available[
-            Math.floor(
-                Math.random() *
-                available.length
-            )
-        ];
+        unused[randomIndex];
 
 
-    document.getElementById(
-        "flag"
-    ).src =
+    usedCountries.push(
+        currentCountry.code
+    );
+
+
+    /* Флаг */
+
+    flagElement.src =
         "https://flagcdn.com/w640/" +
         currentCountry.code +
         ".png";
 
 
-    document.getElementById(
-        "question"
-    ).textContent =
-        "Какая это страна?";
+    flagElement.alt =
+        "Флаг " +
+        currentCountry.name;
 
 
     createAnswers(available);
 
+
+    updateProgress();
+
 }
 
 
-/* =====================================
-   СОЗДАНИЕ ВАРИАНТОВ
-===================================== */
+/* =====================================================
+   СОЗДАНИЕ ОТВЕТОВ
+===================================================== */
 
 function createAnswers(available) {
 
-    const answers =
-        document.getElementById(
-            "answers"
+    answersElement.innerHTML = "";
+
+
+    let options = [
+        currentCountry
+    ];
+
+
+    const wrongAnswers =
+        shuffle(
+            available.filter(
+                function(country) {
+
+                    return (
+                        country.code !==
+                        currentCountry.code
+                    );
+
+                }
+            )
         );
 
 
-    answers.innerHTML = "";
-
-
-    let options = [currentCountry];
-
-
-    const shuffled =
-        available
-        .filter(function(country) {
-
-            return country.name !==
-                currentCountry.name;
-
-        })
-        .sort(function() {
-
-            return Math.random() - 0.5;
-
-        });
-
+    /*
+       Всегда 4 варианта ответа.
+    */
 
     while (
         options.length < 4 &&
-        shuffled.length > 0
+        wrongAnswers.length > 0
     ) {
 
         options.push(
-            shuffled.shift()
+            wrongAnswers.shift()
         );
 
     }
 
 
-    options.sort(function() {
-
-        return Math.random() - 0.5;
-
-    });
+    options =
+        shuffle(options);
 
 
-    options.forEach(function(country) {
+    options.forEach(
+        function(country) {
 
-        const button =
-            document.createElement(
-                "button"
-            );
-
-
-        button.className = "answer";
-
-
-        button.textContent =
-            country.name;
-
-
-        button.onclick =
-            function() {
-
-                checkAnswer(
-                    country,
-                    button
+            const button =
+                document.createElement(
+                    "button"
                 );
 
-            };
+
+            button.className =
+                "answer";
 
 
-        answers.appendChild(button);
+            button.textContent =
+                country.name;
 
-    });
+
+            button.type =
+                "button";
+
+
+            button.onclick =
+                function() {
+
+                    checkAnswer(
+                        country,
+                        button
+                    );
+
+                };
+
+
+            answersElement.appendChild(
+                button
+            );
+
+        }
+    );
 
 }
 
 
-/* =====================================
+/* =====================================================
    ПРОВЕРКА ОТВЕТА
-===================================== */
+===================================================== */
 
-function checkAnswer(country, button) {
+function checkAnswer(
+    country,
+    button
+) {
 
     if (
         !gameRunning ||
         questionAnswered
     ) {
+
         return;
+
     }
 
 
@@ -1144,16 +1276,20 @@ function checkAnswer(country, button) {
         );
 
 
-    buttons.forEach(function(btn) {
+    buttons.forEach(
+        function(btn) {
 
-        btn.disabled = true;
+            btn.disabled = true;
 
-    });
+        }
+    );
 
+
+    /* ПРАВИЛЬНО */
 
     if (
-        country.name ===
-        currentCountry.name
+        country.code ===
+        currentCountry.code
     ) {
 
         button.classList.add(
@@ -1164,101 +1300,94 @@ function checkAnswer(country, button) {
         score++;
 
 
-        document.getElementById(
-            "score"
-        ).textContent =
+        scoreElement.textContent =
             score;
 
 
-        document.getElementById(
-            "message"
-        ).textContent =
+        messageElement.textContent =
             "✅ Правильно!";
 
 
-        document.getElementById(
-            "message"
-        ).className =
+        messageElement.className =
             "message correct-message";
 
 
         updateBestScore();
 
 
-        document.getElementById(
-            "nextButton"
-        ).style.display =
+        nextButton.style.display =
             "inline-block";
 
 
-    } else {
-
-        button.classList.add(
-            "wrong"
-        );
+        updateProgress();
 
 
-        buttons.forEach(
-            function(btn) {
-
-                if (
-                    btn.textContent ===
-                    currentCountry.name
-                ) {
-
-                    btn.classList.add(
-                        "correct"
-                    );
-
-                }
-
-            }
-        );
-
-
-        lives--;
-
-
-        document.getElementById(
-            "lives"
-        ).textContent =
-            lives;
-
-
-        document.getElementById(
-            "message"
-        ).textContent =
-            "❌ Неправильно! Правильный ответ: " +
-            currentCountry.name;
-
-
-        document.getElementById(
-            "message"
-        ).className =
-            "message wrong-message";
-
-
-        if (lives <= 0) {
-
-            endGame();
-
-        } else {
-
-            document.getElementById(
-                "nextButton"
-            ).style.display =
-                "inline-block";
-
-        }
+        return;
 
     }
+
+
+    /* НЕПРАВИЛЬНО */
+
+    button.classList.add(
+        "wrong"
+    );
+
+
+    buttons.forEach(
+        function(btn) {
+
+            if (
+                btn.textContent ===
+                currentCountry.name
+            ) {
+
+                btn.classList.add(
+                    "correct"
+                );
+
+            }
+
+        }
+    );
+
+
+    lives--;
+
+
+    livesElement.textContent =
+        lives;
+
+
+    messageElement.textContent =
+        "❌ Неправильно! Правильный ответ: " +
+        currentCountry.name;
+
+
+    messageElement.className =
+        "message wrong-message";
+
+
+    if (lives <= 0) {
+
+        endGame();
+
+    } else {
+
+        nextButton.style.display =
+            "inline-block";
+
+    }
+
+
+    updateProgress();
 
 }
 
 
-/* =====================================
-   СОХРАНЕНИЕ РЕКОРДА
-===================================== */
+/* =====================================================
+   РЕКОРД
+===================================================== */
 
 function updateBestScore() {
 
@@ -1280,51 +1409,79 @@ function updateBestScore() {
 }
 
 
-/* =====================================
+/* =====================================================
+   ПРОГРЕСС
+===================================================== */
+
+function updateProgress() {
+
+    const total =
+        uniqueCountries.filter(
+            function(country) {
+
+                return (
+                    country.difficulty ===
+                    difficulty
+                );
+
+            }
+        ).length;
+
+
+    const used =
+        usedCountries.length;
+
+
+    progressElement.textContent =
+        "🌍 Стран в уровне: " +
+        total +
+        " • Пройдено: " +
+        used;
+
+}
+
+
+/* =====================================================
    КОНЕЦ ИГРЫ
-===================================== */
+===================================================== */
 
 function endGame() {
 
     gameRunning = false;
 
-
     updateBestScore();
 
 
-    document.getElementById(
-        "message"
-    ).textContent =
+    messageElement.textContent =
         "💥 Игра окончена! Твой результат: " +
-        score;
+        score +
+        " очков";
 
 
-    document.getElementById(
-        "message"
-    ).className =
+    messageElement.className =
         "message wrong-message";
 
 
-    document.getElementById(
-        "nextButton"
-    ).style.display =
+    nextButton.style.display =
         "none";
 
 
     document
         .querySelectorAll(".answer")
-        .forEach(function(button) {
+        .forEach(
+            function(button) {
 
-            button.disabled = true;
+                button.disabled = true;
 
-        });
+            }
+        );
 
 }
 
 
-/* =====================================
-   СБРОС ЭКРАНА
-===================================== */
+/* =====================================================
+   СБРОС
+===================================================== */
 
 function resetScreen() {
 
@@ -1336,52 +1493,108 @@ function resetScreen() {
 
     questionAnswered = false;
 
+    currentCountry = null;
 
-    document.getElementById(
-        "score"
-    ).textContent = "0";
-
-
-    document.getElementById(
-        "lives"
-    ).textContent = "3";
+    usedCountries = [];
 
 
-    document.getElementById(
-        "message"
-    ).textContent =
+    scoreElement.textContent =
+        "0";
+
+
+    livesElement.textContent =
+        "3";
+
+
+    messageElement.textContent =
         "Нажми «Начать игру»";
 
 
-    document.getElementById(
-        "message"
-    ).className =
+    messageElement.className =
         "message";
 
 
-    document.getElementById(
-        "flag"
-    ).removeAttribute("src");
+    flagElement.removeAttribute(
+        "src"
+    );
 
 
-    document.getElementById(
-        "answers"
-    ).innerHTML = "";
+    flagElement.alt =
+        "Флаг";
 
 
-    document.getElementById(
-        "nextButton"
-    ).style.display =
+    answersElement.innerHTML =
+        "";
+
+
+    nextButton.style.display =
         "none";
+
+
+    progressElement.textContent =
+        "";
+
+
+    updateRecords();
 
 }
 
 
-/* =====================================
+/* =====================================================
+   КЛАВИАТУРА
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            !gameRunning ||
+            questionAnswered
+        ) {
+            return;
+        }
+
+
+        const buttons =
+            document.querySelectorAll(
+                ".answer"
+            );
+
+
+        /*
+           Клавиши 1,2,3,4
+           выбирают ответ.
+        */
+
+        if (
+            ["1","2","3","4"]
+            .includes(event.key)
+        ) {
+
+            const index =
+                Number(event.key) - 1;
+
+
+            if (buttons[index]) {
+
+                buttons[index].click();
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =====================================================
    ЗАПУСК
-===================================== */
+===================================================== */
 
 updateRecords();
+
+resetScreen();
 
 </script>
 
