@@ -515,6 +515,79 @@ nav button.active {
     font-weight: bold;
 }
 
+/* =========================
+   ИГРЫ
+========================= */
+
+.games-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.game-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 30px;
+
+    text-align: center;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+
+    transition: 0.2s;
+}
+
+.game-card:hover {
+    transform: translateY(-4px);
+}
+
+.game-icon {
+    font-size: 60px;
+
+    margin-bottom: 15px;
+}
+
+.game-card h3 {
+    font-size: 24px;
+
+    margin-bottom: 10px;
+}
+
+.game-card p {
+    color: var(--muted);
+
+    margin-bottom: 20px;
+
+    line-height: 1.5;
+}
+
+.game-button {
+    display: inline-block;
+
+    text-decoration: none;
+
+    border: none;
+
+    background: var(--main);
+
+    color: white;
+
+    padding: 13px 22px;
+
+    border-radius: var(--radius);
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
 /* DESIGN */
 
 .color-row {
@@ -671,6 +744,10 @@ footer {
         grid-template-columns: 1fr;
     }
 
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+
     .link-card {
         flex-direction: column;
 
@@ -730,6 +807,15 @@ data-page="links"
 onclick="openPage('links')"
 >
 🔗 Ссылки
+</button>
+
+<!-- ДОБАВЛЕНА ТОЛЬКО КНОПКА ИГР -->
+
+<button
+data-page="games"
+onclick="openPage('games')"
+>
+🎮 Игры
 </button>
 
 <button
@@ -985,6 +1071,61 @@ onclick="addLink()"
 >
 ➕ Добавить ссылку
 </button>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     GAMES
+========================= -->
+
+<section
+id="games"
+class="page"
+>
+
+<div class="title">
+
+<h2>
+🎮 Игры
+</h2>
+
+<p>
+Выбери игру и попробуй свои силы.
+</p>
+
+</div>
+
+
+<div class="games-grid">
+
+
+<div class="game-card">
+
+<div class="game-icon">
+🌍
+</div>
+
+<h3>
+Угадай страну по флагу
+</h3>
+
+<p>
+Смотри на флаг и угадывай,
+какой стране он принадлежит.
+</p>
+
+<a
+href="game4.html"
+class="game-button"
+>
+🎮 Играть
+</a>
+
+</div>
+
 
 </div>
 
@@ -1250,6 +1391,7 @@ alt="Просмотр изображения"
 
 <script>
 
+
 /* ===================================
    ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
 =================================== */
@@ -1274,10 +1416,6 @@ function openPage(pageName) {
         selected.classList.add("active");
 
     }
-
-
-    const buttons =
-        document.querySelectorAll(".nav-button");
 
 
     document
