@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EasyFlow — Крестики-нолики</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #111827;
+    min-height: 100vh;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 18px 6%;
+}
+
+.header {
+    max-width: 900px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #2563eb;
+    font-size: 27px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    padding: 35px 20px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.title h1 {
+    font-size: 40px;
+    color: #2563eb;
+    margin-bottom: 8px;
+}
+
+.title p {
+    color: #64748b;
+}
+
+/* СЛОЖНОСТЬ */
+
+.difficulty {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.difficulty h2 {
+    margin-bottom: 15px;
+}
+
+.levels {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.level {
+    border: 2px solid #e5e7eb;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.level:hover {
+    transform: translateY(-2px);
+}
+
+.level.active.easy {
+    border-color: #22c55e;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.level.active.medium {
+    border-color: #eab308;
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.level.active.hard {
+    border-color: #ef4444;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* КТО ПЕРВЫЙ */
+
+.first-player {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.first-player h2 {
+    margin-bottom: 15px;
+}
+
+.first-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.first-button {
+    border: 2px solid #e5e7eb;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.first-button.active {
+    border-color: #2563eb;
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* ИНФОРМАЦИЯ */
+
+.info {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 14px 25px;
+    text-align: center;
+    min-width: 130px;
+}
+
+.stat span {
+    display: block;
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.stat strong {
+    font-size: 23px;
+}
+
+/* ИГРОВОЕ ПОЛЕ */
+
+.board-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.board {
+    width: min(90vw, 450px);
+    height: min(90vw, 450px);
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+
+    gap: 8px;
+
+    background: #2563eb;
+    padding: 8px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.15);
+}
+
+.cell {
+    border: none;
+
+    background: white;
+
+    border-radius: 12px;
+
+    font-size: clamp(50px, 15vw, 90px);
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.15s;
+}
+
+.cell:hover {
+    background: #eff6ff;
+}
+
+.cell.x {
+    color: #2563eb;
+}
+
+.cell.o {
+    color: #ef4444;
+}
+
+.cell.win {
+    background: #dcfce7;
+}
+
+/* СООБЩЕНИЕ */
+
+.message {
+    text-align: center;
+
+    margin-top: 20px;
+
+    min-height: 28px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+.win-message {
+    color: #16a34a;
+}
+
+.lose-message {
+    color: #ef4444;
+}
+
+/* КНОПКИ */
+
+.buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+}
+
+.main-button {
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 13px 22px;
+
+    border-radius: 11px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    font-size: 16px;
+}
+
+.main-button:hover {
+    background: #1d4ed8;
+}
+
+.reset-button {
+    background: #64748b;
+}
+
+.reset-button:hover {
+    background: #475569;
+}
+
+/* РЕКОРДЫ */
+
+.records {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-top: 30px;
+}
+
+.records h2 {
+    text-align: center;
+
+    margin-bottom: 20px;
+}
+
+.record-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 12px 5px;
+
+    border-bottom: 1px solid #eef0f3;
+}
+
+.record-row:last-child {
+    border-bottom: none;
+}
+
+.record-row strong {
+    color: #2563eb;
+}
+
+/* ПОДСКАЗКА */
+
+.tip {
+    background: #eff6ff;
+
+    border: 1px solid #bfdbfe;
+
+    color: #1e40af;
+
+    padding: 15px;
+
+    border-radius: 14px;
+
+    margin-top: 20px;
+
+    text-align: center;
+
+    line-height: 1.5;
+}
+
+footer {
+    margin-top: 40px;
+
+    background: #111827;
+
+    color: #9ca3af;
+
+    text-align: center;
+
+    padding: 25px;
+}
+
+/* МОБИЛЬНАЯ ВЕРСИЯ */
+
+@media(max-width: 600px) {
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .container {
+        padding: 25px 12px;
+    }
+
+    .stat {
+        min-width: 100px;
+        padding: 12px 15px;
+    }
+
+    .board {
+        gap: 5px;
+        padding: 5px;
+    }
+
+    .cell {
+        border-radius: 9px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+<div class="header">
+
+<a href="index.html" class="logo">
+EasyFlow
+</a>
+
+<a href="games.html" class="back">
+← Игры
+</a>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+
+<div class="title">
+
+<h1>❌ Крестики-нолики ⭕</h1>
+
+<p>
+Сыграй против компьютера и установи свой рекорд!
+</p>
+
+</div>
+
+
+<!-- СЛОЖНОСТЬ -->
+
+<div class="difficulty">
+
+<h2>
+🎯 Выбери сложность
+</h2>
+
+<div class="levels">
+
+<button
+class="level easy active"
+id="easyButton"
+onclick="selectDifficulty('easy')"
+>
+🟢 Лёгкий
+</button>
+
+<button
+class="level medium"
+id="mediumButton"
+onclick="selectDifficulty('medium')"
+>
+🟡 Средний
+</button>
+
+<button
+class="level hard"
+id="hardButton"
+onclick="selectDifficulty('hard')"
+>
+🔴 Сложный
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ПЕРВЫЙ ХОД -->
+
+<div class="first-player">
+
+<h2>
+👤 Кто ходит первым?
+</h2>
+
+<div class="first-buttons">
+
+<button
+class="first-button active"
+id="playerFirstButton"
+onclick="setFirstPlayer('player')"
+>
+❌ Я
+</button>
+
+<button
+class="first-button"
+id="computerFirstButton"
+onclick="setFirstPlayer('computer')"
+>
+⭕ Компьютер
+</button>
+
+</div>
+
+</div>
+
+
+<!-- СТАТИСТИКА -->
+
+<div class="info">
+
+<div class="stat">
+
+<span>
+Твои победы
+</span>
+
+<strong id="wins">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>
+🏆 Рекорд
+</span>
+
+<strong id="record">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<span>
+Сложность
+</span>
+
+<strong id="difficultyName">
+Лёгкий
+</strong>
+
+</div>
+
+</div>
+
+
+<!-- ПОЛЕ -->
+
+<div class="board-wrapper">
+
+<div
+id="board"
+class="board"
+>
+
+<button
+class="cell"
+data-index="0"
+onclick="playerMove(0)"
+>
+</button>
+
+<button
+class="cell"
+data-index="1"
+onclick="playerMove(1)"
+>
+</button>
+
+<button
+class="cell"
+data-index="2"
+onclick="playerMove(2)"
+>
+</button>
+
+<button
+class="cell"
+data-index="3"
+onclick="playerMove(3)"
+>
+</button>
+
+<button
+class="cell"
+data-index="4"
+onclick="playerMove(4)"
+>
+</button>
+
+<button
+class="cell"
+data-index="5"
+onclick="playerMove(5)"
+>
+</button>
+
+<button
+class="cell"
+data-index="6"
+onclick="playerMove(6)"
+>
+</button>
+
+<button
+class="cell"
+data-index="7"
+onclick="playerMove(7)"
+>
+</button>
+
+<button
+class="cell"
+data-index="8"
+onclick="playerMove(8)"
+>
+</button>
+
+</div>
+
+</div>
+
+
+<!-- СООБЩЕНИЕ -->
+
+<div
+id="message"
+class="message"
+>
+Твой ход ❌
+</div>
+
+
+<!-- КНОПКИ -->
+
+<div class="buttons">
+
+<button
+class="main-button"
+onclick="newGame()"
+>
+🔄 Новая игра
+</button>
+
+<button
+class="main-button reset-button"
+onclick="resetRecords()"
+>
+🗑️ Сбросить рекорды
+</button>
+
+</div>
+
+
+<div class="tip">
+
+💡 <strong>Подсказка:</strong>
+На сложном уровне компьютер играет идеально.
+Попробуй его победить!
+
+</div>
+
+
+<!-- РЕКОРДЫ -->
+
+<div class="records">
+
+<h2>
+🏆 Мои рекорды
+</h2>
+
+
+<div class="record-row">
+
+<span>
+🟢 Лёгкий
+</span>
+
+<strong id="easyRecord">
+0
+</strong>
+
+</div>
+
+
+<div class="record-row">
+
+<span>
+🟡 Средний
+</span>
+
+<strong id="mediumRecord">
+0
+</strong>
+
+</div>
+
+
+<div class="record-row">
+
+<span>
+🔴 Сложный
+</span>
+
+<strong id="hardRecord">
+0
+</strong>
+
+</div>
+
+</div>
+
+</main>
+
+
+<footer>
+
+© 2026 EasyFlow
+
+</footer>
+
+
+<script>
+
+/* =====================================
+   НАСТРОЙКИ
+===================================== */
+
+let board = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+];
+
+let gameOver = false;
+
+let difficulty = "easy";
+
+let firstPlayer = "player";
+
+let playerSymbol = "X";
+
+let computerSymbol = "O";
+
+
+const difficultyNames = {
+
+    easy: "Лёгкий",
+
+    medium: "Средний",
+
+    hard: "Сложный"
+
+};
+
+
+/* =====================================
+   КОМБИНАЦИИ ПОБЕДЫ
+===================================== */
+
+const winningCombinations = [
+
+    [0, 1, 2],
+
+    [3, 4, 5],
+
+    [6, 7, 8],
+
+    [0, 3, 6],
+
+    [1, 4, 7],
+
+    [2, 5, 8],
+
+    [0, 4, 8],
+
+    [2, 4, 6]
+
+];
+
+
+/* =====================================
+   РЕКОРДЫ
+===================================== */
+
+function getRecord(level) {
+
+    return Number(
+        localStorage.getItem(
+            "easyflow_tictactoe_record_" + level
+        ) || 0
+    );
+
+}
+
+
+function saveRecord(level, value) {
+
+    localStorage.setItem(
+        "easyflow_tictactoe_record_" + level,
+        value
+    );
+
+}
+
+
+function getWins() {
+
+    return Number(
+        localStorage.getItem(
+            "easyflow_tictactoe_wins"
+        ) || 0
+    );
+
+}
+
+
+function saveWins(value) {
+
+    localStorage.setItem(
+        "easyflow_tictactoe_wins",
+        value
+    );
+
+}
+
+
+/* =====================================
+   ОБНОВЛЕНИЕ РЕКОРДОВ
+===================================== */
+
+function updateRecords() {
+
+    document.getElementById(
+        "easyRecord"
+    ).textContent =
+        getRecord("easy");
+
+
+    document.getElementById(
+        "mediumRecord"
+    ).textContent =
+        getRecord("medium");
+
+
+    document.getElementById(
+        "hardRecord"
+    ).textContent =
+        getRecord("hard");
+
+
+    document.getElementById(
+        "record"
+    ).textContent =
+        getRecord(difficulty);
+
+
+    document.getElementById(
+        "wins"
+    ).textContent =
+        getWins();
+
+
+    document.getElementById(
+        "difficultyName"
+    ).textContent =
+        difficultyNames[difficulty];
+
+}
+
+
+/* =====================================
+   ВЫБОР СЛОЖНОСТИ
+===================================== */
+
+function selectDifficulty(level) {
+
+    if (!gameOver && board.some(cell => cell !== "")) {
+
+        alert(
+            "Сначала закончи текущую игру."
+        );
+
+        return;
+
+    }
+
+
+    difficulty = level;
+
+
+    document
+        .querySelectorAll(".level")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+
+    document
+        .getElementById(
+            level + "Button"
+        )
+        .classList.add("active");
+
+
+    updateRecords();
+
+    newGame();
+
+}
+
+
+/* =====================================
+   КТО ПЕРВЫЙ
+===================================== */
+
+function setFirstPlayer(player) {
+
+    if (!gameOver && board.some(cell => cell !== "")) {
+
+        alert(
+            "Сначала начни новую игру."
+        );
+
+        return;
+
+    }
+
+
+    firstPlayer = player;
+
+
+    document
+        .querySelectorAll(".first-button")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+
+    if (player === "player") {
+
+        document
+            .getElementById(
+                "playerFirstButton"
+            )
+            .classList.add("active");
+
+    } else {
+
+        document
+            .getElementById(
+                "computerFirstButton"
+            )
+            .classList.add("active");
+
+    }
+
+
+    newGame();
+
+}
+
+
+/* =====================================
+   НОВАЯ ИГРА
+===================================== */
+
+function newGame() {
+
+    board = [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ];
+
+
+    gameOver = false;
+
+
+    renderBoard();
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    message.className =
+        "message";
+
+
+    if (firstPlayer === "player") {
+
+        message.textContent =
+            "Твой ход ❌";
+
+    } else {
+
+        message.textContent =
+            "Компьютер думает... ⭕";
+
+        setTimeout(
+            computerMove,
+            500
+        );
+
+    }
+
+}
+
+
+/* =====================================
+   ХОД ИГРОКА
+===================================== */
+
+function playerMove(index) {
+
+    if (gameOver) {
+        return;
+    }
+
+
+    if (firstPlayer === "computer") {
+
+        if (
+            board.filter(
+                cell => cell !== ""
+            ).length % 2 === 0
+        ) {
+
+            return;
+
+        }
+
+    }
+
+
+    if (board[index] !== "") {
+        return;
+    }
+
+
+    board[index] =
+        playerSymbol;
+
+
+    renderBoard();
+
+
+    const result =
+        checkGame();
+
+
+    if (result) {
+
+        finishGame(result);
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "Компьютер думает... ⭕";
+
+
+    setTimeout(
+        computerMove,
+        400
+    );
+
+}
+
+
+/* =====================================
+   ХОД КОМПЬЮТЕРА
+===================================== */
+
+function computerMove() {
+
+    if (gameOver) {
+        return;
+    }
+
+
+    let move;
+
+
+    if (difficulty === "easy") {
+
+        move =
+            randomMove();
+
+    }
+
+
+    if (difficulty === "medium") {
+
+        move =
+            mediumMove();
+
+    }
+
+
+    if (difficulty === "hard") {
+
+        move =
+            bestMove();
+
+    }
+
+
+    if (move === null) {
+        return;
+    }
+
+
+    board[move] =
+        computerSymbol;
+
+
+    renderBoard();
+
+
+    const result =
+        checkGame();
+
+
+    if (result) {
+
+        finishGame(result);
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "Твой ход ❌";
+
+}
+
+
+/* =====================================
+   ЛЁГКИЙ УРОВЕНЬ
+===================================== */
+
+function randomMove() {
+
+    const empty =
+        getEmptyCells();
+
+
+    if (empty.length === 0) {
+        return null;
+    }
+
+
+    return empty[
+        Math.floor(
+            Math.random() *
+            empty.length
+        )
+    ];
+
+}
+
+
+/* =====================================
+   СРЕДНИЙ УРОВЕНЬ
+===================================== */
+
+function mediumMove() {
+
+    /* Сначала пытаемся выиграть */
+
+    const winning =
+        findWinningMove(
+            computerSymbol
+        );
+
+
+    if (winning !== null) {
+        return winning;
+    }
+
+
+    /* Затем блокируем игрока */
+
+    const block =
+        findWinningMove(
+            playerSymbol
+        );
+
+
+    if (block !== null) {
+        return block;
+    }
+
+
+    /* Берём центр */
+
+    if (board[4] === "") {
+        return 4;
+    }
+
+
+    /* Потом случайная клетка */
+
+    return randomMove();
+
+}
+
+
+/* =====================================
+   ПОИСК ПОБЕДНОГО ХОДА
+===================================== */
+
+function findWinningMove(symbol) {
+
+    const empty =
+        getEmptyCells();
+
+
+    for (let i = 0; i < empty.length; i++) {
+
+        const index =
+            empty[i];
+
+
+        board[index] =
+            symbol;
+
+
+        const winner =
+            getWinner();
+
+
+        board[index] =
+            "";
+
+
+        if (winner === symbol) {
+
+            return index;
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================
+   СЛОЖНЫЙ УРОВЕНЬ
+===================================== */
+
+function bestMove() {
+
+    let bestScore =
+        -Infinity;
+
+    let move = null;
+
+
+    const empty =
+        getEmptyCells();
+
+
+    for (let i = 0; i < empty.length; i++) {
+
+        const index =
+            empty[i];
+
+
+        board[index] =
+            computerSymbol;
+
+
+        const score =
+            minimax(
+                board,
+                false
+            );
+
+
+        board[index] =
+            "";
+
+
+        if (score > bestScore) {
+
+            bestScore =
+                score;
+
+            move =
+                index;
+
+        }
+
+    }
+
+
+    return move;
+
+}
+
+
+/* =====================================
+   MINIMAX
+===================================== */
+
+function minimax(currentBoard, maximizing) {
+
+    const winner =
+        getWinnerForBoard(
+            currentBoard
+        );
+
+
+    if (winner === computerSymbol) {
+        return 10;
+    }
+
+
+    if (winner === playerSymbol) {
+        return -10;
+    }
+
+
+    if (
+        currentBoard.every(
+            cell => cell !== ""
+        )
+    ) {
+
+        return 0;
+
+    }
+
+
+    if (maximizing) {
+
+        let bestScore =
+            -Infinity;
+
+
+        for (
+            let i = 0;
+            i < 9;
+            i++
+        ) {
+
+            if (
+                currentBoard[i] === ""
+            ) {
+
+                currentBoard[i] =
+                    computerSymbol;
+
+
+                const score =
+                    minimax(
+                        currentBoard,
+                        false
+                    );
+
+
+                currentBoard[i] =
+                    "";
+
+
+                bestScore =
+                    Math.max(
+                        bestScore,
+                        score
+                    );
+
+            }
+
+        }
+
+
+        return bestScore;
+
+    } else {
+
+        let bestScore =
+            Infinity;
+
+
+        for (
+            let i = 0;
+            i < 9;
+            i++
+        ) {
+
+            if (
+                currentBoard[i] === ""
+            ) {
+
+                currentBoard[i] =
+                    playerSymbol;
+
+
+                const score =
+                    minimax(
+                        currentBoard,
+                        true
+                    );
+
+
+                currentBoard[i] =
+                    "";
+
+
+                bestScore =
+                    Math.min(
+                        bestScore,
+                        score
+                    );
+
+            }
+
+        }
+
+
+        return bestScore;
+
+    }
+
+}
+
+
+/* =====================================
+   ПУСТЫЕ КЛЕТКИ
+===================================== */
+
+function getEmptyCells() {
+
+    const empty = [];
+
+
+    for (
+        let i = 0;
+        i < 9;
+        i++
+    ) {
+
+        if (board[i] === "") {
+
+            empty.push(i);
+
+        }
+
+    }
+
+
+    return empty;
+
+}
+
+
+/* =====================================
+   ПРОВЕРКА ИГРЫ
+===================================== */
+
+function checkGame() {
+
+    const winner =
+        getWinner();
+
+
+    if (winner) {
+
+        return winner;
+
+    }
+
+
+    if (
+        board.every(
+            cell => cell !== ""
+        )
+    ) {
+
+        return "draw";
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================
+   ПОБЕДИТЕЛЬ
+===================================== */
+
+function getWinner() {
+
+    return getWinnerForBoard(
+        board
+    );
+
+}
+
+
+function getWinnerForBoard(currentBoard) {
+
+    for (
+        const combination
+        of winningCombinations
+    ) {
+
+        const a =
+            combination[0];
+
+        const b =
+            combination[1];
+
+        const c =
+            combination[2];
+
+
+        if (
+            currentBoard[a] !== "" &&
+            currentBoard[a] ===
+            currentBoard[b] &&
+            currentBoard[a] ===
+            currentBoard[c]
+        ) {
+
+            return currentBoard[a];
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================
+   ПОКАЗ ПОБЕДНОЙ ЛИНИИ
+===================================== */
+
+function getWinningCombination() {
+
+    for (
+        const combination
+        of winningCombinations
+    ) {
+
+        const a =
+            combination[0];
+
+        const b =
+            combination[1];
+
+        const c =
+            combination[2];
+
+
+        if (
+            board[a] !== "" &&
+            board[a] === board[b] &&
+            board[a] === board[c]
+        ) {
+
+            return combination;
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================
+   ЗАВЕРШЕНИЕ ИГРЫ
+===================================== */
+
+function finishGame(result) {
+
+    gameOver = true;
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    const winning =
+        getWinningCombination();
+
+
+    if (winning) {
+
+        winning.forEach(
+            function(index) {
+
+                document
+                    .querySelector(
+                        `.cell[data-index="${index}"]`
+                    )
+                    .classList.add("win");
+
+            }
+        );
+
+    }
+
+
+    if (result === playerSymbol) {
+
+        message.textContent =
+            "🏆 Ты победил!";
+
+
+        message.className =
+            "message win-message";
+
+
+        let wins =
+            getWins();
+
+
+        wins++;
+
+
+        saveWins(wins);
+
+
+        const oldRecord =
+            getRecord(difficulty);
+
+
+        if (wins > oldRecord) {
+
+            saveRecord(
+                difficulty,
+                wins
+            );
+
+        }
+
+
+        updateRecords();
+
+    }
+
+
+    else if (
+        result === computerSymbol
+    ) {
+
+        message.textContent =
+            "💥 Компьютер победил!";
+
+
+        message.className =
+            "message lose-message";
+
+    }
+
+
+    else {
+
+        message.textContent =
+            "🤝 Ничья!";
+
+
+        message.className =
+            "message";
+
+    }
+
+}
+
+
+/* =====================================
+   ОТРИСОВКА
+===================================== */
+
+function renderBoard() {
+
+    const cells =
+        document.querySelectorAll(
+            ".cell"
+        );
+
+
+    cells.forEach(
+        function(cell, index) {
+
+            cell.textContent =
+                board[index];
+
+
+            cell.classList.remove(
+                "x",
+                "o",
+                "win"
+            );
+
+
+            if (
+                board[index] === "X"
+            ) {
+
+                cell.classList.add(
+                    "x"
+                );
+
+            }
+
+
+            if (
+                board[index] === "O"
+            ) {
+
+                cell.classList.add(
+                    "o"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================
+   СБРОС РЕКОРДОВ
+===================================== */
+
+function resetRecords() {
+
+    const confirmReset =
+        confirm(
+            "Ты действительно хочешь сбросить все рекорды?"
+        );
+
+
+    if (!confirmReset) {
+        return;
+    }
+
+
+    localStorage.removeItem(
+        "easyflow_tictactoe_record_easy"
+    );
+
+    localStorage.removeItem(
+        "easyflow_tictactoe_record_medium"
+    );
+
+    localStorage.removeItem(
+        "easyflow_tictactoe_record_hard"
+    );
+
+    localStorage.removeItem(
+        "easyflow_tictactoe_wins"
+    );
+
+
+    updateRecords();
+
+
+    newGame();
+
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "Рекорды сброшены.";
+
+}
+
+
+/* =====================================
+   ЗАПУСК
+===================================== */
+
+updateRecords();
+
+newGame();
+
+</script>
+
+</body>
+</html>
