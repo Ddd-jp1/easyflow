@@ -9,6 +9,10 @@
 
 <style>
 
+/* =====================================
+   ОСНОВНЫЕ СТИЛИ
+===================================== */
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -50,12 +54,22 @@ header {
     font-weight: bold;
 }
 
+
+/* =====================================
+   КОНТЕЙНЕР
+===================================== */
+
 .container {
     width: 100%;
     max-width: 900px;
     margin: auto;
     padding: 35px 20px;
 }
+
+
+/* =====================================
+   ЗАГОЛОВОК
+===================================== */
 
 .title {
     text-align: center;
@@ -72,7 +86,10 @@ header {
     color: #64748b;
 }
 
-/* СЛОЖНОСТЬ */
+
+/* =====================================
+   СЛОЖНОСТЬ
+===================================== */
 
 .difficulty {
     background: white;
@@ -97,15 +114,24 @@ header {
 .level {
     border: 2px solid #e5e7eb;
     background: white;
+
     padding: 12px 20px;
+
     border-radius: 12px;
+
     cursor: pointer;
+
     font-weight: bold;
+
     transition: 0.2s;
 }
 
 .level:hover {
     transform: translateY(-2px);
+}
+
+.level:active {
+    transform: translateY(0);
 }
 
 .level.active.easy {
@@ -126,7 +152,10 @@ header {
     color: #991b1b;
 }
 
-/* ИНФОРМАЦИЯ */
+
+/* =====================================
+   СТАТИСТИКА
+===================================== */
 
 .info {
     display: flex;
@@ -138,17 +167,25 @@ header {
 
 .stat {
     background: white;
+
     border: 1px solid #e5e7eb;
+
     border-radius: 14px;
+
     padding: 14px 25px;
+
     text-align: center;
+
     min-width: 130px;
 }
 
 .stat span {
     display: block;
+
     color: #64748b;
+
     font-size: 14px;
+
     margin-bottom: 5px;
 }
 
@@ -156,35 +193,72 @@ header {
     font-size: 23px;
 }
 
-/* ИГРА */
+
+/* =====================================
+   ИГРОВОЕ ПОЛЕ
+===================================== */
 
 .game-wrapper {
+    width: 100%;
+
     display: flex;
     justify-content: center;
+
+    position: relative;
 }
 
 #game {
     display: block;
 
     width: min(90vw, 700px);
-    height: min(90vw, 450px);
+    height: auto;
+
+    aspect-ratio: 700 / 450;
 
     background: #111827;
 
     border: 5px solid #2563eb;
+
     border-radius: 15px;
 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.15);
 
     touch-action: none;
+
+    user-select: none;
+    -webkit-user-select: none;
+
+    cursor: crosshair;
 }
 
-/* КНОПКИ */
+
+/* =====================================
+   ПОДСКАЗКА
+===================================== */
+
+.touch-hint {
+    text-align: center;
+
+    color: #64748b;
+
+    margin-top: 14px;
+
+    font-size: 15px;
+}
+
+
+/* =====================================
+   КНОПКИ
+===================================== */
 
 .buttons {
     display: flex;
+
     justify-content: center;
+
     gap: 10px;
+
     flex-wrap: wrap;
 
     margin-top: 20px;
@@ -192,7 +266,9 @@ header {
 
 .main-button {
     border: none;
+
     background: #2563eb;
+
     color: white;
 
     padding: 13px 22px;
@@ -202,11 +278,18 @@ header {
     cursor: pointer;
 
     font-weight: bold;
+
     font-size: 16px;
+
+    transition: 0.2s;
 }
 
 .main-button:hover {
     background: #1d4ed8;
+}
+
+.main-button:active {
+    transform: scale(0.97);
 }
 
 .pause-button {
@@ -217,49 +300,14 @@ header {
     background: #475569;
 }
 
-/* УПРАВЛЕНИЕ */
 
-.controls {
-    width: 210px;
-    margin: 25px auto 0;
-
-    display: grid;
-    grid-template-columns: repeat(3, 65px);
-    gap: 7px;
-
-    justify-content: center;
-}
-
-.control {
-    width: 65px;
-    height: 55px;
-
-    border: none;
-    border-radius: 12px;
-
-    background: white;
-    border: 1px solid #dbe1e8;
-
-    font-size: 25px;
-
-    cursor: pointer;
-
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-.control:active {
-    background: #dbeafe;
-}
-
-.empty {
-    visibility: hidden;
-}
-
-/* СООБЩЕНИЕ */
+/* =====================================
+   СООБЩЕНИЕ
+===================================== */
 
 .message {
     text-align: center;
+
     margin-top: 20px;
 
     min-height: 25px;
@@ -275,7 +323,10 @@ header {
     color: #16a34a;
 }
 
-/* РЕКОРДЫ */
+
+/* =====================================
+   РЕКОРДЫ
+===================================== */
 
 .records {
     background: white;
@@ -291,11 +342,13 @@ header {
 
 .records h2 {
     text-align: center;
+
     margin-bottom: 20px;
 }
 
 .record-row {
     display: flex;
+
     justify-content: space-between;
 
     padding: 12px 5px;
@@ -307,15 +360,29 @@ header {
     border-bottom: none;
 }
 
+
+/* =====================================
+   FOOTER
+===================================== */
+
 footer {
     margin-top: 40px;
+
     background: #111827;
+
     color: #9ca3af;
+
     text-align: center;
+
     padding: 25px;
 }
 
-@media(max-width: 600px) {
+
+/* =====================================
+   МОБИЛЬНАЯ ВЕРСИЯ
+===================================== */
+
+@media (max-width: 600px) {
 
     .title h1 {
         font-size: 32px;
@@ -327,12 +394,20 @@ footer {
 
     .stat {
         min-width: 100px;
+
         padding: 12px 15px;
     }
 
     #game {
-        width: 95vw;
-        height: 60vw;
+        width: 96vw;
+
+        border-width: 4px;
+
+        border-radius: 12px;
+    }
+
+    .touch-hint {
+        font-size: 14px;
     }
 
 }
@@ -341,289 +416,331 @@ footer {
 
 </head>
 
+
 <body>
+
+
+<!-- =====================================
+     ШАПКА
+===================================== -->
 
 <header>
 
-<div class="header">
+    <div class="header">
 
-<a href="index.html" class="logo">
-EasyFlow
-</a>
+        <a href="index.html" class="logo">
+            EasyFlow
+        </a>
 
-<a href="games.html" class="back">
-← Игры
-</a>
+        <a href="games.html" class="back">
+            ← Игры
+        </a>
 
-</div>
+    </div>
 
 </header>
 
 
+
+<!-- =====================================
+     ОСНОВНОЙ КОНТЕНТ
+===================================== -->
+
 <main class="container">
 
 
-<div class="title">
+    <!-- ЗАГОЛОВОК -->
 
-<h1>🏓 Пинг-понг</h1>
+    <div class="title">
 
-<p>
-Играй против компьютера и набери больше очков!
-</p>
+        <h1>🏓 Пинг-понг</h1>
 
-</div>
+        <p>
+            Играй против компьютера и набери больше очков!
+        </p>
 
+    </div>
 
-<!-- СЛОЖНОСТЬ -->
 
-<div class="difficulty">
 
-<h2>Выбери сложность</h2>
+    <!-- =================================
+         СЛОЖНОСТЬ
+    ================================== -->
 
-<div class="levels">
+    <div class="difficulty">
 
-<button
-class="level easy active"
-id="easyButton"
-onclick="selectDifficulty('easy')"
->
-🟢 Лёгкий
-</button>
+        <h2>
+            Выбери сложность
+        </h2>
 
-<button
-class="level medium"
-id="mediumButton"
-onclick="selectDifficulty('medium')"
->
-🟡 Средний
-</button>
+        <div class="levels">
 
-<button
-class="level hard"
-id="hardButton"
-onclick="selectDifficulty('hard')"
->
-🔴 Сложный
-</button>
+            <button
+                class="level easy active"
+                id="easyButton"
+                type="button"
+                onclick="selectDifficulty('easy')"
+            >
+                🟢 Лёгкий
+            </button>
 
-</div>
+            <button
+                class="level medium"
+                id="mediumButton"
+                type="button"
+                onclick="selectDifficulty('medium')"
+            >
+                🟡 Средний
+            </button>
 
-</div>
+            <button
+                class="level hard"
+                id="hardButton"
+                type="button"
+                onclick="selectDifficulty('hard')"
+            >
+                🔴 Сложный
+            </button>
 
+        </div>
 
-<!-- СТАТИСТИКА -->
+    </div>
 
-<div class="info">
 
-<div class="stat">
 
-<span>Ты</span>
+    <!-- =================================
+         СТАТИСТИКА
+    ================================== -->
 
-<strong id="playerScore">
-0
-</strong>
+    <div class="info">
 
-</div>
+        <div class="stat">
 
+            <span>
+                Ты
+            </span>
 
-<div class="stat">
+            <strong id="playerScore">
+                0
+            </strong>
 
-<span>🏆 Рекорд</span>
+        </div>
 
-<strong id="record">
-0
-</strong>
 
-</div>
+        <div class="stat">
 
+            <span>
+                🏆 Рекорд
+            </span>
 
-<div class="stat">
+            <strong id="record">
+                0
+            </strong>
 
-<span>Компьютер</span>
+        </div>
 
-<strong id="computerScore">
-0
-</strong>
 
-</div>
+        <div class="stat">
 
-</div>
+            <span>
+                Компьютер
+            </span>
 
+            <strong id="computerScore">
+                0
+            </strong>
 
-<!-- ИГРА -->
+        </div>
 
-<div class="game-wrapper">
+    </div>
 
-<canvas
-id="game"
-width="700"
-height="450"
->
-</canvas>
 
-</div>
 
+    <!-- =================================
+         ИГРОВОЕ ПОЛЕ
+    ================================== -->
 
-<div
-id="message"
-class="message"
->
-Нажми «Начать игру»
-</div>
+    <div class="game-wrapper">
 
+        <canvas
+            id="game"
+            width="700"
+            height="450"
+        ></canvas>
 
-<!-- КНОПКИ -->
+    </div>
 
-<div class="buttons">
 
-<button
-class="main-button"
-onclick="startGame()"
->
-▶️ Начать игру
-</button>
+    <div class="touch-hint">
+        👆 На телефоне веди пальцем вверх или вниз по полю
+    </div>
 
-<button
-class="main-button pause-button"
-onclick="togglePause()"
->
-⏸️ Пауза
-</button>
 
-</div>
 
+    <!-- =================================
+         СООБЩЕНИЕ
+    ================================== -->
 
-<!-- МОБИЛЬНОЕ УПРАВЛЕНИЕ -->
+    <div
+        id="message"
+        class="message"
+    >
+        Нажми «Начать игру»
+    </div>
 
-<div class="controls">
 
-<button
-class="control empty"
->
-</button>
 
-<button
-class="control"
-onclick="movePlayer('up')"
->
-⬆️
-</button>
+    <!-- =================================
+         КНОПКИ
+    ================================== -->
 
-<button
-class="control empty"
->
-</button>
+    <div class="buttons">
 
+        <button
+            class="main-button"
+            type="button"
+            onclick="startGame()"
+        >
+            ▶️ Начать игру
+        </button>
 
-<button
-class="control empty"
->
-</button>
+        <button
+            class="main-button pause-button"
+            type="button"
+            onclick="togglePause()"
+        >
+            ⏸️ Пауза
+        </button>
 
-<button
-class="control"
-onclick="movePlayer('down')"
->
-⬇️
-</button>
+    </div>
 
-<button
-class="control empty"
->
-</button>
 
-</div>
 
+    <!-- =================================
+         РЕКОРДЫ
+    ================================== -->
 
-<!-- РЕКОРДЫ -->
+    <div class="records">
 
-<div class="records">
+        <h2>
+            🏆 Мои рекорды
+        </h2>
 
-<h2>
-🏆 Мои рекорды
-</h2>
 
-<div class="record-row">
+        <div class="record-row">
 
-<span>🟢 Лёгкий</span>
+            <span>
+                🟢 Лёгкий
+            </span>
 
-<strong id="easyRecord">
-0
-</strong>
+            <strong id="easyRecord">
+                0
+            </strong>
 
-</div>
+        </div>
 
 
-<div class="record-row">
+        <div class="record-row">
 
-<span>🟡 Средний</span>
+            <span>
+                🟡 Средний
+            </span>
 
-<strong id="mediumRecord">
-0
-</strong>
+            <strong id="mediumRecord">
+                0
+            </strong>
 
-</div>
+        </div>
 
 
-<div class="record-row">
+        <div class="record-row">
 
-<span>🔴 Сложный</span>
+            <span>
+                🔴 Сложный
+            </span>
 
-<strong id="hardRecord">
-0
-</strong>
+            <strong id="hardRecord">
+                0
+            </strong>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </main>
 
 
+
+<!-- =====================================
+     FOOTER
+===================================== -->
+
 <footer>
 
-© 2026 EasyFlow
+    © 2026 EasyFlow
 
 </footer>
+
 
 
 <script>
 
 /* =====================================
-   НАСТРОЙКИ
+   ПОЛУЧАЕМ CANVAS
 ===================================== */
 
 const canvas =
-document.getElementById("game");
+    document.getElementById("game");
 
 const ctx =
-canvas.getContext("2d");
+    canvas.getContext("2d");
 
+
+/* =====================================
+   НАСТРОЙКИ
+===================================== */
 
 const settings = {
 
     easy: {
+
         computerSpeed: 3.2,
+
         ballSpeed: 4,
+
         name: "Легко"
+
     },
 
     medium: {
+
         computerSpeed: 4.8,
+
         ballSpeed: 5,
+
         name: "Средне"
+
     },
 
     hard: {
+
         computerSpeed: 6.5,
+
         ballSpeed: 6,
+
         name: "Сложно"
+
     }
 
 };
 
 
 let difficulty = "easy";
+
+
+/* =====================================
+   СОСТОЯНИЕ ИГРЫ
+===================================== */
 
 let animation = null;
 
@@ -646,11 +763,14 @@ const paddleWidth = 15;
 
 const paddleHeight = 90;
 
+
 const player = {
 
     x: 25,
 
-    y: canvas.height / 2 - paddleHeight / 2,
+    y:
+        canvas.height / 2 -
+        paddleHeight / 2,
 
     width: paddleWidth,
 
@@ -663,9 +783,12 @@ const player = {
 
 const computer = {
 
-    x: canvas.width - 40,
+    x:
+        canvas.width - 40,
 
-    y: canvas.height / 2 - paddleHeight / 2,
+    y:
+        canvas.height / 2 -
+        paddleHeight / 2,
 
     width: paddleWidth,
 
@@ -693,7 +816,11 @@ const ball = {
 };
 
 
-let keys = {
+/* =====================================
+   КЛАВИАТУРА
+===================================== */
+
+const keys = {
 
     up: false,
 
@@ -709,11 +836,9 @@ let keys = {
 function getRecord(level) {
 
     return Number(
-
         localStorage.getItem(
             "easyflow_pingpong_record_" + level
         ) || 0
-
     );
 
 }
@@ -725,7 +850,7 @@ function saveRecord(level, value) {
 
         "easyflow_pingpong_record_" + level,
 
-        value
+        String(value)
 
     );
 
@@ -781,19 +906,19 @@ function selectDifficulty(level) {
 
 
     document
-    .querySelectorAll(".level")
-    .forEach(function(button) {
+        .querySelectorAll(".level")
+        .forEach(function(button) {
 
-        button.classList.remove("active");
+            button.classList.remove("active");
 
-    });
+        });
 
 
     document
-    .getElementById(
-        level + "Button"
-    )
-    .classList.add("active");
+        .getElementById(
+            level + "Button"
+        )
+        .classList.add("active");
 
 
     updateRecords();
@@ -809,9 +934,11 @@ function selectDifficulty(level) {
 
 function resetBall(direction) {
 
-    ball.x = canvas.width / 2;
+    ball.x =
+        canvas.width / 2;
 
-    ball.y = canvas.height / 2;
+    ball.y =
+        canvas.height / 2;
 
 
     ball.speedX =
@@ -819,8 +946,28 @@ function resetBall(direction) {
         direction;
 
 
+    /*
+       Ограничиваем вертикальную
+       скорость мяча
+    */
+
     ball.speedY =
-        (Math.random() * 4 - 2);
+        Math.random() * 4 - 2;
+
+
+    /*
+       Не допускаем слишком
+       маленькую скорость
+    */
+
+    if (Math.abs(ball.speedY) < 1) {
+
+        ball.speedY =
+            ball.speedY < 0
+                ? -1
+                : 1;
+
+    }
 
 }
 
@@ -860,7 +1007,9 @@ function startGame() {
 
 
     resetBall(
-        Math.random() > 0.5 ? 1 : -1
+        Math.random() > 0.5
+            ? 1
+            : -1
     );
 
 
@@ -911,29 +1060,36 @@ function gameLoop() {
 
 
     animation =
-        requestAnimationFrame(gameLoop);
+        requestAnimationFrame(
+            gameLoop
+        );
 
 }
 
 
 /* =====================================
-   ОБНОВЛЕНИЕ
+   ОБНОВЛЕНИЕ ИГРЫ
 ===================================== */
 
 function update() {
 
-    /* Игрок */
+
+    /* ================================
+       ИГРОК
+    ================================= */
 
     if (keys.up) {
 
-        player.y -= player.speed;
+        player.y -=
+            player.speed;
 
     }
 
 
     if (keys.down) {
 
-        player.y += player.speed;
+        player.y +=
+            player.speed;
 
     }
 
@@ -948,7 +1104,8 @@ function update() {
 
 
     if (
-        player.y + player.height >
+        player.y +
+        player.height >
         canvas.height
     ) {
 
@@ -959,12 +1116,25 @@ function update() {
     }
 
 
-    /* Компьютер */
+
+    /* ================================
+       КОМПЬЮТЕР
+    ================================= */
 
     const computerCenter =
         computer.y +
         computer.height / 2;
 
+
+    const computerSpeed =
+        settings[difficulty]
+            .computerSpeed;
+
+
+    /*
+       Компьютер двигается
+       за мячом
+    */
 
     if (
         computerCenter <
@@ -972,7 +1142,7 @@ function update() {
     ) {
 
         computer.y +=
-            settings[difficulty].computerSpeed;
+            computerSpeed;
 
     }
 
@@ -983,10 +1153,12 @@ function update() {
     ) {
 
         computer.y -=
-            settings[difficulty].computerSpeed;
+            computerSpeed;
 
     }
 
+
+    /* Ограничение компьютера */
 
     if (computer.y < 0) {
 
@@ -1008,20 +1180,30 @@ function update() {
     }
 
 
-    /* Мяч */
 
-    ball.x += ball.speedX;
+    /* ================================
+       МЯЧ
+    ================================= */
 
-    ball.y += ball.speedY;
+    ball.x +=
+        ball.speedX;
+
+    ball.y +=
+        ball.speedY;
 
 
-    /* Верхняя стенка */
+
+    /* ================================
+       ВЕРХНЯЯ СТЕНА
+    ================================= */
 
     if (
-        ball.y - ball.radius <= 0
+        ball.y -
+        ball.radius <= 0
     ) {
 
-        ball.y = ball.radius;
+        ball.y =
+            ball.radius;
 
         ball.speedY =
             Math.abs(ball.speedY);
@@ -1029,10 +1211,14 @@ function update() {
     }
 
 
-    /* Нижняя стенка */
+
+    /* ================================
+       НИЖНЯЯ СТЕНА
+    ================================= */
 
     if (
-        ball.y + ball.radius >=
+        ball.y +
+        ball.radius >=
         canvas.height
     ) {
 
@@ -1046,19 +1232,32 @@ function update() {
     }
 
 
-    /* Удар игрока */
+
+    /* ================================
+       УДАР ИГРОКА
+    ================================= */
 
     if (
 
-        ball.x - ball.radius <=
-        player.x + player.width &&
+        ball.x -
+        ball.radius <=
+        player.x +
+        player.width &&
 
-        ball.x > player.x &&
+        ball.x +
+        ball.radius >=
+        player.x &&
 
-        ball.y >= player.y &&
+        ball.y +
+        ball.radius >=
+        player.y &&
 
-        ball.y <=
-        player.y + player.height
+        ball.y -
+        ball.radius <=
+        player.y +
+        player.height &&
+
+        ball.speedX < 0
 
     ) {
 
@@ -1069,7 +1268,9 @@ function update() {
 
 
         ball.speedX =
-            Math.abs(ball.speedX) * 1.03;
+            Math.abs(
+                ball.speedX
+            ) * 1.03;
 
 
         const hitPosition =
@@ -1088,23 +1289,38 @@ function update() {
         ball.speedY +=
             hitPosition * 2;
 
+
+        limitBallSpeed();
+
     }
 
 
-    /* Удар компьютера */
+
+    /* ================================
+       УДАР КОМПЬЮТЕРА
+    ================================= */
 
     if (
 
-        ball.x + ball.radius >=
+        ball.x +
+        ball.radius >=
         computer.x &&
 
-        ball.x <
-        computer.x + computer.width &&
+        ball.x -
+        ball.radius <=
+        computer.x +
+        computer.width &&
 
-        ball.y >= computer.y &&
+        ball.y +
+        ball.radius >=
+        computer.y &&
 
-        ball.y <=
-        computer.y + computer.height
+        ball.y -
+        ball.radius <=
+        computer.y +
+        computer.height &&
+
+        ball.speedX > 0
 
     ) {
 
@@ -1114,7 +1330,9 @@ function update() {
 
 
         ball.speedX =
-            -Math.abs(ball.speedX) * 1.03;
+            -Math.abs(
+                ball.speedX
+            ) * 1.03;
 
 
         const hitPosition =
@@ -1133,13 +1351,20 @@ function update() {
         ball.speedY +=
             hitPosition * 2;
 
+
+        limitBallSpeed();
+
     }
 
 
-    /* Мяч ушёл слева */
+
+    /* ================================
+       МЯЧ УШЁЛ СЛЕВА
+    ================================= */
 
     if (
-        ball.x < -ball.radius
+        ball.x <
+        -ball.radius
     ) {
 
         computerScore++;
@@ -1163,7 +1388,10 @@ function update() {
     }
 
 
-    /* Мяч ушёл справа */
+
+    /* ================================
+       МЯЧ УШЁЛ СПРАВА
+    ================================= */
 
     if (
         ball.x >
@@ -1195,7 +1423,32 @@ function update() {
 
 
 /* =====================================
-   ПОБЕДА
+   ОГРАНИЧЕНИЕ СКОРОСТИ МЯЧА
+===================================== */
+
+function limitBallSpeed() {
+
+    const maxSpeed = 11;
+
+    if (ball.speedY > maxSpeed) {
+
+        ball.speedY =
+            maxSpeed;
+
+    }
+
+    if (ball.speedY < -maxSpeed) {
+
+        ball.speedY =
+            -maxSpeed;
+
+    }
+
+}
+
+
+/* =====================================
+   ПРОВЕРКА ПОБЕДИТЕЛЯ
 ===================================== */
 
 function checkWinner() {
@@ -1204,16 +1457,20 @@ function checkWinner() {
 
 
     if (
-        playerScore >= winningScore
+        playerScore >=
+        winningScore
     ) {
 
         finishGame(true);
+
+        return;
 
     }
 
 
     if (
-        computerScore >= winningScore
+        computerScore >=
+        winningScore
     ) {
 
         finishGame(false);
@@ -1224,7 +1481,7 @@ function checkWinner() {
 
 
 /* =====================================
-   КОНЕЦ ИГРЫ
+   ЗАВЕРШЕНИЕ ИГРЫ
 ===================================== */
 
 function finishGame(playerWon) {
@@ -1233,7 +1490,12 @@ function finishGame(playerWon) {
 
     gameOver = true;
 
-    cancelAnimationFrame(animation);
+    paused = false;
+
+
+    cancelAnimationFrame(
+        animation
+    );
 
 
     if (playerWon) {
@@ -1265,6 +1527,7 @@ function finishGame(playerWon) {
             ).className =
                 "message new-record";
 
+
         } else {
 
             document.getElementById(
@@ -1285,6 +1548,7 @@ function finishGame(playerWon) {
 
 
         updateRecords();
+
 
     } else {
 
@@ -1326,7 +1590,8 @@ function togglePause() {
     }
 
 
-    paused = !paused;
+    paused =
+        !paused;
 
 
     if (paused) {
@@ -1335,6 +1600,7 @@ function togglePause() {
             "message"
         ).textContent =
             "⏸️ Игра на паузе";
+
 
     } else {
 
@@ -1345,20 +1611,27 @@ function togglePause() {
 
     }
 
+
+    draw();
+
 }
 
 
 /* =====================================
-   КЛАВИАТУРА
+   КЛАВИАТУРА — НАЖАТИЕ
 ===================================== */
 
 document.addEventListener(
     "keydown",
     function(event) {
 
+        const key =
+            event.key.toLowerCase();
+
+
         if (
             event.key === "ArrowUp" ||
-            event.key.toLowerCase() === "w"
+            key === "w"
         ) {
 
             event.preventDefault();
@@ -1370,7 +1643,7 @@ document.addEventListener(
 
         if (
             event.key === "ArrowDown" ||
-            event.key.toLowerCase() === "s"
+            key === "s"
         ) {
 
             event.preventDefault();
@@ -1381,7 +1654,7 @@ document.addEventListener(
 
 
         if (
-            event.key === " "
+            event.code === "Space"
         ) {
 
             event.preventDefault();
@@ -1394,13 +1667,21 @@ document.addEventListener(
 );
 
 
+/* =====================================
+   КЛАВИАТУРА — ОТПУСКАНИЕ
+===================================== */
+
 document.addEventListener(
     "keyup",
     function(event) {
 
+        const key =
+            event.key.toLowerCase();
+
+
         if (
             event.key === "ArrowUp" ||
-            event.key.toLowerCase() === "w"
+            key === "w"
         ) {
 
             keys.up = false;
@@ -1410,7 +1691,7 @@ document.addEventListener(
 
         if (
             event.key === "ArrowDown" ||
-            event.key.toLowerCase() === "s"
+            key === "s"
         ) {
 
             keys.down = false;
@@ -1422,14 +1703,15 @@ document.addEventListener(
 
 
 /* =====================================
-   МОБИЛЬНОЕ УПРАВЛЕНИЕ
+   УПРАВЛЕНИЕ МЫШЬЮ
 ===================================== */
 
-function movePlayer(direction) {
+function movePlayerToY(clientY) {
 
     if (
         !gameRunning ||
-        gameOver
+        gameOver ||
+        paused
     ) {
 
         return;
@@ -1437,19 +1719,39 @@ function movePlayer(direction) {
     }
 
 
-    if (direction === "up") {
-
-        player.y -= 35;
-
-    }
+    const rect =
+        canvas.getBoundingClientRect();
 
 
-    if (direction === "down") {
+    /*
+       Переводим координаты
+       мыши/пальца в координаты canvas.
+    */
 
-        player.y += 35;
+    const scaleY =
+        canvas.height /
+        rect.height;
 
-    }
 
+    const y =
+        (clientY - rect.top) *
+        scaleY;
+
+
+    /*
+       Центр ракетки следует
+       за курсором.
+    */
+
+    player.y =
+        y -
+        player.height / 2;
+
+
+    /*
+       Не даём ракетке
+       выйти за пределы.
+    */
 
     if (player.y < 0) {
 
@@ -1474,14 +1776,89 @@ function movePlayer(direction) {
 
 
 /* =====================================
+   МЫШЬ
+===================================== */
+
+canvas.addEventListener(
+    "mousemove",
+    function(event) {
+
+        movePlayerToY(
+            event.clientY
+        );
+
+    }
+);
+
+
+/* =====================================
+   TOUCH — НАЧАЛО
+===================================== */
+
+canvas.addEventListener(
+    "touchstart",
+    function(event) {
+
+        event.preventDefault();
+
+
+        if (
+            event.touches.length > 0
+        ) {
+
+            movePlayerToY(
+                event.touches[0].clientY
+            );
+
+        }
+
+    },
+    {
+        passive: false
+    }
+);
+
+
+/* =====================================
+   TOUCH — ДВИЖЕНИЕ
+===================================== */
+
+canvas.addEventListener(
+    "touchmove",
+    function(event) {
+
+        event.preventDefault();
+
+
+        if (
+            event.touches.length > 0
+        ) {
+
+            movePlayerToY(
+                event.touches[0].clientY
+            );
+
+        }
+
+    },
+    {
+        passive: false
+    }
+);
+
+
+/* =====================================
    РИСОВАНИЕ
 ===================================== */
 
 function draw() {
 
-    /* Фон */
+    /*
+       Фон
+    */
 
-    ctx.fillStyle = "#111827";
+    ctx.fillStyle =
+        "#111827";
 
     ctx.fillRect(
         0,
@@ -1491,12 +1868,20 @@ function draw() {
     );
 
 
-    /* Центральная линия */
+    /*
+       Центральная линия
+    */
 
     ctx.strokeStyle =
         "rgba(255,255,255,0.25)";
 
-    ctx.setLineDash([10, 10]);
+    ctx.lineWidth = 2;
+
+    ctx.setLineDash([
+        10,
+        10
+    ]);
+
 
     ctx.beginPath();
 
@@ -1512,13 +1897,19 @@ function draw() {
 
     ctx.stroke();
 
+
     ctx.setLineDash([]);
 
 
-    /* Центральный круг */
+    /*
+       Центральный круг
+    */
 
     ctx.strokeStyle =
         "rgba(255,255,255,0.2)";
+
+    ctx.lineWidth = 2;
+
 
     ctx.beginPath();
 
@@ -1533,10 +1924,15 @@ function draw() {
     ctx.stroke();
 
 
-    /* Ракетка игрока */
+    /*
+       Ракетка игрока
+    */
 
     ctx.fillStyle =
         "#2563eb";
+
+
+    ctx.beginPath();
 
     ctx.roundRect(
         player.x,
@@ -1549,10 +1945,15 @@ function draw() {
     ctx.fill();
 
 
-    /* Ракетка компьютера */
+    /*
+       Ракетка компьютера
+    */
 
     ctx.fillStyle =
         "#ef4444";
+
+
+    ctx.beginPath();
 
     ctx.roundRect(
         computer.x,
@@ -1565,10 +1966,13 @@ function draw() {
     ctx.fill();
 
 
-    /* Мяч */
+    /*
+       Мяч
+    */
 
     ctx.fillStyle =
         "#ffffff";
+
 
     ctx.beginPath();
 
@@ -1583,12 +1987,15 @@ function draw() {
     ctx.fill();
 
 
-    /* Счёт на поле */
+    /*
+       Счёт на поле
+    */
 
     ctx.fillStyle =
         "rgba(255,255,255,0.5)";
 
-    ctx.textAlign = "center";
+    ctx.textAlign =
+        "center";
 
     ctx.font =
         "bold 45px Arial";
@@ -1608,7 +2015,9 @@ function draw() {
     );
 
 
-    /* Пауза */
+    /*
+       Пауза
+    */
 
     if (paused) {
 
@@ -1657,10 +2066,20 @@ function drawStartScreen() {
     );
 
 
+    /*
+       Центральная линия
+    */
+
     ctx.strokeStyle =
         "rgba(255,255,255,0.2)";
 
-    ctx.setLineDash([10, 10]);
+    ctx.lineWidth = 2;
+
+    ctx.setLineDash([
+        10,
+        10
+    ]);
+
 
     ctx.beginPath();
 
@@ -1676,8 +2095,30 @@ function drawStartScreen() {
 
     ctx.stroke();
 
+
     ctx.setLineDash([]);
 
+
+    /*
+       Центральный круг
+    */
+
+    ctx.beginPath();
+
+    ctx.arc(
+        canvas.width / 2,
+        canvas.height / 2,
+        70,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.stroke();
+
+
+    /*
+       Заголовок
+    */
 
     ctx.fillStyle =
         "#2563eb";
@@ -1696,6 +2137,10 @@ function drawStartScreen() {
     );
 
 
+    /*
+       Сложность
+    */
+
     ctx.fillStyle =
         "white";
 
@@ -1710,6 +2155,10 @@ function drawStartScreen() {
         235
     );
 
+
+    /*
+       Подсказка
+    */
 
     ctx.fillStyle =
         "#94a3b8";
@@ -1728,7 +2177,7 @@ function drawStartScreen() {
 
 
 /* =====================================
-   ЗАПУСК
+   ЗАПУСК СТРАНИЦЫ
 ===================================== */
 
 updateRecords();
