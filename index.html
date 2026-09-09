@@ -1,883 +1,1293 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>EasyFlow</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<title>EasyFlow</title>
 
-        html {
-            scroll-behavior: smooth;
-        }
+<style>
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #111827;
-        }
+:root {
+    --main: #2563eb;
+    --background: #f4f7fb;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #64748b;
+    --border: #e5e7eb;
+    --radius: 16px;
+}
 
-        /* ================= HEADER ================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        .header {
-            width: 100%;
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
+body {
+    font-family: Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    transition: 0.3s;
+}
 
-            position: sticky;
-            top: 0;
-            z-index: 9999;
-        }
+/* DARK */
 
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
+body.dark {
+    --background: #0f172a;
+    --card: #1e293b;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --border: #334155;
+}
 
-            min-height: 72px;
-            padding: 10px 20px;
+/* HEADER */
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 
-            gap: 20px;
-        }
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
 
-        /* ЛОГО */
+    padding: 15px 5%;
+}
 
-        .logo {
-            color: #2563eb;
-            font-size: 28px;
-            font-weight: 800;
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
 
-            cursor: pointer;
-            white-space: nowrap;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-        /* ================= NAV ================= */
+    gap: 20px;
+}
 
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+.logo {
+    color: var(--main);
+    font-size: 28px;
+    font-weight: bold;
 
-        .nav-button {
-            border: none;
-            outline: none;
+    cursor: pointer;
+}
 
-            background: transparent;
+nav {
+    display: flex;
+    gap: 7px;
 
-            color: #374151;
+    overflow-x: auto;
+}
 
-            padding: 12px 14px;
+nav button {
+    border: none;
+    background: transparent;
 
-            border-radius: 10px;
+    color: var(--text);
 
-            font-size: 15px;
-            font-weight: 600;
+    padding: 11px 14px;
 
-            cursor: pointer;
+    border-radius: 10px;
 
-            transition: all 0.2s ease;
+    cursor: pointer;
 
-            white-space: nowrap;
-        }
+    font-weight: bold;
 
-        .nav-button:hover {
-            background: #eff6ff;
-            color: #2563eb;
-        }
+    white-space: nowrap;
 
-        .nav-button.active {
-            background: #2563eb;
-            color: white;
-        }
+    transition: 0.2s;
+}
 
-        /* ================= MAIN ================= */
+nav button:hover {
+    background: rgba(37,99,235,0.1);
+    color: var(--main);
+}
 
-        .container {
-            width: 100%;
-            max-width: 1100px;
+nav button.active {
+    background: var(--main);
+    color: white;
+}
 
-            margin: 0 auto;
+/* MAIN */
 
-            padding: 40px 20px;
-        }
+.container {
+    max-width: 1100px;
+    margin: auto;
 
-        .page {
-            display: none;
-        }
+    padding: 40px 20px;
+}
 
-        .page.active {
-            display: block;
-            animation: showPage 0.25s ease;
-        }
+.page {
+    display: none;
+}
 
-        @keyframes showPage {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
+.page.active {
+    display: block;
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    animation: fade 0.25s ease;
+}
 
-        /* ================= HOME ================= */
+@keyframes fade {
 
-        .home {
-            min-height: 70vh;
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
 
-            display: flex;
-            flex-direction: column;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-            align-items: center;
-            justify-content: center;
+}
 
-            text-align: center;
-        }
+/* HOME */
 
-        .home h1 {
-            color: #2563eb;
+.home {
+    min-height: 65vh;
 
-            font-size: clamp(55px, 10vw, 100px);
+    display: flex;
+    flex-direction: column;
 
-            margin-bottom: 20px;
-        }
+    justify-content: center;
+    align-items: center;
 
-        .home-text {
-            max-width: 650px;
+    text-align: center;
+}
 
-            color: #64748b;
+.home h1 {
+    color: var(--main);
 
-            font-size: 20px;
+    font-size: clamp(55px, 10vw, 100px);
 
-            line-height: 1.6;
-        }
+    margin-bottom: 20px;
+}
 
-        .welcome {
-            margin-top: 35px;
+.home p {
+    max-width: 650px;
 
-            background: white;
+    color: var(--muted);
 
-            padding: 30px 40px;
+    font-size: 20px;
 
-            border-radius: 20px;
+    line-height: 1.6;
+}
 
-            box-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.07);
-        }
+.home-button {
+    margin-top: 30px;
 
-        .welcome h2 {
-            margin-bottom: 10px;
-        }
+    border: none;
 
-        .welcome p {
-            color: #64748b;
-        }
+    background: var(--main);
+    color: white;
 
-        /* ================= TITLE ================= */
+    padding: 14px 25px;
 
-        .page-title {
-            margin-bottom: 30px;
-        }
+    border-radius: var(--radius);
 
-        .page-title h2 {
-            font-size: 36px;
-            margin-bottom: 8px;
-        }
+    cursor: pointer;
 
-        .page-title p {
-            color: #64748b;
-        }
+    font-weight: bold;
+}
 
-        /* ================= CARDS ================= */
+/* TITLE */
 
-        .cards {
-            display: grid;
+.title {
+    margin-bottom: 30px;
+}
 
-            grid-template-columns:
-                repeat(3, 1fr);
+.title h2 {
+    font-size: 36px;
+    margin-bottom: 8px;
+}
 
-            gap: 20px;
-        }
+.title p {
+    color: var(--muted);
+}
 
-        .card {
-            background: white;
+/* PROFILE */
 
-            padding: 30px;
+.profile {
+    background: var(--card);
 
-            border-radius: 18px;
+    padding: 35px;
 
-            border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
 
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.05);
-        }
+    border: 1px solid var(--border);
 
-        .card-icon {
-            font-size: 40px;
+    max-width: 700px;
 
-            margin-bottom: 15px;
-        }
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
 
-        .card h3 {
-            margin-bottom: 10px;
-        }
+.avatar-wrapper {
+    position: relative;
 
-        .card p {
-            color: #64748b;
-            line-height: 1.5;
-        }
+    width: 120px;
+    height: 120px;
 
-        /* ================= IMAGES ================= */
+    margin-bottom: 20px;
+}
 
-        .empty-gallery {
-            background: white;
+.avatar {
+    width: 120px;
+    height: 120px;
 
-            border: 2px dashed #d1d5db;
+    border-radius: 50%;
 
-            border-radius: 20px;
+    object-fit: cover;
 
-            padding: 80px 20px;
+    background: #eff6ff;
 
-            text-align: center;
-        }
+    border: 4px solid var(--main);
+}
 
-        .empty-gallery-icon {
-            font-size: 60px;
+.avatar-placeholder {
+    width: 120px;
+    height: 120px;
 
-            margin-bottom: 15px;
-        }
+    border-radius: 50%;
 
-        .empty-gallery h3 {
-            font-size: 24px;
+    background: rgba(37,99,235,0.1);
 
-            margin-bottom: 10px;
-        }
+    color: var(--main);
 
-        .empty-gallery p {
-            color: #64748b;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        /* ================= PROFILE ================= */
+    font-size: 50px;
 
-        .profile-box {
-            max-width: 650px;
+    border: 4px solid var(--main);
+}
 
-            background: white;
+.upload-label {
+    display: inline-block;
 
-            padding: 35px;
+    background: var(--main);
 
-            border-radius: 20px;
+    color: white;
 
-            box-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.06);
-        }
+    padding: 11px 18px;
 
-        .avatar {
-            width: 90px;
-            height: 90px;
+    border-radius: 10px;
 
-            border-radius: 50%;
+    cursor: pointer;
 
-            background: #eff6ff;
+    margin-bottom: 20px;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    font-weight: bold;
+}
 
-            font-size: 40px;
+#avatarInput {
+    display: none;
+}
 
-            color: #2563eb;
+.profile h2 {
+    margin-bottom: 8px;
+}
 
-            margin-bottom: 20px;
-        }
+.profile-description {
+    color: var(--muted);
 
-        .profile-box h2 {
-            margin-bottom: 10px;
-        }
+    line-height: 1.6;
 
-        .profile-box p {
-            color: #64748b;
+    margin-bottom: 20px;
+}
 
-            line-height: 1.6;
-        }
+/* GALLERY */
 
-        /* ================= LINKS ================= */
+.gallery {
+    display: grid;
 
-        .links {
-            display: flex;
-            flex-direction: column;
+    grid-template-columns:
+        repeat(3, 1fr);
 
-            gap: 15px;
-        }
+    gap: 20px;
+}
 
-        .link-card {
-            background: white;
+.gallery-item {
+    position: relative;
 
-            padding: 20px;
+    background: var(--card);
 
-            border-radius: 15px;
+    border-radius: var(--radius);
 
-            display: flex;
+    overflow: hidden;
 
-            align-items: center;
-            justify-content: space-between;
+    border: 1px solid var(--border);
+}
 
-            gap: 20px;
+.gallery-item img {
+    width: 100%;
 
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.05);
-        }
+    height: 250px;
 
-        .link-info h3 {
-            margin-bottom: 6px;
-        }
+    object-fit: cover;
 
-        .link-info p {
-            color: #64748b;
+    display: block;
 
-            font-size: 14px;
-        }
+    cursor: pointer;
+}
 
-        .open-link {
-            background: #2563eb;
+.delete-photo {
+    position: absolute;
 
-            color: white;
+    top: 10px;
+    right: 10px;
 
-            text-decoration: none;
+    border: none;
 
-            padding: 11px 18px;
+    background: rgba(0,0,0,0.7);
 
-            border-radius: 9px;
+    color: white;
 
-            white-space: nowrap;
-        }
+    width: 35px;
+    height: 35px;
 
-        /* ================= SETTINGS ================= */
+    border-radius: 50%;
 
-        .settings {
-            max-width: 650px;
+    cursor: pointer;
 
-            background: white;
+    font-size: 16px;
+}
 
-            padding: 30px;
+.gallery-empty {
+    grid-column: 1 / -1;
 
-            border-radius: 20px;
+    background: var(--card);
 
-            box-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.06);
-        }
+    border: 2px dashed var(--border);
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    border-radius: var(--radius);
 
-        .form-group label {
-            display: block;
+    padding: 80px 20px;
 
-            margin-bottom: 8px;
+    text-align: center;
 
-            font-weight: 700;
-        }
+    color: var(--muted);
+}
 
-        .form-group input {
-            width: 100%;
+.gallery-empty div {
+    font-size: 55px;
 
-            padding: 13px 15px;
+    margin-bottom: 15px;
+}
 
-            border: 1px solid #d1d5db;
+/* LINKS */
 
-            border-radius: 10px;
+.links {
+    display: flex;
 
-            font-size: 16px;
+    flex-direction: column;
 
-            outline: none;
-        }
+    gap: 15px;
 
-        .form-group input:focus {
-            border-color: #2563eb;
+    margin-bottom: 25px;
+}
 
-            box-shadow:
-                0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
+.link-card {
+    background: var(--card);
 
-        .save-button {
-            border: none;
+    border: 1px solid var(--border);
 
-            background: #2563eb;
+    border-radius: var(--radius);
 
-            color: white;
+    padding: 20px;
 
-            padding: 13px 24px;
+    display: flex;
 
-            border-radius: 10px;
+    align-items: center;
 
-            font-size: 15px;
+    justify-content: space-between;
 
-            font-weight: 700;
+    gap: 20px;
+}
 
-            cursor: pointer;
-        }
+.link-info h3 {
+    margin-bottom: 5px;
+}
 
-        .save-button:hover {
-            background: #1d4ed8;
-        }
+.link-info p {
+    color: var(--muted);
 
-        /* ================= FOOTER ================= */
+    font-size: 14px;
+}
 
-        footer {
-            margin-top: 40px;
+.link-actions {
+    display: flex;
 
-            background: #111827;
+    gap: 8px;
+}
 
-            color: #9ca3af;
+.open-link {
+    text-decoration: none;
 
-            text-align: center;
+    background: var(--main);
 
-            padding: 25px;
-        }
+    color: white;
 
-        /* ================= MOBILE ================= */
+    padding: 10px 16px;
 
-        @media (max-width: 850px) {
+    border-radius: 10px;
+}
 
-            .header-inner {
-                flex-direction: column;
+.delete-link {
+    border: none;
 
-                align-items: stretch;
+    background: #ef4444;
 
-                padding: 15px;
-            }
+    color: white;
 
-            .logo {
-                text-align: center;
-            }
+    padding: 10px 14px;
 
-            .nav {
-                width: 100%;
+    border-radius: 10px;
 
-                overflow-x: auto;
+    cursor: pointer;
+}
 
-                padding-bottom: 4px;
+/* FORM */
 
-                justify-content: flex-start;
-            }
+.form-box {
+    max-width: 700px;
 
-            .nav-button {
-                flex-shrink: 0;
-            }
+    background: var(--card);
 
-            .cards {
-                grid-template-columns: 1fr;
-            }
+    border: 1px solid var(--border);
 
-            .link-card {
-                flex-direction: column;
+    padding: 30px;
 
-                align-items: flex-start;
-            }
-        }
+    border-radius: var(--radius);
+}
 
-        @media (max-width: 500px) {
+.form-group {
+    margin-bottom: 20px;
+}
 
-            .container {
-                padding: 25px 15px;
-            }
+.form-group label {
+    display: block;
 
-            .page-title h2 {
-                font-size: 30px;
-            }
+    margin-bottom: 8px;
 
-            .welcome {
-                padding: 25px 20px;
-            }
+    font-weight: bold;
+}
 
-            .settings {
-                padding: 20px;
-            }
-        }
-    </style>
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid var(--border);
+
+    background: var(--background);
+
+    color: var(--text);
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--main);
+}
+
+.primary-button {
+    border: none;
+
+    background: var(--main);
+
+    color: white;
+
+    padding: 13px 22px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+/* DESIGN */
+
+.color-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+input[type="color"] {
+    width: 60px;
+    height: 45px;
+
+    border: none;
+
+    padding: 0;
+
+    cursor: pointer;
+}
+
+/* THEME BUTTONS */
+
+.theme-buttons {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.theme-button {
+    border: 1px solid var(--border);
+
+    background: var(--background);
+
+    color: var(--text);
+
+    padding: 12px 18px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.theme-button.active {
+    background: var(--main);
+
+    color: white;
+
+    border-color: var(--main);
+}
+
+/* SETTINGS */
+
+.settings-card {
+    max-width: 700px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    padding: 30px;
+
+    border-radius: var(--radius);
+}
+
+.success {
+    color: #22c55e;
+
+    margin-top: 15px;
+
+    display: none;
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 50px;
+
+    padding: 25px;
+
+    background: #111827;
+
+    color: #9ca3af;
+
+    text-align: center;
+}
+
+/* MODAL */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    z-index: 99999;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.85);
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal img {
+    max-width: 95%;
+    max-height: 90%;
+
+    border-radius: 15px;
+}
+
+.modal-close {
+    position: absolute;
+
+    top: 20px;
+    right: 25px;
+
+    color: white;
+
+    font-size: 35px;
+
+    cursor: pointer;
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .header-inner {
+        flex-direction: column;
+    }
+
+    .logo {
+        text-align: center;
+    }
+
+    nav {
+        width: 100%;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .link-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+
+</style>
+
 </head>
 
 
 <body>
 
 
-<!-- ================= HEADER ================= -->
+<!-- HEADER -->
 
-<header class="header">
+<header>
 
-    <div class="header-inner">
+<div class="header-inner">
 
-        <div
-            class="logo"
-            onclick="openPage('home')"
-        >
-            EasyFlow
-        </div>
-
-
-        <nav class="nav">
-
-            <button
-                class="nav-button active"
-                data-page="home"
-                onclick="openPage('home')"
-            >
-                🏠 Главная
-            </button>
+<div
+class="logo"
+onclick="openPage('home')"
+>
+EasyFlow
+</div>
 
 
-            <button
-                class="nav-button"
-                data-page="images"
-                onclick="openPage('images')"
-            >
-                🖼️ Картинки
-            </button>
+<nav>
 
+<button
+class="active"
+data-page="home"
+onclick="openPage('home')"
+>
+🏠 Главная
+</button>
 
-            <button
-                class="nav-button"
-                data-page="profile"
-                onclick="openPage('profile')"
-            >
-                👤 Профиль
-            </button>
+<button
+data-page="profile"
+onclick="openPage('profile')"
+>
+👤 Профиль
+</button>
 
+<button
+data-page="images"
+onclick="openPage('images')"
+>
+🖼️ Картинки
+</button>
 
-            <button
-                class="nav-button"
-                data-page="links"
-                onclick="openPage('links')"
-            >
-                🔗 Мои ссылки
-            </button>
+<button
+data-page="links"
+onclick="openPage('links')"
+>
+🔗 Ссылки
+</button>
 
+<button
+data-page="design"
+onclick="openPage('design')"
+>
+🎨 Дизайн
+</button>
 
-            <button
-                class="nav-button"
-                data-page="settings"
-                onclick="openPage('settings')"
-            >
-                ⚙️ Настройки
-            </button>
+<button
+data-page="settings"
+onclick="openPage('settings')"
+>
+⚙️ Настройки
+</button>
 
-        </nav>
+</nav>
 
-    </div>
+</div>
 
 </header>
 
 
-<!-- ================= CONTENT ================= -->
-
 <main class="container">
 
 
-    <!-- ===== HOME ===== -->
+<!-- HOME -->
 
-    <section
-        id="home"
-        class="page active"
-    >
+<section
+id="home"
+class="page active"
+>
 
-        <div class="home">
+<div class="home">
 
-            <h1>
-                EasyFlow
-            </h1>
+<h1>
+EasyFlow
+</h1>
 
-            <p class="home-text">
-                Твоя собственная платформа.
-                Создавай свой контент,
-                добавляй ссылки и настраивай
-                свой профиль.
-            </p>
+<p>
+Создай свою персональную страницу,
+настрой дизайн, добавляй фотографии
+и свои ссылки.
+</p>
 
+<button
+class="home-button"
+onclick="openPage('profile')"
+>
+Создать профиль
+</button>
 
-            <div class="welcome">
+</div>
 
-                <h2>
-                    Добро пожаловать! 👋
-                </h2>
+</section>
 
-                <p>
-                    EasyFlow только начинается.
-                </p>
 
-            </div>
+<!-- PROFILE -->
 
-        </div>
+<section
+id="profile"
+class="page"
+>
 
-    </section>
+<div class="title">
 
+<h2>
+👤 Профиль
+</h2>
 
-    <!-- ===== IMAGES ===== -->
+<p>
+Настрой свою персональную страницу.
+</p>
 
-    <section
-        id="images"
-        class="page"
-    >
+</div>
 
-        <div class="page-title">
 
-            <h2>
-                🖼️ Картинки
-            </h2>
+<div class="profile">
 
-            <p>
-                Здесь будут находиться твои изображения.
-            </p>
 
-        </div>
+<div class="avatar-wrapper">
 
+<div
+id="avatarPlaceholder"
+class="avatar-placeholder"
+>
+👤
+</div>
 
-        <div class="empty-gallery">
+<img
+id="avatarImage"
+class="avatar"
+style="display:none;"
+alt="Аватар"
+>
 
-            <div class="empty-gallery-icon">
-                🖼️
-            </div>
+</div>
 
-            <h3>
-                Пока нет картинок
-            </h3>
 
-            <p>
-                Позже здесь можно будет добавлять свои изображения.
-            </p>
+<label class="upload-label">
 
-        </div>
+📷 Загрузить аватар
 
-    </section>
+<input
+id="avatarInput"
+type="file"
+accept="image/*"
+>
 
+</label>
 
-    <!-- ===== PROFILE ===== -->
 
-    <section
-        id="profile"
-        class="page"
-    >
+<h2 id="profileName">
+Мой профиль
+</h2>
 
-        <div class="page-title">
 
-            <h2>
-                👤 Профиль
-            </h2>
+<p
+id="profileDescription"
+class="profile-description"
+>
+Здесь появится описание твоего профиля.
+</p>
 
-            <p>
-                Твоя персональная страница.
-            </p>
 
-        </div>
+</div>
 
+</section>
 
-        <div class="profile-box">
 
-            <div class="avatar">
-                👤
-            </div>
+<!-- IMAGES -->
 
+<section
+id="images"
+class="page"
+>
 
-            <h2 id="profileName">
-                Мой профиль
-            </h2>
+<div class="title">
 
+<h2>
+🖼️ Мои картинки
+</h2>
 
-            <p id="profileDescription">
-                Здесь будет информация о пользователе.
-            </p>
+<p>
+Загружай фотографии прямо со своего устройства.
+</p>
 
-        </div>
+</div>
 
-    </section>
 
+<label class="upload-label">
 
-    <!-- ===== LINKS ===== -->
+➕ Добавить фотографию
 
-    <section
-        id="links"
-        class="page"
-    >
+<input
+id="imageInput"
+type="file"
+accept="image/*"
+multiple
+>
 
-        <div class="page-title">
+</label>
 
-            <h2>
-                🔗 Мои ссылки
-            </h2>
 
-            <p>
-                Здесь можно размещать свои ссылки.
-            </p>
+<div
+id="gallery"
+class="gallery"
+>
 
-        </div>
+<div class="gallery-empty">
 
+<div>
+🖼️
+</div>
 
-        <div class="links">
+<h3>
+Пока нет фотографий
+</h3>
 
+<p>
+Нажми «Добавить фотографию», чтобы загрузить изображения.
+</p>
 
-            <div class="link-card">
+</div>
 
-                <div class="link-info">
+</div>
 
-                    <h3>
-                        Моя ссылка
-                    </h3>
+</section>
 
-                    <p>
-                        Добавь сюда свою ссылку.
-                    </p>
 
-                </div>
+<!-- LINKS -->
 
+<section
+id="links"
+class="page"
+>
 
-                <a
-                    href="#"
-                    class="open-link"
-                >
-                    Открыть
-                </a>
+<div class="title">
 
-            </div>
+<h2>
+🔗 Мои ссылки
+</h2>
 
+<p>
+Добавляй свои сайты и социальные сети.
+</p>
 
-        </div>
+</div>
 
-    </section>
 
+<div
+id="linksContainer"
+class="links"
+>
+</div>
 
-    <!-- ===== SETTINGS ===== -->
 
-    <section
-        id="settings"
-        class="page"
-    >
+<div class="form-box">
 
-        <div class="page-title">
+<div class="form-group">
 
-            <h2>
-                ⚙️ Настройки
-            </h2>
+<label>
+Название ссылки
+</label>
 
-            <p>
-                Измени информацию своего профиля.
-            </p>
+<input
+id="linkName"
+type="text"
+placeholder="Например: Мой YouTube"
+>
 
-        </div>
+</div>
 
 
-        <div class="settings">
+<div class="form-group">
 
+<label>
+Адрес ссылки
+</label>
 
-            <div class="form-group">
+<input
+id="linkUrl"
+type="url"
+placeholder="https://example.com"
+>
 
-                <label for="name">
-                    Имя
-                </label>
+</div>
 
-                <input
-                    id="name"
-                    type="text"
-                    placeholder="Например: Alex"
-                >
 
-            </div>
+<button
+class="primary-button"
+onclick="addLink()"
+>
+➕ Добавить ссылку
+</button>
 
+</div>
 
-            <div class="form-group">
+</section>
 
-                <label for="description">
-                    Описание
-                </label>
 
-                <input
-                    id="description"
-                    type="text"
-                    placeholder="Расскажи о себе"
-                >
+<!-- DESIGN -->
 
-            </div>
+<section
+id="design"
+class="page"
+>
 
+<div class="title">
 
-            <button
-                class="save-button"
-                onclick="saveProfile()"
-            >
-                Сохранить
-            </button>
+<h2>
+🎨 Дизайн
+</h2>
 
-        </div>
+<p>
+Настрой внешний вид EasyFlow.
+</p>
 
-    </section>
+</div>
+
+
+<div class="form-box">
+
+
+<div class="form-group">
+
+<label>
+Основной цвет
+</label>
+
+<div class="color-row">
+
+<input
+id="mainColor"
+type="color"
+value="#2563eb"
+oninput="changeColor(this.value)"
+>
+
+<span>
+Выбери цвет кнопок и элементов.
+</span>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Шрифт
+</label>
+
+<select
+id="fontSelect"
+onchange="changeFont(this.value)"
+>
+
+<option value="Arial">
+Arial
+</option>
+
+<option value="Georgia">
+Georgia
+</option>
+
+<option value="Verdana">
+Verdana
+</option>
+
+<option value="Tahoma">
+Tahoma
+</option>
+
+<option value="Courier New">
+Courier New
+</option>
+
+<option value="Trebuchet MS">
+Trebuchet MS
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Тема
+</label>
+
+<div class="theme-buttons">
+
+<button
+class="theme-button active"
+onclick="setTheme('light', this)"
+>
+☀️ Светлая
+</button>
+
+<button
+class="theme-button"
+onclick="setTheme('dark', this)"
+>
+🌙 Тёмная
+</button>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Стиль кнопок
+</label>
+
+<select
+id="radiusSelect"
+onchange="changeRadius(this.value)"
+>
+
+<option value="6px">
+Маленькое скругление
+</option>
+
+<option value="16px" selected>
+Обычное
+</option>
+
+<option value="30px">
+Сильно округлённые
+</option>
+
+<option value="0px">
+Квадратные
+</option>
+
+</select>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section
+id="settings"
+class="page"
+>
+
+<div class="title">
+
+<h2>
+⚙️ Настройки
+</h2>
+
+<p>
+Информация твоего профиля.
+</p>
+
+</div>
+
+
+<div class="settings-card">
+
+
+<div class="form-group">
+
+<label>
+Имя профиля
+</label>
+
+<input
+id="nameInput"
+type="text"
+placeholder="Введите имя"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Описание
+</label>
+
+<input
+id="descriptionInput"
+type="text"
+placeholder="Расскажите о себе"
+>
+
+</div>
+
+
+<button
+class="primary-button"
+onclick="saveProfile()"
+>
+💾 Сохранить профиль
+</button>
+
+
+<div
+id="successMessage"
+class="success"
+>
+✓ Профиль сохранён
+</div>
+
+
+</div>
+
+</section>
 
 
 </main>
 
 
-<!-- ================= FOOTER ================= -->
-
 <footer>
 
-    © 2026 EasyFlow
+© 2026 EasyFlow
 
 </footer>
 
 
+<!-- IMAGE MODAL -->
+
+<div
+id="imageModal"
+class="modal"
+onclick="closeModal()"
+>
+
+<span
+class="modal-close"
+>
+×
+</span>
+
+<img
+id="modalImage"
+alt="Просмотр изображения"
+>
+
+</div>
+
+
 <script>
 
-    /* ==========================================
-       ПЕРЕКЛЮЧЕНИЕ РАЗДЕЛОВ
-    ========================================== */
+/* ===================================
+   ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
+=================================== */
 
-    function openPage(pageName) {
+function openPage(pageName) {
 
-        /* Скрываем все страницы */
+    const pages =
+        document.querySelectorAll(".page");
 
-        const pages =
-            document.querySelectorAll(".page");
+    pages.forEach(function(page) {
 
-        pages.forEach(function(page) {
+        page.classList.remove("active");
 
-            page.classList.remove("active");
-
-        });
+    });
 
 
-        /* Показываем выбранную */
+    const selected =
+        document.getElementById(pageName);
 
-        const selectedPage =
-            document.getElementById(pageName);
+    if (selected) {
 
-        if (selectedPage) {
+        selected.classList.add("active");
 
-            selectedPage.classList.add("active");
-
-        }
+    }
 
 
-        /* Меняем активную кнопку */
+    const buttons =
+        document.querySelectorAll(".nav-button");
 
-        const buttons =
-            document.querySelectorAll(".nav-button");
 
-        buttons.forEach(function(button) {
+    document
+        .querySelectorAll("nav button")
+        .forEach(function(button) {
 
             button.classList.remove("active");
 
             if (
-                button.getAttribute("data-page")
-                === pageName
+                button.dataset.page === pageName
             ) {
 
                 button.classList.add("active");
@@ -887,117 +1297,832 @@
         });
 
 
-        /* Прокручиваем вверх */
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+}
+
+
+/* ===================================
+   СОХРАНЕНИЕ ПРОФИЛЯ
+=================================== */
+
+function saveProfile() {
+
+    const name =
+        document
+        .getElementById("nameInput")
+        .value
+        .trim();
+
+
+    const description =
+        document
+        .getElementById("descriptionInput")
+        .value
+        .trim();
+
+
+    if (name) {
+
+        localStorage.setItem(
+            "easyflow_name",
+            name
+        );
+
+        document
+        .getElementById("profileName")
+        .textContent = name;
 
     }
 
 
-    /* ==========================================
-       СОХРАНЕНИЕ ПРОФИЛЯ
-    ========================================== */
+    if (description) {
 
-    function saveProfile() {
+        localStorage.setItem(
+            "easyflow_description",
+            description
+        );
+
+        document
+        .getElementById("profileDescription")
+        .textContent =
+            description;
+
+    }
+
+
+    document
+    .getElementById("successMessage")
+    .style.display = "block";
+
+
+    setTimeout(function() {
+
+        document
+        .getElementById("successMessage")
+        .style.display = "none";
+
+    }, 2500);
+
+}
+
+
+/* ===================================
+   АВАТАР
+=================================== */
+
+document
+.getElementById("avatarInput")
+.addEventListener(
+    "change",
+    function(event) {
+
+        const file =
+            event.target.files[0];
+
+        if (!file) return;
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function(e) {
+
+                const image =
+                    document
+                    .getElementById(
+                        "avatarImage"
+                    );
+
+                image.src =
+                    e.target.result;
+
+                image.style.display =
+                    "block";
+
+
+                document
+                .getElementById(
+                    "avatarPlaceholder"
+                )
+                .style.display = "none";
+
+
+                localStorage.setItem(
+                    "easyflow_avatar",
+                    e.target.result
+                );
+
+            };
+
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+/* ===================================
+   ФОТОГРАФИИ
+=================================== */
+
+document
+.getElementById("imageInput")
+.addEventListener(
+    "change",
+    function(event) {
+
+        const files =
+            Array.from(event.target.files);
+
+
+        files.forEach(function(file) {
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(e) {
+
+                    addImage(
+                        e.target.result
+                    );
+
+                };
+
+
+            reader.readAsDataURL(file);
+
+        });
+
+
+        event.target.value = "";
+
+    }
+);
+
+
+function addImage(src) {
+
+    const images =
+        JSON.parse(
+            localStorage.getItem(
+                "easyflow_images"
+            ) || "[]"
+        );
+
+
+    images.push(src);
+
+
+    localStorage.setItem(
+        "easyflow_images",
+        JSON.stringify(images)
+    );
+
+
+    renderGallery();
+
+}
+
+
+function deleteImage(index) {
+
+    const images =
+        JSON.parse(
+            localStorage.getItem(
+                "easyflow_images"
+            ) || "[]"
+        );
+
+
+    images.splice(index, 1);
+
+
+    localStorage.setItem(
+        "easyflow_images",
+        JSON.stringify(images)
+    );
+
+
+    renderGallery();
+
+}
+
+
+function renderGallery() {
+
+    const gallery =
+        document.getElementById(
+            "gallery"
+        );
+
+
+    const images =
+        JSON.parse(
+            localStorage.getItem(
+                "easyflow_images"
+            ) || "[]"
+        );
+
+
+    gallery.innerHTML = "";
+
+
+    if (images.length === 0) {
+
+        gallery.innerHTML = `
+
+            <div class="gallery-empty">
+
+                <div>🖼️</div>
+
+                <h3>
+                    Пока нет фотографий
+                </h3>
+
+                <p>
+                    Добавь первую фотографию.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    images.forEach(function(src, index) {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "gallery-item";
+
+
+        item.innerHTML = `
+
+            <img
+                src="${src}"
+                alt="Моя фотография"
+                onclick="openModal('${src}')"
+            >
+
+            <button
+                class="delete-photo"
+                onclick="deleteImage(${index})"
+            >
+                🗑
+            </button>
+
+        `;
+
+
+        gallery.appendChild(item);
+
+    });
+
+}
+
+
+/* ===================================
+   ССЫЛКИ
+=================================== */
+
+function addLink() {
+
+    const name =
+        document
+        .getElementById("linkName")
+        .value
+        .trim();
+
+
+    let url =
+        document
+        .getElementById("linkUrl")
+        .value
+        .trim();
+
+
+    if (!name || !url) {
+
+        alert(
+            "Заполни название и адрес ссылки."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !url.startsWith("http://")
+        &&
+        !url.startsWith("https://")
+    ) {
+
+        url =
+            "https://" + url;
+
+    }
+
+
+    const links =
+        JSON.parse(
+            localStorage.getItem(
+                "easyflow_links"
+            ) || "[]"
+        );
+
+
+    links.push({
+        name: name,
+        url: url
+    });
+
+
+    localStorage.setItem(
+        "easyflow_links",
+        JSON.stringify(links)
+    );
+
+
+    document
+    .getElementById("linkName")
+    .value = "";
+
+
+    document
+    .getElementById("linkUrl")
+    .value = "";
+
+
+    renderLinks();
+
+}
+
+
+function deleteLink(index) {
+
+    const links =
+        JSON.parse(
+            localStorage.getItem(
+                "easyflow_links"
+            ) || "[]"
+        );
+
+
+    links.splice(index, 1);
+
+
+    localStorage.setItem(
+        "easyflow_links",
+        JSON.stringify(links)
+    );
+
+
+    renderLinks();
+
+}
+
+
+function renderLinks() {
+
+    const container =
+        document.getElementById(
+            "linksContainer"
+        );
+
+
+    const links =
+        JSON.parse(
+            localStorage.getItem(
+                "easyflow_links"
+            ) || "[]"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (links.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="gallery-empty">
+
+                <div>🔗</div>
+
+                <h3>
+                    Пока нет ссылок
+                </h3>
+
+                <p>
+                    Добавь свою первую ссылку ниже.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    links.forEach(function(link, index) {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "link-card";
+
+
+        card.innerHTML = `
+
+            <div class="link-info">
+
+                <h3>
+                    ${escapeHtml(link.name)}
+                </h3>
+
+                <p>
+                    ${escapeHtml(link.url)}
+                </p>
+
+            </div>
+
+            <div class="link-actions">
+
+                <a
+                    href="${escapeHtml(link.url)}"
+                    target="_blank"
+                    class="open-link"
+                >
+                    Открыть
+                </a>
+
+                <button
+                    class="delete-link"
+                    onclick="deleteLink(${index})"
+                >
+                    🗑
+                </button>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/* Защита текста */
+
+function escapeHtml(text) {
+
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* ===================================
+   ЦВЕТ
+=================================== */
+
+function changeColor(color) {
+
+    document
+    .documentElement
+    .style
+    .setProperty(
+        "--main",
+        color
+    );
+
+
+    localStorage.setItem(
+        "easyflow_color",
+        color
+    );
+
+}
+
+
+/* ===================================
+   ШРИФТ
+=================================== */
+
+function changeFont(font) {
+
+    document
+    .body
+    .style
+    .fontFamily = font;
+
+
+    localStorage.setItem(
+        "easyflow_font",
+        font
+    );
+
+}
+
+
+/* ===================================
+   СКРУГЛЕНИЕ
+=================================== */
+
+function changeRadius(radius) {
+
+    document
+    .documentElement
+    .style
+    .setProperty(
+        "--radius",
+        radius
+    );
+
+
+    localStorage.setItem(
+        "easyflow_radius",
+        radius
+    );
+
+}
+
+
+/* ===================================
+   ТЕМА
+=================================== */
+
+function setTheme(theme, button) {
+
+    if (theme === "dark") {
+
+        document
+        .body
+        .classList
+        .add("dark");
+
+    } else {
+
+        document
+        .body
+        .classList
+        .remove("dark");
+
+    }
+
+
+    localStorage.setItem(
+        "easyflow_theme",
+        theme
+    );
+
+
+    document
+    .querySelectorAll(".theme-button")
+    .forEach(function(btn) {
+
+        btn.classList.remove("active");
+
+    });
+
+
+    button.classList.add("active");
+
+}
+
+
+/* ===================================
+   МОДАЛЬНОЕ ОКНО
+=================================== */
+
+function openModal(src) {
+
+    document
+    .getElementById("modalImage")
+    .src = src;
+
+
+    document
+    .getElementById("imageModal")
+    .classList
+    .add("active");
+
+}
+
+
+function closeModal() {
+
+    document
+    .getElementById("imageModal")
+    .classList
+    .remove("active");
+
+}
+
+
+/* ===================================
+   ЗАГРУЗКА СОХРАНЁННЫХ ДАННЫХ
+=================================== */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+
+        /* Профиль */
 
         const name =
-            document.getElementById("name").value.trim();
+            localStorage.getItem(
+                "easyflow_name"
+            );
 
 
         const description =
-            document
-                .getElementById("description")
-                .value
-                .trim();
+            localStorage.getItem(
+                "easyflow_description"
+            );
 
 
         if (name) {
 
-            localStorage.setItem(
-                "easyflow_name",
-                name
-            );
+            document
+            .getElementById("nameInput")
+            .value = name;
 
             document
-                .getElementById("profileName")
-                .textContent = name;
+            .getElementById("profileName")
+            .textContent = name;
 
         }
 
 
         if (description) {
 
-            localStorage.setItem(
-                "easyflow_description",
-                description
-            );
+            document
+            .getElementById("descriptionInput")
+            .value = description;
 
             document
-                .getElementById("profileDescription")
-                .textContent = description;
+            .getElementById("profileDescription")
+            .textContent =
+                description;
 
         }
 
 
-        alert("Профиль сохранён!");
+        /* Аватар */
+
+        const avatar =
+            localStorage.getItem(
+                "easyflow_avatar"
+            );
+
+
+        if (avatar) {
+
+            document
+            .getElementById("avatarImage")
+            .src = avatar;
+
+            document
+            .getElementById("avatarImage")
+            .style.display =
+                "block";
+
+
+            document
+            .getElementById(
+                "avatarPlaceholder"
+            )
+            .style.display =
+                "none";
+
+        }
+
+
+        /* Цвет */
+
+        const color =
+            localStorage.getItem(
+                "easyflow_color"
+            );
+
+
+        if (color) {
+
+            changeColor(color);
+
+            document
+            .getElementById("mainColor")
+            .value = color;
+
+        }
+
+
+        /* Шрифт */
+
+        const font =
+            localStorage.getItem(
+                "easyflow_font"
+            );
+
+
+        if (font) {
+
+            changeFont(font);
+
+            document
+            .getElementById("fontSelect")
+            .value = font;
+
+        }
+
+
+        /* Скругление */
+
+        const radius =
+            localStorage.getItem(
+                "easyflow_radius"
+            );
+
+
+        if (radius) {
+
+            changeRadius(radius);
+
+            document
+            .getElementById("radiusSelect")
+            .value = radius;
+
+        }
+
+
+        /* Тема */
+
+        const theme =
+            localStorage.getItem(
+                "easyflow_theme"
+            );
+
+
+        if (theme === "dark") {
+
+            document
+            .body
+            .classList
+            .add("dark");
+
+
+            document
+            .querySelectorAll(
+                ".theme-button"
+            )[0]
+            .classList
+            .remove("active");
+
+
+            document
+            .querySelectorAll(
+                ".theme-button"
+            )[1]
+            .classList
+            .add("active");
+
+        }
+
+
+        renderGallery();
+
+        renderLinks();
 
     }
-
-
-    /* ==========================================
-       ЗАГРУЗКА ПРОФИЛЯ
-    ========================================== */
-
-    window.addEventListener(
-        "DOMContentLoaded",
-        function() {
-
-            const savedName =
-                localStorage.getItem(
-                    "easyflow_name"
-                );
-
-
-            const savedDescription =
-                localStorage.getItem(
-                    "easyflow_description"
-                );
-
-
-            if (savedName) {
-
-                document
-                    .getElementById("name")
-                    .value = savedName;
-
-                document
-                    .getElementById("profileName")
-                    .textContent = savedName;
-
-            }
-
-
-            if (savedDescription) {
-
-                document
-                    .getElementById("description")
-                    .value = savedDescription;
-
-                document
-                    .getElementById("profileDescription")
-                    .textContent =
-                    savedDescription;
-
-            }
-
-        }
-    );
+);
 
 </script>
-
 
 </body>
 </html>
