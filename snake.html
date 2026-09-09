@@ -41,7 +41,6 @@ header {
 .header {
     max-width: 900px;
     margin: auto;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -78,8 +77,6 @@ h1 {
     margin-bottom: 25px;
 }
 
-/* Сложность */
-
 .difficulty {
     background: var(--card);
     border: 1px solid var(--border);
@@ -108,6 +105,15 @@ h1 {
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
+    transition: .2s;
+}
+
+.level:hover {
+    transform: translateY(-2px);
+}
+
+.level:active {
+    transform: translateY(0);
 }
 
 .level.active {
@@ -115,8 +121,6 @@ h1 {
     background: #dbeafe;
     color: #1d4ed8;
 }
-
-/* Статистика */
 
 .info {
     display: flex;
@@ -139,13 +143,12 @@ h1 {
     display: block;
     color: var(--muted);
     font-size: 13px;
+    margin-bottom: 3px;
 }
 
 .stat strong {
     font-size: 22px;
 }
-
-/* Игра */
 
 .game-box {
     display: flex;
@@ -164,11 +167,11 @@ canvas {
     display: block;
 
     touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
 
     box-shadow: 0 12px 30px rgba(0,0,0,.15);
 }
-
-/* Сообщение */
 
 .message {
     text-align: center;
@@ -184,8 +187,6 @@ canvas {
 .success {
     color: var(--green);
 }
-
-/* Кнопки */
 
 .buttons {
     display: flex;
@@ -206,10 +207,15 @@ canvas {
     font-weight: bold;
 
     cursor: pointer;
+    transition: .2s;
 }
 
 .main-button:hover {
     background: #1d4ed8;
+}
+
+.main-button:active {
+    transform: scale(.97);
 }
 
 .pause {
@@ -219,8 +225,6 @@ canvas {
 .pause:hover {
     background: #475569;
 }
-
-/* Управление */
 
 .controls {
     width: 210px;
@@ -244,6 +248,7 @@ canvas {
     cursor: pointer;
 
     touch-action: manipulation;
+    user-select: none;
 }
 
 .control:active {
@@ -253,8 +258,6 @@ canvas {
 .empty {
     visibility: hidden;
 }
-
-/* Рекорды */
 
 .records {
     background: var(--card);
@@ -310,6 +313,10 @@ footer {
         min-width: 95px;
         padding: 9px 12px;
     }
+
+    .controls {
+        width: 210px;
+    }
 }
 </style>
 </head>
@@ -330,181 +337,181 @@ footer {
     </div>
 </header>
 
-
 <main class="container">
 
-<h1>🐍 Змейка</h1>
+    <h1>🐍 Змейка</h1>
 
-<p class="subtitle">
-    Собирай еду, увеличивай змейку и побей свой рекорд!
-</p>
+    <p class="subtitle">
+        Собирай еду, увеличивай змейку и побей свой рекорд!
+    </p>
 
+    <div class="difficulty">
 
-<!-- Сложность -->
+        <h2>Сложность</h2>
 
-<div class="difficulty">
+        <div class="levels">
 
-    <h2>Сложность</h2>
+            <button
+                class="level active"
+                data-level="easy"
+                type="button">
+                🟢 Лёгкий
+            </button>
 
-    <div class="levels">
+            <button
+                class="level"
+                data-level="medium"
+                type="button">
+                🟡 Средний
+            </button>
+
+            <button
+                class="level"
+                data-level="hard"
+                type="button">
+                🔴 Сложный
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="info">
+
+        <div class="stat">
+            <span>Очки</span>
+            <strong id="score">0</strong>
+        </div>
+
+        <div class="stat">
+            <span>🏆 Рекорд</span>
+            <strong id="record">0</strong>
+        </div>
+
+        <div class="stat">
+            <span>Скорость</span>
+            <strong id="speed">Медленно</strong>
+        </div>
+
+    </div>
+
+    <div class="game-box">
+
+        <canvas
+            id="game"
+            width="500"
+            height="500">
+        </canvas>
+
+    </div>
+
+    <div id="message" class="message">
+        Нажми «Начать игру»
+    </div>
+
+    <div class="buttons">
 
         <button
-            class="level active"
-            data-level="easy">
-            🟢 Лёгкий
+            id="startButton"
+            class="main-button"
+            type="button">
+            ▶️ Начать
         </button>
 
         <button
-            class="level"
-            data-level="medium">
-            🟡 Средний
+            id="pauseButton"
+            class="main-button pause"
+            type="button">
+            ⏸️ Пауза
+        </button>
+
+    </div>
+
+    <div class="controls">
+
+        <button
+            class="control empty"
+            type="button"
+            aria-hidden="true">
         </button>
 
         <button
-            class="level"
-            data-level="hard">
-            🔴 Сложный
+            class="control"
+            data-direction="up"
+            type="button">
+            ⬆️
+        </button>
+
+        <button
+            class="control empty"
+            type="button"
+            aria-hidden="true">
+        </button>
+
+        <button
+            class="control"
+            data-direction="left"
+            type="button">
+            ⬅️
+        </button>
+
+        <button
+            class="control"
+            data-direction="down"
+            type="button">
+            ⬇️
+        </button>
+
+        <button
+            class="control"
+            data-direction="right"
+            type="button">
+            ➡️
         </button>
 
     </div>
 
-</div>
+    <div class="records">
 
+        <h2>🏆 Рекорды</h2>
 
-<!-- Статистика -->
+        <div class="record">
+            <span>🟢 Лёгкий</span>
+            <strong id="easyRecord">0</strong>
+        </div>
 
-<div class="info">
+        <div class="record">
+            <span>🟡 Средний</span>
+            <strong id="mediumRecord">0</strong>
+        </div>
 
-    <div class="stat">
-        <span>Очки</span>
-        <strong id="score">0</strong>
+        <div class="record">
+            <span>🔴 Сложный</span>
+            <strong id="hardRecord">0</strong>
+        </div>
+
     </div>
-
-    <div class="stat">
-        <span>🏆 Рекорд</span>
-        <strong id="record">0</strong>
-    </div>
-
-    <div class="stat">
-        <span>Скорость</span>
-        <strong id="speed">Медленно</strong>
-    </div>
-
-</div>
-
-
-<!-- Игровое поле -->
-
-<div class="game-box">
-
-    <canvas
-        id="game"
-        width="500"
-        height="500">
-    </canvas>
-
-</div>
-
-
-<div id="message" class="message">
-    Нажми «Начать игру»
-</div>
-
-
-<!-- Основные кнопки -->
-
-<div class="buttons">
-
-    <button
-        id="startButton"
-        class="main-button">
-        ▶️ Начать
-    </button>
-
-    <button
-        id="pauseButton"
-        class="main-button pause">
-        ⏸️ Пауза
-    </button>
-
-</div>
-
-
-<!-- Управление -->
-
-<div class="controls">
-
-    <button class="control empty"></button>
-
-    <button
-        class="control"
-        data-direction="up">
-        ⬆️
-    </button>
-
-    <button class="control empty"></button>
-
-
-    <button
-        class="control"
-        data-direction="left">
-        ⬅️
-    </button>
-
-    <button
-        class="control"
-        data-direction="down">
-        ⬇️
-    </button>
-
-    <button
-        class="control"
-        data-direction="right">
-        ➡️
-    </button>
-
-</div>
-
-
-<!-- Рекорды -->
-
-<div class="records">
-
-    <h2>🏆 Рекорды</h2>
-
-    <div class="record">
-        <span>🟢 Лёгкий</span>
-        <strong id="easyRecord">0</strong>
-    </div>
-
-    <div class="record">
-        <span>🟡 Средний</span>
-        <strong id="mediumRecord">0</strong>
-    </div>
-
-    <div class="record">
-        <span>🔴 Сложный</span>
-        <strong id="hardRecord">0</strong>
-    </div>
-
-</div>
 
 </main>
-
 
 <footer>
     © 2026 EasyFlow
 </footer>
 
-
 <script>
+"use strict";
 
-/* =========================
-   НАСТРОЙКИ
-========================= */
+/* =====================================
+   CANVAS
+===================================== */
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
+
+
+/* =====================================
+   НАСТРОЙКИ
+===================================== */
 
 const SIZE = 25;
 const CELL = canvas.width / SIZE;
@@ -527,9 +534,9 @@ const levels = {
 };
 
 
-/* =========================
-   ПЕРЕМЕННЫЕ
-========================= */
+/* =====================================
+   СОСТОЯНИЕ
+===================================== */
 
 let snake = [];
 
@@ -551,9 +558,9 @@ let running = false;
 let paused = false;
 
 
-/* =========================
-   ЭЛЕМЕНТЫ
-========================= */
+/* =====================================
+   DOM
+===================================== */
 
 const scoreElement =
     document.getElementById("score");
@@ -567,19 +574,26 @@ const speedElement =
 const messageElement =
     document.getElementById("message");
 
+const startButton =
+    document.getElementById("startButton");
 
-/* =========================
+const pauseButton =
+    document.getElementById("pauseButton");
+
+
+/* =====================================
    РЕКОРДЫ
-========================= */
+===================================== */
 
 function getRecord(level) {
 
-    return Number(
+    const value = Number(
         localStorage.getItem(
             "easyflow_snake_" + level
-        ) || 0
+        )
     );
 
+    return Number.isFinite(value) ? value : 0;
 }
 
 
@@ -587,22 +601,16 @@ function saveRecord(level, value) {
 
     localStorage.setItem(
         "easyflow_snake_" + level,
-        value
+        String(value)
     );
-
 }
 
 
 function updateRecords() {
 
-    const easy =
-        getRecord("easy");
-
-    const medium =
-        getRecord("medium");
-
-    const hard =
-        getRecord("hard");
+    const easy = getRecord("easy");
+    const medium = getRecord("medium");
+    const hard = getRecord("hard");
 
     document.getElementById(
         "easyRecord"
@@ -621,22 +629,37 @@ function updateRecords() {
 }
 
 
-/* =========================
+/* =====================================
+   СООБЩЕНИЕ
+===================================== */
+
+function setMessage(text, type = "") {
+
+    messageElement.textContent = text;
+    messageElement.className = "message";
+
+    if (type) {
+        messageElement.classList.add(type);
+    }
+}
+
+
+/* =====================================
    СЛОЖНОСТЬ
-========================= */
+===================================== */
 
 document
-.querySelectorAll(".level")
-.forEach(button => {
+    .querySelectorAll(".level")
+    .forEach(button => {
 
-    button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener("click", () => {
 
             if (running) {
 
-                messageElement.textContent =
-                    "Сначала закончи игру.";
+                setMessage(
+                    "Сначала закончи текущую игру.",
+                    "error"
+                );
 
                 return;
             }
@@ -645,10 +668,10 @@ document
                 button.dataset.level;
 
             document
-            .querySelectorAll(".level")
-            .forEach(b =>
-                b.classList.remove("active")
-            );
+                .querySelectorAll(".level")
+                .forEach(b => {
+                    b.classList.remove("active");
+                });
 
             button.classList.add("active");
 
@@ -659,24 +682,25 @@ document
 
             drawStart();
 
-        }
-    );
+        });
 
-});
+    });
 
 
-/* =========================
-   НАЧАЛО
-========================= */
+/* =====================================
+   НАЧАЛО ИГРЫ
+===================================== */
 
 function startGame() {
 
     clearInterval(timer);
 
+    timer = null;
+
     snake = [
-        {x: 12, y: 12},
-        {x: 11, y: 12},
-        {x: 10, y: 12}
+        { x: 12, y: 12 },
+        { x: 11, y: 12 },
+        { x: 10, y: 12 }
     ];
 
     direction = "right";
@@ -689,11 +713,10 @@ function startGame() {
 
     scoreElement.textContent = "0";
 
-    messageElement.textContent =
-        "Игра началась!";
+    speedElement.textContent =
+        levels[difficulty].name;
 
-    messageElement.className =
-        "message";
+    setMessage("🏁 Игра началась!");
 
     createFood();
 
@@ -706,36 +729,54 @@ function startGame() {
 }
 
 
-/* =========================
-   ЕДА
-========================= */
+/* =====================================
+   СОЗДАНИЕ ЕДЫ
+===================================== */
 
 function createFood() {
 
-    do {
+    /*
+       Защита от бесконечного
+       цикла, если поле заполнено.
+    */
 
-        food = {
-            x: Math.floor(
-                Math.random() * SIZE
-            ),
+    const freeCells = [];
 
-            y: Math.floor(
-                Math.random() * SIZE
-            )
-        };
+    for (let y = 0; y < SIZE; y++) {
 
-    } while (
-        snake.some(part =>
-            part.x === food.x &&
-            part.y === food.y
-        )
-    );
+        for (let x = 0; x < SIZE; x++) {
+
+            const occupied =
+                snake.some(part =>
+                    part.x === x &&
+                    part.y === y
+                );
+
+            if (!occupied) {
+                freeCells.push({ x, y });
+            }
+        }
+    }
+
+    if (freeCells.length === 0) {
+
+        finishGame(true);
+
+        return;
+    }
+
+    const randomIndex =
+        Math.floor(
+            Math.random() * freeCells.length
+        );
+
+    food = freeCells[randomIndex];
 }
 
 
-/* =========================
+/* =====================================
    ИГРОВОЙ ЦИКЛ
-========================= */
+===================================== */
 
 function gameLoop() {
 
@@ -768,7 +809,9 @@ function gameLoop() {
     }
 
 
-    /* Стена */
+    /* =================================
+       СТЕНА
+    ================================= */
 
     if (
         head.x < 0 ||
@@ -777,37 +820,61 @@ function gameLoop() {
         head.y >= SIZE
     ) {
 
-        finishGame();
+        finishGame(false);
 
         return;
     }
 
 
-    /* Столкновение с собой */
+    /* =================================
+       ПРОВЕРКА ЕДЫ
+    ================================= */
+
+    const ateFood =
+        head.x === food.x &&
+        head.y === food.y;
+
+
+    /*
+       Если еда не съедена,
+       последний сегмент исчезнет.
+       Поэтому его можно не учитывать
+       при проверке столкновения.
+    */
+
+    const bodyToCheck =
+        ateFood
+            ? snake
+            : snake.slice(0, -1);
+
 
     const hitSelf =
-        snake.some(part =>
+        bodyToCheck.some(part =>
             part.x === head.x &&
             part.y === head.y
         );
 
+
     if (hitSelf) {
 
-        finishGame();
+        finishGame(false);
 
         return;
     }
 
 
+    /* =================================
+       ДВИЖЕНИЕ
+    ================================= */
+
     snake.unshift(head);
 
 
-    /* Еда */
+    /* =================================
+       ЕДА
+    ================================= */
 
-    if (
-        head.x === food.x &&
-        head.y === food.y
-    ) {
+    if (ateFood) {
 
         score++;
 
@@ -815,10 +882,11 @@ function gameLoop() {
             score;
 
 
-        if (
-            score >
-            getRecord(difficulty)
-        ) {
+        const currentRecord =
+            getRecord(difficulty);
+
+
+        if (score > currentRecord) {
 
             saveRecord(
                 difficulty,
@@ -826,6 +894,7 @@ function gameLoop() {
             );
 
             updateRecords();
+
         }
 
         createFood();
@@ -841,9 +910,9 @@ function gameLoop() {
 }
 
 
-/* =========================
+/* =====================================
    УПРАВЛЕНИЕ
-========================= */
+===================================== */
 
 function changeDirection(newDirection) {
 
@@ -851,57 +920,87 @@ function changeDirection(newDirection) {
         return;
     }
 
-
     const opposite = {
-
         up: "down",
         down: "up",
         left: "right",
         right: "left"
-
     };
 
 
+    /*
+       Нельзя мгновенно развернуться
+       на 180 градусов.
+    */
+
     if (
-        newDirection !==
+        newDirection ===
         opposite[direction]
     ) {
 
-        nextDirection =
-            newDirection;
+        return;
     }
+
+
+    /*
+       Дополнительная защита:
+       нельзя выбрать направление,
+       противоположное уже выбранному
+       следующему направлению.
+    */
+
+    if (
+        newDirection ===
+        opposite[nextDirection]
+    ) {
+
+        return;
+    }
+
+
+    nextDirection = newDirection;
 }
 
 
-/* Кнопки телефона */
+/* =====================================
+   КНОПКИ УПРАВЛЕНИЯ
+===================================== */
 
 document
-.querySelectorAll("[data-direction]")
-.forEach(button => {
+    .querySelectorAll("[data-direction]")
+    .forEach(button => {
 
-    button.addEventListener(
-        "pointerdown",
-        () => {
+        button.addEventListener(
+            "pointerdown",
+            event => {
 
-            changeDirection(
-                button.dataset.direction
-            );
+                event.preventDefault();
 
-        }
-    );
+                changeDirection(
+                    button.dataset.direction
+                );
 
-});
+            }
+        );
+
+    });
 
 
-/* =========================
+/* =====================================
    КЛАВИАТУРА
-========================= */
+===================================== */
 
 document.addEventListener(
     "keydown",
     event => {
 
-        const keys = {
+        const key =
+            event.key.length === 1
+                ? event.key.toLowerCase()
+                : event.key;
+
+
+        const keyDirections = {
 
             ArrowUp: "up",
             w: "up",
@@ -917,23 +1016,21 @@ document.addEventListener(
 
         };
 
-        const key =
-            event.key.length === 1
-                ? event.key.toLowerCase()
-                : event.key;
 
-        if (keys[key]) {
+        if (keyDirections[key]) {
 
             event.preventDefault();
 
             changeDirection(
-                keys[key]
+                keyDirections[key]
             );
+
+            return;
         }
 
 
         if (
-            event.key === " " ||
+            event.code === "Space" ||
             event.key === "Escape"
         ) {
 
@@ -946,16 +1043,21 @@ document.addEventListener(
 );
 
 
-/* =========================
-   СВАЙПЫ НА ТЕЛЕФОНЕ
-========================= */
+/* =====================================
+   СВАЙПЫ
+===================================== */
 
 let touchStartX = 0;
 let touchStartY = 0;
 
+
 canvas.addEventListener(
     "touchstart",
     event => {
+
+        if (!event.changedTouches.length) {
+            return;
+        }
 
         const touch =
             event.changedTouches[0];
@@ -967,13 +1069,19 @@ canvas.addEventListener(
             touch.clientY;
 
     },
-    {passive: true}
+    {
+        passive: true
+    }
 );
 
 
 canvas.addEventListener(
     "touchend",
     event => {
+
+        if (!event.changedTouches.length) {
+            return;
+        }
 
         const touch =
             event.changedTouches[0];
@@ -987,12 +1095,16 @@ canvas.addEventListener(
             touchStartY;
 
 
+        const minSwipeDistance = 20;
+
+
         if (
             Math.abs(dx) <
-            20 &&
+            minSwipeDistance &&
             Math.abs(dy) <
-            20
+            minSwipeDistance
         ) {
+
             return;
         }
 
@@ -1018,13 +1130,15 @@ canvas.addEventListener(
         }
 
     },
-    {passive: true}
+    {
+        passive: true
+    }
 );
 
 
-/* =========================
+/* =====================================
    ПАУЗА
-========================= */
+===================================== */
 
 function togglePause() {
 
@@ -1034,25 +1148,35 @@ function togglePause() {
 
     paused = !paused;
 
+
     if (paused) {
 
-        messageElement.textContent =
-            "⏸️ Пауза";
+        setMessage("⏸️ Игра на паузе");
 
     } else {
 
-        messageElement.textContent =
-            "▶️ Продолжаем!";
+        setMessage("▶️ Игра продолжается");
 
+        /*
+           Сразу перерисовываем поле,
+           чтобы пауза корректно исчезла.
+        */
+
+        draw();
+    }
+
+
+    if (paused) {
+        draw();
     }
 }
 
 
-/* =========================
-   КОНЕЦ
-========================= */
+/* =====================================
+   КОНЕЦ ИГРЫ
+===================================== */
 
-function finishGame() {
+function finishGame(completed = false) {
 
     clearInterval(timer);
 
@@ -1062,42 +1186,73 @@ function finishGame() {
     paused = false;
 
 
-    if (
-        score >
-        getRecord(difficulty)
-    ) {
+    if (completed) {
 
-        saveRecord(
-            difficulty,
-            score
-        );
+        if (
+            score >
+            getRecord(difficulty)
+        ) {
 
-        updateRecords();
+            saveRecord(
+                difficulty,
+                score
+            );
 
-        messageElement.textContent =
-            "🏆 Новый рекорд: " +
-            score;
+            updateRecords();
 
-        messageElement.className =
-            "message success";
+            setMessage(
+                "🏆 Поле полностью заполнено! Новый рекорд: " +
+                score,
+                "success"
+            );
+
+        } else {
+
+            setMessage(
+                "🏆 Победа! Поле заполнено. Очки: " +
+                score,
+                "success"
+            );
+        }
 
     } else {
 
-        messageElement.textContent =
-            "💥 Игра окончена! Очки: " +
-            score;
+        if (
+            score >
+            getRecord(difficulty)
+        ) {
 
-        messageElement.className =
-            "message error";
+            saveRecord(
+                difficulty,
+                score
+            );
+
+            updateRecords();
+
+            setMessage(
+                "🏆 Игра окончена! Новый рекорд: " +
+                score,
+                "success"
+            );
+
+        } else {
+
+            setMessage(
+                "💥 Игра окончена! Очки: " +
+                score,
+                "error"
+            );
+        }
     }
+
 
     draw();
 }
 
 
-/* =========================
+/* =====================================
    РИСОВАНИЕ
-========================= */
+===================================== */
 
 function draw() {
 
@@ -1117,6 +1272,8 @@ function draw() {
 
     ctx.strokeStyle =
         "rgba(255,255,255,.04)";
+
+    ctx.lineWidth = 1;
 
     for (
         let i = 0;
@@ -1182,6 +1339,7 @@ function draw() {
                     ? "#22c55e"
                     : "#16a34a";
 
+
             ctx.beginPath();
 
             ctx.roundRect(
@@ -1195,45 +1353,148 @@ function draw() {
             ctx.fill();
 
 
-            /* Глаза */
+            /* Голова */
 
             if (index === 0) {
 
-                ctx.fillStyle = "white";
+                drawSnakeEyes(part);
 
-                ctx.beginPath();
-
-                ctx.arc(
-                    part.x * CELL + 7,
-                    part.y * CELL + 7,
-                    3,
-                    0,
-                    Math.PI * 2
-                );
-
-                ctx.fill();
-
-                ctx.beginPath();
-
-                ctx.arc(
-                    part.x * CELL + 14,
-                    part.y * CELL + 7,
-                    3,
-                    0,
-                    Math.PI * 2
-                );
-
-                ctx.fill();
             }
 
         }
     );
+
+
+    /* Пауза */
+
+    if (paused) {
+
+        ctx.fillStyle =
+            "rgba(0,0,0,.55)";
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        ctx.fillStyle = "white";
+
+        ctx.textAlign = "center";
+
+        ctx.font =
+            "bold 40px Arial";
+
+        ctx.fillText(
+            "⏸️ ПАУЗА",
+            canvas.width / 2,
+            canvas.height / 2
+        );
+    }
 }
 
 
-/* =========================
+/* =====================================
+   ГЛАЗА ЗМЕЙКИ
+===================================== */
+
+function drawSnakeEyes(part) {
+
+    ctx.fillStyle = "white";
+
+    const baseX =
+        part.x * CELL;
+
+    const baseY =
+        part.y * CELL;
+
+
+    let eye1;
+    let eye2;
+
+
+    if (direction === "left") {
+
+        eye1 = {
+            x: baseX + 7,
+            y: baseY + 7
+        };
+
+        eye2 = {
+            x: baseX + 7,
+            y: baseY + 18
+        };
+
+    } else if (direction === "up") {
+
+        eye1 = {
+            x: baseX + 7,
+            y: baseY + 7
+        };
+
+        eye2 = {
+            x: baseX + 18,
+            y: baseY + 7
+        };
+
+    } else if (direction === "down") {
+
+        eye1 = {
+            x: baseX + 7,
+            y: baseY + 18
+        };
+
+        eye2 = {
+            x: baseX + 18,
+            y: baseY + 18
+        };
+
+    } else {
+
+        eye1 = {
+            x: baseX + 18,
+            y: baseY + 7
+        };
+
+        eye2 = {
+            x: baseX + 18,
+            y: baseY + 18
+        };
+    }
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        eye1.x,
+        eye1.y,
+        3,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        eye2.x,
+        eye2.y,
+        3,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+}
+
+
+/* =====================================
    СТАРТОВЫЙ ЭКРАН
-========================= */
+===================================== */
 
 function drawStart() {
 
@@ -1248,6 +1509,7 @@ function drawStart() {
 
 
     ctx.textAlign = "center";
+
 
     ctx.fillStyle = "#2563eb";
 
@@ -1286,33 +1548,25 @@ function drawStart() {
 }
 
 
-/* =========================
-   КНОПКА НАЧАТЬ
-========================= */
+/* =====================================
+   КНОПКИ
+===================================== */
 
-document
-.getElementById("startButton")
-.addEventListener(
+startButton.addEventListener(
     "click",
     startGame
 );
 
 
-/* =========================
-   КНОПКА ПАУЗА
-========================= */
-
-document
-.getElementById("pauseButton")
-.addEventListener(
+pauseButton.addEventListener(
     "click",
     togglePause
 );
 
 
-/* =========================
+/* =====================================
    ЗАПУСК
-========================= */
+===================================== */
 
 updateRecords();
 
