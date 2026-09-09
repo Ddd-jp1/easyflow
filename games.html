@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EasyFlow — Мои игры</title>
+
+<style>
+
+:root {
+    --main: #2563eb;
+    --background: #f4f7fb;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #64748b;
+    --border: #e5e7eb;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+
+    background: var(--background);
+    color: var(--text);
+
+    min-height: 100vh;
+}
+
+
+/* HEADER */
+
+header {
+    background: var(--card);
+
+    border-bottom: 1px solid var(--border);
+
+    padding: 18px 6%;
+}
+
+.header {
+    max-width: 1000px;
+
+    margin: auto;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+.logo {
+    color: var(--main);
+
+    font-size: 27px;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+.back {
+    color: var(--main);
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+
+/* CONTAINER */
+
+.container {
+    width: 100%;
+
+    max-width: 1000px;
+
+    margin: auto;
+
+    padding: 40px 20px;
+}
+
+
+/* TITLE */
+
+.title {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+.title h1 {
+    font-size: 42px;
+
+    color: var(--main);
+
+    margin-bottom: 10px;
+}
+
+.title p {
+    color: var(--muted);
+
+    font-size: 17px;
+}
+
+
+/* GAMES GRID */
+
+.games-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 22px;
+}
+
+
+/* GAME CARD */
+
+.game-card {
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,0.06);
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+.game-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(0,0,0,0.10);
+}
+
+
+/* ICON */
+
+.game-icon {
+
+    font-size: 70px;
+
+    margin-bottom: 15px;
+}
+
+
+/* NAME */
+
+.game-card h2 {
+
+    font-size: 25px;
+
+    margin-bottom: 10px;
+}
+
+
+/* DESCRIPTION */
+
+.game-card p {
+
+    color: var(--muted);
+
+    line-height: 1.5;
+
+    min-height: 48px;
+
+    margin-bottom: 22px;
+}
+
+
+/* BUTTON */
+
+.game-button {
+
+    display: inline-block;
+
+    text-decoration: none;
+
+    background: var(--main);
+
+    color: white;
+
+    padding: 13px 25px;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.game-button:hover {
+
+    background: #1d4ed8;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* FOOTER */
+
+footer {
+
+    margin-top: 50px;
+
+    background: #111827;
+
+    color: #9ca3af;
+
+    text-align: center;
+
+    padding: 25px;
+}
+
+
+/* MOBILE */
+
+@media(max-width: 700px) {
+
+    .header {
+
+        flex-direction: column;
+
+    }
+
+    .title h1 {
+
+        font-size: 34px;
+
+    }
+
+    .games-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .game-card {
+
+        padding: 25px 20px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+<div class="header">
+
+
+<a
+href="index.html"
+class="logo"
+>
+EasyFlow
+</a>
+
+
+<a
+href="index.html"
+class="back"
+>
+← На главную
+</a>
+
+
+</div>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="container">
+
+
+<div class="title">
+
+<h1>
+🎮 Мои игры
+</h1>
+
+<p>
+Выбери игру и попробуй установить новый рекорд!
+</p>
+
+</div>
+
+
+<div class="games-grid">
+
+
+<!-- =========================
+     ЗМЕЙКА
+========================= -->
+
+<div class="game-card">
+
+<div class="game-icon">
+🐍
+</div>
+
+<h2>
+Змейка
+</h2>
+
+<p>
+Собирай еду, увеличивай змейку
+и постарайся побить свой рекорд.
+</p>
+
+<a
+href="snake.html"
+class="game-button"
+>
+🎮 Играть
+</a>
+
+</div>
+
+
+<!-- =========================
+     КРЕСТИКИ НОЛИКИ
+========================= -->
+
+<div class="game-card">
+
+<div class="game-icon">
+❌⭕
+</div>
+
+<h2>
+Крестики-нолики
+</h2>
+
+<p>
+Сыграй против компьютера
+и постарайся победить.
+</p>
+
+<a
+href="tictactoe.html"
+class="game-button"
+>
+🎮 Играть
+</a>
+
+</div>
+
+
+<!-- =========================
+     ФЛАГИ
+========================= -->
+
+<div class="game-card">
+
+<div class="game-icon">
+🌍
+</div>
+
+<h2>
+Угадай страну
+</h2>
+
+<p>
+Посмотри на флаг и выбери
+правильную страну.
+</p>
+
+<a
+href="flags.html"
+class="game-button"
+>
+🎮 Играть
+</a>
+
+</div>
+
+
+<!-- =========================
+     ПИНГ-ПОНГ
+========================= -->
+
+<div class="game-card">
+
+<div class="game-icon">
+🏓
+</div>
+
+<h2>
+Пинг-понг
+</h2>
+
+<p>
+Отбивай мяч ракеткой
+и набирай очки против компьютера.
+</p>
+
+<a
+href="pingpong.html"
+class="game-button"
+>
+🎮 Играть
+</a>
+
+</div>
+
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+© 2026 EasyFlow
+
+</footer>
+
+
+</body>
+</html>
