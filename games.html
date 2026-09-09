@@ -1,778 +1,1807 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>EasyFlow — Мои игры</title>
+<title>EasyFlow — Игры</title>
 
 <style>
-
-:root {
-    --main: #2563eb;
-    --background: #f4f7fb;
-    --card: #ffffff;
-    --text: #111827;
-    --muted: #64748b;
-    --border: #e5e7eb;
-    --radius: 16px;
+:root{
+    --main:#2563eb;
+    --bg:#f4f7fb;
+    --card:#fff;
+    --text:#111827;
+    --muted:#64748b;
+    --border:#e5e7eb;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: var(--background);
-    color: var(--text);
-    min-height: 100vh;
+body{
+    font-family:Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
 }
 
-body.dark {
-    --background: #0f172a;
-    --card: #1e293b;
-    --text: #f8fafc;
-    --muted: #94a3b8;
-    --border: #334155;
+body.dark{
+    --bg:#0f172a;
+    --card:#1e293b;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --border:#334155;
 }
 
-/* HEADER */
-
-header {
-    background: var(--card);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 5%;
+header{
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    padding:15px 5%;
 }
 
-.header-inner {
-    max-width: 1100px;
-    margin: auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+.header{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.logo {
-    color: var(--main);
-    font-size: 28px;
-    font-weight: bold;
-    text-decoration: none;
+.logo{
+    color:var(--main);
+    font-size:28px;
+    font-weight:bold;
 }
 
-.back-button {
-    display: inline-block;
-    text-decoration: none;
-
-    background: var(--main);
-    color: white;
-
-    padding: 11px 18px;
-    border-radius: 10px;
-
-    font-weight: bold;
-
-    transition: 0.2s;
+.header button{
+    border:0;
+    background:var(--main);
+    color:white;
+    padding:11px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-.back-button:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:35px 20px;
 }
 
-/* MAIN */
-
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 40px 20px;
+.title{
+    text-align:center;
+    margin-bottom:30px;
 }
 
-/* WELCOME */
-
-.welcome {
-    margin-bottom: 40px;
+.title h1{
+    color:var(--main);
+    font-size:40px;
+    margin-bottom:10px;
 }
 
-.welcome-content {
-    background: var(--card);
-
-    border: 1px solid var(--border);
-    border-radius: 22px;
-
-    padding: 45px 25px;
-
-    text-align: center;
-
-    box-shadow:
-        0 10px 30px
-        rgba(0, 0, 0, 0.06);
+.title p{
+    color:var(--muted);
 }
 
-.welcome h1 {
-    color: var(--main);
-    font-size: 38px;
-    margin-bottom: 15px;
+.games{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
 }
 
-.welcome p {
-    color: var(--muted);
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 8px;
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.07);
+    transition:.2s;
 }
 
-.welcome-button {
-    display: inline-block;
-
-    margin-top: 22px;
-
-    padding: 13px 25px;
-
-    background: var(--main);
-    color: white;
-
-    text-decoration: none;
-
-    border-radius: 12px;
-
-    font-weight: bold;
-
-    transition: 0.2s;
+.card:hover{
+    transform:translateY(-5px);
 }
 
-.welcome-button:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
+.icon{
+    font-size:65px;
+    margin-bottom:15px;
 }
 
-/* TITLE */
-
-.title {
-    text-align: center;
-    margin-bottom: 35px;
+.card h2{
+    margin-bottom:10px;
 }
 
-.title h2 {
-    font-size: 36px;
-    color: var(--main);
-    margin-bottom: 10px;
+.card p{
+    color:var(--muted);
+    line-height:1.5;
+    margin-bottom:20px;
 }
 
-.title p {
-    color: var(--muted);
-    font-size: 18px;
+.play{
+    border:0;
+    background:var(--main);
+    color:white;
+    padding:13px 25px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:16px;
 }
 
-/* GAMES */
-
-.games-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 25px;
+.screen{
+    display:none;
 }
 
-/* CARD */
-
-.game-card {
-    background: var(--card);
-
-    border: 1px solid var(--border);
-
-    border-radius: var(--radius);
-
-    padding: 35px 25px;
-
-    text-align: center;
-
-    box-shadow:
-        0 10px 30px
-        rgba(0, 0, 0, 0.06);
-
-    transition:
-        transform 0.2s,
-        box-shadow 0.2s;
+.screen.active{
+    display:block;
 }
 
-.game-card:hover {
-    transform: translateY(-6px);
-
-    box-shadow:
-        0 15px 35px
-        rgba(0, 0, 0, 0.12);
+.game-panel{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
-/* ICON */
-
-.game-icon {
-    font-size: 70px;
-    margin-bottom: 18px;
+.game-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    gap:15px;
 }
 
-/* TITLE */
-
-.game-card h3 {
-    font-size: 25px;
-    margin-bottom: 12px;
+.back{
+    border:0;
+    background:#64748b;
+    color:white;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
 }
 
-/* DESCRIPTION */
-
-.game-card p {
-    color: var(--muted);
-
-    line-height: 1.6;
-
-    min-height: 55px;
-
-    margin-bottom: 25px;
+.stats{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
 }
 
-/* BUTTON */
-
-.play-button {
-    display: inline-block;
-
-    text-decoration: none;
-
-    background: var(--main);
-    color: white;
-
-    padding: 13px 25px;
-
-    border-radius: var(--radius);
-
-    font-weight: bold;
-
-    transition: 0.2s;
+.stat{
+    background:var(--bg);
+    border:1px solid var(--border);
+    padding:12px 20px;
+    border-radius:12px;
+    text-align:center;
 }
 
-.play-button:hover {
-    opacity: 0.9;
-    transform: scale(1.03);
+.stat small{
+    display:block;
+    color:var(--muted);
 }
 
-/* NEW GAME BADGE */
-
-.new-game {
-    position: relative;
+.stat strong{
+    font-size:22px;
 }
 
-.new-game::before {
-    content: "НОВАЯ ИГРА";
-
-    position: absolute;
-
-    top: 14px;
-    right: 14px;
-
-    background: #22c55e;
-    color: white;
-
-    padding: 5px 9px;
-
-    border-radius: 8px;
-
-    font-size: 11px;
-    font-weight: bold;
+button{
+    font-family:inherit;
 }
 
-/* FOOTER */
-
-footer {
-    margin-top: 50px;
-
-    padding: 25px;
-
-    background: #111827;
-
-    color: #9ca3af;
-
-    text-align: center;
+.big-button{
+    background:var(--main);
+    color:white;
+    border:0;
+    border-radius:12px;
+    padding:14px 22px;
+    cursor:pointer;
+    font-weight:bold;
+    margin:5px;
 }
 
-/* MOBILE */
+.message{
+    min-height:30px;
+    margin:15px;
+    text-align:center;
+    font-weight:bold;
+}
 
-@media (max-width: 750px) {
+.flag{
+    width:100%;
+    max-width:500px;
+    height:260px;
+    object-fit:contain;
+    display:block;
+    margin:20px auto;
+    background:#f8fafc;
+    border-radius:15px;
+}
 
-    .header-inner {
-        flex-direction: column;
+.answers{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    max-width:600px;
+    margin:auto;
+}
+
+.answer{
+    padding:15px;
+    border:2px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.answer:hover{
+    border-color:var(--main);
+}
+
+.correct{
+    background:#dcfce7!important;
+    border-color:#22c55e!important;
+    color:#166534!important;
+}
+
+.wrong{
+    background:#fee2e2!important;
+    border-color:#ef4444!important;
+}
+
+.memory-grid{
+    display:grid;
+    grid-template-columns:repeat(4,90px);
+    justify-content:center;
+    gap:10px;
+}
+
+.memory-card{
+    width:90px;
+    height:90px;
+    border:0;
+    border-radius:12px;
+    background:var(--main);
+    color:white;
+    font-size:35px;
+    cursor:pointer;
+}
+
+.memory-card.open{
+    background:white;
+    color:#111827;
+}
+
+.ttt{
+    display:grid;
+    grid-template-columns:repeat(3,90px);
+    justify-content:center;
+    gap:8px;
+}
+
+.ttt button{
+    width:90px;
+    height:90px;
+    font-size:40px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    border-radius:12px;
+    cursor:pointer;
+    color:var(--text);
+}
+
+.bike-track{
+    height:400px;
+    max-width:650px;
+    margin:auto;
+    border-radius:20px;
+    background:
+        linear-gradient(
+            90deg,
+            #333 0 12%,
+            #555 12% 88%,
+            #333 88%
+        );
+    position:relative;
+    overflow:hidden;
+}
+
+.road-line{
+    position:absolute;
+    width:8px;
+    height:60px;
+    background:white;
+    left:50%;
+    transform:translateX(-50%);
+    animation:road 1s linear infinite;
+}
+
+@keyframes road{
+    from{top:-70px}
+    to{top:430px}
+}
+
+.bike{
+    position:absolute;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:65px;
+}
+
+.bike-controls{
+    text-align:center;
+    margin-top:15px;
+}
+
+.control{
+    width:70px;
+    height:55px;
+    margin:5px;
+    border:0;
+    border-radius:12px;
+    background:var(--main);
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.boxing-ring{
+    max-width:700px;
+    height:350px;
+    margin:auto;
+    border:12px solid #cbd5e1;
+    background:
+        linear-gradient(
+            #2563eb 0 8%,
+            #f8fafc 8% 92%,
+            #2563eb 92%
+        );
+    border-radius:20px;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    font-size:90px;
+}
+
+.fighter{
+    text-align:center;
+}
+
+.fighter-name{
+    font-size:16px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.fighters{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin:20px 0;
+}
+
+.fighter-choice{
+    padding:15px 8px;
+    border:2px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.fighter-choice.selected{
+    border-color:var(--main);
+    background:#eff6ff;
+}
+
+.combo{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin:15px 0;
+}
+
+.combo button{
+    padding:13px;
+    border:0;
+    border-radius:10px;
+    background:var(--main);
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.settings{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:20px 0;
+}
+
+select{
+    padding:10px;
+    border-radius:10px;
+    border:1px solid var(--border);
+}
+
+footer{
+    margin-top:40px;
+    background:#111827;
+    color:#9ca3af;
+    text-align:center;
+    padding:25px;
+}
+
+@media(max-width:750px){
+
+    .games{
+        grid-template-columns:1fr;
     }
 
-    .container {
-        padding: 25px 12px;
+    .title h1{
+        font-size:32px;
     }
 
-    .welcome-content {
-        padding: 35px 18px;
+    .answers{
+        grid-template-columns:1fr;
     }
 
-    .welcome h1 {
-        font-size: 28px;
+    .memory-grid{
+        grid-template-columns:repeat(4,65px);
     }
 
-    .welcome p {
-        font-size: 16px;
+    .memory-card{
+        width:65px;
+        height:65px;
     }
 
-    .title h2 {
-        font-size: 30px;
+    .ttt{
+        grid-template-columns:repeat(3,75px);
     }
 
-    .games-grid {
-        grid-template-columns: 1fr;
+    .ttt button{
+        width:75px;
+        height:75px;
     }
 
-    .game-card {
-        padding: 30px 20px;
+    .fighters{
+        grid-template-columns:repeat(2,1fr);
     }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
-<!-- HEADER -->
-
 <header>
+<div class="header">
 
-<div class="header-inner">
+<div class="logo">EasyFlow</div>
 
-<a
-    href="index.html"
-    class="logo"
->
-    EasyFlow
-</a>
-
-<a
-    href="index.html"
-    class="back-button"
->
-    ← На главную
-</a>
+<button onclick="toggleTheme()">
+🌙 Тема
+</button>
 
 </div>
-
 </header>
-
-
-<!-- MAIN -->
 
 <main class="container">
 
+<!-- МЕНЮ -->
 
-<!-- ПРИВЕТСТВИЕ -->
+<section id="menu" class="screen active">
 
-<section class="welcome">
-
-<div class="welcome-content">
-
-<h1>
-    👋 Добро пожаловать в EasyFlow!
-</h1>
-
-<p>
-    Твой удобный сайт для игр,
-    развлечений и хорошего настроения.
-</p>
-
-<p>
-    Выбирай игру, устанавливай рекорды
-    и наслаждайся временем в EasyFlow 🎮
-</p>
-
-<a
-    href="#games"
-    class="welcome-button"
->
-    🎮 Выбрать игру
-</a>
-
+<div class="title">
+<h1>🎮 Мои игры</h1>
+<p>Выбирай игру и начинай играть!</p>
 </div>
 
+<div class="games">
+
+<div class="card">
+<div class="icon">❌⭕</div>
+<h2>Крестики-нолики</h2>
+<p>Сыграй против компьютера.</p>
+<button class="play" onclick="openGame('ttt')">
+🎮 Играть
+</button>
+</div>
+
+<div class="card">
+<div class="icon">🏓</div>
+<h2>Пинг-понг</h2>
+<p>Отбивай мяч и набирай очки.</p>
+<button class="play" onclick="openGame('pong')">
+🎮 Играть
+</button>
+</div>
+
+<div class="card">
+<div class="icon">🌍</div>
+<h2>Угадай флаг</h2>
+<p>Проверь свои знания географии.</p>
+<button class="play" onclick="openGame('flags')">
+🎮 Играть
+</button>
+</div>
+
+<div class="card">
+<div class="icon">🧠</div>
+<h2>Игра на память</h2>
+<p>Найди одинаковые пары карточек.</p>
+<button class="play" onclick="openGame('memory')">
+🎮 Играть
+</button>
+</div>
+
+<div class="card">
+<div class="icon">🥊</div>
+<h2>Бокс</h2>
+<p>Выбирай бойца и выполняй комбинации ударов.</p>
+<button class="play" onclick="openGame('boxing')">
+🥊 Играть
+</button>
+</div>
+
+<div class="card">
+<div class="icon">🏍️</div>
+<h2>Мотоцикл</h2>
+<p>Гоняй по трассе, зарабатывай деньги и открывай мотоциклы.</p>
+<button class="play" onclick="openGame('bike')">
+🏍️ Играть
+</button>
+</div>
+
+</div>
 </section>
 
 
-<!-- ЗАГОЛОВОК -->
+<!-- КРЕСТИКИ -->
 
-<div
-    class="title"
-    id="games"
->
+<section id="ttt" class="screen">
 
-<h2>
-    🎮 Мои игры
-</h2>
+<div class="game-panel">
 
-<p>
-    Выбирай игру и начинай играть!
-</p>
+<div class="game-header">
+<h2>❌⭕ Крестики-нолики</h2>
+<button class="back" onclick="backMenu()">← Игры</button>
+</div>
+
+<div class="ttt" id="board"></div>
+
+<div class="message" id="tttMessage">
+Твой ход
+</div>
+
+<button class="big-button" onclick="startTTT()">
+🔄 Новая игра
+</button>
+
+</div>
+</section>
+
+
+<!-- ПИНГ ПОНГ -->
+
+<section id="pong" class="screen">
+
+<div class="game-panel">
+
+<div class="game-header">
+<h2>🏓 Пинг-понг</h2>
+<button class="back" onclick="backMenu()">← Игры</button>
+</div>
+
+<div class="stats">
+<div class="stat">
+<small>Ты</small>
+<strong id="playerScore">0</strong>
+</div>
+
+<div class="stat">
+<small>Компьютер</small>
+<strong id="enemyScore">0</strong>
+</div>
+</div>
+
+<div style="
+height:350px;
+max-width:700px;
+margin:auto;
+background:#15803d;
+border:8px solid white;
+border-radius:15px;
+position:relative;
+overflow:hidden;
+">
+
+<div id="pongBall" style="
+position:absolute;
+width:20px;
+height:20px;
+background:white;
+border-radius:50%;
+left:50%;
+top:50%;
+"></div>
+
+<div id="playerPaddle" style="
+position:absolute;
+bottom:15px;
+left:50%;
+width:100px;
+height:15px;
+background:#2563eb;
+border-radius:10px;
+"></div>
 
 </div>
 
+<div class="bike-controls">
 
-<!-- ИГРЫ -->
+<button class="control"
+onmousedown="movePaddle(-1)"
+ontouchstart="movePaddle(-1)">
+⬅️
+</button>
 
-<div class="games-grid">
+<button class="control"
+onmousedown="movePaddle(1)"
+ontouchstart="movePaddle(1)">
+➡️
+</button>
 
-
-<!-- =========================
-     КРЕСТИКИ-НОЛИКИ
-========================= -->
-
-<div class="game-card">
-
-<div class="game-icon">
-    ❌⭕
 </div>
 
-<h3>
-    Крестики-нолики
+</div>
+</section>
+
+
+<!-- ФЛАГИ -->
+
+<section id="flags" class="screen">
+
+<div class="game-panel">
+
+<div class="game-header">
+<h2>🌍 Угадай флаг</h2>
+<button class="back" onclick="backMenu()">← Игры</button>
+</div>
+
+<div class="stats">
+<div class="stat">
+<small>Очки</small>
+<strong id="flagScore">0</strong>
+</div>
+
+<div class="stat">
+<small>Рекорд</small>
+<strong id="flagRecord">0</strong>
+</div>
+
+<div class="stat">
+<small>❤️ Жизни</small>
+<strong id="flagLives">3</strong>
+</div>
+</div>
+
+<img id="flagImage" class="flag">
+
+<div class="message" id="flagMessage">
+Нажми начать игру
+</div>
+
+<div id="flagAnswers" class="answers"></div>
+
+<div style="text-align:center">
+<button class="big-button" onclick="startFlags()">
+▶️ Начать
+</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- ПАМЯТЬ -->
+
+<section id="memory" class="screen">
+
+<div class="game-panel">
+
+<div class="game-header">
+<h2>🧠 Игра на память</h2>
+<button class="back" onclick="backMenu()">← Игры</button>
+</div>
+
+<div class="stats">
+<div class="stat">
+<small>Ходы</small>
+<strong id="moves">0</strong>
+</div>
+</div>
+
+<div id="memoryGrid" class="memory-grid"></div>
+
+<div class="message" id="memoryMessage"></div>
+
+<button class="big-button" onclick="startMemory()">
+🔄 Новая игра
+</button>
+
+</div>
+</section>
+
+
+<!-- БОКС -->
+
+<section id="boxing" class="screen">
+
+<div class="game-panel">
+
+<div class="game-header">
+
+<h2>🥊 EasyFlow Boxing</h2>
+
+<button class="back" onclick="backMenu()">
+← Игры
+</button>
+
+</div>
+
+<h3 style="text-align:center">
+Выбери бойца
 </h3>
 
-<p>
-    Сыграй против компьютера.
-    Выбирай уровень сложности
-    и постарайся победить!
-</p>
+<div class="fighters" id="fighters"></div>
 
-<a
-    href="tictactoe.html"
-    class="play-button"
->
-    🎮 Играть
-</a>
+<div class="boxing-ring">
+
+<div class="fighter">
+🥊
+<div class="fighter-name" id="playerFighter">
+Ты
+</div>
+</div>
+
+<div>
+VS
+</div>
+
+<div class="fighter">
+🥊
+<div class="fighter-name">
+Соперник
+</div>
+</div>
 
 </div>
 
+<div class="stats">
 
-<!-- =========================
-     ПИНГ-ПОНГ
-========================= -->
-
-<div class="game-card">
-
-<div class="game-icon">
-    🏓
+<div class="stat">
+<small>Твоё здоровье</small>
+<strong id="playerHP">100</strong>
 </div>
 
-<h3>
-    Пинг-понг
+<div class="stat">
+<small>Здоровье соперника</small>
+<strong id="enemyHP">100</strong>
+</div>
+
+</div>
+
+<div class="combo" id="boxingButtons">
+
+<button onclick="boxingMove('jab')">
+👊 Левый прямой
+</button>
+
+<button onclick="boxingMove('cross')">
+👊 Правый прямой
+</button>
+
+<button onclick="boxingMove('hook')">
+🌀 Хук
+</button>
+
+<button onclick="boxingMove('upper')">
+⬆️ Апперкот
+</button>
+
+<button onclick="boxingMove('block')">
+🛡️ Блок
+</button>
+
+<button onclick="boxingMove('dodge')">
+↔️ Уклон
+</button>
+
+</div>
+
+<div class="message" id="boxingMessage">
+Выбери бойца и начинай бой!
+</div>
+
+</div>
+</section>
+
+
+<!-- МОТОЦИКЛ -->
+
+<section id="bike" class="screen">
+
+<div class="game-panel">
+
+<div class="game-header">
+
+<h2>🏍️ EasyFlow Moto</h2>
+
+<button class="back" onclick="backMenu()">
+← Игры
+</button>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<small>💰 Деньги</small>
+<strong id="money">1000</strong>
+</div>
+
+<div class="stat">
+<small>🏍️ Мотоцикл</small>
+<strong id="bikeName">Street 125</strong>
+</div>
+
+</div>
+
+<div class="settings">
+
+<label>
+Графика:
+<select id="graphics">
+<option value="low">Низкая</option>
+<option value="medium" selected>Средняя</option>
+<option value="high">Высокая</option>
+</select>
+</label>
+
+<label>
+Погода:
+<select id="weather">
+<option>☀️ Солнечно</option>
+<option>🌧️ Дождь</option>
+<option>🌫️ Туман</option>
+<option>🌙 Ночь</option>
+</select>
+</label>
+
+</div>
+
+<div class="bike-track" id="bikeTrack">
+
+<div class="road-line"></div>
+
+<div class="bike" id="bike">
+🏍️
+</div>
+
+</div>
+
+<div class="bike-controls">
+
+<button class="control"
+onclick="moveBike(-1)">
+⬅️
+</button>
+
+<button class="control"
+onclick="moveBike(1)">
+➡️
+</button>
+
+</div>
+
+<h3 style="text-align:center;margin:25px 0 15px">
+🏍️ Магазин мотоциклов
 </h3>
 
-<p>
-    Управляй ракеткой и отбивай
-    мяч. Набери больше очков,
-    чем соперник!
-</p>
+<div class="fighters">
 
-<a
-    href="pingpong.html"
-    class="play-button"
->
-    🎮 Играть
-</a>
+<button class="fighter-choice"
+onclick="buyBike('Street 125',0)">
+🏍️ Street 125<br>Бесплатно
+</button>
 
-</div>
+<button class="fighter-choice"
+onclick="buyBike('Sport 600',1500)">
+🏍️ Sport 600<br>1500 💰
+</button>
 
+<button class="fighter-choice"
+onclick="buyBike('Racing 1000',4000)">
+🏍️ Racing 1000<br>4000 💰
+</button>
 
-<!-- =========================
-     УГАДАЙ ФЛАГ
-========================= -->
+<button class="fighter-choice"
+onclick="buyBike('SuperBike X',8000)">
+🏍️ SuperBike X<br>8000 💰
+</button>
 
-<div class="game-card">
+<button class="fighter-choice"
+onclick="buyBike('Monster V2',12000)">
+🏍️ Monster V2<br>12000 💰
+</button>
 
-<div class="game-icon">
-    🌍
-</div>
-
-<h3>
-    Угадай страну по флагу
-</h3>
-
-<p>
-    Все 196 стран мира.
-    Смотри на флаг и выбирай
-    правильный ответ!
-</p>
-
-<a
-    href="flags.html"
-    class="play-button"
->
-    🎮 Играть
-</a>
+<button class="fighter-choice"
+onclick="buyBike('Ultimate R',20000)">
+🏍️ Ultimate R<br>20000 💰
+</button>
 
 </div>
 
-
-<!-- =========================
-     ПАМЯТЬ
-========================= -->
-
-<div class="game-card">
-
-<div class="game-icon">
-    🧠
+<div class="message" id="bikeMessage">
+Управляй мотоциклом!
 </div>
 
-<h3>
-    Игра на память
-</h3>
-
-<p>
-    Открывай карточки и находи
-    одинаковые пары. Улучшай
-    свой результат!
-</p>
-
-<a
-    href="memory.html"
-    class="play-button"
->
-    🎮 Играть
-</a>
+<button class="big-button"
+onclick="earnMoney()">
+🏁 Проехать гонку +500 💰
+</button>
 
 </div>
-
-
-<!-- =========================
-     🥊 БОКС
-========================= -->
-
-<div class="game-card new-game">
-
-<div class="game-icon">
-    🥊
-</div>
-
-<h3>
-    3D Бокс
-</h3>
-
-<p>
-    Реалистичный бокс с бойцом,
-    блоками, уклонами и ударами.
-    Используй комбинации из 40 комбо!
-</p>
-
-<a
-    href="boxing.html"
-    class="play-button"
->
-    🥊 Играть
-</a>
-
-</div>
-
-
-<!-- =========================
-     🏍️ МОТОЦИКЛЫ
-========================= -->
-
-<div class="game-card new-game">
-
-<div class="game-icon">
-    🏍️
-</div>
-
-<h3>
-    3D Мотоциклы
-</h3>
-
-<p>
-    Гоняй на мотоциклах, зарабатывай
-    деньги, покупай новые байки,
-    меняй погоду и графику!
-</p>
-
-<a
-    href="motorcycle.html"
-    class="play-button"
->
-    🏍️ Играть
-</a>
-
-</div>
-
-
-<!-- =========================
-     🚗 ГОНКИ
-========================= -->
-
-<div class="game-card">
-
-<div class="game-icon">
-    🏎️
-</div>
-
-<h3>
-    3D Гонки
-</h3>
-
-<p>
-    Скоростные заезды,
-    соперники, трассы и
-    борьба за первое место.
-</p>
-
-<a
-    href="racing.html"
-    class="play-button"
->
-    🏁 Играть
-</a>
-
-</div>
-
-
-<!-- =========================
-     🎯 ТИР
-========================= -->
-
-<div class="game-card">
-
-<div class="game-icon">
-    🎯
-</div>
-
-<h3>
-    Тир
-</h3>
-
-<p>
-    Проверяй скорость реакции
-    и точность. Набери как можно
-    больше очков!
-</p>
-
-<a
-    href="shooting.html"
-    class="play-button"
->
-    🎯 Играть
-</a>
-
-</div>
-
-
-</div>
+</section>
 
 </main>
 
 
-<!-- FOOTER -->
-
 <footer>
-
-© 2026 EasyFlow — Мои игры
-
+© 2026 EasyFlow — Игры
 </footer>
 
 
 <script>
 
 /* =========================
-   НАСТРОЙКИ EASYFLOW
+   НАВИГАЦИЯ
 ========================= */
 
-window.addEventListener(
-    "DOMContentLoaded",
-    function() {
+function openGame(id){
 
-        /* ЦВЕТ */
+    document
+        .querySelectorAll(".screen")
+        .forEach(x=>x.classList.remove("active"));
 
-        const color =
-            localStorage.getItem(
-                "easyflow_color"
-            );
+    document
+        .getElementById(id)
+        .classList.add("active");
 
-        if (color) {
+    if(id==="ttt") startTTT();
 
-            document
-                .documentElement
-                .style
-                .setProperty(
-                    "--main",
-                    color
-                );
+    if(id==="memory") startMemory();
 
-        }
+    if(id==="boxing") loadFighters();
 
+    if(id==="flags") startFlags();
 
-        /* ШРИФТ */
+}
 
-        const font =
-            localStorage.getItem(
-                "easyflow_font"
-            );
+function backMenu(){
 
-        if (font) {
+    document
+        .querySelectorAll(".screen")
+        .forEach(x=>x.classList.remove("active"));
 
-            document.body.style.fontFamily =
-                font;
+    document
+        .getElementById("menu")
+        .classList.add("active");
 
-        }
+}
 
+function toggleTheme(){
 
-        /* СКРУГЛЕНИЕ */
+    document.body.classList.toggle("dark");
 
-        const radius =
-            localStorage.getItem(
-                "easyflow_radius"
-            );
+    localStorage.setItem(
+        "easyflow_theme",
+        document.body.classList.contains("dark")
+        ? "dark"
+        : "light"
+    );
 
-        if (radius) {
-
-            document
-                .documentElement
-                .style
-                .setProperty(
-                    "--radius",
-                    radius
-                );
-
-        }
+}
 
 
-        /* ТЕМА */
+/* =========================
+   КРЕСТИКИ
+========================= */
 
-        const theme =
-            localStorage.getItem(
-                "easyflow_theme"
-            );
+let tttBoard=[];
+let tttTurn="X";
 
-        if (theme === "dark") {
+function startTTT(){
 
-            document.body.classList.add(
-                "dark"
-            );
+    tttBoard=[
+        "","","",
+        "","","",
+        "","",""
+    ];
 
-        }
+    tttTurn="X";
+
+    drawTTT();
+
+    document.getElementById(
+        "tttMessage"
+    ).textContent="Твой ход";
+
+}
+
+function drawTTT(){
+
+    const board=
+        document.getElementById("board");
+
+    board.innerHTML="";
+
+    tttBoard.forEach((value,index)=>{
+
+        const button=
+            document.createElement("button");
+
+        button.textContent=value;
+
+        button.onclick=()=>tttMove(index);
+
+        board.appendChild(button);
+
+    });
+
+}
+
+function tttMove(index){
+
+    if(tttBoard[index]) return;
+
+    tttBoard[index]="X";
+
+    if(checkTTT("X")){
+
+        drawTTT();
+
+        document.getElementById(
+            "tttMessage"
+        ).textContent="🎉 Ты победил!";
+
+        return;
 
     }
-);
+
+    tttTurn="O";
+
+    drawTTT();
+
+    setTimeout(()=>{
+
+        const free=[];
+
+        tttBoard.forEach((v,i)=>{
+            if(!v) free.push(i);
+        });
+
+        if(!free.length) return;
+
+        const move=
+            free[Math.floor(
+                Math.random()*free.length
+            )];
+
+        tttBoard[move]="O";
+
+        drawTTT();
+
+        if(checkTTT("O")){
+
+            document.getElementById(
+                "tttMessage"
+            ).textContent=
+                "🤖 Компьютер победил!";
+
+        }
+
+    },400);
+
+}
+
+function checkTTT(player){
+
+    const wins=[
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ];
+
+    return wins.some(
+        x=>x.every(i=>tttBoard[i]===player)
+    );
+
+}
+
+
+/* =========================
+   ФЛАГИ
+========================= */
+
+const countries=[
+
+["Казахстан","kz"],
+["Россия","ru"],
+["Украина","ua"],
+["Беларусь","by"],
+["Германия","de"],
+["Франция","fr"],
+["Италия","it"],
+["Испания","es"],
+["Португалия","pt"],
+["Польша","pl"],
+["Турция","tr"],
+["Китай","cn"],
+["Япония","jp"],
+["Южная Корея","kr"],
+["Индия","in"],
+["Бразилия","br"],
+["Аргентина","ar"],
+["Мексика","mx"],
+["Канада","ca"],
+["США","us"],
+["Великобритания","gb"],
+["Австралия","au"],
+["Египет","eg"],
+["Греция","gr"],
+["Норвегия","no"],
+["Швеция","se"],
+["Финляндия","fi"],
+["Дания","dk"],
+["Исландия","is"],
+["Швейцария","ch"]
+
+];
+
+let flagCurrent;
+let flagScore=0;
+let flagLives=3;
+
+function startFlags(){
+
+    flagScore=0;
+    flagLives=3;
+
+    updateFlagStats();
+
+    nextFlag();
+
+}
+
+function updateFlagStats(){
+
+    document.getElementById(
+        "flagScore"
+    ).textContent=flagScore;
+
+    document.getElementById(
+        "flagLives"
+    ).textContent=flagLives;
+
+}
+
+function nextFlag(){
+
+    flagCurrent=
+        countries[
+            Math.floor(
+                Math.random()*countries.length
+            )
+        ];
+
+    document.getElementById(
+        "flagImage"
+    ).src=
+        "https://flagcdn.com/w640/"
+        +flagCurrent[1]+".png";
+
+    const options=[
+        flagCurrent
+    ];
+
+    const shuffled=
+        [...countries]
+        .filter(x=>x!==flagCurrent)
+        .sort(()=>Math.random()-.5);
+
+    while(options.length<4){
+        options.push(shuffled.shift());
+    }
+
+    options.sort(()=>Math.random()-.5);
+
+    const answers=
+        document.getElementById(
+            "flagAnswers"
+        );
+
+    answers.innerHTML="";
+
+    options.forEach(country=>{
+
+        const button=
+            document.createElement("button");
+
+        button.className="answer";
+
+        button.textContent=country[0];
+
+        button.onclick=()=>checkFlag(
+            country,
+            button
+        );
+
+        answers.appendChild(button);
+
+    });
+
+    document.getElementById(
+        "flagMessage"
+    ).textContent="Выбери страну";
+
+}
+
+function checkFlag(country,button){
+
+    document
+        .querySelectorAll("#flagAnswers .answer")
+        .forEach(x=>x.disabled=true);
+
+    if(country[0]===flagCurrent[0]){
+
+        button.classList.add("correct");
+
+        flagScore++;
+
+        document.getElementById(
+            "flagMessage"
+        ).textContent="✅ Правильно!";
+
+    }else{
+
+        button.classList.add("wrong");
+
+        flagLives--;
+
+        document.getElementById(
+            "flagMessage"
+        ).textContent=
+            "❌ Правильно: "
+            +flagCurrent[0];
+
+    }
+
+    updateFlagStats();
+
+    if(flagLives<=0){
+
+        const old=
+            Number(
+                localStorage.getItem(
+                    "flagRecord"
+                )||0
+            );
+
+        if(flagScore>old){
+
+            localStorage.setItem(
+                "flagRecord",
+                flagScore
+            );
+
+        }
+
+        document.getElementById(
+            "flagRecord"
+        ).textContent=
+            localStorage.getItem(
+                "flagRecord"
+            )||0;
+
+        return;
+
+    }
+
+    setTimeout(nextFlag,700);
+
+}
+
+
+/* =========================
+   ПАМЯТЬ
+========================= */
+
+let memoryFirst=null;
+let memoryLock=false;
+let memoryMoves=0;
+let memoryPairs=0;
+
+function startMemory(){
+
+    memoryFirst=null;
+    memoryLock=false;
+    memoryMoves=0;
+    memoryPairs=0;
+
+    document.getElementById(
+        "moves"
+    ).textContent=0;
+
+    const symbols=[
+        "🍎","🍎",
+        "🍌","🍌",
+        "🍒","🍒",
+        "🍋","🍋",
+        "🍉","🍉",
+        "🥝","🥝",
+        "🍇","🍇",
+        "🍓","🍓"
+    ].sort(()=>Math.random()-.5);
+
+    const grid=
+        document.getElementById(
+            "memoryGrid"
+        );
+
+    grid.innerHTML="";
+
+    symbols.forEach(symbol=>{
+
+        const card=
+            document.createElement("button");
+
+        card.className="memory-card";
+
+        card.textContent="❓";
+
+        card.dataset.value=symbol;
+
+        card.onclick=()=>memoryClick(card);
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+function memoryClick(card){
+
+    if(
+        memoryLock ||
+        card.classList.contains("open")
+    ) return;
+
+    card.classList.add("open");
+
+    card.textContent=
+        card.dataset.value;
+
+    if(!memoryFirst){
+
+        memoryFirst=card;
+
+        return;
+
+    }
+
+    memoryMoves++;
+
+    document.getElementById(
+        "moves"
+    ).textContent=memoryMoves;
+
+    if(
+        memoryFirst.dataset.value===
+        card.dataset.value
+    ){
+
+        memoryPairs++;
+
+        memoryFirst=null;
+
+        if(memoryPairs===8){
+
+            document.getElementById(
+                "memoryMessage"
+            ).textContent=
+                "🎉 Победа!";
+
+        }
+
+    }else{
+
+        memoryLock=true;
+
+        setTimeout(()=>{
+
+            memoryFirst.classList.remove("open");
+            card.classList.remove("open");
+
+            memoryFirst.textContent="❓";
+            card.textContent="❓";
+
+            memoryFirst=null;
+            memoryLock=false;
+
+        },700);
+
+    }
+
+}
+
+
+/* =========================
+   БОКС
+========================= */
+
+const fighters=[
+
+"Геннадий Головкин",
+"Дмитрий Бивол",
+"Майк Тайсон",
+"Флойд Мейвезер",
+"Райан Гарсия",
+"Мухаммед Али",
+"Мэнни Пакьяо",
+"Канело Альварес",
+"Василий Ломаченко",
+"Оскар Де Ла Хойя",
+"Эвандер Холифилд",
+"Леннокс Льюис",
+"Рой Джонс-младший",
+"Наоя Иноуэ",
+"Теренс Кроуфорд"
+
+];
+
+let selectedFighter="";
+let playerHP=100;
+let enemyHP=100;
+let combo=[];
+
+function loadFighters(){
+
+    const box=
+        document.getElementById(
+            "fighters"
+        );
+
+    box.innerHTML="";
+
+    fighters.forEach(name=>{
+
+        const button=
+            document.createElement("button");
+
+        button.className="fighter-choice";
+
+        button.textContent="🥊 "+name;
+
+        button.onclick=()=>{
+
+            selectedFighter=name;
+
+            document.getElementById(
+                "playerFighter"
+            ).textContent=name;
+
+            document
+                .querySelectorAll(
+                    ".fighter-choice"
+                )
+                .forEach(x=>
+                    x.classList.remove(
+                        "selected"
+                    )
+                );
+
+            button.classList.add("selected");
+
+            playerHP=100;
+            enemyHP=100;
+
+            updateBoxing();
+
+        };
+
+        box.appendChild(button);
+
+    });
+
+}
+
+function boxingMove(move){
+
+    if(!selectedFighter){
+
+        document.getElementById(
+            "boxingMessage"
+        ).textContent=
+            "Сначала выбери бойца!";
+
+        return;
+
+    }
+
+    let damage=0;
+
+    if(move==="jab"){
+
+        damage=8;
+        combo.push("Левый прямой");
+
+    }
+
+    if(move==="cross"){
+
+        damage=10;
+        combo.push("Правый прямой");
+
+    }
+
+    if(move==="hook"){
+
+        damage=13;
+        combo.push("Хук");
+
+    }
+
+    if(move==="upper"){
+
+        damage=15;
+        combo.push("Апперкот");
+
+    }
+
+    if(move==="block"){
+
+        combo.push("Блок");
+
+        document.getElementById(
+            "boxingMessage"
+        ).textContent=
+            "🛡️ Блок!";
+
+        enemyAttack(true);
+
+        return;
+
+    }
+
+    if(move==="dodge"){
+
+        combo.push("Уклон");
+
+        document.getElementById(
+            "boxingMessage"
+        ).textContent=
+            "↔️ Отличный уклон!";
+
+        return;
+
+    }
+
+    enemyHP=
+        Math.max(
+            0,
+            enemyHP-damage
+        );
+
+    document.getElementById(
+        "boxingMessage"
+    ).textContent=
+        "💥 "+move+"! Урон: "+damage;
+
+    updateBoxing();
+
+    if(enemyHP<=0){
+
+        document.getElementById(
+            "boxingMessage"
+        ).textContent=
+            "🏆 Победа! Комбинация: "
+            +combo.join(" → ");
+
+        combo=[];
+
+        return;
+
+    }
+
+    enemyAttack(false);
+
+}
+
+function enemyAttack(blocked){
+
+    if(blocked) return;
+
+    const damage=
+        Math.floor(
+            Math.random()*8
+        )+3;
+
+    playerHP=
+        Math.max(
+            0,
+            playerHP-damage
+        );
+
+    updateBoxing();
+
+    if(playerHP<=0){
+
+        document.getElementById(
+            "boxingMessage"
+        ).textContent=
+            "💀 Ты проиграл!";
+
+    }
+
+}
+
+function updateBoxing(){
+
+    document.getElementById(
+        "playerHP"
+    ).textContent=playerHP;
+
+    document.getElementById(
+        "enemyHP"
+    ).textContent=enemyHP;
+
+}
+
+
+/* =========================
+   МОТОЦИКЛ
+========================= */
+
+let money=
+    Number(
+        localStorage.getItem(
+            "bikeMoney"
+        )||1000
+    );
+
+let bikePosition=50;
+
+function moveBike(direction){
+
+    bikePosition+=direction*5;
+
+    bikePosition=
+        Math.max(
+            15,
+            Math.min(
+                85,
+                bikePosition
+            )
+        );
+
+    document.getElementById(
+        "bike"
+    ).style.left=
+        bikePosition+"%";
+
+}
+
+function earnMoney(){
+
+    money+=500;
+
+    localStorage.setItem(
+        "bikeMoney",
+        money
+    );
+
+    document.getElementById(
+        "money"
+    ).textContent=money;
+
+    document.getElementById(
+        "bikeMessage"
+    ).textContent=
+        "🏁 Гонка завершена! +500 💰";
+
+}
+
+function buyBike(name,price){
+
+    if(
+        price>money &&
+        price!==0
+    ){
+
+        document.getElementById(
+            "bikeMessage"
+        ).textContent=
+            "❌ Недостаточно денег!";
+
+        return;
+
+    }
+
+    if(price>0){
+
+        money-=price;
+
+        localStorage.setItem(
+            "bikeMoney",
+            money
+        );
+
+    }
+
+    document.getElementById(
+        "bikeName"
+    ).textContent=name;
+
+    document.getElementById(
+        "money"
+    ).textContent=money;
+
+    document.getElementById(
+        "bikeMessage"
+    ).textContent=
+        "🏍️ Выбран: "+name;
+
+}
+
+
+/* =========================
+   НАСТРОЙКИ
+========================= */
+
+const savedTheme=
+    localStorage.getItem(
+        "easyflow_theme"
+    );
+
+if(savedTheme==="dark"){
+
+    document.body.classList.add("dark");
+
+}
+
+document.getElementById(
+    "money"
+).textContent=money;
 
 </script>
 
-
 </body>
-
 </html>
