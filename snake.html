@@ -15,9 +15,11 @@
 
 :root {
     --blue: #2563eb;
-    --dark: #111827;
+    --blue-dark: #1d4ed8;
     --green: #22c55e;
+    --green-dark: #16a34a;
     --red: #ef4444;
+    --yellow: #eab308;
     --bg: #f4f7fb;
     --card: #ffffff;
     --text: #111827;
@@ -41,9 +43,12 @@ header {
 .header {
     max-width: 900px;
     margin: auto;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    gap: 20px;
 }
 
 .logo {
@@ -101,10 +106,15 @@ h1 {
 .level {
     border: 2px solid var(--border);
     background: white;
+    color: #111827;
+
     padding: 10px 16px;
+
     border-radius: 10px;
+
     cursor: pointer;
     font-weight: bold;
+
     transition: .2s;
 }
 
@@ -112,37 +122,42 @@ h1 {
     transform: translateY(-2px);
 }
 
-.level:active {
-    transform: translateY(0);
-}
-
 .level.active {
     border-color: var(--blue);
     background: #dbeafe;
-    color: #1d4ed8;
+    color: var(--blue-dark);
 }
 
 .info {
     display: flex;
     justify-content: center;
     gap: 10px;
+
     margin-bottom: 15px;
+
     flex-wrap: wrap;
 }
 
 .stat {
     background: var(--card);
     border: 1px solid var(--border);
+
     border-radius: 12px;
+
     padding: 10px 20px;
+
     text-align: center;
+
     min-width: 110px;
 }
 
 .stat span {
     display: block;
+
     color: var(--muted);
+
     font-size: 13px;
+
     margin-bottom: 3px;
 }
 
@@ -170,13 +185,17 @@ canvas {
     user-select: none;
     -webkit-user-select: none;
 
-    box-shadow: 0 12px 30px rgba(0,0,0,.15);
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.15);
 }
 
 .message {
     text-align: center;
+
     min-height: 24px;
+
     margin: 15px 0;
+
     font-weight: bold;
 }
 
@@ -190,28 +209,36 @@ canvas {
 
 .buttons {
     display: flex;
+
     justify-content: center;
+
     gap: 10px;
+
     flex-wrap: wrap;
 }
 
 .main-button {
     border: none;
+
     background: var(--blue);
+
     color: white;
 
     padding: 12px 22px;
+
     border-radius: 10px;
 
     font-size: 16px;
+
     font-weight: bold;
 
     cursor: pointer;
+
     transition: .2s;
 }
 
 .main-button:hover {
-    background: #1d4ed8;
+    background: var(--blue-dark);
 }
 
 .main-button:active {
@@ -228,10 +255,14 @@ canvas {
 
 .controls {
     width: 210px;
+
     margin: 20px auto;
 
     display: grid;
-    grid-template-columns: repeat(3, 65px);
+
+    grid-template-columns:
+        repeat(3, 65px);
+
     gap: 7px;
 }
 
@@ -240,14 +271,17 @@ canvas {
     height: 55px;
 
     border: 1px solid var(--border);
+
     border-radius: 12px;
 
     background: white;
 
     font-size: 23px;
+
     cursor: pointer;
 
     touch-action: manipulation;
+
     user-select: none;
 }
 
@@ -261,20 +295,25 @@ canvas {
 
 .records {
     background: var(--card);
+
     border: 1px solid var(--border);
+
     border-radius: 16px;
 
     padding: 20px;
+
     margin-top: 20px;
 }
 
 .records h2 {
     text-align: center;
+
     margin-bottom: 15px;
 }
 
 .record {
     display: flex;
+
     justify-content: space-between;
 
     padding: 10px 5px;
@@ -288,9 +327,13 @@ canvas {
 
 footer {
     margin-top: 30px;
+
     background: #111827;
+
     color: #9ca3af;
+
     text-align: center;
+
     padding: 20px;
 }
 
@@ -313,10 +356,6 @@ footer {
         min-width: 95px;
         padding: 9px 12px;
     }
-
-    .controls {
-        width: 210px;
-    }
 }
 </style>
 </head>
@@ -324,6 +363,7 @@ footer {
 <body>
 
 <header>
+
     <div class="header">
 
         <a href="index.html" class="logo">
@@ -335,7 +375,9 @@ footer {
         </a>
 
     </div>
+
 </header>
+
 
 <main class="container">
 
@@ -344,6 +386,9 @@ footer {
     <p class="subtitle">
         Собирай еду, увеличивай змейку и побей свой рекорд!
     </p>
+
+
+    <!-- СЛОЖНОСТЬ -->
 
     <div class="difficulty">
 
@@ -376,24 +421,53 @@ footer {
 
     </div>
 
+
+    <!-- СТАТИСТИКА -->
+
     <div class="info">
 
         <div class="stat">
-            <span>Очки</span>
-            <strong id="score">0</strong>
+
+            <span>
+                Очки
+            </span>
+
+            <strong id="score">
+                0
+            </strong>
+
         </div>
 
-        <div class="stat">
-            <span>🏆 Рекорд</span>
-            <strong id="record">0</strong>
-        </div>
 
         <div class="stat">
-            <span>Скорость</span>
-            <strong id="speed">Медленно</strong>
+
+            <span>
+                🏆 Рекорд
+            </span>
+
+            <strong id="record">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <span>
+                Скорость
+            </span>
+
+            <strong id="speed">
+                Очень медленно
+            </strong>
+
         </div>
 
     </div>
+
+
+    <!-- ИГРА -->
 
     <div class="game-box">
 
@@ -405,9 +479,15 @@ footer {
 
     </div>
 
-    <div id="message" class="message">
-        Нажми «Начать игру»
+
+    <div
+        id="message"
+        class="message">
+        Нажми «Начать»
     </div>
+
+
+    <!-- КНОПКИ -->
 
     <div class="buttons">
 
@@ -427,12 +507,14 @@ footer {
 
     </div>
 
+
+    <!-- УПРАВЛЕНИЕ -->
+
     <div class="controls">
 
         <button
             class="control empty"
-            type="button"
-            aria-hidden="true">
+            type="button">
         </button>
 
         <button
@@ -444,9 +526,9 @@ footer {
 
         <button
             class="control empty"
-            type="button"
-            aria-hidden="true">
+            type="button">
         </button>
+
 
         <button
             class="control"
@@ -471,72 +553,131 @@ footer {
 
     </div>
 
+
+    <!-- РЕКОРДЫ -->
+
     <div class="records">
 
-        <h2>🏆 Рекорды</h2>
+        <h2>
+            🏆 Рекорды
+        </h2>
+
 
         <div class="record">
-            <span>🟢 Лёгкий</span>
-            <strong id="easyRecord">0</strong>
+
+            <span>
+                🟢 Лёгкий
+            </span>
+
+            <strong id="easyRecord">
+                0
+            </strong>
+
         </div>
 
-        <div class="record">
-            <span>🟡 Средний</span>
-            <strong id="mediumRecord">0</strong>
-        </div>
 
         <div class="record">
-            <span>🔴 Сложный</span>
-            <strong id="hardRecord">0</strong>
+
+            <span>
+                🟡 Средний
+            </span>
+
+            <strong id="mediumRecord">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="record">
+
+            <span>
+                🔴 Сложный
+            </span>
+
+            <strong id="hardRecord">
+                0
+            </strong>
+
         </div>
 
     </div>
 
 </main>
 
+
 <footer>
     © 2026 EasyFlow
 </footer>
 
+
 <script>
+
 "use strict";
 
-/* =====================================
+
+/* =========================================
    CANVAS
-===================================== */
+========================================= */
 
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
+const canvas =
+    document.getElementById("game");
+
+const ctx =
+    canvas.getContext("2d");
 
 
-/* =====================================
-   НАСТРОЙКИ
-===================================== */
+/* =========================================
+   НАСТРОЙКИ ПОЛЯ
+========================================= */
 
-const SIZE = 25;
-const CELL = canvas.width / SIZE;
+const GRID_SIZE = 25;
 
-const levels = {
+const CELL_SIZE =
+    canvas.width / GRID_SIZE;
+
+
+/* =========================================
+   СКОРОСТИ
+========================================= */
+
+/*
+   Старые значения:
+
+   easy   = 180
+   medium = 120
+   hard   = 75
+
+   Теперь скорость уменьшена в 2 раза:
+
+   easy   = 360
+   medium = 240
+   hard   = 150
+*/
+
+const LEVELS = {
+
     easy: {
-        speed: 180,
-        name: "Медленно"
+        delay: 360,
+        name: "Очень медленно"
     },
 
     medium: {
-        speed: 120,
-        name: "Средне"
+        delay: 240,
+        name: "Медленно"
     },
 
     hard: {
-        speed: 75,
-        name: "Быстро"
+        delay: 150,
+        name: "Средне"
     }
+
 };
 
 
-/* =====================================
-   СОСТОЯНИЕ
-===================================== */
+/* =========================================
+   СОСТОЯНИЕ ИГРЫ
+========================================= */
 
 let snake = [];
 
@@ -546,21 +687,23 @@ let food = {
 };
 
 let direction = "right";
+
 let nextDirection = "right";
 
 let score = 0;
 
-let difficulty = "easy";
+let currentLevel = "easy";
 
-let timer = null;
+let gameTimer = null;
 
-let running = false;
-let paused = false;
+let gameRunning = false;
+
+let gamePaused = false;
 
 
-/* =====================================
+/* =========================================
    DOM
-===================================== */
+========================================= */
 
 const scoreElement =
     document.getElementById("score");
@@ -581,26 +724,33 @@ const pauseButton =
     document.getElementById("pauseButton");
 
 
-/* =====================================
+/* =========================================
    РЕКОРДЫ
-===================================== */
+========================================= */
 
 function getRecord(level) {
 
-    const value = Number(
-        localStorage.getItem(
-            "easyflow_snake_" + level
-        )
-    );
+    const key =
+        "easyflow_snake_record_" + level;
 
-    return Number.isFinite(value) ? value : 0;
+    const value =
+        Number(localStorage.getItem(key));
+
+    if (
+        Number.isFinite(value) &&
+        value >= 0
+    ) {
+        return value;
+    }
+
+    return 0;
 }
 
 
 function saveRecord(level, value) {
 
     localStorage.setItem(
-        "easyflow_snake_" + level,
+        "easyflow_snake_record_" + level,
         String(value)
     );
 }
@@ -608,183 +758,281 @@ function saveRecord(level, value) {
 
 function updateRecords() {
 
-    const easy = getRecord("easy");
-    const medium = getRecord("medium");
-    const hard = getRecord("hard");
+    const easy =
+        getRecord("easy");
+
+    const medium =
+        getRecord("medium");
+
+    const hard =
+        getRecord("hard");
+
 
     document.getElementById(
         "easyRecord"
     ).textContent = easy;
 
+
     document.getElementById(
         "mediumRecord"
     ).textContent = medium;
+
 
     document.getElementById(
         "hardRecord"
     ).textContent = hard;
 
+
     recordElement.textContent =
-        getRecord(difficulty);
+        getRecord(currentLevel);
 }
 
 
-/* =====================================
-   СООБЩЕНИЕ
-===================================== */
+/* =========================================
+   СООБЩЕНИЯ
+========================================= */
 
-function setMessage(text, type = "") {
+function showMessage(
+    text,
+    type = ""
+) {
 
     messageElement.textContent = text;
-    messageElement.className = "message";
+
+    messageElement.className =
+        "message";
 
     if (type) {
-        messageElement.classList.add(type);
+
+        messageElement.classList.add(
+            type
+        );
+
     }
 }
 
 
-/* =====================================
-   СЛОЖНОСТЬ
-===================================== */
+/* =========================================
+   ВЫБОР СЛОЖНОСТИ
+========================================= */
 
 document
     .querySelectorAll(".level")
     .forEach(button => {
 
-        button.addEventListener("click", () => {
+        button.addEventListener(
+            "click",
+            function() {
 
-            if (running) {
+                if (gameRunning) {
 
-                setMessage(
-                    "Сначала закончи текущую игру.",
-                    "error"
-                );
+                    showMessage(
+                        "Сначала закончи текущую игру.",
+                        "error"
+                    );
 
-                return;
+                    return;
+                }
+
+
+                currentLevel =
+                    this.dataset.level;
+
+
+                document
+                    .querySelectorAll(".level")
+                    .forEach(item => {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    });
+
+
+                this.classList.add("active");
+
+
+                speedElement.textContent =
+                    LEVELS[currentLevel].name;
+
+
+                updateRecords();
+
+                drawStart();
+
             }
-
-            difficulty =
-                button.dataset.level;
-
-            document
-                .querySelectorAll(".level")
-                .forEach(b => {
-                    b.classList.remove("active");
-                });
-
-            button.classList.add("active");
-
-            speedElement.textContent =
-                levels[difficulty].name;
-
-            updateRecords();
-
-            drawStart();
-
-        });
+        );
 
     });
 
 
-/* =====================================
+/* =========================================
    НАЧАЛО ИГРЫ
-===================================== */
+========================================= */
 
 function startGame() {
 
-    clearInterval(timer);
+    stopTimer();
 
-    timer = null;
 
     snake = [
-        { x: 12, y: 12 },
-        { x: 11, y: 12 },
-        { x: 10, y: 12 }
+
+        {
+            x: 12,
+            y: 12
+        },
+
+        {
+            x: 11,
+            y: 12
+        },
+
+        {
+            x: 10,
+            y: 12
+        }
+
     ];
 
+
     direction = "right";
+
     nextDirection = "right";
 
     score = 0;
 
-    running = true;
-    paused = false;
+    gameRunning = true;
 
-    scoreElement.textContent = "0";
+    gamePaused = false;
+
+
+    scoreElement.textContent =
+        "0";
+
 
     speedElement.textContent =
-        levels[difficulty].name;
+        LEVELS[currentLevel].name;
 
-    setMessage("🏁 Игра началась!");
+
+    showMessage(
+        "🏁 Игра началась!"
+    );
+
 
     createFood();
 
     draw();
 
-    timer = setInterval(
-        gameLoop,
-        levels[difficulty].speed
-    );
+
+    gameTimer =
+        setInterval(
+            gameLoop,
+            LEVELS[currentLevel].delay
+        );
+
 }
 
 
-/* =====================================
+/* =========================================
+   ОСТАНОВКА ТАЙМЕРА
+========================================= */
+
+function stopTimer() {
+
+    if (gameTimer !== null) {
+
+        clearInterval(gameTimer);
+
+        gameTimer = null;
+
+    }
+
+}
+
+
+/* =========================================
    СОЗДАНИЕ ЕДЫ
-===================================== */
+========================================= */
 
 function createFood() {
 
-    /*
-       Защита от бесконечного
-       цикла, если поле заполнено.
-    */
-
     const freeCells = [];
 
-    for (let y = 0; y < SIZE; y++) {
 
-        for (let x = 0; x < SIZE; x++) {
+    for (
+        let y = 0;
+        y < GRID_SIZE;
+        y++
+    ) {
+
+        for (
+            let x = 0;
+            x < GRID_SIZE;
+            x++
+        ) {
 
             const occupied =
-                snake.some(part =>
-                    part.x === x &&
-                    part.y === y
+                snake.some(
+                    part =>
+                        part.x === x &&
+                        part.y === y
                 );
 
+
             if (!occupied) {
-                freeCells.push({ x, y });
+
+                freeCells.push({
+                    x: x,
+                    y: y
+                });
+
             }
+
         }
+
     }
+
 
     if (freeCells.length === 0) {
 
         finishGame(true);
 
         return;
+
     }
+
 
     const randomIndex =
         Math.floor(
-            Math.random() * freeCells.length
+            Math.random() *
+            freeCells.length
         );
 
-    food = freeCells[randomIndex];
+
+    food =
+        freeCells[randomIndex];
+
 }
 
 
-/* =====================================
+/* =========================================
    ИГРОВОЙ ЦИКЛ
-===================================== */
+========================================= */
 
 function gameLoop() {
 
-    if (!running || paused) {
+    if (
+        !gameRunning ||
+        gamePaused
+    ) {
         return;
     }
 
-    direction = nextDirection;
+
+    direction =
+        nextDirection;
+
 
     const head = {
         x: snake[0].x,
@@ -792,43 +1040,50 @@ function gameLoop() {
     };
 
 
-    if (direction === "up") {
-        head.y--;
+    /* Движение */
+
+    switch (direction) {
+
+        case "up":
+            head.y--;
+            break;
+
+        case "down":
+            head.y++;
+            break;
+
+        case "left":
+            head.x--;
+            break;
+
+        case "right":
+            head.x++;
+            break;
+
     }
 
-    if (direction === "down") {
-        head.y++;
-    }
 
-    if (direction === "left") {
-        head.x--;
-    }
-
-    if (direction === "right") {
-        head.x++;
-    }
-
-
-    /* =================================
+    /* =====================================
        СТЕНА
-    ================================= */
+    ===================================== */
 
     if (
         head.x < 0 ||
-        head.x >= SIZE ||
+        head.x >= GRID_SIZE ||
         head.y < 0 ||
-        head.y >= SIZE
+        head.y >= GRID_SIZE
     ) {
 
         finishGame(false);
 
         return;
+
     }
 
 
-    /* =================================
-       ПРОВЕРКА ЕДЫ
-    ================================= */
+    /* =====================================
+       ЕДА
+    ===================================== */
 
     const ateFood =
         head.x === food.x &&
@@ -836,10 +1091,8 @@ function gameLoop() {
 
 
     /*
-       Если еда не съедена,
-       последний сегмент исчезнет.
-       Поэтому его можно не учитывать
-       при проверке столкновения.
+       Если змейка не ест,
+       хвост удалится.
     */
 
     const bodyToCheck =
@@ -848,10 +1101,15 @@ function gameLoop() {
             : snake.slice(0, -1);
 
 
+    /* =====================================
+       СТОЛКНОВЕНИЕ С СОБОЙ
+    ===================================== */
+
     const hitSelf =
-        bodyToCheck.some(part =>
-            part.x === head.x &&
-            part.y === head.y
+        bodyToCheck.some(
+            part =>
+                part.x === head.x &&
+                part.y === head.y
         );
 
 
@@ -860,42 +1118,46 @@ function gameLoop() {
         finishGame(false);
 
         return;
+
     }
 
 
-    /* =================================
-       ДВИЖЕНИЕ
-    ================================= */
+    /* =====================================
+       ДОБАВЛЯЕМ ГОЛОВУ
+    ===================================== */
 
     snake.unshift(head);
 
 
-    /* =================================
-       ЕДА
-    ================================= */
+    /* =====================================
+       ЕСЛИ СЪЕЛИ ЕДУ
+    ===================================== */
 
     if (ateFood) {
 
         score++;
 
+
         scoreElement.textContent =
             score;
 
 
-        const currentRecord =
-            getRecord(difficulty);
+        const oldRecord =
+            getRecord(currentLevel);
 
 
-        if (score > currentRecord) {
+        if (score > oldRecord) {
 
             saveRecord(
-                difficulty,
+                currentLevel,
                 score
             );
 
-            updateRecords();
+            recordElement.textContent =
+                score;
 
         }
+
 
         createFood();
 
@@ -907,64 +1169,73 @@ function gameLoop() {
 
 
     draw();
+
 }
 
 
-/* =====================================
+/* =========================================
    УПРАВЛЕНИЕ
-===================================== */
+========================================= */
 
-function changeDirection(newDirection) {
+function changeDirection(
+    newDirection
+) {
 
-    if (!running || paused) {
+    if (
+        !gameRunning ||
+        gamePaused
+    ) {
         return;
     }
 
+
     const opposite = {
+
         up: "down",
+
         down: "up",
+
         left: "right",
+
         right: "left"
+
     };
 
 
     /*
-       Нельзя мгновенно развернуться
-       на 180 градусов.
+       Запрещаем разворот на 180°.
     */
 
     if (
         newDirection ===
         opposite[direction]
     ) {
-
         return;
     }
 
 
     /*
-       Дополнительная защита:
-       нельзя выбрать направление,
-       противоположное уже выбранному
-       следующему направлению.
+       Защита от быстрых
+       двойных нажатий.
     */
 
     if (
         newDirection ===
         opposite[nextDirection]
     ) {
-
         return;
     }
 
 
-    nextDirection = newDirection;
+    nextDirection =
+        newDirection;
+
 }
 
 
-/* =====================================
-   КНОПКИ УПРАВЛЕНИЯ
-===================================== */
+/* =========================================
+   КНОПКИ НА ЭКРАНЕ
+========================================= */
 
 document
     .querySelectorAll("[data-direction]")
@@ -972,12 +1243,12 @@ document
 
         button.addEventListener(
             "pointerdown",
-            event => {
+            function(event) {
 
                 event.preventDefault();
 
                 changeDirection(
-                    button.dataset.direction
+                    this.dataset.direction
                 );
 
             }
@@ -986,46 +1257,71 @@ document
     });
 
 
-/* =====================================
+/* =========================================
    КЛАВИАТУРА
-===================================== */
+========================================= */
 
 document.addEventListener(
     "keydown",
-    event => {
+    function(event) {
 
-        const key =
-            event.key.length === 1
-                ? event.key.toLowerCase()
-                : event.key;
+        let newDirection = null;
 
 
-        const keyDirections = {
+        switch (event.key) {
 
-            ArrowUp: "up",
-            w: "up",
+            case "ArrowUp":
+            case "w":
+            case "W":
+            case "ц":
+            case "Ц":
 
-            ArrowDown: "down",
-            s: "down",
-
-            ArrowLeft: "left",
-            a: "left",
-
-            ArrowRight: "right",
-            d: "right"
-
-        };
+                newDirection = "up";
+                break;
 
 
-        if (keyDirections[key]) {
+            case "ArrowDown":
+            case "s":
+            case "S":
+            case "ы":
+            case "Ы":
+
+                newDirection = "down";
+                break;
+
+
+            case "ArrowLeft":
+            case "a":
+            case "A":
+            case "ф":
+            case "Ф":
+
+                newDirection = "left";
+                break;
+
+
+            case "ArrowRight":
+            case "d":
+            case "D":
+            case "в":
+            case "В":
+
+                newDirection = "right";
+                break;
+
+        }
+
+
+        if (newDirection) {
 
             event.preventDefault();
 
             changeDirection(
-                keyDirections[key]
+                newDirection
             );
 
             return;
+
         }
 
 
@@ -1037,30 +1333,36 @@ document.addEventListener(
             event.preventDefault();
 
             togglePause();
+
         }
 
     }
 );
 
 
-/* =====================================
+/* =========================================
    СВАЙПЫ
-===================================== */
+========================================= */
 
 let touchStartX = 0;
+
 let touchStartY = 0;
 
 
 canvas.addEventListener(
     "touchstart",
-    event => {
+    function(event) {
 
-        if (!event.changedTouches.length) {
+        if (
+            !event.changedTouches.length
+        ) {
             return;
         }
 
+
         const touch =
             event.changedTouches[0];
+
 
         touchStartX =
             touch.clientX;
@@ -1077,34 +1379,38 @@ canvas.addEventListener(
 
 canvas.addEventListener(
     "touchend",
-    event => {
+    function(event) {
 
-        if (!event.changedTouches.length) {
+        if (
+            !event.changedTouches.length
+        ) {
             return;
         }
+
 
         const touch =
             event.changedTouches[0];
 
+
         const dx =
             touch.clientX -
             touchStartX;
+
 
         const dy =
             touch.clientY -
             touchStartY;
 
 
-        const minSwipeDistance = 20;
+        const minimumSwipe = 25;
 
 
         if (
             Math.abs(dx) <
-            minSwipeDistance &&
+            minimumSwipe &&
             Math.abs(dy) <
-            minSwipeDistance
+            minimumSwipe
         ) {
-
             return;
         }
 
@@ -1127,6 +1433,7 @@ canvas.addEventListener(
                     ? "down"
                     : "up"
             );
+
         }
 
     },
@@ -1136,129 +1443,122 @@ canvas.addEventListener(
 );
 
 
-/* =====================================
+/* =========================================
    ПАУЗА
-===================================== */
+========================================= */
 
 function togglePause() {
 
-    if (!running) {
+    if (!gameRunning) {
+
         return;
+
     }
 
-    paused = !paused;
+
+    gamePaused =
+        !gamePaused;
 
 
-    if (paused) {
+    if (gamePaused) {
 
-        setMessage("⏸️ Игра на паузе");
+        showMessage(
+            "⏸️ Игра на паузе"
+        );
 
     } else {
 
-        setMessage("▶️ Игра продолжается");
+        showMessage(
+            "▶️ Игра продолжается"
+        );
 
-        /*
-           Сразу перерисовываем поле,
-           чтобы пауза корректно исчезла.
-        */
-
-        draw();
-    }
-
-
-    if (paused) {
-        draw();
-    }
-}
-
-
-/* =====================================
-   КОНЕЦ ИГРЫ
-===================================== */
-
-function finishGame(completed = false) {
-
-    clearInterval(timer);
-
-    timer = null;
-
-    running = false;
-    paused = false;
-
-
-    if (completed) {
-
-        if (
-            score >
-            getRecord(difficulty)
-        ) {
-
-            saveRecord(
-                difficulty,
-                score
-            );
-
-            updateRecords();
-
-            setMessage(
-                "🏆 Поле полностью заполнено! Новый рекорд: " +
-                score,
-                "success"
-            );
-
-        } else {
-
-            setMessage(
-                "🏆 Победа! Поле заполнено. Очки: " +
-                score,
-                "success"
-            );
-        }
-
-    } else {
-
-        if (
-            score >
-            getRecord(difficulty)
-        ) {
-
-            saveRecord(
-                difficulty,
-                score
-            );
-
-            updateRecords();
-
-            setMessage(
-                "🏆 Игра окончена! Новый рекорд: " +
-                score,
-                "success"
-            );
-
-        } else {
-
-            setMessage(
-                "💥 Игра окончена! Очки: " +
-                score,
-                "error"
-            );
-        }
     }
 
 
     draw();
+
 }
 
 
-/* =====================================
+/* =========================================
+   КОНЕЦ ИГРЫ
+========================================= */
+
+function finishGame(
+    completed
+) {
+
+    stopTimer();
+
+
+    gameRunning = false;
+
+    gamePaused = false;
+
+
+    const record =
+        getRecord(currentLevel);
+
+
+    if (score > record) {
+
+        saveRecord(
+            currentLevel,
+            score
+        );
+
+        updateRecords();
+
+    }
+
+
+    if (completed) {
+
+        showMessage(
+            "🏆 Победа! Поле полностью заполнено! Очки: " +
+            score,
+            "success"
+        );
+
+    } else {
+
+        if (score > record) {
+
+            showMessage(
+                "🏆 Новый рекорд: " +
+                score,
+                "success"
+            );
+
+        } else {
+
+            showMessage(
+                "💥 Игра окончена! Очки: " +
+                score,
+                "error"
+            );
+
+        }
+
+    }
+
+
+    draw();
+
+}
+
+
+/* =========================================
    РИСОВАНИЕ
-===================================== */
+========================================= */
 
 function draw() {
 
     /* Фон */
 
-    ctx.fillStyle = "#111827";
+    ctx.fillStyle =
+        "#111827";
+
 
     ctx.fillRect(
         0,
@@ -1271,25 +1571,27 @@ function draw() {
     /* Сетка */
 
     ctx.strokeStyle =
-        "rgba(255,255,255,.04)";
+        "rgba(255,255,255,0.04)";
+
 
     ctx.lineWidth = 1;
 
+
     for (
         let i = 0;
-        i <= SIZE;
+        i <= GRID_SIZE;
         i++
     ) {
 
         ctx.beginPath();
 
         ctx.moveTo(
-            i * CELL,
+            i * CELL_SIZE,
             0
         );
 
         ctx.lineTo(
-            i * CELL,
+            i * CELL_SIZE,
             canvas.height
         );
 
@@ -1300,66 +1602,33 @@ function draw() {
 
         ctx.moveTo(
             0,
-            i * CELL
+            i * CELL_SIZE
         );
 
         ctx.lineTo(
             canvas.width,
-            i * CELL
+            i * CELL_SIZE
         );
 
         ctx.stroke();
+
     }
 
 
     /* Еда */
 
-    ctx.fillStyle = "#ef4444";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        food.x * CELL + CELL / 2,
-        food.y * CELL + CELL / 2,
-        CELL / 2 - 4,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
+    drawFood();
 
 
     /* Змейка */
 
     snake.forEach(
-        (part, index) => {
+        function(part, index) {
 
-            ctx.fillStyle =
-                index === 0
-                    ? "#22c55e"
-                    : "#16a34a";
-
-
-            ctx.beginPath();
-
-            ctx.roundRect(
-                part.x * CELL + 2,
-                part.y * CELL + 2,
-                CELL - 4,
-                CELL - 4,
-                5
+            drawSnakePart(
+                part,
+                index
             );
-
-            ctx.fill();
-
-
-            /* Голова */
-
-            if (index === 0) {
-
-                drawSnakeEyes(part);
-
-            }
 
         }
     );
@@ -1367,10 +1636,11 @@ function draw() {
 
     /* Пауза */
 
-    if (paused) {
+    if (gamePaused) {
 
         ctx.fillStyle =
-            "rgba(0,0,0,.55)";
+            "rgba(0,0,0,.6)";
+
 
         ctx.fillRect(
             0,
@@ -1380,35 +1650,178 @@ function draw() {
         );
 
 
-        ctx.fillStyle = "white";
+        ctx.fillStyle =
+            "white";
 
-        ctx.textAlign = "center";
+
+        ctx.textAlign =
+            "center";
+
 
         ctx.font =
             "bold 40px Arial";
+
 
         ctx.fillText(
             "⏸️ ПАУЗА",
             canvas.width / 2,
             canvas.height / 2
         );
+
     }
+
 }
 
 
-/* =====================================
-   ГЛАЗА ЗМЕЙКИ
-===================================== */
+/* =========================================
+   РИСОВАНИЕ ЕДЫ
+========================================= */
+
+function drawFood() {
+
+    const centerX =
+        food.x * CELL_SIZE +
+        CELL_SIZE / 2;
+
+
+    const centerY =
+        food.y * CELL_SIZE +
+        CELL_SIZE / 2;
+
+
+    ctx.fillStyle =
+        "#ef4444";
+
+
+    ctx.beginPath();
+
+
+    ctx.arc(
+        centerX,
+        centerY,
+        CELL_SIZE / 2 - 4,
+        0,
+        Math.PI * 2
+    );
+
+
+    ctx.fill();
+
+
+    /* Блик */
+
+    ctx.fillStyle =
+        "rgba(255,255,255,.35)";
+
+
+    ctx.beginPath();
+
+
+    ctx.arc(
+        centerX - 4,
+        centerY - 4,
+        3,
+        0,
+        Math.PI * 2
+    );
+
+
+    ctx.fill();
+
+}
+
+
+/* =========================================
+   РИСОВАНИЕ СЕГМЕНТА ЗМЕЙКИ
+========================================= */
+
+function drawSnakePart(
+    part,
+    index
+) {
+
+    ctx.fillStyle =
+        index === 0
+            ? "#22c55e"
+            : "#16a34a";
+
+
+    const x =
+        part.x * CELL_SIZE + 2;
+
+
+    const y =
+        part.y * CELL_SIZE + 2;
+
+
+    const size =
+        CELL_SIZE - 4;
+
+
+    ctx.beginPath();
+
+
+    /*
+       roundRect поддерживается
+       современными браузерами.
+       Есть запасной вариант.
+    */
+
+    if (
+        typeof ctx.roundRect ===
+        "function"
+    ) {
+
+        ctx.roundRect(
+            x,
+            y,
+            size,
+            size,
+            5
+        );
+
+    } else {
+
+        ctx.rect(
+            x,
+            y,
+            size,
+            size
+        );
+
+    }
+
+
+    ctx.fill();
+
+
+    /* Глаза головы */
+
+    if (index === 0) {
+
+        drawSnakeEyes(part);
+
+    }
+
+}
+
+
+/* =========================================
+   ГЛАЗА
+========================================= */
 
 function drawSnakeEyes(part) {
 
-    ctx.fillStyle = "white";
+    ctx.fillStyle =
+        "white";
 
-    const baseX =
-        part.x * CELL;
 
-    const baseY =
-        part.y * CELL;
+    const x =
+        part.x * CELL_SIZE;
+
+
+    const y =
+        part.y * CELL_SIZE;
 
 
     let eye1;
@@ -1418,50 +1831,55 @@ function drawSnakeEyes(part) {
     if (direction === "left") {
 
         eye1 = {
-            x: baseX + 7,
-            y: baseY + 7
+            x: x + 7,
+            y: y + 7
         };
 
         eye2 = {
-            x: baseX + 7,
-            y: baseY + 18
+            x: x + 7,
+            y: y + 18
         };
 
-    } else if (direction === "up") {
+    } else if (
+        direction === "up"
+    ) {
 
         eye1 = {
-            x: baseX + 7,
-            y: baseY + 7
+            x: x + 7,
+            y: y + 7
         };
 
         eye2 = {
-            x: baseX + 18,
-            y: baseY + 7
+            x: x + 18,
+            y: y + 7
         };
 
-    } else if (direction === "down") {
+    } else if (
+        direction === "down"
+    ) {
 
         eye1 = {
-            x: baseX + 7,
-            y: baseY + 18
+            x: x + 7,
+            y: y + 18
         };
 
         eye2 = {
-            x: baseX + 18,
-            y: baseY + 18
+            x: x + 18,
+            y: y + 18
         };
 
     } else {
 
         eye1 = {
-            x: baseX + 18,
-            y: baseY + 7
+            x: x + 18,
+            y: y + 7
         };
 
         eye2 = {
-            x: baseX + 18,
-            y: baseY + 18
+            x: x + 18,
+            y: y + 18
         };
+
     }
 
 
@@ -1489,16 +1907,19 @@ function drawSnakeEyes(part) {
     );
 
     ctx.fill();
+
 }
 
 
-/* =====================================
+/* =========================================
    СТАРТОВЫЙ ЭКРАН
-===================================== */
+========================================= */
 
 function drawStart() {
 
-    ctx.fillStyle = "#111827";
+    ctx.fillStyle =
+        "#111827";
+
 
     ctx.fillRect(
         0,
@@ -1508,13 +1929,17 @@ function drawStart() {
     );
 
 
-    ctx.textAlign = "center";
+    ctx.textAlign =
+        "center";
 
 
-    ctx.fillStyle = "#2563eb";
+    ctx.fillStyle =
+        "#2563eb";
+
 
     ctx.font =
         "bold 40px Arial";
+
 
     ctx.fillText(
         "🐍 ЗМЕЙКА",
@@ -1523,34 +1948,41 @@ function drawStart() {
     );
 
 
-    ctx.fillStyle = "white";
+    ctx.fillStyle =
+        "white";
+
 
     ctx.font =
         "20px Arial";
 
+
     ctx.fillText(
-        levels[difficulty].name,
+        LEVELS[currentLevel].name,
         canvas.width / 2,
         250
     );
 
 
-    ctx.fillStyle = "#94a3b8";
+    ctx.fillStyle =
+        "#94a3b8";
+
 
     ctx.font =
         "16px Arial";
+
 
     ctx.fillText(
         "Нажми «Начать»",
         canvas.width / 2,
         290
     );
+
 }
 
 
-/* =====================================
+/* =========================================
    КНОПКИ
-===================================== */
+========================================= */
 
 startButton.addEventListener(
     "click",
@@ -1564,14 +1996,16 @@ pauseButton.addEventListener(
 );
 
 
-/* =====================================
+/* =========================================
    ЗАПУСК
-===================================== */
+========================================= */
 
 updateRecords();
 
+
 speedElement.textContent =
-    levels[difficulty].name;
+    LEVELS[currentLevel].name;
+
 
 drawStart();
 
