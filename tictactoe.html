@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
 
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>EasyFlow — Крестики-нолики</title>
 
 <style>
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -101,7 +102,7 @@ header {
     border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
-    transition: .15s;
+    transition: 0.15s;
 }
 
 .level:hover,
@@ -169,13 +170,19 @@ header {
 .board {
     width: min(90vw, 450px);
     height: min(90vw, 450px);
+
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+
     gap: 8px;
+
     background: #2563eb;
     padding: 8px;
+
     border-radius: 18px;
+
     box-shadow: 0 15px 35px rgba(0,0,0,.15);
 }
 
@@ -183,9 +190,12 @@ header {
     border: none;
     background: white;
     border-radius: 12px;
+
     font-size: clamp(50px, 15vw, 90px);
     font-weight: bold;
+
     cursor: pointer;
+
     transition: .15s;
 }
 
@@ -213,6 +223,7 @@ header {
     text-align: center;
     margin-top: 20px;
     min-height: 28px;
+
     font-size: 18px;
     font-weight: bold;
 }
@@ -228,18 +239,25 @@ header {
 .buttons {
     display: flex;
     justify-content: center;
+
     gap: 10px;
     flex-wrap: wrap;
+
     margin-top: 20px;
 }
 
 .main-button {
     border: none;
+
     background: #2563eb;
     color: white;
+
     padding: 13px 22px;
+
     border-radius: 11px;
+
     cursor: pointer;
+
     font-weight: bold;
     font-size: 16px;
 }
@@ -258,9 +276,13 @@ header {
 
 .records {
     background: white;
+
     border: 1px solid #e5e7eb;
+
     border-radius: 18px;
+
     padding: 25px;
+
     margin-top: 30px;
 }
 
@@ -271,8 +293,11 @@ header {
 
 .record-row {
     display: flex;
+
     justify-content: space-between;
+
     padding: 12px 5px;
+
     border-bottom: 1px solid #eef0f3;
 }
 
@@ -286,20 +311,31 @@ header {
 
 .tip {
     background: #eff6ff;
+
     border: 1px solid #bfdbfe;
+
     color: #1e40af;
+
     padding: 15px;
+
     border-radius: 14px;
+
     margin-top: 20px;
+
     text-align: center;
+
     line-height: 1.5;
 }
 
 footer {
     margin-top: 40px;
+
     background: #111827;
+
     color: #9ca3af;
+
     text-align: center;
+
     padding: 25px;
 }
 
@@ -326,12 +362,15 @@ footer {
     .cell {
         border-radius: 9px;
     }
-}
-</style>
 
+}
+
+</style>
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -341,7 +380,7 @@ footer {
 EasyFlow
 </a>
 
-<a href="games.html" class="back">
+<a href="игры.html" class="back">
 ← Игры
 </a>
 
@@ -349,7 +388,9 @@ EasyFlow
 
 </header>
 
+
 <main class="container">
+
 
 <div class="title">
 
@@ -361,6 +402,9 @@ EasyFlow
 
 </div>
 
+
+<!-- ВЫБОР СЛОЖНОСТИ -->
+
 <div class="difficulty">
 
 <h2>🎯 Выбери сложность</h2>
@@ -371,26 +415,37 @@ EasyFlow
 class="level easy active"
 id="easyButton"
 onclick="selectDifficulty('easy')">
+
 🟢 Лёгкий
+
 </button>
+
 
 <button
 class="level medium"
 id="mediumButton"
 onclick="selectDifficulty('medium')">
+
 🟡 Средний
+
 </button>
+
 
 <button
 class="level hard"
 id="hardButton"
 onclick="selectDifficulty('hard')">
+
 🔴 Сложный
+
 </button>
 
 </div>
 
 </div>
+
+
+<!-- КТО ПЕРВЫЙ -->
 
 <div class="first-player">
 
@@ -402,19 +457,27 @@ onclick="selectDifficulty('hard')">
 class="first-button active"
 id="playerFirstButton"
 onclick="setFirstPlayer('player')">
+
 ❌ Я
+
 </button>
+
 
 <button
 class="first-button"
 id="computerFirstButton"
 onclick="setFirstPlayer('computer')">
+
 ⭕ Компьютер
+
 </button>
 
 </div>
 
 </div>
+
+
+<!-- СТАТИСТИКА -->
 
 <div class="info">
 
@@ -428,6 +491,7 @@ onclick="setFirstPlayer('computer')">
 
 </div>
 
+
 <div class="stat">
 
 <span>🏆 Рекорд</span>
@@ -437,6 +501,7 @@ onclick="setFirstPlayer('computer')">
 </strong>
 
 </div>
+
 
 <div class="stat">
 
@@ -450,110 +515,202 @@ onclick="setFirstPlayer('computer')">
 
 </div>
 
+
+<!-- ИГРОВОЕ ПОЛЕ -->
+
 <div class="board-wrapper">
 
 <div id="board" class="board">
 
-<button class="cell" data-index="0" onclick="playerMove(0)"></button>
-<button class="cell" data-index="1" onclick="playerMove(1)"></button>
-<button class="cell" data-index="2" onclick="playerMove(2)"></button>
+<button class="cell" onclick="playerMove(0)"></button>
 
-<button class="cell" data-index="3" onclick="playerMove(3)"></button>
-<button class="cell" data-index="4" onclick="playerMove(4)"></button>
-<button class="cell" data-index="5" onclick="playerMove(5)"></button>
+<button class="cell" onclick="playerMove(1)"></button>
 
-<button class="cell" data-index="6" onclick="playerMove(6)"></button>
-<button class="cell" data-index="7" onclick="playerMove(7)"></button>
-<button class="cell" data-index="8" onclick="playerMove(8)"></button>
+<button class="cell" onclick="playerMove(2)"></button>
+
+<button class="cell" onclick="playerMove(3)"></button>
+
+<button class="cell" onclick="playerMove(4)"></button>
+
+<button class="cell" onclick="playerMove(5)"></button>
+
+<button class="cell" onclick="playerMove(6)"></button>
+
+<button class="cell" onclick="playerMove(7)"></button>
+
+<button class="cell" onclick="playerMove(8)"></button>
 
 </div>
 
 </div>
+
 
 <div id="message" class="message">
+
 Твой ход ❌
+
 </div>
+
 
 <div class="buttons">
 
-<button class="main-button" onclick="newGame()">
+<button
+class="main-button"
+onclick="newGame()">
+
 🔄 Новая игра
+
 </button>
 
-<button class="main-button reset-button" onclick="resetRecords()">
+
+<button
+class="main-button reset-button"
+onclick="resetRecords()">
+
 🗑️ Сбросить рекорды
+
 </button>
 
 </div>
+
 
 <div class="tip">
 
 💡 <strong>Подсказка:</strong>
-На сложном уровне компьютер играет идеально.
-Попробуй его победить!
+
+<br>
+
+🟢 Лёгкий — компьютер ходит случайно.
+
+<br>
+
+🟡 Средний — компьютер старается выиграть и блокировать тебя.
+
+<br>
+
+🔴 Сложный — компьютер использует идеальную стратегию.
 
 </div>
+
+
+<!-- РЕКОРДЫ -->
 
 <div class="records">
 
 <h2>🏆 Мои рекорды</h2>
 
+
 <div class="record-row">
+
 <span>🟢 Лёгкий</span>
-<strong id="easyRecord">0</strong>
+
+<strong id="easyRecord">
+0
+</strong>
+
 </div>
 
+
 <div class="record-row">
+
 <span>🟡 Средний</span>
-<strong id="mediumRecord">0</strong>
+
+<strong id="mediumRecord">
+0
+</strong>
+
 </div>
+
 
 <div class="record-row">
+
 <span>🔴 Сложный</span>
-<strong id="hardRecord">0</strong>
+
+<strong id="hardRecord">
+0
+</strong>
+
 </div>
 
 </div>
+
 
 </main>
 
+
 <footer>
+
 © 2026 EasyFlow
+
 </footer>
 
+
 <script>
+
+
+/* =========================
+   ОСНОВНЫЕ ПЕРЕМЕННЫЕ
+========================= */
+
 let board = [
     "", "", "",
     "", "", "",
-    "", "", ""
+    "", ""
 ];
 
 let gameOver = false;
+
 let difficulty = "easy";
+
 let firstPlayer = "player";
 
-const playerSymbol = "X";
-const computerSymbol = "O";
-
 let computerThinking = false;
+
 let computerTimer = null;
 
+
+/* СИМВОЛЫ */
+
+const playerSymbol = "X";
+
+const computerSymbol = "O";
+
+
+/* НАЗВАНИЯ УРОВНЕЙ */
+
 const difficultyNames = {
+
     easy: "Лёгкий",
+
     medium: "Средний",
+
     hard: "Сложный"
+
 };
 
+
+/* ПОБЕДНЫЕ КОМБИНАЦИИ */
+
 const winningCombinations = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
+
+    [0,1,2],
+
+    [3,4,5],
+
+    [6,7,8],
+
+    [0,3,6],
+
+    [1,4,7],
+
+    [2,5,8],
+
+    [0,4,8],
+
+    [2,4,6]
+
 ];
+
 
 /* =========================
    РЕКОРДЫ
@@ -562,72 +719,103 @@ const winningCombinations = [
 function getRecord(level) {
 
     try {
+
         return Number(
             localStorage.getItem(
-                "easyflow_tictactoe_record_" + level
+                "easyflow_record_" + level
             ) || 0
         );
+
     } catch {
+
         return 0;
+
     }
+
 }
+
 
 function saveRecord(level, value) {
 
     try {
+
         localStorage.setItem(
-            "easyflow_tictactoe_record_" + level,
+            "easyflow_record_" + level,
             String(value)
         );
+
     } catch {}
+
 }
+
+
+/* ОБЩИЕ ПОБЕДЫ */
 
 function getWins() {
 
     try {
+
         return Number(
             localStorage.getItem(
-                "easyflow_tictactoe_wins"
+                "easyflow_total_wins"
             ) || 0
         );
+
     } catch {
+
         return 0;
+
     }
+
 }
+
 
 function saveWins(value) {
 
     try {
+
         localStorage.setItem(
-            "easyflow_tictactoe_wins",
+            "easyflow_total_wins",
             String(value)
         );
+
     } catch {}
+
 }
+
+
+/* ОБНОВЛЕНИЕ СТАТИСТИКИ */
 
 function updateRecords() {
 
-    document.getElementById("easyRecord").textContent =
-        getRecord("easy");
+    document.getElementById("easyRecord")
+        .textContent = getRecord("easy");
 
-    document.getElementById("mediumRecord").textContent =
-        getRecord("medium");
 
-    document.getElementById("hardRecord").textContent =
-        getRecord("hard");
+    document.getElementById("mediumRecord")
+        .textContent = getRecord("medium");
 
-    document.getElementById("record").textContent =
-        getRecord(difficulty);
 
-    document.getElementById("wins").textContent =
-        getWins();
+    document.getElementById("hardRecord")
+        .textContent = getRecord("hard");
 
-    document.getElementById("difficultyName").textContent =
-        difficultyNames[difficulty];
+
+    document.getElementById("record")
+        .textContent = getRecord(difficulty);
+
+
+    document.getElementById("wins")
+        .textContent = getWins();
+
+
+    document.getElementById("difficultyName")
+        .textContent = difficultyNames[difficulty];
+
 }
 
+
 /* =========================
-   СЛОЖНОСТЬ
+   ВЫБОР СЛОЖНОСТИ
 ========================= */
 
 function selectDifficulty(level) {
@@ -635,30 +823,41 @@ function selectDifficulty(level) {
     if (hasMoves()) {
 
         alert(
-            "Сначала закончи текущую игру."
+            "Сначала закончи текущую игру или нажми «Новая игра»."
         );
 
         return;
+
     }
+
 
     cancelComputerMove();
 
+
     difficulty = level;
+
 
     document
         .querySelectorAll(".level")
-        .forEach(button =>
-            button.classList.remove("active")
-        );
+        .forEach(button => {
+
+            button.classList.remove("active");
+
+        });
+
 
     document
         .getElementById(level + "Button")
         .classList.add("active");
 
+
     updateRecords();
 
+
     newGame();
+
 }
+
 
 /* =========================
    КТО ПЕРВЫЙ
@@ -673,17 +872,24 @@ function setFirstPlayer(player) {
         );
 
         return;
+
     }
+
 
     cancelComputerMove();
 
+
     firstPlayer = player;
+
 
     document
         .querySelectorAll(".first-button")
-        .forEach(button =>
-            button.classList.remove("active")
-        );
+        .forEach(button => {
+
+            button.classList.remove("active");
+
+        });
+
 
     if (player === "player") {
 
@@ -696,10 +902,14 @@ function setFirstPlayer(player) {
         document
             .getElementById("computerFirstButton")
             .classList.add("active");
+
     }
 
+
     newGame();
+
 }
+
 
 /* =========================
    НОВАЯ ИГРА
@@ -709,38 +919,55 @@ function newGame() {
 
     cancelComputerMove();
 
+
     board = [
+
         "", "", "",
+
         "", "", "",
+
         "", "", ""
+
     ];
 
+
     gameOver = false;
+
     computerThinking = false;
+
+
+    document
+        .getElementById("message")
+        .className = "message";
+
 
     renderBoard();
 
-    const message =
-        document.getElementById("message");
-
-    message.className = "message";
 
     if (firstPlayer === "player") {
 
-        message.textContent =
+        document
+            .getElementById("message")
+            .textContent =
             "Твой ход ❌";
 
     } else {
 
-        message.textContent =
+        document
+            .getElementById("message")
+            .textContent =
             "Компьютер думает... ⭕";
 
-        scheduleComputerMove(450);
+
+        scheduleComputerMove(500);
+
     }
+
 }
 
+
 /* =========================
-   ПРОВЕРКА: ЕСТЬ ЛИ ХОДЫ
+   ПРОВЕРКА ХОДОВ
 ========================= */
 
 function hasMoves() {
@@ -748,7 +975,18 @@ function hasMoves() {
     return board.some(
         cell => cell !== ""
     );
+
 }
+
+
+function countMoves() {
+
+    return board.filter(
+        cell => cell !== ""
+    ).length;
+
+}
+
 
 /* =========================
    ХОД ИГРОКА
@@ -756,72 +994,85 @@ function hasMoves() {
 
 function playerMove(index) {
 
-    if (gameOver || computerThinking) {
+    if (
+        gameOver ||
+        computerThinking ||
+        board[index] !== ""
+    ) {
+
         return;
+
     }
 
-    /*
-     * Если компьютер ходит первым,
-     * первый ход игрока невозможен,
-     * пока компьютер не сходил.
-     */
+
     if (
         firstPlayer === "computer" &&
         countMoves() === 0
     ) {
+
         return;
+
     }
 
-    if (board[index] !== "") {
-        return;
-    }
 
     board[index] = playerSymbol;
 
+
     renderBoard();
 
+
     const result = checkGame();
+
 
     if (result) {
 
         finishGame(result);
 
         return;
+
     }
 
+
     scheduleComputerMove(400);
+
 }
 
+
 /* =========================
-   ОТЛОЖЕННЫЙ ХОД КОМПЬЮТЕРА
+   КОМПЬЮТЕР
 ========================= */
 
 function scheduleComputerMove(delay) {
 
     cancelComputerMove();
 
+
     if (gameOver) {
+
         return;
+
     }
+
 
     computerThinking = true;
 
-    document.getElementById("message").textContent =
+
+    document
+        .getElementById("message")
+        .textContent =
         "Компьютер думает... ⭕";
+
 
     computerTimer = setTimeout(() => {
 
         computerTimer = null;
 
-        if (gameOver) {
-            computerThinking = false;
-            return;
-        }
-
         computerMove();
 
     }, delay);
+
 }
+
 
 function cancelComputerMove() {
 
@@ -830,10 +1081,14 @@ function cancelComputerMove() {
         clearTimeout(computerTimer);
 
         computerTimer = null;
+
     }
 
+
     computerThinking = false;
+
 }
+
 
 /* =========================
    ХОД КОМПЬЮТЕРА
@@ -842,63 +1097,82 @@ function cancelComputerMove() {
 function computerMove() {
 
     if (gameOver) {
+
         computerThinking = false;
+
         return;
+
     }
 
+
     const empty = getEmptyCells();
+
 
     if (empty.length === 0) {
 
         computerThinking = false;
 
-        const result = checkGame();
-
-        if (result) {
-            finishGame(result);
-        }
-
         return;
+
     }
+
 
     let move;
 
+
     if (difficulty === "easy") {
+
         move = randomMove();
+
     }
+
 
     else if (difficulty === "medium") {
+
         move = mediumMove();
+
     }
+
 
     else {
+
         move = bestMove();
+
     }
 
-    if (move === null) {
 
-        computerThinking = false;
-        return;
+    if (move !== null) {
+
+        board[move] = computerSymbol;
+
     }
 
-    board[move] = computerSymbol;
 
     computerThinking = false;
 
+
     renderBoard();
 
+
     const result = checkGame();
+
 
     if (result) {
 
         finishGame(result);
 
         return;
+
     }
 
-    document.getElementById("message").textContent =
+
+    document
+        .getElementById("message")
+        .textContent =
         "Твой ход ❌";
+
 }
+
 
 /* =========================
    ЛЁГКИЙ
@@ -908,16 +1182,22 @@ function randomMove() {
 
     const empty = getEmptyCells();
 
+
     if (empty.length === 0) {
+
         return null;
+
     }
+
 
     return empty[
         Math.floor(
             Math.random() * empty.length
         )
     ];
+
 }
+
 
 /* =========================
    СРЕДНИЙ
@@ -925,63 +1205,104 @@ function randomMove() {
 
 function mediumMove() {
 
-    const winning =
+    /* Сначала пытается выиграть */
+
+    const winningMove =
         findWinningMove(computerSymbol);
 
-    if (winning !== null) {
-        return winning;
+
+    if (winningMove !== null) {
+
+        return winningMove;
+
     }
 
-    const block =
+
+    /* Потом блокирует игрока */
+
+    const blockMove =
         findWinningMove(playerSymbol);
 
-    if (block !== null) {
-        return block;
+
+    if (blockMove !== null) {
+
+        return blockMove;
+
     }
+
+
+    /* Берёт центр */
 
     if (board[4] === "") {
+
         return 4;
+
     }
 
-    const corners =
-        [0, 2, 6, 8]
-            .filter(index => board[index] === "");
+
+    /* Берёт углы */
+
+    const corners = [
+
+        0, 2, 6, 8
+
+    ].filter(
+        index => board[index] === ""
+    );
+
 
     if (corners.length > 0) {
 
         return corners[
             Math.floor(
-                Math.random() * corners.length
+                Math.random() *
+                corners.length
             )
         ];
+
     }
 
+
     return randomMove();
+
 }
 
+
 /* =========================
-   ПОБЕДНЫЙ ХОД
+   ПОИСК ПОБЕДНОГО ХОДА
 ========================= */
 
 function findWinningMove(symbol) {
 
-    const empty = getEmptyCells();
+    const empty =
+        getEmptyCells();
+
 
     for (const index of empty) {
 
         board[index] = symbol;
 
-        const winner = getWinner();
+
+        const winner =
+            getWinner();
+
 
         board[index] = "";
 
+
         if (winner === symbol) {
+
             return index;
+
         }
+
     }
 
+
     return null;
+
 }
+
 
 /* =========================
    СЛОЖНЫЙ
@@ -990,86 +1311,129 @@ function findWinningMove(symbol) {
 function bestMove() {
 
     let bestScore = -Infinity;
+
     let move = null;
 
-    const empty = getEmptyCells();
 
-    /*
-     * Центр и углы проверяем первыми.
-     * Это также делает поведение компьютера
-     * более естественным.
-     */
+    const empty =
+        getEmptyCells();
+
+
+    /* Центр и углы проверяются первыми */
+
     const orderedMoves = [
+
         4,
+
         0,
+
         2,
+
         6,
+
         8,
+
         1,
+
         3,
+
         5,
+
         7
-    ].filter(index => empty.includes(index));
+
+    ].filter(
+        index => empty.includes(index)
+    );
+
 
     for (const index of orderedMoves) {
 
-        board[index] = computerSymbol;
+        board[index] =
+            computerSymbol;
 
-        const score = minimax(
-            board,
-            false,
-            0
-        );
+
+        const score =
+            minimax(
+                board,
+                false,
+                0
+            );
+
 
         board[index] = "";
+
 
         if (score > bestScore) {
 
             bestScore = score;
+
             move = index;
+
         }
+
     }
 
+
     return move;
+
 }
+
 
 /* =========================
    MINIMAX
 ========================= */
 
-function minimax(currentBoard, maximizing, depth) {
+function minimax(
+    currentBoard,
+    maximizing,
+    depth
+) {
 
     const winner =
-        getWinnerForBoard(currentBoard);
+        getWinnerForBoard(
+            currentBoard
+        );
+
 
     if (winner === computerSymbol) {
 
         return 10 - depth;
+
     }
+
 
     if (winner === playerSymbol) {
 
         return depth - 10;
+
     }
+
 
     if (
         currentBoard.every(
             cell => cell !== ""
         )
     ) {
+
         return 0;
+
     }
+
 
     if (maximizing) {
 
         let bestScore = -Infinity;
 
+
         for (let i = 0; i < 9; i++) {
 
-            if (currentBoard[i] === "") {
+            if (
+                currentBoard[i] === ""
+            ) {
 
                 currentBoard[i] =
                     computerSymbol;
+
 
                 const score =
                     minimax(
@@ -1078,28 +1442,40 @@ function minimax(currentBoard, maximizing, depth) {
                         depth + 1
                     );
 
+
                 currentBoard[i] = "";
+
 
                 bestScore =
                     Math.max(
                         bestScore,
                         score
                     );
+
             }
+
         }
+
 
         return bestScore;
 
-    } else {
+    }
+
+
+    else {
 
         let bestScore = Infinity;
 
+
         for (let i = 0; i < 9; i++) {
 
-            if (currentBoard[i] === "") {
+            if (
+                currentBoard[i] === ""
+            ) {
 
                 currentBoard[i] =
                     playerSymbol;
+
 
                 const score =
                     minimax(
@@ -1108,19 +1484,27 @@ function minimax(currentBoard, maximizing, depth) {
                         depth + 1
                     );
 
+
                 currentBoard[i] = "";
+
 
                 bestScore =
                     Math.min(
                         bestScore,
                         score
                     );
+
             }
+
         }
 
+
         return bestScore;
+
     }
+
 }
+
 
 /* =========================
    ПУСТЫЕ КЛЕТКИ
@@ -1130,45 +1514,55 @@ function getEmptyCells() {
 
     const empty = [];
 
+
     for (let i = 0; i < 9; i++) {
 
         if (board[i] === "") {
+
             empty.push(i);
+
         }
+
     }
 
+
     return empty;
+
 }
 
-function countMoves() {
-
-    return board.filter(
-        cell => cell !== ""
-    ).length;
-}
 
 /* =========================
-   ПРОВЕРКА
+   ПРОВЕРКА ИГРЫ
 ========================= */
 
 function checkGame() {
 
-    const winner = getWinner();
+    const winner =
+        getWinner();
+
 
     if (winner) {
+
         return winner;
+
     }
+
 
     if (
         board.every(
             cell => cell !== ""
         )
     ) {
+
         return "draw";
+
     }
 
+
     return null;
+
 }
+
 
 /* =========================
    ПОБЕДИТЕЛЬ
@@ -1176,31 +1570,49 @@ function checkGame() {
 
 function getWinner() {
 
-    return getWinnerForBoard(board);
+    return getWinnerForBoard(
+        board
+    );
+
 }
 
-function getWinnerForBoard(currentBoard) {
+
+function getWinnerForBoard(
+    currentBoard
+) {
 
     for (
         const combination
         of winningCombinations
     ) {
 
-        const [a, b, c] =
+        const [a,b,c] =
             combination;
 
+
         if (
+
             currentBoard[a] !== "" &&
-            currentBoard[a] === currentBoard[b] &&
-            currentBoard[a] === currentBoard[c]
+
+            currentBoard[a] ===
+            currentBoard[b] &&
+
+            currentBoard[a] ===
+            currentBoard[c]
+
         ) {
 
             return currentBoard[a];
+
         }
+
     }
 
+
     return null;
+
 }
+
 
 /* =========================
    ПОБЕДНАЯ ЛИНИЯ
@@ -1213,37 +1625,53 @@ function getWinningCombination() {
         of winningCombinations
     ) {
 
-        const [a, b, c] =
+        const [a,b,c] =
             combination;
 
+
         if (
+
             board[a] !== "" &&
+
             board[a] === board[b] &&
+
             board[a] === board[c]
+
         ) {
 
             return combination;
+
         }
+
     }
 
+
     return null;
+
 }
 
+
 /* =========================
-   ЗАВЕРШЕНИЕ
+   ЗАВЕРШЕНИЕ ИГРЫ
 ========================= */
 
 function finishGame(result) {
 
     cancelComputerMove();
 
+
     gameOver = true;
 
+
     const message =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
+
 
     const winning =
         getWinningCombination();
+
 
     if (winning) {
 
@@ -1251,22 +1679,34 @@ function finishGame(result) {
 
             const cell =
                 document.querySelector(
-                    `.cell[data-index="${index}"]`
+                    `.cell:nth-child(${index + 1})`
                 );
 
+
             if (cell) {
+
                 cell.classList.add("win");
+
             }
+
         });
+
     }
+
+
+    /* ПОБЕДА ИГРОКА */
 
     if (result === playerSymbol) {
 
         message.textContent =
             "🏆 Ты победил!";
 
+
         message.className =
             "message win-message";
+
+
+        /* Общее количество побед */
 
         let wins = getWins();
 
@@ -1274,42 +1714,70 @@ function finishGame(result) {
 
         saveWins(wins);
 
-        /*
-         * Рекорд теперь означает количество побед
-         * именно на этой сложности.
-         */
-        const currentRecord =
+
+        /* Рекорд конкретной сложности */
+
+        let record =
             getRecord(difficulty);
 
-        if (wins > currentRecord) {
 
-            saveRecord(
+        if (wins > record) {
+
+            /*
+             * Здесь записываем количество
+             * побед именно для этой сложности.
+             */
+
+            let levelWins =
+                getLevelWins(difficulty);
+
+            levelWins++;
+
+            saveLevelWins(
                 difficulty,
-                wins
+                levelWins
             );
+
         }
+
 
         updateRecords();
 
-    } else if (result === computerSymbol) {
+        return;
+
+    }
+
+
+    /* ПОБЕДА КОМПЬЮТЕРА */
+
+    if (result === computerSymbol) {
 
         message.textContent =
             "💥 Компьютер победил!";
 
+
         message.className =
             "message lose-message";
 
-    } else {
 
-        message.textContent =
-            "🤝 Ничья!";
+        renderBoard();
 
-        message.className =
-            "message";
+        return;
+
     }
 
-    renderBoard();
+
+    /* НИЧЬЯ */
+
+    message.textContent =
+        "🤝 Ничья!";
+
+
+    message.className =
+        "message";
+
 }
+
 
 /* =========================
    ОТРИСОВКА
@@ -1318,82 +1786,197 @@ function finishGame(result) {
 function renderBoard() {
 
     const cells =
-        document.querySelectorAll(".cell");
-
-    cells.forEach((cell, index) => {
-
-        cell.textContent =
-            board[index];
-
-        cell.classList.remove(
-            "x",
-            "o",
-            "win"
+        document.querySelectorAll(
+            ".cell"
         );
 
-        cell.disabled =
-            gameOver ||
-            computerThinking ||
-            board[index] !== "";
 
-        if (board[index] === "X") {
+    cells.forEach(
+        (cell, index) => {
 
-            cell.classList.add("x");
+            cell.textContent =
+                board[index];
+
+
+            cell.classList.remove(
+                "x",
+                "o",
+                "win"
+            );
+
+
+            if (
+                board[index] === "X"
+            ) {
+
+                cell.classList.add("x");
+
+            }
+
+
+            if (
+                board[index] === "O"
+            ) {
+
+                cell.classList.add("o");
+
+            }
+
+
+            cell.disabled =
+
+                gameOver ||
+
+                computerThinking ||
+
+                board[index] !== "";
+
         }
+    );
 
-        if (board[index] === "O") {
-
-            cell.classList.add("o");
-        }
-    });
 }
 
+
 /* =========================
-   СБРОС РЕКОРДОВ
+   РЕКОРДЫ ПО УРОВНЯМ
 ========================= */
 
-function resetRecords() {
-
-    const confirmReset =
-        confirm(
-            "Ты действительно хочешь сбросить все рекорды?"
-        );
-
-    if (!confirmReset) {
-        return;
-    }
-
-    cancelComputerMove();
+function getLevelWins(level) {
 
     try {
 
-        localStorage.removeItem(
-            "easyflow_tictactoe_record_easy"
+        return Number(
+            localStorage.getItem(
+                "easyflow_level_wins_" + level
+            ) || 0
         );
 
-        localStorage.removeItem(
-            "easyflow_tictactoe_record_medium"
-        );
+    } catch {
 
-        localStorage.removeItem(
-            "easyflow_tictactoe_record_hard"
-        );
+        return 0;
 
-        localStorage.removeItem(
-            "easyflow_tictactoe_wins"
+    }
+
+}
+
+
+function saveLevelWins(level, value) {
+
+    try {
+
+        localStorage.setItem(
+            "easyflow_level_wins_" + level,
+            String(value)
         );
 
     } catch {}
 
+}
+
+
+/* =========================
+   ОБНОВЛЯЕМ РЕКОРД
+========================= */
+
+function updateRecords() {
+
+    document.getElementById(
+        "easyRecord"
+    ).textContent =
+        getLevelWins("easy");
+
+
+    document.getElementById(
+        "mediumRecord"
+    ).textContent =
+        getLevelWins("medium");
+
+
+    document.getElementById(
+        "hardRecord"
+    ).textContent =
+        getLevelWins("hard");
+
+
+    document.getElementById(
+        "record"
+    ).textContent =
+        getLevelWins(difficulty);
+
+
+    document.getElementById(
+        "wins"
+    ).textContent =
+        getWins();
+
+
+    document.getElementById(
+        "difficultyName"
+    ).textContent =
+        difficultyNames[difficulty];
+
+}
+
+
+/* =========================
+   СБРОС
+========================= */
+
+function resetRecords() {
+
+    const answer =
+        confirm(
+            "Ты действительно хочешь сбросить все рекорды?"
+        );
+
+
+    if (!answer) {
+
+        return;
+
+    }
+
+
+    cancelComputerMove();
+
+
+    try {
+
+        localStorage.removeItem(
+            "easyflow_total_wins"
+        );
+
+
+        localStorage.removeItem(
+            "easyflow_level_wins_easy"
+        );
+
+
+        localStorage.removeItem(
+            "easyflow_level_wins_medium"
+        );
+
+
+        localStorage.removeItem(
+            "easyflow_level_wins_hard"
+        );
+
+    } catch {}
+
+
     updateRecords();
 
+
     newGame();
+
 
     document.getElementById(
         "message"
     ).textContent =
         "Рекорды сброшены.";
+
 }
+
 
 /* =========================
    ЗАПУСК
@@ -1402,6 +1985,7 @@ function resetRecords() {
 updateRecords();
 
 newGame();
+
 </script>
 
 </body>
