@@ -69,7 +69,9 @@ header {
     color: #64748b;
 }
 
-/* СЛОЖНОСТЬ */
+/* =========================
+   СЛОЖНОСТЬ
+========================= */
 
 .difficulty {
     background: #fff;
@@ -123,7 +125,9 @@ header {
     color: #991b1b;
 }
 
-/* СТАТИСТИКА */
+/* =========================
+   СТАТИСТИКА
+========================= */
 
 .info {
     display: flex;
@@ -153,7 +157,9 @@ header {
     font-size: 23px;
 }
 
-/* ИГРА */
+/* =========================
+   ИГРА
+========================= */
 
 .game-box {
     background: #fff;
@@ -194,7 +200,9 @@ header {
     margin-bottom: 20px;
 }
 
-/* ОТВЕТЫ */
+/* =========================
+   ОТВЕТЫ
+========================= */
 
 .answers {
     display: grid;
@@ -242,7 +250,9 @@ header {
     color: #991b1b;
 }
 
-/* СООБЩЕНИЕ */
+/* =========================
+   СООБЩЕНИЕ
+========================= */
 
 .message {
     min-height: 28px;
@@ -264,7 +274,9 @@ header {
     color: #2563eb;
 }
 
-/* КНОПКИ */
+/* =========================
+   КНОПКИ
+========================= */
 
 .buttons {
     display: flex;
@@ -305,7 +317,9 @@ header {
     display: none;
 }
 
-/* ПРОГРЕСС */
+/* =========================
+   ПРОГРЕСС
+========================= */
 
 .progress {
     margin-top: 15px;
@@ -313,7 +327,9 @@ header {
     font-size: 14px;
 }
 
-/* РЕКОРДЫ */
+/* =========================
+   РЕКОРДЫ
+========================= */
 
 .records {
     background: #fff;
@@ -347,7 +363,9 @@ footer {
     padding: 25px;
 }
 
-/* МОБИЛЬНАЯ ВЕРСИЯ */
+/* =========================
+   МОБИЛЬНАЯ ВЕРСИЯ
+========================= */
 
 @media (max-width: 600px) {
 
@@ -386,26 +404,38 @@ footer {
 <body>
 
 <header>
+
     <div class="header">
-        <a href="index.html" class="logo">EasyFlow</a>
+
+        <a href="index.html" class="logo">
+            EasyFlow
+        </a>
 
         <a href="games.html" class="back">
             ← Игры
         </a>
+
     </div>
+
 </header>
+
 
 <main class="container">
 
     <div class="title">
+
         <h1>🌍 Угадай флаг</h1>
 
         <p>
             Угадай страну по её флагу и установи свой рекорд!
         </p>
+
     </div>
 
-    <!-- СЛОЖНОСТЬ -->
+
+    <!-- =========================
+         СЛОЖНОСТЬ
+    ========================== -->
 
     <div class="difficulty">
 
@@ -444,28 +474,57 @@ footer {
 
     </div>
 
-    <!-- СТАТИСТИКА -->
+
+    <!-- =========================
+         СТАТИСТИКА
+    ========================== -->
 
     <div class="info">
 
         <div class="stat">
-            <span>Очки</span>
-            <strong id="score">0</strong>
+
+            <span>
+                Очки
+            </span>
+
+            <strong id="score">
+                0
+            </strong>
+
         </div>
 
-        <div class="stat">
-            <span>🏆 Рекорд</span>
-            <strong id="record">0</strong>
-        </div>
 
         <div class="stat">
-            <span>❤️ Жизни</span>
-            <strong id="lives">3</strong>
+
+            <span>
+                🏆 Рекорд
+            </span>
+
+            <strong id="record">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <span>
+                ❤️ Жизни
+            </span>
+
+            <strong id="lives">
+                3
+            </strong>
+
         </div>
 
     </div>
 
-    <!-- ИГРА -->
+
+    <!-- =========================
+         ИГРА
+    ========================== -->
 
     <div class="game-box">
 
@@ -479,15 +538,28 @@ footer {
 
         </div>
 
-        <div id="question" class="question">
+
+        <div
+            id="question"
+            class="question"
+        >
             Какая это страна?
         </div>
 
-        <div id="answers" class="answers"></div>
 
-        <div id="message" class="message">
+        <div
+            id="answers"
+            class="answers"
+        ></div>
+
+
+        <div
+            id="message"
+            class="message"
+        >
             Нажми «Начать игру»
         </div>
+
 
         <div class="buttons">
 
@@ -500,6 +572,7 @@ footer {
                 ▶️ Начать игру
             </button>
 
+
             <button
                 id="nextButton"
                 class="main-button next-button"
@@ -511,44 +584,80 @@ footer {
 
         </div>
 
-        <div id="progress" class="progress"></div>
+
+        <div
+            id="progress"
+            class="progress"
+        ></div>
 
     </div>
 
-    <!-- РЕКОРДЫ -->
+
+    <!-- =========================
+         РЕКОРДЫ
+    ========================== -->
 
     <div class="records">
 
-        <h2>🏆 Мои рекорды</h2>
+        <h2>
+            🏆 Мои рекорды
+        </h2>
+
 
         <div class="record-row">
-            <span>🟢 Лёгкий</span>
-            <strong id="easyRecord">0</strong>
+
+            <span>
+                🟢 Лёгкий
+            </span>
+
+            <strong id="easyRecord">
+                0
+            </strong>
+
         </div>
 
-        <div class="record-row">
-            <span>🟡 Средний</span>
-            <strong id="mediumRecord">0</strong>
-        </div>
 
         <div class="record-row">
-            <span>🔴 Сложный</span>
-            <strong id="hardRecord">0</strong>
+
+            <span>
+                🟡 Средний
+            </span>
+
+            <strong id="mediumRecord">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="record-row">
+
+            <span>
+                🔴 Сложный
+            </span>
+
+            <strong id="hardRecord">
+                0
+            </strong>
+
         </div>
 
     </div>
 
 </main>
 
+
 <footer>
+
     © 2026 EasyFlow
+
 </footer>
+
 
 <script>
 
 /* =====================================================
-   СТРАНЫ
-   Каждая страна встречается только один раз.
+   СПИСОК СТРАН
 ===================================================== */
 
 const countries = [
@@ -594,6 +703,7 @@ const countries = [
     { name:"ОАЭ", code:"ae", difficulty:"easy" },
     { name:"Таиланд", code:"th", difficulty:"easy" },
     { name:"Вьетнам", code:"vn", difficulty:"easy" },
+
 
     /* ================= СРЕДНИЕ ================= */
 
@@ -684,6 +794,7 @@ const countries = [
     { name:"Самоа", code:"ws", difficulty:"medium" },
     { name:"Тонга", code:"to", difficulty:"medium" },
 
+
     /* ================= СЛОЖНЫЕ ================= */
 
     { name:"Андорра", code:"ad", difficulty:"hard" },
@@ -758,7 +869,7 @@ const countries = [
 
 
 /* =====================================================
-   ПРОВЕРКА УНИКАЛЬНОСТИ
+   УДАЛЯЕМ ДУБЛИКАТЫ
 ===================================================== */
 
 const uniqueCountries = [];
@@ -767,26 +878,37 @@ const countryCodes = new Set();
 countries.forEach(country => {
 
     if (!countryCodes.has(country.code)) {
+
         countryCodes.add(country.code);
+
         uniqueCountries.push(country);
+
     }
 
 });
 
 
 /* =====================================================
-   НАСТРОЙКИ ИГРЫ
+   НАСТРОЙКИ
 ===================================================== */
 
 let difficulty = "easy";
+
 let currentCountry = null;
 
 let score = 0;
+
 let lives = 3;
 
 let gameRunning = false;
+
 let questionAnswered = false;
 
+/*
+   Здесь хранятся ВСЕ флаги,
+   которые уже были показаны
+   в текущей игре.
+*/
 let usedCountries = [];
 
 
@@ -794,18 +916,32 @@ let usedCountries = [];
    DOM
 ===================================================== */
 
-const flagElement = document.getElementById("flag");
-const answersElement = document.getElementById("answers");
+const flagElement =
+    document.getElementById("flag");
 
-const scoreElement = document.getElementById("score");
-const livesElement = document.getElementById("lives");
-const recordElement = document.getElementById("record");
+const answersElement =
+    document.getElementById("answers");
 
-const messageElement = document.getElementById("message");
-const nextButton = document.getElementById("nextButton");
-const startButton = document.getElementById("startButton");
+const scoreElement =
+    document.getElementById("score");
 
-const progressElement = document.getElementById("progress");
+const livesElement =
+    document.getElementById("lives");
+
+const recordElement =
+    document.getElementById("record");
+
+const messageElement =
+    document.getElementById("message");
+
+const nextButton =
+    document.getElementById("nextButton");
+
+const startButton =
+    document.getElementById("startButton");
+
+const progressElement =
+    document.getElementById("progress");
 
 
 /* =====================================================
@@ -856,30 +992,81 @@ function updateRecords() {
 
 function selectDifficulty(level) {
 
-    if (gameRunning) {
-
-        messageElement.textContent =
-            "⚠️ Сначала закончи текущую игру.";
-
-        messageElement.className =
-            "message wrong-message";
-
-        return;
-    }
+    /*
+       Меняем уровень сразу.
+       Текущая игра сбрасывается,
+       чтобы флаги нового уровня
+       никогда не смешивались со старым.
+    */
 
     difficulty = level;
+
+    updateDifficultyButtons();
+
+    resetScreen();
+
+    messageElement.textContent =
+        "Выбран уровень: " +
+        getDifficultyName();
+
+    messageElement.className =
+        "message";
+
+}
+
+
+/* =====================================================
+   НАЗВАНИЕ УРОВНЯ
+===================================================== */
+
+function getDifficultyName() {
+
+    if (difficulty === "easy") {
+        return "🟢 Лёгкий";
+    }
+
+    if (difficulty === "medium") {
+        return "🟡 Средний";
+    }
+
+    if (difficulty === "hard") {
+        return "🔴 Сложный";
+    }
+
+    return "";
+
+}
+
+
+/* =====================================================
+   АКТИВНАЯ КНОПКА
+===================================================== */
+
+function updateDifficultyButtons() {
 
     document
         .querySelectorAll(".level")
         .forEach(button => {
+
             button.classList.remove("active");
+
         });
 
-    document
-        .getElementById(level + "Button")
-        .classList.add("active", level);
 
-    resetScreen();
+    const activeButton =
+        document.getElementById(
+            difficulty + "Button"
+        );
+
+
+    if (activeButton) {
+
+        activeButton.classList.add(
+            "active",
+            difficulty
+        );
+
+    }
 
 }
 
@@ -892,29 +1079,51 @@ function shuffle(array) {
 
     const result = [...array];
 
-    for (let i = result.length - 1; i > 0; i--) {
+    for (
+        let i = result.length - 1;
+        i > 0;
+        i--
+    ) {
 
-        const j = Math.floor(
-            Math.random() * (i + 1)
-        );
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
 
-        [result[i], result[j]] =
-        [result[j], result[i]];
+        [
+            result[i],
+            result[j]
+        ] = [
+            result[j],
+            result[i]
+        ];
 
     }
 
     return result;
+
 }
 
 
 /* =====================================================
-   СТРАНЫ ТЕКУЩЕЙ СЛОЖНОСТИ
+   СТРАНЫ ТЕКУЩЕГО УРОВНЯ
 ===================================================== */
 
 function getAvailableCountries() {
 
-    return uniqueCountries.filter(country =>
-        country.difficulty === difficulty
+    /*
+       ВАЖНО:
+
+       Здесь строго проверяется difficulty.
+
+       easy    → только easy
+       medium  → только medium
+       hard    → только hard
+    */
+
+    return uniqueCountries.filter(
+        country =>
+            country.difficulty === difficulty
     );
 
 }
@@ -926,41 +1135,64 @@ function getAvailableCountries() {
 
 function startGame() {
 
-    const available = getAvailableCountries();
+    const available =
+        getAvailableCountries();
+
 
     if (available.length < 4) {
 
         messageElement.textContent =
-            "❌ Недостаточно стран для игры.";
+            "❌ На этом уровне недостаточно стран.";
 
         messageElement.className =
             "message wrong-message";
 
         return;
+
     }
 
+
     score = 0;
+
     lives = 3;
 
     gameRunning = true;
+
     questionAnswered = false;
+
+
+    /*
+       Полностью очищаем список
+       использованных флагов.
+    */
 
     usedCountries = [];
 
-    scoreElement.textContent = "0";
-    livesElement.textContent = "3";
+
+    scoreElement.textContent =
+        "0";
+
+    livesElement.textContent =
+        "3";
+
 
     messageElement.textContent =
         "Выбери правильную страну!";
 
-    messageElement.className = "message";
+    messageElement.className =
+        "message";
 
-    nextButton.style.display = "none";
+
+    nextButton.style.display =
+        "none";
+
 
     startButton.textContent =
         "🔄 Новая игра";
 
+
     nextQuestion();
+
 }
 
 
@@ -974,44 +1206,61 @@ function nextQuestion() {
         return;
     }
 
-    const available = getAvailableCountries();
 
-    if (available.length < 4) {
-        endGame();
-        return;
-    }
+    const available =
+        getAvailableCountries();
 
-    questionAnswered = false;
-
-    nextButton.style.display = "none";
-
-    let unused = available.filter(country =>
-        !usedCountries.includes(country.code)
-    );
 
     /*
-       Если все страны были показаны,
-       начинаем новый круг.
+       Если все страны уже использованы,
+       игра заканчивается.
     */
+
+    const unused =
+        available.filter(
+            country =>
+                !usedCountries.includes(
+                    country.code
+                )
+        );
+
 
     if (unused.length === 0) {
 
-        usedCountries = [];
+        finishLevel();
 
-        unused = [...available];
+        return;
 
     }
+
+
+    questionAnswered = false;
+
+    nextButton.style.display =
+        "none";
+
+
+    /*
+       Выбираем флаг ТОЛЬКО
+       из ещё не использованных.
+    */
 
     currentCountry =
         unused[
             Math.floor(
-                Math.random() * unused.length
+                Math.random() *
+                unused.length
             )
         ];
 
+
     /*
-       Страна считается использованной
-       после показа вопроса.
+       Сразу записываем флаг
+       в использованные.
+
+       Поэтому этот же флаг
+       больше никогда не появится
+       в текущей игре.
     */
 
     usedCountries.push(
@@ -1019,7 +1268,9 @@ function nextQuestion() {
     );
 
 
-    /* ФЛАГ */
+    /* =========================
+       ФЛАГ
+    ========================== */
 
     flagElement.src =
         "https://flagcdn.com/w640/" +
@@ -1027,12 +1278,16 @@ function nextQuestion() {
         ".png";
 
     flagElement.alt =
-        "Флаг " + currentCountry.name;
+        "Флаг " +
+        currentCountry.name;
 
 
-    /* ОТВЕТЫ */
+    /* =========================
+       ОТВЕТЫ
+    ========================== */
 
     createAnswers(available);
+
 
     updateProgress();
 
@@ -1040,22 +1295,32 @@ function nextQuestion() {
 
 
 /* =====================================================
-   СОЗДАНИЕ 4 ОТВЕТОВ
+   СОЗДАНИЕ ОТВЕТОВ
 ===================================================== */
 
 function createAnswers(available) {
 
     answersElement.innerHTML = "";
 
-    const wrongAnswers = shuffle(
-        available.filter(country =>
-            country.code !== currentCountry.code
-        )
-    );
 
     /*
-       Всегда выбираем:
-       1 правильный + 3 неправильных.
+       Берём только страны
+       ТОГО ЖЕ УРОВНЯ.
+    */
+
+    const wrongAnswers =
+        shuffle(
+            available.filter(
+                country =>
+                    country.code !==
+                    currentCountry.code
+            )
+        );
+
+
+    /*
+       1 правильный +
+       3 неправильных.
     */
 
     const options = [
@@ -1063,28 +1328,57 @@ function createAnswers(available) {
         ...wrongAnswers.slice(0, 3)
     ];
 
+
     const shuffledOptions =
         shuffle(options);
 
-    shuffledOptions.forEach(country => {
 
-        const button =
-            document.createElement("button");
+    shuffledOptions.forEach(
+        (country, index) => {
 
-        button.className = "answer";
-        button.type = "button";
+            const button =
+                document.createElement(
+                    "button"
+                );
 
-        button.textContent =
-            country.name;
 
-        button.addEventListener(
-            "click",
-            () => checkAnswer(country, button)
-        );
+            button.className =
+                "answer";
 
-        answersElement.appendChild(button);
+            button.type =
+                "button";
 
-    });
+
+            button.textContent =
+                country.name;
+
+
+            /*
+               Можно отвечать
+               и мышкой,
+               и клавишами 1-4.
+            */
+
+            button.dataset.index =
+                index + 1;
+
+
+            button.addEventListener(
+                "click",
+                () =>
+                    checkAnswer(
+                        country,
+                        button
+                    )
+            );
+
+
+            answersElement.appendChild(
+                button
+            );
+
+        }
+    );
 
 }
 
@@ -1093,7 +1387,10 @@ function createAnswers(available) {
    ПРОВЕРКА ОТВЕТА
 ===================================================== */
 
-function checkAnswer(country, button) {
+function checkAnswer(
+    country,
+    button
+) {
 
     if (
         !gameRunning ||
@@ -1102,72 +1399,129 @@ function checkAnswer(country, button) {
         return;
     }
 
+
     questionAnswered = true;
 
+
     const buttons =
-        document.querySelectorAll(".answer");
-
-    buttons.forEach(btn => {
-        btn.disabled = true;
-    });
+        document.querySelectorAll(
+            ".answer"
+        );
 
 
-    /* ПРАВИЛЬНО */
+    buttons.forEach(
+        btn => {
+            btn.disabled = true;
+        }
+    );
+
+
+    /* =========================
+       ПРАВИЛЬНО
+    ========================== */
 
     if (
         country.code ===
         currentCountry.code
     ) {
 
-        button.classList.add("correct");
+        button.classList.add(
+            "correct"
+        );
+
 
         score++;
+
 
         scoreElement.textContent =
             score;
 
+
         messageElement.textContent =
             "✅ Правильно!";
+
 
         messageElement.className =
             "message correct-message";
 
+
         updateBestScore();
+
+
+        /*
+           Проверяем, закончились ли
+           страны после правильного ответа.
+        */
+
+        const available =
+            getAvailableCountries();
+
+
+        if (
+            usedCountries.length >=
+            available.length
+        ) {
+
+            nextButton.style.display =
+                "none";
+
+            finishLevel();
+
+            return;
+
+        }
+
 
         nextButton.style.display =
             "inline-block";
 
+
         updateProgress();
 
+
         return;
+
     }
 
 
-    /* НЕПРАВИЛЬНО */
+    /* =========================
+       НЕПРАВИЛЬНО
+    ========================== */
 
-    button.classList.add("wrong");
+    button.classList.add(
+        "wrong"
+    );
 
-    buttons.forEach(btn => {
 
-        if (
-            btn.textContent ===
-            currentCountry.name
-        ) {
+    buttons.forEach(
+        btn => {
 
-            btn.classList.add("correct");
+            if (
+                btn.textContent ===
+                currentCountry.name
+            ) {
+
+                btn.classList.add(
+                    "correct"
+                );
+
+            }
 
         }
+    );
 
-    });
 
     lives--;
+
 
     livesElement.textContent =
         lives;
 
+
     messageElement.textContent =
         "❌ Неправильно! Правильный ответ: " +
         currentCountry.name;
+
 
     messageElement.className =
         "message wrong-message";
@@ -1179,10 +1533,16 @@ function checkAnswer(country, button) {
 
     } else {
 
+        /*
+           Если жизни ещё есть,
+           можно перейти дальше.
+        */
+
         nextButton.style.display =
             "inline-block";
 
     }
+
 
     updateProgress();
 
@@ -1190,13 +1550,14 @@ function checkAnswer(country, button) {
 
 
 /* =====================================================
-   РЕКОРД
+   ОБНОВЛЕНИЕ РЕКОРДА
 ===================================================== */
 
 function updateBestScore() {
 
     const record =
         getRecord(difficulty);
+
 
     if (score > record) {
 
@@ -1205,8 +1566,10 @@ function updateBestScore() {
             score
         );
 
+
         recordElement.textContent =
             score;
+
 
         updateRecords();
 
@@ -1224,14 +1587,65 @@ function updateProgress() {
     const total =
         getAvailableCountries().length;
 
+
     const used =
         usedCountries.length;
 
+
     progressElement.textContent =
-        "🌍 Стран в уровне: " +
+        getDifficultyName() +
+        " • 🌍 Флагов: " +
         total +
         " • Показано: " +
-        used;
+        used +
+        "/" +
+        total;
+
+}
+
+
+/* =====================================================
+   ЗАКОНЧИЛИСЬ ВСЕ ФЛАГИ
+===================================================== */
+
+function finishLevel() {
+
+    gameRunning = false;
+
+    questionAnswered = true;
+
+
+    updateBestScore();
+
+
+    messageElement.textContent =
+        "🏆 Ты прошёл весь уровень! Результат: " +
+        score +
+        " очков";
+
+
+    messageElement.className =
+        "message win-message";
+
+
+    nextButton.style.display =
+        "none";
+
+
+    startButton.textContent =
+        "🔄 Играть ещё раз";
+
+
+    document
+        .querySelectorAll(".answer")
+        .forEach(
+            button => {
+                button.disabled = true;
+            }
+        );
+
+
+    updateProgress();
 
 }
 
@@ -1246,68 +1660,106 @@ function endGame() {
 
     questionAnswered = true;
 
+
     updateBestScore();
+
 
     messageElement.textContent =
         "💥 Игра окончена! Твой результат: " +
         score +
         " очков";
 
+
     messageElement.className =
         "message wrong-message";
+
 
     nextButton.style.display =
         "none";
 
+
     startButton.textContent =
         "▶️ Начать игру";
 
+
     document
         .querySelectorAll(".answer")
-        .forEach(button => {
-            button.disabled = true;
-        });
+        .forEach(
+            button => {
+                button.disabled = true;
+            }
+        );
+
+
+    updateProgress();
 
 }
 
 
 /* =====================================================
-   СБРОС ЭКРАНА
+   СБРОС
 ===================================================== */
 
 function resetScreen() {
 
     score = 0;
+
     lives = 3;
 
     gameRunning = false;
+
     questionAnswered = false;
 
     currentCountry = null;
+
+    /*
+       Здесь начинается новый список.
+       Старые флаги больше не учитываются.
+    */
+
     usedCountries = [];
 
-    scoreElement.textContent = "0";
-    livesElement.textContent = "3";
+
+    scoreElement.textContent =
+        "0";
+
+
+    livesElement.textContent =
+        "3";
+
 
     messageElement.textContent =
         "Нажми «Начать игру»";
 
+
     messageElement.className =
         "message";
 
-    flagElement.removeAttribute("src");
 
-    flagElement.alt = "Флаг";
+    flagElement.removeAttribute(
+        "src"
+    );
 
-    answersElement.innerHTML = "";
+
+    flagElement.alt =
+        "Флаг";
+
+
+    answersElement.innerHTML =
+        "";
+
 
     nextButton.style.display =
         "none";
 
+
     startButton.textContent =
         "▶️ Начать игру";
 
-    progressElement.textContent = "";
+
+    progressElement.textContent =
+        "";
+
 
     updateRecords();
 
@@ -1326,8 +1778,10 @@ flagElement.addEventListener(
             return;
         }
 
+
         messageElement.textContent =
             "⚠️ Не удалось загрузить флаг. Проверь подключение к интернету.";
+
 
         messageElement.className =
             "message wrong-message";
@@ -1351,20 +1805,42 @@ document.addEventListener(
             return;
         }
 
-        const keys = ["1", "2", "3", "4"];
 
-        if (!keys.includes(event.key)) {
+        /*
+           У нас всегда 4 ответа.
+        */
+
+        const keys = [
+            "1",
+            "2",
+            "3",
+            "4"
+        ];
+
+
+        if (
+            !keys.includes(
+                event.key
+            )
+        ) {
             return;
         }
+
 
         const index =
             Number(event.key) - 1;
 
+
         const buttons =
-            document.querySelectorAll(".answer");
+            document.querySelectorAll(
+                ".answer"
+            );
+
 
         if (buttons[index]) {
+
             buttons[index].click();
+
         }
 
     }
@@ -1375,7 +1851,10 @@ document.addEventListener(
    ЗАПУСК
 ===================================================== */
 
+updateDifficultyButtons();
+
 updateRecords();
+
 resetScreen();
 
 </script>
