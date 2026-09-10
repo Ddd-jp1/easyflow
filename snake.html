@@ -35,7 +35,7 @@ body {
 }
 
 header {
-    background: var(--card);
+    background: white;
     border-bottom: 1px solid var(--border);
     padding: 16px 20px;
 }
@@ -43,11 +43,9 @@ header {
 .header {
     max-width: 900px;
     margin: auto;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     gap: 20px;
 }
 
@@ -107,14 +105,10 @@ h1 {
     border: 2px solid var(--border);
     background: white;
     color: #111827;
-
     padding: 10px 16px;
-
     border-radius: 10px;
-
     cursor: pointer;
     font-weight: bold;
-
     transition: .2s;
 }
 
@@ -132,32 +126,23 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 10px;
-
     margin-bottom: 15px;
-
     flex-wrap: wrap;
 }
 
 .stat {
     background: var(--card);
     border: 1px solid var(--border);
-
     border-radius: 12px;
-
     padding: 10px 20px;
-
     text-align: center;
-
     min-width: 110px;
 }
 
 .stat span {
     display: block;
-
     color: var(--muted);
-
     font-size: 13px;
-
     margin-bottom: 3px;
 }
 
@@ -173,29 +158,20 @@ h1 {
 canvas {
     width: min(92vw, 500px);
     height: min(92vw, 500px);
-
     background: #111827;
-
     border: 4px solid var(--blue);
     border-radius: 14px;
-
     display: block;
-
     touch-action: none;
     user-select: none;
     -webkit-user-select: none;
-
-    box-shadow:
-        0 12px 30px rgba(0,0,0,.15);
+    box-shadow: 0 12px 30px rgba(0,0,0,.15);
 }
 
 .message {
     text-align: center;
-
     min-height: 24px;
-
     margin: 15px 0;
-
     font-weight: bold;
 }
 
@@ -209,31 +185,20 @@ canvas {
 
 .buttons {
     display: flex;
-
     justify-content: center;
-
     gap: 10px;
-
     flex-wrap: wrap;
 }
 
 .main-button {
     border: none;
-
     background: var(--blue);
-
     color: white;
-
     padding: 12px 22px;
-
     border-radius: 10px;
-
     font-size: 16px;
-
     font-weight: bold;
-
     cursor: pointer;
-
     transition: .2s;
 }
 
@@ -255,33 +220,21 @@ canvas {
 
 .controls {
     width: 210px;
-
     margin: 20px auto;
-
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 65px);
-
+    grid-template-columns: repeat(3, 65px);
     gap: 7px;
 }
 
 .control {
     width: 65px;
     height: 55px;
-
     border: 1px solid var(--border);
-
     border-radius: 12px;
-
     background: white;
-
     font-size: 23px;
-
     cursor: pointer;
-
     touch-action: manipulation;
-
     user-select: none;
 }
 
@@ -295,29 +248,21 @@ canvas {
 
 .records {
     background: var(--card);
-
     border: 1px solid var(--border);
-
     border-radius: 16px;
-
     padding: 20px;
-
     margin-top: 20px;
 }
 
 .records h2 {
     text-align: center;
-
     margin-bottom: 15px;
 }
 
 .record {
     display: flex;
-
     justify-content: space-between;
-
     padding: 10px 5px;
-
     border-bottom: 1px solid var(--border);
 }
 
@@ -327,13 +272,9 @@ canvas {
 
 footer {
     margin-top: 30px;
-
     background: #111827;
-
     color: #9ca3af;
-
     text-align: center;
-
     padding: 20px;
 }
 
@@ -363,7 +304,6 @@ footer {
 <body>
 
 <header>
-
     <div class="header">
 
         <a href="index.html" class="logo">
@@ -375,9 +315,7 @@ footer {
         </a>
 
     </div>
-
 </header>
-
 
 <main class="container">
 
@@ -386,7 +324,6 @@ footer {
     <p class="subtitle">
         Собирай еду, увеличивай змейку и побей свой рекорд!
     </p>
-
 
     <!-- СЛОЖНОСТЬ -->
 
@@ -421,51 +358,26 @@ footer {
 
     </div>
 
-
     <!-- СТАТИСТИКА -->
 
     <div class="info">
 
         <div class="stat">
-
-            <span>
-                Очки
-            </span>
-
-            <strong id="score">
-                0
-            </strong>
-
+            <span>Очки</span>
+            <strong id="score">0</strong>
         </div>
 
-
         <div class="stat">
-
-            <span>
-                🏆 Рекорд
-            </span>
-
-            <strong id="record">
-                0
-            </strong>
-
+            <span>🏆 Рекорд</span>
+            <strong id="record">0</strong>
         </div>
 
-
         <div class="stat">
-
-            <span>
-                Скорость
-            </span>
-
-            <strong id="speed">
-                Очень медленно
-            </strong>
-
+            <span>Скорость</span>
+            <strong id="speed">Очень медленно</strong>
         </div>
 
     </div>
-
 
     <!-- ИГРА -->
 
@@ -479,13 +391,9 @@ footer {
 
     </div>
 
-
-    <div
-        id="message"
-        class="message">
+    <div id="message" class="message">
         Нажми «Начать»
     </div>
-
 
     <!-- КНОПКИ -->
 
@@ -507,15 +415,11 @@ footer {
 
     </div>
 
-
     <!-- УПРАВЛЕНИЕ -->
 
     <div class="controls">
 
-        <button
-            class="control empty"
-            type="button">
-        </button>
+        <button class="control empty" type="button"></button>
 
         <button
             class="control"
@@ -524,11 +428,7 @@ footer {
             ⬆️
         </button>
 
-        <button
-            class="control empty"
-            type="button">
-        </button>
-
+        <button class="control empty" type="button"></button>
 
         <button
             class="control"
@@ -553,68 +453,38 @@ footer {
 
     </div>
 
-
     <!-- РЕКОРДЫ -->
 
     <div class="records">
 
-        <h2>
-            🏆 Рекорды
-        </h2>
-
+        <h2>🏆 Рекорды</h2>
 
         <div class="record">
-
-            <span>
-                🟢 Лёгкий
-            </span>
-
-            <strong id="easyRecord">
-                0
-            </strong>
-
+            <span>🟢 Лёгкий</span>
+            <strong id="easyRecord">0</strong>
         </div>
 
-
         <div class="record">
-
-            <span>
-                🟡 Средний
-            </span>
-
-            <strong id="mediumRecord">
-                0
-            </strong>
-
+            <span>🟡 Средний</span>
+            <strong id="mediumRecord">0</strong>
         </div>
 
-
         <div class="record">
-
-            <span>
-                🔴 Сложный
-            </span>
-
-            <strong id="hardRecord">
-                0
-            </strong>
-
+            <span>🔴 Сложный</span>
+            <strong id="hardRecord">0</strong>
         </div>
 
     </div>
 
 </main>
 
-
 <footer>
     © 2026 EasyFlow
 </footer>
 
-
 <script>
 
 "use strict";
-
 
 /* =========================================
    CANVAS
@@ -642,34 +512,29 @@ const CELL_SIZE =
 ========================================= */
 
 /*
-   Старые значения:
+   Чем больше delay,
+   тем медленнее змейка.
 
-   easy   = 180
-   medium = 120
-   hard   = 75
-
-   Теперь скорость уменьшена в 2 раза:
-
-   easy   = 360
-   medium = 240
-   hard   = 150
+   🟢 Лёгкий   = 500 мс
+   🟡 Средний  = 400 мс
+   🔴 Сложный  = 300 мс
 */
 
 const LEVELS = {
 
     easy: {
-        delay: 360,
+        delay: 500,
         name: "Очень медленно"
     },
 
     medium: {
-        delay: 240,
+        delay: 400,
         name: "Медленно"
     },
 
     hard: {
-        delay: 150,
-        name: "Средне"
+        delay: 300,
+        name: "Немного быстрее"
     }
 
 };
@@ -797,7 +662,8 @@ function showMessage(
     type = ""
 ) {
 
-    messageElement.textContent = text;
+    messageElement.textContent =
+        text;
 
     messageElement.className =
         "message";
@@ -913,6 +779,10 @@ function startGame() {
 
     speedElement.textContent =
         LEVELS[currentLevel].name;
+
+
+    recordElement.textContent =
+        getRecord(currentLevel);
 
 
     showMessage(
@@ -1040,8 +910,6 @@ function gameLoop() {
     };
 
 
-    /* Движение */
-
     switch (direction) {
 
         case "up":
@@ -1063,9 +931,7 @@ function gameLoop() {
     }
 
 
-    /* =====================================
-       СТЕНА
-    ===================================== */
+    /* СТЕНА */
 
     if (
         head.x < 0 ||
@@ -1081,19 +947,12 @@ function gameLoop() {
     }
 
 
-    /* =====================================
-       ЕДА
-    ===================================== */
+    /* ЕДА */
 
     const ateFood =
         head.x === food.x &&
         head.y === food.y;
 
-
-    /*
-       Если змейка не ест,
-       хвост удалится.
-    */
 
     const bodyToCheck =
         ateFood
@@ -1101,9 +960,7 @@ function gameLoop() {
             : snake.slice(0, -1);
 
 
-    /* =====================================
-       СТОЛКНОВЕНИЕ С СОБОЙ
-    ===================================== */
+    /* СТОЛКНОВЕНИЕ */
 
     const hitSelf =
         bodyToCheck.some(
@@ -1122,16 +979,12 @@ function gameLoop() {
     }
 
 
-    /* =====================================
-       ДОБАВЛЯЕМ ГОЛОВУ
-    ===================================== */
+    /* ДОБАВЛЯЕМ ГОЛОВУ */
 
     snake.unshift(head);
 
 
-    /* =====================================
-       ЕСЛИ СЪЕЛИ ЕДУ
-    ===================================== */
+    /* СЪЕЛИ ЕДУ */
 
     if (ateFood) {
 
@@ -1202,10 +1055,6 @@ function changeDirection(
     };
 
 
-    /*
-       Запрещаем разворот на 180°.
-    */
-
     if (
         newDirection ===
         opposite[direction]
@@ -1213,11 +1062,6 @@ function changeDirection(
         return;
     }
 
-
-    /*
-       Защита от быстрых
-       двойных нажатий.
-    */
 
     if (
         newDirection ===
@@ -1450,9 +1294,7 @@ canvas.addEventListener(
 function togglePause() {
 
     if (!gameRunning) {
-
         return;
-
     }
 
 
@@ -1554,8 +1396,6 @@ function finishGame(
 
 function draw() {
 
-    /* Фон */
-
     ctx.fillStyle =
         "#111827";
 
@@ -1572,7 +1412,6 @@ function draw() {
 
     ctx.strokeStyle =
         "rgba(255,255,255,0.04)";
-
 
     ctx.lineWidth = 1;
 
@@ -1674,7 +1513,7 @@ function draw() {
 
 
 /* =========================================
-   РИСОВАНИЕ ЕДЫ
+   ЕДА
 ========================================= */
 
 function drawFood() {
@@ -1708,8 +1547,6 @@ function drawFood() {
     ctx.fill();
 
 
-    /* Блик */
-
     ctx.fillStyle =
         "rgba(255,255,255,.35)";
 
@@ -1732,7 +1569,7 @@ function drawFood() {
 
 
 /* =========================================
-   РИСОВАНИЕ СЕГМЕНТА ЗМЕЙКИ
+   ЗМЕЙКА
 ========================================= */
 
 function drawSnakePart(
@@ -1760,12 +1597,6 @@ function drawSnakePart(
 
     ctx.beginPath();
 
-
-    /*
-       roundRect поддерживается
-       современными браузерами.
-       Есть запасной вариант.
-    */
 
     if (
         typeof ctx.roundRect ===
@@ -1795,8 +1626,6 @@ function drawSnakePart(
     ctx.fill();
 
 
-    /* Глаза головы */
-
     if (index === 0) {
 
         drawSnakeEyes(part);
@@ -1825,6 +1654,7 @@ function drawSnakeEyes(part) {
 
 
     let eye1;
+
     let eye2;
 
 
