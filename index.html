@@ -3,21 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>EasyFlow — Все игры</title>
+<title>EasyFlow — Игры</title>
 
 <style>
-
-:root{
-    --main:#2563eb;
-    --background:#f4f7fb;
-    --card:#ffffff;
-    --text:#111827;
-    --muted:#64748b;
-    --border:#e5e7eb;
-    --radius:16px;
-}
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -26,468 +14,212 @@
 
 body{
     font-family:Arial,sans-serif;
-    background:var(--background);
-    color:var(--text);
+    background:#f4f7fb;
+    color:#111827;
     min-height:100vh;
-    transition:.3s;
-}
-
-body.dark{
-    --background:#0f172a;
-    --card:#1e293b;
-    --text:#f8fafc;
-    --muted:#94a3b8;
-    --border:#334155;
 }
 
 header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    background:var(--card);
-    border-bottom:1px solid var(--border);
-    padding:15px 5%;
+    background:#fff;
+    border-bottom:1px solid #e5e7eb;
+    padding:18px 6%;
 }
 
-.header-inner{
-    max-width:1200px;
+.header{
+    max-width:1000px;
     margin:auto;
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    gap:20px;
+    align-items:center;
 }
 
 .logo{
-    color:var(--main);
-    font-size:28px;
+    color:#2563eb;
+    font-size:27px;
     font-weight:bold;
-    cursor:pointer;
+    text-decoration:none;
 }
 
-nav{
-    display:flex;
-    gap:7px;
-    overflow-x:auto;
-}
-
-nav button{
-    border:0;
-    background:transparent;
-    color:var(--text);
-    padding:11px 14px;
-    border-radius:10px;
-    cursor:pointer;
+.back{
+    color:#2563eb;
+    text-decoration:none;
     font-weight:bold;
-    white-space:nowrap;
-}
-
-nav button:hover{
-    background:rgba(37,99,235,.1);
-    color:var(--main);
-}
-
-nav button.active{
-    background:var(--main);
-    color:#fff;
 }
 
 .container{
-    max-width:1100px;
+    max-width:950px;
     margin:auto;
-    padding:40px 20px;
-}
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-    animation:fade .25s ease;
-}
-
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(10px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-
-/* HOME */
-
-.home{
-    min-height:65vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
-
-.home h1{
-    color:var(--main);
-    font-size:clamp(55px,10vw,100px);
-    margin-bottom:20px;
-}
-
-.home p{
-    max-width:650px;
-    color:var(--muted);
-    font-size:20px;
-    line-height:1.6;
-}
-
-.home-button,
-.primary-button{
-    margin-top:25px;
-    border:0;
-    background:var(--main);
-    color:#fff;
-    padding:14px 25px;
-    border-radius:var(--radius);
-    cursor:pointer;
-    font-weight:bold;
+    padding:35px 15px;
 }
 
 .title{
-    margin-bottom:30px;
+    text-align:center;
+    margin-bottom:25px;
 }
 
-.title h2{
-    font-size:36px;
+.title h1{
+    font-size:40px;
+    color:#2563eb;
     margin-bottom:8px;
 }
 
 .title p{
-    color:var(--muted);
+    color:#64748b;
 }
 
-
-/* PROFILE */
-
-.profile,
-.form-box,
-.settings-card{
-    max-width:700px;
-    background:var(--card);
-    padding:30px;
-    border-radius:var(--radius);
-    border:1px solid var(--border);
-    box-shadow:0 10px 30px rgba(0,0,0,.06);
-}
-
-.avatar-wrapper{
-    width:120px;
-    height:120px;
-    margin-bottom:20px;
-}
-
-.avatar,
-.avatar-placeholder{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-}
-
-.avatar{
-    object-fit:cover;
-    border:4px solid var(--main);
-}
-
-.avatar-placeholder{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:50px;
-    color:var(--main);
-    background:rgba(37,99,235,.1);
-    border:4px solid var(--main);
-}
-
-.upload-label{
-    display:inline-block;
-    background:var(--main);
-    color:#fff;
-    padding:11px 18px;
-    border-radius:10px;
-    cursor:pointer;
-    margin-bottom:20px;
-    font-weight:bold;
-}
-
-#avatarInput,
-#imageInput{
-    display:none;
-}
-
-.profile h2{
-    margin-bottom:8px;
-}
-
-.profile-description{
-    color:var(--muted);
-    line-height:1.6;
-}
-
-
-/* GALLERY */
-
-.gallery{
+.game-select{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.gallery-item{
-    position:relative;
-    background:var(--card);
-    border-radius:var(--radius);
-    overflow:hidden;
-    border:1px solid var(--border);
-}
-
-.gallery-item img{
-    width:100%;
-    height:250px;
-    object-fit:cover;
-    cursor:pointer;
-}
-
-.delete-photo{
-    position:absolute;
-    top:10px;
-    right:10px;
-    border:0;
-    background:rgba(0,0,0,.7);
-    color:#fff;
-    width:35px;
-    height:35px;
-    border-radius:50%;
-    cursor:pointer;
-}
-
-.gallery-empty{
-    grid-column:1/-1;
-    background:var(--card);
-    border:2px dashed var(--border);
-    border-radius:var(--radius);
-    padding:60px 20px;
-    text-align:center;
-    color:var(--muted);
-}
-
-.gallery-empty div{
-    font-size:50px;
-    margin-bottom:15px;
-}
-
-
-/* LINKS */
-
-.links{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
     margin-bottom:25px;
 }
 
-.link-card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-}
-
-.link-info h3{
-    margin-bottom:5px;
-}
-
-.link-info p{
-    color:var(--muted);
-    font-size:14px;
-    word-break:break-all;
-}
-
-.link-actions{
-    display:flex;
-    gap:8px;
-}
-
-.open-link{
-    text-decoration:none;
-    background:var(--main);
-    color:#fff;
-    padding:10px 16px;
-    border-radius:10px;
-}
-
-.delete-link{
-    border:0;
-    background:#ef4444;
-    color:#fff;
-    padding:10px 14px;
-    border-radius:10px;
+.game-select button{
+    border:2px solid #e5e7eb;
+    background:#fff;
+    padding:14px 8px;
+    border-radius:13px;
     cursor:pointer;
-}
-
-
-/* FORMS */
-
-.form-group{
-    margin-bottom:20px;
-}
-
-.form-group label{
-    display:block;
-    margin-bottom:8px;
     font-weight:bold;
+    font-size:14px;
 }
 
-.form-group input,
-.form-group select{
-    width:100%;
-    padding:13px;
-    border:1px solid var(--border);
-    background:var(--background);
-    color:var(--text);
-    border-radius:10px;
-    font-size:16px;
-    outline:none;
+.game-select button.active{
+    border-color:#2563eb;
+    background:#eff6ff;
+    color:#2563eb;
 }
 
-.form-group input:focus,
-.form-group select:focus{
-    border-color:var(--main);
-}
-
-
-/* GAMES */
-
-.games-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:20px;
-}
-
-.game-card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:30px;
+.difficulty{
+    background:#fff;
+    padding:20px;
+    border-radius:18px;
+    margin-bottom:20px;
+    border:1px solid #e5e7eb;
     text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,.06);
-    transition:.2s;
 }
 
-.game-card:hover{
-    transform:translateY(-5px);
-}
-
-.game-icon{
-    font-size:60px;
+.difficulty h2{
     margin-bottom:15px;
 }
 
-.game-card h3{
-    font-size:24px;
-    margin-bottom:10px;
-}
-
-.game-card p{
-    color:var(--muted);
-    line-height:1.5;
-    margin-bottom:20px;
-}
-
-.game-button{
-    display:inline-block;
-    border:0;
-    background:var(--main);
-    color:#fff;
-    padding:13px 22px;
-    border-radius:var(--radius);
-    cursor:pointer;
-    font-weight:bold;
-}
-
-
-/* GAME AREA */
-
-.game-area{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:25px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,.06);
-}
-
-.back-games{
-    margin-bottom:20px;
-    border:0;
-    background:var(--main);
-    color:white;
-    padding:11px 18px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.game-title{
-    font-size:32px;
-    margin-bottom:10px;
-}
-
-.game-status{
-    margin:15px;
-    color:var(--muted);
-    font-size:18px;
-    font-weight:bold;
-}
-
-
-/* DIFFICULTY */
-
-.difficulty-box{
+.levels{
     display:flex;
     justify-content:center;
     gap:10px;
     flex-wrap:wrap;
-    margin:15px auto 20px;
 }
 
-.difficulty-button{
-    border:1px solid var(--border);
-    background:var(--background);
-    color:var(--text);
-    padding:10px 18px;
-    border-radius:10px;
+.level{
+    border:2px solid #e5e7eb;
+    background:#fff;
+    padding:12px 20px;
+    border-radius:12px;
     cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.level:hover{
+    transform:translateY(-2px);
+}
+
+.level.active.easy{
+    border-color:#22c55e;
+    background:#dcfce7;
+    color:#166534;
+}
+
+.level.active.medium{
+    border-color:#eab308;
+    background:#fef9c3;
+    color:#854d0e;
+}
+
+.level.active.hard{
+    border-color:#ef4444;
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.game{
+    display:none;
+}
+
+.game.active{
+    display:block;
+}
+
+.game-box{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+}
+
+.stats{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.stat{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:12px 20px;
+    min-width:110px;
+}
+
+.stat span{
+    display:block;
+    color:#64748b;
+    font-size:13px;
+    margin-bottom:4px;
+}
+
+.stat strong{
+    font-size:21px;
+}
+
+.main-button{
+    border:none;
+    background:#2563eb;
+    color:white;
+    padding:13px 22px;
+    border-radius:11px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:16px;
+    margin:5px;
+}
+
+.main-button:hover{
+    background:#1d4ed8;
+}
+
+.message{
+    min-height:28px;
+    margin:18px 0;
+    font-size:18px;
     font-weight:bold;
 }
 
-.difficulty-button:hover{
-    border-color:var(--main);
+.correct{
+    background:#dcfce7!important;
+    border-color:#22c55e!important;
+    color:#166534!important;
 }
 
-.difficulty-button.active{
-    background:var(--main);
-    color:#fff;
+.wrong{
+    background:#fee2e2!important;
+    border-color:#ef4444!important;
+    color:#991b1b!important;
 }
-
-
-/* TIC TAC TOE */
 
 .ttt-board{
     display:grid;
@@ -500,42 +232,48 @@ nav button.active{
 .ttt-cell{
     width:90px;
     height:90px;
-    border:2px solid var(--border);
-    background:var(--background);
-    color:var(--text);
-    border-radius:10px;
+    border:2px solid #e5e7eb;
+    background:#f8fafc;
+    border-radius:12px;
     font-size:40px;
-    cursor:pointer;
     font-weight:bold;
+    cursor:pointer;
 }
 
 .ttt-cell:hover{
-    background:rgba(37,99,235,.1);
+    background:#eff6ff;
 }
 
-
-/* PING PONG */
-
-#pingCanvas{
+#pongCanvas{
+    width:100%;
+    max-width:700px;
+    background:#111827;
+    border-radius:15px;
     display:block;
-    width:min(700px,100%);
-    height:auto;
     margin:20px auto;
-    background:#07111f;
-    border-radius:12px;
-    border:2px solid var(--border);
-    touch-action:none;
 }
 
-
-/* FLAGS */
-
-.flag-box{
-    font-size:110px;
-    margin:20px;
+.flag-wrapper{
+    width:100%;
+    max-width:520px;
+    height:280px;
+    margin:0 auto 20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f8fafc;
+    border:2px solid #e5e7eb;
+    border-radius:16px;
+    overflow:hidden;
 }
 
-.flag-options{
+#flag{
+    max-width:90%;
+    max-height:85%;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.answers{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:12px;
@@ -543,23 +281,25 @@ nav button.active{
     margin:auto;
 }
 
-.flag-option{
-    border:1px solid var(--border);
-    background:var(--background);
-    color:var(--text);
+.answer{
+    border:2px solid #e5e7eb;
+    background:#fff;
     padding:15px;
-    border-radius:10px;
+    border-radius:12px;
     cursor:pointer;
-    font-size:17px;
+    font-size:16px;
     font-weight:bold;
 }
 
-.flag-option:hover{
-    border-color:var(--main);
+.answer:hover{
+    border-color:#2563eb;
+    background:#eff6ff;
 }
 
-
-/* MEMORY */
+.progress{
+    color:#64748b;
+    font-size:14px;
+}
 
 .memory-board{
     display:grid;
@@ -572,175 +312,61 @@ nav button.active{
 .memory-card{
     width:80px;
     height:80px;
-    border:0;
-    border-radius:10px;
-    background:var(--main);
-    color:#fff;
+    border:none;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
     font-size:32px;
     cursor:pointer;
 }
 
 .memory-card.open,
 .memory-card.matched{
-    background:var(--background);
-    color:var(--text);
-    border:2px solid var(--main);
+    background:#eff6ff;
+    color:#111827;
 }
 
-
-/* SNAKE */
+.memory-card.matched{
+    background:#dcfce7;
+}
 
 #snakeCanvas{
-    display:block;
-    width:400px;
-    max-width:100%;
-    height:auto;
-    margin:20px auto;
-    background:#07111f;
-    border:3px solid var(--main);
-    border-radius:10px;
-    touch-action:none;
-}
-
-.mobile-controls{
-    display:grid;
-    grid-template-columns:repeat(3,55px);
-    gap:5px;
-    justify-content:center;
-    margin-top:10px;
-}
-
-.mobile-controls button{
-    height:50px;
-    border:0;
-    border-radius:10px;
-    background:var(--main);
-    color:#fff;
-    font-size:20px;
-    cursor:pointer;
-}
-
-.mobile-controls .up{
-    grid-column:2;
-}
-
-.mobile-controls .left{
-    grid-column:1;
-}
-
-.mobile-controls .down{
-    grid-column:2;
-}
-
-.mobile-controls .right{
-    grid-column:3;
-    grid-row:2;
-}
-
-
-/* DESIGN */
-
-.color-row{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-input[type=color]{
-    width:60px;
-    height:45px;
-    border:0;
-    cursor:pointer;
-}
-
-.theme-buttons{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.theme-button{
-    border:1px solid var(--border);
-    background:var(--background);
-    color:var(--text);
-    padding:12px 18px;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-.theme-button.active{
-    background:var(--main);
-    color:#fff;
-}
-
-
-/* MODAL */
-
-.modal{
-    display:none;
-    position:fixed;
-    z-index:99999;
-    inset:0;
-    background:rgba(0,0,0,.85);
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.modal.active{
-    display:flex;
-}
-
-.modal img{
-    max-width:95%;
-    max-height:90%;
+    background:#111827;
     border-radius:15px;
+    max-width:100%;
 }
-
-.modal-close{
-    position:absolute;
-    top:20px;
-    right:25px;
-    color:white;
-    font-size:35px;
-    cursor:pointer;
-}
-
-
-/* FOOTER */
 
 footer{
-    margin-top:50px;
-    padding:25px;
+    margin-top:40px;
     background:#111827;
     color:#9ca3af;
     text-align:center;
+    padding:25px;
 }
 
+.hidden{
+    display:none!important;
+}
 
-/* MOBILE */
+@media(max-width:700px){
 
-@media(max-width:800px){
-
-    .header-inner{
-        flex-direction:column;
+    .game-select{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    nav{
+    .title h1{
+        font-size:32px;
+    }
+
+    .game-box{
+        padding:18px;
+    }
+
+    .level{
         width:100%;
     }
 
-    .gallery,
-    .games-grid{
-        grid-template-columns:1fr;
-    }
-
-    .link-card{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    .flag-options{
+    .answers{
         grid-template-columns:1fr;
     }
 
@@ -751,7 +377,6 @@ footer{
     .memory-card{
         width:65px;
         height:65px;
-        font-size:27px;
     }
 
     .ttt-board{
@@ -762,2984 +387,2507 @@ footer{
         width:75px;
         height:75px;
     }
-
 }
-
 </style>
 </head>
 
-
 <body>
 
-
 <header>
-
-<div class="header-inner">
-
-<div class="logo" onclick="openPage('home')">
-EasyFlow
+<div class="header">
+<a href="index.html" class="logo">EasyFlow</a>
+<a href="index.html" class="back">← Назад</a>
 </div>
-
-<nav>
-
-<button class="active" data-page="home" onclick="openPage('home')">
-🏠 Главная
-</button>
-
-<button data-page="profile" onclick="openPage('profile')">
-👤 Профиль
-</button>
-
-<button data-page="images" onclick="openPage('images')">
-🖼️ Картинки
-</button>
-
-<button data-page="links" onclick="openPage('links')">
-🔗 Ссылки
-</button>
-
-<button data-page="games" onclick="openPage('games')">
-🎮 Игры
-</button>
-
-<button data-page="design" onclick="openPage('design')">
-🎨 Дизайн
-</button>
-
-<button data-page="settings" onclick="openPage('settings')">
-⚙️ Настройки
-</button>
-
-</nav>
-
-</div>
-
 </header>
-
 
 <main class="container">
 
-
-<!-- HOME -->
-
-<section id="home" class="page active">
-
-<div class="home">
-
-<h1>EasyFlow</h1>
-
-<p>
-Создай свою персональную страницу,
-настрой дизайн, добавляй фотографии,
-ссылки и играй прямо внутри сайта.
-</p>
-
-<button class="home-button" onclick="openPage('games')">
-🎮 Открыть игры
-</button>
-
-</div>
-
-</section>
-
-
-<!-- PROFILE -->
-
-<section id="profile" class="page">
-
 <div class="title">
-
-<h2>👤 Профиль</h2>
-
-<p>
-Настрой свою персональную страницу.
-</p>
-
+<h1>🎮 Игры EasyFlow</h1>
+<p>Выбирай игру и уровень сложности</p>
 </div>
 
+<div class="game-select">
 
-<div class="profile">
-
-<div class="avatar-wrapper">
-
-<div id="avatarPlaceholder" class="avatar-placeholder">
-👤
-</div>
-
-<img
-id="avatarImage"
-class="avatar"
-style="display:none"
-alt="Аватар"
->
-
-</div>
-
-
-<label class="upload-label">
-
-📷 Загрузить аватар
-
-<input
-id="avatarInput"
-type="file"
-accept="image/*"
->
-
-</label>
-
-
-<h2 id="profileName">
-Мой профиль
-</h2>
-
-
-<p
-id="profileDescription"
-class="profile-description"
->
-
-Здесь появится описание твоего профиля.
-
-</p>
-
-</div>
-
-</section>
-
-
-<!-- IMAGES -->
-
-<section id="images" class="page">
-
-<div class="title">
-
-<h2>🖼️ Мои картинки</h2>
-
-<p>
-Загружай фотографии со своего устройства.
-</p>
-
-</div>
-
-
-<label class="upload-label">
-
-➕ Добавить фотографию
-
-<input
-id="imageInput"
-type="file"
-accept="image/*"
-multiple
->
-
-</label>
-
-
-<div
-id="gallery"
-class="gallery"
-></div>
-
-</section>
-
-
-<!-- LINKS -->
-
-<section id="links" class="page">
-
-<div class="title">
-
-<h2>🔗 Мои ссылки</h2>
-
-<p>
-Добавляй свои сайты и социальные сети.
-</p>
-
-</div>
-
-
-<div
-id="linksContainer"
-class="links"
-></div>
-
-
-<div class="form-box">
-
-<div class="form-group">
-
-<label>
-Название ссылки
-</label>
-
-<input
-id="linkName"
-type="text"
-placeholder="Например: Мой сайт"
->
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Адрес ссылки
-</label>
-
-<input
-id="linkUrl"
-type="url"
-placeholder="https://example.com"
->
-
-</div>
-
-
-<button
-class="primary-button"
-onclick="addLink()"
->
-
-➕ Добавить ссылку
-
+<button class="active" onclick="showGame('ttt',this)">
+❌ Крестики
 </button>
 
-</div>
-
-</section>
-
-
-<!-- GAMES -->
-
-<section id="games" class="page">
-
-<div class="title">
-
-<h2>🎮 Все игры</h2>
-
-<p>
-Выбери игру и начинай играть.
-</p>
-
-</div>
-
-
-<div class="games-grid">
-
-
-<div class="game-card">
-
-<div class="game-icon">
-❌⭕
-</div>
-
-<h3>
-Крестики-нолики
-</h3>
-
-<p>
-Сыграй против компьютера.
-</p>
-
-<button
-class="game-button"
-onclick="startGame('tictactoe')"
->
-
-🎮 Играть
-
-</button>
-
-</div>
-
-
-<div class="game-card">
-
-<div class="game-icon">
-🏓
-</div>
-
-<h3>
-Пинг-понг
-</h3>
-
-<p>
-Отбивай мяч и побеждай компьютер.
-</p>
-
-<button
-class="game-button"
-onclick="startGame('pingpong')"
->
-
-🎮 Играть
-
-</button>
-
-</div>
-
-
-<div class="game-card">
-
-<div class="game-icon">
-🌍
-</div>
-
-<h3>
-Угадай флаг
-</h3>
-
-<p>
-Угадывай страны по их флагам.
-</p>
-
-<button
-class="game-button"
-onclick="startGame('flags')"
->
-
-🎮 Играть
-
-</button>
-
-</div>
-
-
-<div class="game-card">
-
-<div class="game-icon">
-🧠
-</div>
-
-<h3>
-Игра на память
-</h3>
-
-<p>
-Найди все одинаковые пары.
-</p>
-
-<button
-class="game-button"
-onclick="startGame('memory')"
->
-
-🎮 Играть
-
-</button>
-
-</div>
-
-
-<div class="game-card">
-
-<div class="game-icon">
-🐍
-</div>
-
-<h3>
-Змейка
-</h3>
-
-<p>
-Собирай еду и увеличивай змейку.
-</p>
-
-<button
-class="game-button"
-onclick="startGame('snake')"
->
-
-🎮 Играть
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- TIC TAC TOE -->
-
-<section id="game-tictactoe" class="page">
-
-<div class="game-area">
-
-<button
-class="back-games"
-onclick="openPage('games')"
->
-← Все игры
-</button>
-
-
-<h2 class="game-title">
-❌⭕ Крестики-нолики
-</h2>
-
-
-<div class="difficulty-box">
-
-<button
-class="difficulty-button active"
-onclick="setDifficulty('tictactoe','easy',this)"
->
-🟢 Легко
-</button>
-
-<button
-class="difficulty-button"
-onclick="setDifficulty('tictactoe','medium',this)"
->
-🟡 Средне
-</button>
-
-<button
-class="difficulty-button"
-onclick="setDifficulty('tictactoe','hard',this)"
->
-🔴 Сложно
-</button>
-
-</div>
-
-
-<div
-id="tttStatus"
-class="game-status"
->
-Твой ход: ❌
-</div>
-
-
-<div
-id="tttBoard"
-class="ttt-board"
-></div>
-
-
-<button
-class="primary-button"
-onclick="newTicTacToe()"
->
-🔄 Новая игра
-</button>
-
-</div>
-
-</section>
-
-
-<!-- PING PONG -->
-
-<section id="game-pingpong" class="page">
-
-<div class="game-area">
-
-<button
-class="back-games"
-onclick="stopPingPong();openPage('games')"
->
-← Все игры
-</button>
-
-
-<h2 class="game-title">
+<button onclick="showGame('pong',this)">
 🏓 Пинг-понг
-</h2>
-
-
-<div class="difficulty-box">
-
-<button
-class="difficulty-button active"
-onclick="setDifficulty('pingpong','easy',this)"
->
-🟢 Легко
 </button>
 
-<button
-class="difficulty-button"
-onclick="setDifficulty('pingpong','medium',this)"
->
-🟡 Средне
+<button onclick="showGame('flags',this)">
+🌍 Флаги
 </button>
 
-<button
-class="difficulty-button"
-onclick="setDifficulty('pingpong','hard',this)"
->
-🔴 Сложно
-</button>
-
-</div>
-
-
-<div
-id="pingStatus"
-class="game-status"
->
-Игрок 0 : 0 Компьютер
-</div>
-
-
-<canvas
-id="pingCanvas"
-width="700"
-height="400"
-></canvas>
-
-
-<p class="controls-text">
-Управление: мышь, палец или клавиши ↑ ↓
-</p>
-
-
-<button
-class="primary-button"
-onclick="startPingPong()"
->
-▶ Начать заново
-</button>
-
-</div>
-
-</section>
-
-
-<!-- FLAGS -->
-
-<section id="game-flags" class="page">
-
-<div class="game-area">
-
-<button
-class="back-games"
-onclick="openPage('games')"
->
-← Все игры
-</button>
-
-
-<h2 class="game-title">
-🌍 Угадай страну
-</h2>
-
-
-<div class="difficulty-box">
-
-<button
-class="difficulty-button active"
-onclick="setDifficulty('flags','easy',this)"
->
-🟢 Легко
-</button>
-
-<button
-class="difficulty-button"
-onclick="setDifficulty('flags','medium',this)"
->
-🟡 Средне
-</button>
-
-<button
-class="difficulty-button"
-onclick="setDifficulty('flags','hard',this)"
->
-🔴 Сложно
-</button>
-
-</div>
-
-
-<div
-id="flagScore"
-class="game-status"
->
-Счёт: 0
-</div>
-
-
-<div
-id="flagEmoji"
-class="flag-box"
->
-🇰🇿
-</div>
-
-
-<div
-id="flagOptions"
-class="flag-options"
-></div>
-
-</div>
-
-</section>
-
-
-<!-- MEMORY -->
-
-<section id="game-memory" class="page">
-
-<div class="game-area">
-
-<button
-class="back-games"
-onclick="openPage('games')"
->
-← Все игры
-</button>
-
-
-<h2 class="game-title">
+<button onclick="showGame('memory',this)">
 🧠 Память
-</h2>
-
-
-<div class="difficulty-box">
-
-<button
-class="difficulty-button active"
-onclick="setDifficulty('memory','easy',this)"
->
-🟢 Легко
 </button>
 
-<button
-class="difficulty-button"
-onclick="setDifficulty('memory','medium',this)"
->
-🟡 Средне
-</button>
-
-<button
-class="difficulty-button"
-onclick="setDifficulty('memory','hard',this)"
->
-🔴 Сложно
+<button onclick="showGame('snake',this)">
+🐍 Змейка
 </button>
 
 </div>
 
+<div class="difficulty">
 
-<div
-id="memoryStatus"
-class="game-status"
->
-Ходы: 0
+<h2>Выбери сложность</h2>
+
+<div class="levels">
+
+<button id="easyButton"
+class="level easy"
+onclick="selectDifficulty('easy')">
+🟢 Лёгкий
+</button>
+
+<button id="mediumButton"
+class="level medium"
+onclick="selectDifficulty('medium')">
+🟡 Средний
+</button>
+
+<button id="hardButton"
+class="level hard"
+onclick="selectDifficulty('hard')">
+🔴 Сложный
+</button>
+
 </div>
 
+</div>
 
-<div
-id="memoryBoard"
-class="memory-board"
-></div>
+<section id="game-ttt" class="game active">
 
+<div class="game-box">
 
-<button
-class="primary-button"
-onclick="startMemory()"
->
+<h2>❌ Крестики-нолики</h2>
+
+<div class="stats">
+
+<div class="stat">
+<span>Победы</span>
+<strong id="tttWins">0</strong>
+</div>
+
+<div class="stat">
+<span>Рекорд</span>
+<strong id="tttRecord">0</strong>
+</div>
+
+</div>
+
+<div id="tttMessage" class="message">
+Твой ход
+</div>
+
+<div class="ttt-board" id="tttBoard">
+
+<button class="ttt-cell" data-index="0"></button>
+<button class="ttt-cell" data-index="1"></button>
+<button class="ttt-cell" data-index="2"></button>
+<button class="ttt-cell" data-index="3"></button>
+<button class="ttt-cell" data-index="4"></button>
+<button class="ttt-cell" data-index="5"></button>
+<button class="ttt-cell" data-index="6"></button>
+<button class="ttt-cell" data-index="7"></button>
+<button class="ttt-cell" data-index="8"></button>
+
+</div>
+
+<button class="main-button" onclick="startTTT()">
 🔄 Новая игра
 </button>
 
 </div>
-
 </section>
 
+<section id="game-pong" class="game">
 
-<!-- SNAKE -->
+<div class="game-box">
 
-<section id="game-snake" class="page">
+<h2>🏓 Пинг-понг</h2>
 
-<div class="game-area">
+<div class="stats">
 
-<button
-class="back-games"
-onclick="stopSnake();openPage('games')"
->
-← Все игры
-</button>
+<div class="stat">
+<span>Ты</span>
+<strong id="pongPlayerScore">0</strong>
+</div>
 
+<div class="stat">
+<span>Компьютер</span>
+<strong id="pongAIScore">0</strong>
+</div>
 
-<h2 class="game-title">
-🐍 Змейка
-</h2>
-
-
-<div class="difficulty-box">
-
-<button
-class="difficulty-button active"
-onclick="setDifficulty('snake','easy',this)"
->
-🟢 Легко
-</button>
-
-<button
-class="difficulty-button"
-onclick="setDifficulty('snake','medium',this)"
->
-🟡 Средне
-</button>
-
-<button
-class="difficulty-button"
-onclick="setDifficulty('snake','hard',this)"
->
-🔴 Сложно
-</button>
+<div class="stat">
+<span>Рекорд</span>
+<strong id="pongRecord">0</strong>
+</div>
 
 </div>
 
+<canvas id="pongCanvas" width="700" height="400"></canvas>
 
-<div
-id="snakeStatus"
-class="game-status"
->
-Счёт: 0
+<div id="pongMessage" class="message">
+Нажми «Начать»
 </div>
 
-
-<canvas
-id="snakeCanvas"
-width="400"
-height="400"
-></canvas>
-
-
-<div class="mobile-controls">
-
-<button
-class="up"
-onclick="setSnakeDirection('up')"
->
-⬆️
+<button class="main-button" onclick="startPong()">
+▶️ Начать
 </button>
 
-<button
-class="left"
-onclick="setSnakeDirection('left')"
->
-⬅️
-</button>
-
-<button
-class="down"
-onclick="setSnakeDirection('down')"
->
-⬇️
-</button>
-
-<button
-class="right"
-onclick="setSnakeDirection('right')"
->
-➡️
-</button>
-
-</div>
-
-
-<p class="controls-text">
-Управление: стрелки или кнопки
-</p>
-
-
-<button
-class="primary-button"
-onclick="startSnake()"
->
-▶ Начать заново
-</button>
-
-</div>
-
-</section>
-
-
-<!-- DESIGN -->
-
-<section id="design" class="page">
-
-<div class="title">
-
-<h2>
-🎨 Дизайн
-</h2>
-
-<p>
-Настрой внешний вид EasyFlow.
+<p style="color:#64748b;margin-top:10px;">
+Управление: ↑ ↓ или мышкой
 </p>
 
 </div>
-
-
-<div class="form-box">
-
-<div class="form-group">
-
-<label>
-Основной цвет
-</label>
-
-
-<div class="color-row">
-
-<input
-id="mainColor"
-type="color"
-value="#2563eb"
-oninput="changeColor(this.value)"
->
-
-<span>
-Цвет кнопок и элементов
-</span>
-
-</div>
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Шрифт
-</label>
-
-
-<select
-id="fontSelect"
-onchange="changeFont(this.value)"
->
-
-<option>Arial</option>
-<option>Georgia</option>
-<option>Verdana</option>
-<option>Tahoma</option>
-<option>Courier New</option>
-<option>Trebuchet MS</option>
-
-</select>
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Тема
-</label>
-
-
-<div class="theme-buttons">
-
-<button
-class="theme-button active"
-onclick="setTheme('light',this)"
->
-☀️ Светлая
-</button>
-
-<button
-class="theme-button"
-onclick="setTheme('dark',this)"
->
-🌙 Тёмная
-</button>
-
-</div>
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Скругление
-</label>
-
-
-<select
-id="radiusSelect"
-onchange="changeRadius(this.value)"
->
-
-<option value="6px">
-Маленькое
-</option>
-
-<option value="16px" selected>
-Обычное
-</option>
-
-<option value="30px">
-Сильное
-</option>
-
-<option value="0px">
-Квадратное
-</option>
-
-</select>
-
-</div>
-
-</div>
-
 </section>
 
+<section id="game-flags" class="game">
 
-<!-- SETTINGS -->
+<div class="game-box">
 
-<section id="settings" class="page">
+<h2>🌍 Угадай флаг</h2>
 
-<div class="title">
+<div class="stats">
 
-<h2>
-⚙️ Настройки
-</h2>
+<div class="stat">
+<span>Очки</span>
+<strong id="flagScore">0</strong>
+</div>
 
-<p>
-Информация твоего профиля.
+<div class="stat">
+<span>Рекорд</span>
+<strong id="flagRecord">0</strong>
+</div>
+
+<div class="stat">
+<span>❤️ Жизни</span>
+<strong id="flagLives">3</strong>
+</div>
+
+</div>
+
+<div class="flag-wrapper">
+
+<img id="flag" src="" alt="Флаг">
+
+</div>
+
+<div id="flagQuestion" class="message">
+Нажми «Начать игру»
+</div>
+
+<div id="flagAnswers" class="answers"></div>
+
+<button class="main-button" onclick="startFlags()">
+▶️ Начать игру
+</button>
+
+<button id="flagNext"
+class="main-button hidden"
+onclick="nextFlag()">
+➡️ Следующий
+</button>
+
+<div id="flagProgress" class="progress"></div>
+
+</div>
+</section>
+
+<section id="game-memory" class="game">
+
+<div class="game-box">
+
+<h2>🧠 Игра на память</h2>
+
+<div class="stats">
+
+<div class="stat">
+<span>Пары</span>
+<strong id="memoryPairs">0</strong>
+</div>
+
+<div class="stat">
+<span>Ходы</span>
+<strong id="memoryMoves">0</strong>
+</div>
+
+<div class="stat">
+<span>Рекорд</span>
+<strong id="memoryRecord">0</strong>
+</div>
+
+</div>
+
+<div id="memoryBoard" class="memory-board"></div>
+
+<div id="memoryMessage" class="message">
+Нажми «Новая игра»
+</div>
+
+<button class="main-button" onclick="startMemory()">
+🔄 Новая игра
+</button>
+
+</div>
+</section>
+
+<section id="game-snake" class="game">
+
+<div class="game-box">
+
+<h2>🐍 Змейка</h2>
+
+<div class="stats">
+
+<div class="stat">
+<span>Очки</span>
+<strong id="snakeScore">0</strong>
+</div>
+
+<div class="stat">
+<span>Рекорд</span>
+<strong id="snakeRecord">0</strong>
+</div>
+
+</div>
+
+<canvas id="snakeCanvas" width="400" height="400"></canvas>
+
+<div id="snakeMessage" class="message">
+Нажми «Начать»
+</div>
+
+<button class="main-button" onclick="startSnake()">
+▶️ Начать
+</button>
+
+<p style="color:#64748b;margin-top:10px;">
+Управление: стрелки на клавиатуре
 </p>
 
 </div>
-
-
-<div class="settings-card">
-
-<div class="form-group">
-
-<label>
-Имя профиля
-</label>
-
-<input
-id="nameInput"
-type="text"
-placeholder="Введите имя"
->
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Описание
-</label>
-
-<input
-id="descriptionInput"
-type="text"
-placeholder="Расскажите о себе"
->
-
-</div>
-
-
-<button
-class="primary-button"
-onclick="saveProfile()"
->
-💾 Сохранить
-</button>
-
-
-<div
-id="successMessage"
-style="color:#22c55e;margin-top:15px;display:none"
->
-✓ Профиль сохранён
-</div>
-
-</div>
-
 </section>
 
 </main>
 
-
 <footer>
-
-© 2026 EasyFlow — Все игры работают в одном файле
-
+© 2026 EasyFlow
 </footer>
 
-
-<!-- MODAL -->
-
-<div
-id="imageModal"
-class="modal"
-onclick="closeModal()"
->
-
-<span class="modal-close">
-×
-</span>
-
-<img
-id="modalImage"
-alt="Просмотр"
->
-
-</div>
-
+<!-- =====================================================
+     ЕДИНАЯ СИСТЕМА ДАННЫХ
+     ===================================================== -->
 
 <script>
 
-
-/* ==========================================
-   ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
-========================================== */
-
-function openPage(pageName){
-
-    document.querySelectorAll(".page").forEach(function(page){
-
-        page.classList.remove("active");
-
-    });
-
-
-    const page =
-        document.getElementById(pageName);
-
-
-    if(page){
-
-        page.classList.add("active");
-
-    }
-
-
-    document.querySelectorAll("nav button").forEach(function(button){
-
-        button.classList.remove("active");
-
-
-        if(button.dataset.page === pageName){
-
-            button.classList.add("active");
-
-        }
-
-    });
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
-
-
-/* ==========================================
-   СЛОЖНОСТЬ
-========================================== */
-
-const gameDifficulty = {
-
-    tictactoe:"easy",
-    pingpong:"easy",
-    flags:"easy",
-    memory:"easy",
-    snake:"easy"
-
-};
-
-
-function setDifficulty(game,level,button){
-
-    gameDifficulty[game] = level;
-
-
-    const buttons =
-        button.parentElement.querySelectorAll(
-            ".difficulty-button"
-        );
-
-
-    buttons.forEach(function(btn){
-
-        btn.classList.remove("active");
-
-    });
-
-
-    button.classList.add("active");
-
-
-    if(game === "tictactoe"){
-
-        newTicTacToe();
-
-    }
-
-    if(game === "pingpong"){
-
-        startPingPong();
-
-    }
-
-    if(game === "flags"){
-
-        startFlags();
-
-    }
-
-    if(game === "memory"){
-
-        startMemory();
-
-    }
-
-    if(game === "snake"){
-
-        startSnake();
-
-    }
-
-}
-
-
-/* ==========================================
-   ЗАПУСК ИГРЫ
-========================================== */
-
-function startGame(game){
-
-    stopAllGames();
-
-    openPage("game-" + game);
-
-
-    if(game === "tictactoe"){
-
-        newTicTacToe();
-
-    }
-
-
-    if(game === "pingpong"){
-
-        startPingPong();
-
-    }
-
-
-    if(game === "flags"){
-
-        startFlags();
-
-    }
-
-
-    if(game === "memory"){
-
-        startMemory();
-
-    }
-
-
-    if(game === "snake"){
-
-        startSnake();
-
-    }
-
-}
-
-
-function stopAllGames(){
-
-    stopPingPong();
-
-    stopSnake();
-
-}
-
-
-/* ==========================================
-   КРЕСТИКИ-НОЛИКИ
-========================================== */
-
-let tttBoard = [];
-
-let tttGameOver = false;
-
-let tttComputerTimer = null;
-
-
-function newTicTacToe(){
-
-    if(tttComputerTimer){
-
-        clearTimeout(tttComputerTimer);
-
-        tttComputerTimer = null;
-
-    }
-
-
-    tttBoard = [
-
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-
-    ];
-
-
-    tttGameOver = false;
-
-
-    renderTicTacToe();
-
-
-    document.getElementById(
-        "tttStatus"
-    ).textContent =
-        "Твой ход: ❌";
-
-}
-
-
-function renderTicTacToe(){
-
-    const board =
-        document.getElementById(
-            "tttBoard"
-        );
-
-
-    board.innerHTML = "";
-
-
-    tttBoard.forEach(function(value,index){
-
-        const cell =
-            document.createElement("button");
-
-
-        cell.className =
-            "ttt-cell";
-
-
-        cell.textContent =
-            value;
-
-
-        cell.onclick =
-            function(){
-
-                ticTacToeMove(index);
-
-            };
-
-
-        board.appendChild(cell);
-
-    });
-
-}
-
-
-function ticTacToeMove(index){
-
-    if(
-        tttGameOver ||
-        tttBoard[index]
-    ){
-
-        return;
-
-    }
-
-
-    tttBoard[index] = "❌";
-
-
-    renderTicTacToe();
-
-
-    if(checkWinner(tttBoard,"❌")){
-
-        document.getElementById(
-            "tttStatus"
-        ).textContent =
-            "🎉 Ты победил!";
-
-        tttGameOver = true;
-
-        return;
-
-    }
-
-
-    if(tttBoard.every(Boolean)){
-
-        document.getElementById(
-            "tttStatus"
-        ).textContent =
-            "🤝 Ничья!";
-
-        tttGameOver = true;
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "tttStatus"
-    ).textContent =
-        "Компьютер думает...";
-
-
-    tttComputerTimer =
-        setTimeout(
-            computerTicTacToe,
-            gameDifficulty.tictactoe === "hard"
-            ? 250
-            : 400
-        );
-
-}
-
-
-function computerTicTacToe(){
-
-    if(tttGameOver){
-
-        return;
-
-    }
-
-
-    const free = [];
-
-
-    tttBoard.forEach(function(value,index){
-
-        if(!value){
-
-            free.push(index);
-
-        }
-
-    });
-
-
-    if(!free.length){
-
-        return;
-
-    }
-
-
-    let move;
-
-
-    /* ЛЕГКО */
-
-    if(gameDifficulty.tictactoe === "easy"){
-
-        move =
-            free[
-                Math.floor(
-                    Math.random() * free.length
-                )
-            ];
-
-    }
-
-
-    /* СРЕДНЕ */
-
-    if(gameDifficulty.tictactoe === "medium"){
-
-        move =
-            findWinningMove("⭕");
-
-
-        if(move === -1){
-
-            move =
-                findWinningMove("❌");
-
-        }
-
-
-        if(move === -1 && !tttBoard[4]){
-
-            move = 4;
-
-        }
-
-
-        if(move === -1){
-
-            move =
-                free[
-                    Math.floor(
-                        Math.random() * free.length
-                    )
-                ];
-
-        }
-
-    }
-
-
-    /* СЛОЖНО */
-
-    if(gameDifficulty.tictactoe === "hard"){
-
-        move =
-            minimaxMove();
-
-    }
-
-
-    tttBoard[move] = "⭕";
-
-
-    renderTicTacToe();
-
-
-    if(checkWinner(tttBoard,"⭕")){
-
-        document.getElementById(
-            "tttStatus"
-        ).textContent =
-            "😔 Компьютер победил!";
-
-        tttGameOver = true;
-
-        return;
-
-    }
-
-
-    if(tttBoard.every(Boolean)){
-
-        document.getElementById(
-            "tttStatus"
-        ).textContent =
-            "🤝 Ничья!";
-
-        tttGameOver = true;
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "tttStatus"
-    ).textContent =
-        "Твой ход: ❌";
-
-}
-
-
-function findWinningMove(symbol){
-
-    for(let i=0;i<9;i++){
-
-        if(!tttBoard[i]){
-
-            tttBoard[i] = symbol;
-
-
-            const win =
-                checkWinner(
-                    tttBoard,
-                    symbol
-                );
-
-
-            tttBoard[i] = "";
-
-
-            if(win){
-
-                return i;
-
+const EasyFlowData = {
+
+    defaultData: {
+        playerName: "",
+        difficulty: "easy",
+
+        totalGames: 0,
+        totalWins: 0,
+        totalScore: 0,
+
+        records: {
+            ttt: {
+                easy: 0,
+                medium: 0,
+                hard: 0
+            },
+
+            pong: {
+                easy: 0,
+                medium: 0,
+                hard: 0
+            },
+
+            flags: {
+                easy: 0,
+                medium: 0,
+                hard: 0
+            },
+
+            memory: {
+                easy: 0,
+                medium: 0,
+                hard: 0
+            },
+
+            snake: {
+                easy: 0,
+                medium: 0,
+                hard: 0
             }
-
         }
-
-    }
-
-
-    return -1;
-
-}
-
-
-function minimaxMove(){
-
-    let bestScore = -Infinity;
-
-    let bestMove = 0;
-
-
-    for(let i=0;i<9;i++){
-
-        if(!tttBoard[i]){
-
-            tttBoard[i] = "⭕";
-
-
-            const score =
-                minimax(
-                    tttBoard,
-                    false
-                );
-
-
-            tttBoard[i] = "";
-
-
-            if(score > bestScore){
-
-                bestScore = score;
-
-                bestMove = i;
-
-            }
-
-        }
-
-    }
-
-
-    return bestMove;
-
-}
-
-
-function minimax(board,isMaximizing){
-
-    if(checkWinner(board,"⭕")){
-
-        return 10;
-
-    }
-
-
-    if(checkWinner(board,"❌")){
-
-        return -10;
-
-    }
-
-
-    if(board.every(Boolean)){
-
-        return 0;
-
-    }
-
-
-    if(isMaximizing){
-
-        let best = -Infinity;
-
-
-        for(let i=0;i<9;i++){
-
-            if(!board[i]){
-
-                board[i] = "⭕";
-
-                best =
-                    Math.max(
-                        best,
-                        minimax(
-                            board,
-                            false
-                        )
-                    );
-
-                board[i] = "";
-
-            }
-
-        }
-
-
-        return best;
-
-    }else{
-
-        let best = Infinity;
-
-
-        for(let i=0;i<9;i++){
-
-            if(!board[i]){
-
-                board[i] = "❌";
-
-                best =
-                    Math.min(
-                        best,
-                        minimax(
-                            board,
-                            true
-                        )
-                    );
-
-                board[i] = "";
-
-            }
-
-        }
-
-
-        return best;
-
-    }
-
-}
-
-
-function checkWinner(board,symbol){
-
-    const wins = [
-
-        [0,1,2],
-        [3,4,5],
-        [6,7,8],
-
-        [0,3,6],
-        [1,4,7],
-        [2,5,8],
-
-        [0,4,8],
-        [2,4,6]
-
-    ];
-
-
-    return wins.some(function(line){
-
-        return line.every(function(index){
-
-            return board[index] === symbol;
-
-        });
-
-    });
-
-}
-
-
-/* ==========================================
-   ПИНГ-ПОНГ
-========================================== */
-
-const pingCanvas =
-    document.getElementById(
-        "pingCanvas"
-    );
-
-const pingCtx =
-    pingCanvas.getContext("2d");
-
-
-let pingAnimation = null;
-
-let pingRunning = false;
-
-
-let ping = {
-
-    playerY:160,
-    enemyY:160,
-
-    ballX:350,
-    ballY:200,
-
-    dx:5,
-    dy:3,
-
-    playerScore:0,
-    enemyScore:0
-
-};
-
-
-function startPingPong(){
-
-    stopPingPong();
-
-
-    ping = {
-
-        playerY:160,
-        enemyY:160,
-
-        ballX:350,
-        ballY:200,
-
-        dx:5,
-        dy:3,
-
-        playerScore:0,
-        enemyScore:0
-
-    };
-
-
-    pingRunning = true;
-
-
-    resetPingBall();
-
-    pingLoop();
-
-}
-
-
-function stopPingPong(){
-
-    pingRunning = false;
-
-
-    if(pingAnimation){
-
-        cancelAnimationFrame(
-            pingAnimation
-        );
-
-        pingAnimation = null;
-
-    }
-
-}
-
-
-function resetPingBall(){
-
-    ping.ballX = 350;
-
-    ping.ballY = 200;
-
-
-    let speed = 4;
-
-
-    if(
-        gameDifficulty.pingpong ===
-        "medium"
-    ){
-
-        speed = 5;
-
-    }
-
-
-    if(
-        gameDifficulty.pingpong ===
-        "hard"
-    ){
-
-        speed = 7;
-
-    }
-
-
-    ping.dx =
-        Math.random() > .5
-        ? speed
-        : -speed;
-
-
-    ping.dy =
-        Math.random() * speed / 2 -
-        speed / 4;
-
-}
-
-
-function pingLoop(){
-
-    if(!pingRunning){
-
-        return;
-
-    }
-
-
-    updatePing();
-
-    drawPing();
-
-
-    pingAnimation =
-        requestAnimationFrame(
-            pingLoop
-        );
-
-}
-
-
-function updatePing(){
-
-    ping.ballX += ping.dx;
-
-    ping.ballY += ping.dy;
-
-
-    if(
-        ping.ballY < 8 ||
-        ping.ballY > 392
-    ){
-
-        ping.dy *= -1;
-
-    }
-
-
-    let enemySpeed = .035;
-
-
-    if(
-        gameDifficulty.pingpong ===
-        "medium"
-    ){
-
-        enemySpeed = .065;
-
-    }
-
-
-    if(
-        gameDifficulty.pingpong ===
-        "hard"
-    ){
-
-        enemySpeed = .10;
-
-    }
-
-
-    ping.enemyY +=
-        (
-            ping.ballY -
-            (ping.enemyY + 40)
-        ) *
-        enemySpeed;
-
-
-    if(
-        ping.ballX < 35 &&
-        ping.ballY > ping.playerY &&
-        ping.ballY < ping.playerY + 80
-    ){
-
-        ping.dx =
-            Math.abs(ping.dx);
-
-    }
-
-
-    if(
-        ping.ballX > 665 &&
-        ping.ballY > ping.enemyY &&
-        ping.ballY < ping.enemyY + 80
-    ){
-
-        ping.dx =
-            -Math.abs(ping.dx);
-
-    }
-
-
-    if(ping.ballX < 0){
-
-        ping.enemyScore++;
-
-        resetPingBall();
-
-    }
-
-
-    if(ping.ballX > 700){
-
-        ping.playerScore++;
-
-        resetPingBall();
-
-    }
-
-
-    document.getElementById(
-        "pingStatus"
-    ).textContent =
-        "Игрок " +
-        ping.playerScore +
-        " : " +
-        ping.enemyScore +
-        " Компьютер";
-
-}
-
-
-function drawPing(){
-
-    pingCtx.fillStyle =
-        "#07111f";
-
-
-    pingCtx.fillRect(
-        0,
-        0,
-        700,
-        400
-    );
-
-
-    pingCtx.strokeStyle =
-        "#334155";
-
-
-    pingCtx.setLineDash([
-        8,
-        8
-    ]);
-
-
-    pingCtx.beginPath();
-
-    pingCtx.moveTo(350,0);
-
-    pingCtx.lineTo(350,400);
-
-    pingCtx.stroke();
-
-
-    pingCtx.setLineDash([]);
-
-
-    pingCtx.fillStyle =
-        "#2563eb";
-
-
-    pingCtx.fillRect(
-        15,
-        ping.playerY,
-        15,
-        80
-    );
-
-
-    pingCtx.fillStyle =
-        "#ef4444";
-
-
-    pingCtx.fillRect(
-        670,
-        ping.enemyY,
-        15,
-        80
-    );
-
-
-    pingCtx.fillStyle =
-        "#fff";
-
-
-    pingCtx.beginPath();
-
-
-    pingCtx.arc(
-        ping.ballX,
-        ping.ballY,
-        9,
-        0,
-        Math.PI * 2
-    );
-
-
-    pingCtx.fill();
-
-}
-
-
-function movePingPlayer(y){
-
-    const rect =
-        pingCanvas.getBoundingClientRect();
-
-
-    const scale =
-        pingCanvas.height /
-        rect.height;
-
-
-    ping.playerY =
-        y * scale - 40;
-
-
-    ping.playerY =
-        Math.max(
-            0,
-            Math.min(
-                320,
-                ping.playerY
-            )
-        );
-
-}
-
-
-pingCanvas.addEventListener(
-    "mousemove",
-    function(event){
-
-        movePingPlayer(
-            event.clientY -
-            pingCanvas.getBoundingClientRect().top
-        );
-
-    }
-);
-
-
-pingCanvas.addEventListener(
-    "touchmove",
-    function(event){
-
-        event.preventDefault();
-
-
-        const rect =
-            pingCanvas.getBoundingClientRect();
-
-
-        movePingPlayer(
-            event.touches[0].clientY -
-            rect.top
-        );
-
-    },
-    {
-        passive:false
-    }
-);
-
-
-document.addEventListener(
-    "keydown",
-    function(event){
-
-        if(
-            document
-            .getElementById(
-                "game-pingpong"
-            )
-            .classList
-            .contains("active")
-        ){
-
-            if(event.key === "ArrowUp"){
-
-                ping.playerY -= 25;
-
-            }
-
-
-            if(event.key === "ArrowDown"){
-
-                ping.playerY += 25;
-
-            }
-
-
-            ping.playerY =
-                Math.max(
-                    0,
-                    Math.min(
-                        320,
-                        ping.playerY
-                    )
-                );
-
-        }
-
-    }
-);
-
-
-/* ==========================================
-   ФЛАГИ
-========================================== */
-
-const flagsEasy = [
-
-    {
-        flag:"🇰🇿",
-        country:"Казахстан"
     },
 
-    {
-        flag:"🇷🇺",
-        country:"Россия"
-    },
+    get() {
 
-    {
-        flag:"🇺🇸",
-        country:"США"
-    },
+        const saved =
+            localStorage.getItem("easyflow_data");
 
-    {
-        flag:"🇬🇧",
-        country:"Великобритания"
-    },
+        if(!saved){
 
-    {
-        flag:"🇯🇵",
-        country:"Япония"
-    },
-
-    {
-        flag:"🇩🇪",
-        country:"Германия"
-    }
-
-];
-
-
-const flagsMedium = [
-
-    ...flagsEasy,
-
-    {
-        flag:"🇫🇷",
-        country:"Франция"
-    },
-
-    {
-        flag:"🇮🇹",
-        country:"Италия"
-    },
-
-    {
-        flag:"🇪🇸",
-        country:"Испания"
-    },
-
-    {
-        flag:"🇨🇳",
-        country:"Китай"
-    },
-
-    {
-        flag:"🇧🇷",
-        country:"Бразилия"
-    }
-
-];
-
-
-const flagsHard = [
-
-    ...flagsMedium,
-
-    {
-        flag:"🇰🇷",
-        country:"Южная Корея"
-    },
-
-    {
-        flag:"🇨🇦",
-        country:"Канада"
-    },
-
-    {
-        flag:"🇦🇺",
-        country:"Австралия"
-    },
-
-    {
-        flag:"🇳🇴",
-        country:"Норвегия"
-    },
-
-    {
-        flag:"🇸🇪",
-        country:"Швеция"
-    },
-
-    {
-        flag:"🇦🇷",
-        country:"Аргентина"
-    },
-
-    {
-        flag:"🇲🇽",
-        country:"Мексика"
-    },
-
-    {
-        flag:"🇵🇱",
-        country:"Польша"
-    }
-
-];
-
-
-let currentFlag;
-
-let flagPoints = 0;
-
-
-function getFlags(){
-
-    if(gameDifficulty.flags === "easy"){
-
-        return flagsEasy;
-
-    }
-
-
-    if(gameDifficulty.flags === "medium"){
-
-        return flagsMedium;
-
-    }
-
-
-    return flagsHard;
-
-}
-
-
-function startFlags(){
-
-    flagPoints = 0;
-
-    nextFlag();
-
-}
-
-
-function nextFlag(){
-
-    const flags =
-        getFlags();
-
-
-    currentFlag =
-        flags[
-            Math.floor(
-                Math.random() *
-                flags.length
-            )
-        ];
-
-
-    document.getElementById(
-        "flagEmoji"
-    ).textContent =
-        currentFlag.flag;
-
-
-    document.getElementById(
-        "flagScore"
-    ).textContent =
-        "Счёт: " +
-        flagPoints;
-
-
-    let answers = [
-
-        currentFlag.country
-
-    ];
-
-
-    while(answers.length < 4){
-
-        const random =
-            flags[
-                Math.floor(
-                    Math.random() *
-                    flags.length
-                )
-            ].country;
-
-
-        if(
-            !answers.includes(random)
-        ){
-
-            answers.push(random);
-
-        }
-
-    }
-
-
-    answers.sort(function(){
-
-        return Math.random() - .5;
-
-    });
-
-
-    const box =
-        document.getElementById(
-            "flagOptions"
-        );
-
-
-    box.innerHTML = "";
-
-
-    answers.forEach(function(answer){
-
-        const button =
-            document.createElement(
-                "button"
+            return JSON.parse(
+                JSON.stringify(this.defaultData)
             );
 
+        }
 
-        button.className =
-            "flag-option";
+        try{
 
+            const data=JSON.parse(saved);
 
-        button.textContent =
-            answer;
+            return {
 
+                ...JSON.parse(
+                    JSON.stringify(this.defaultData)
+                ),
 
-        button.onclick =
-            function(){
+                ...data,
 
-                if(
-                    answer ===
-                    currentFlag.country
-                ){
+                records: {
 
-                    flagPoints++;
+                    ...JSON.parse(
+                        JSON.stringify(this.defaultData.records)
+                    ),
 
-                    button.style.background =
-                        "#22c55e";
-
-                    button.style.color =
-                        "white";
-
-
-                    setTimeout(
-                        nextFlag,
-                        500
-                    );
-
-                }else{
-
-                    button.style.background =
-                        "#ef4444";
-
-                    button.style.color =
-                        "white";
-
-
-                    setTimeout(
-                        nextFlag,
-                        700
-                    );
+                    ...(data.records || {})
 
                 }
 
             };
 
-
-        box.appendChild(button);
-
-    });
-
-}
-
-
-/* ==========================================
-   ПАМЯТЬ
-========================================== */
-
-const memoryEasy = [
-
-    "🍎",
-    "🍌",
-    "🍇",
-    "🍉"
-
-];
-
-
-const memoryMedium = [
-
-    "🍎",
-    "🍌",
-    "🍇",
-    "🍉",
-    "🍒",
-    "🍓"
-
-];
-
-
-const memoryHard = [
-
-    "🍎",
-    "🍌",
-    "🍇",
-    "🍉",
-    "🍒",
-    "🍓",
-    "🥝",
-    "🍍"
-
-];
-
-
-let memoryFirst = null;
-
-let memorySecond = null;
-
-let memoryLocked = false;
-
-let memoryMoves = 0;
-
-let memoryMatched = 0;
-
-
-function getMemorySymbols(){
-
-    if(gameDifficulty.memory === "easy"){
-
-        return memoryEasy;
-
-    }
-
-
-    if(gameDifficulty.memory === "medium"){
-
-        return memoryMedium;
-
-    }
-
-
-    return memoryHard;
-
-}
-
-
-function startMemory(){
-
-    const board =
-        document.getElementById(
-            "memoryBoard"
-        );
-
-
-    board.innerHTML = "";
-
-
-    memoryFirst = null;
-
-    memorySecond = null;
-
-    memoryLocked = false;
-
-    memoryMoves = 0;
-
-    memoryMatched = 0;
-
-
-    const symbols =
-        getMemorySymbols();
-
-
-    let cards = [
-
-        ...symbols,
-        ...symbols
-
-    ];
-
-
-    cards.sort(function(){
-
-        return Math.random() - .5;
-
-    });
-
-
-    let columns = 4;
-
-
-    if(
-        gameDifficulty.memory === "hard"
-    ){
-
-        columns = 4;
-
-    }
-
-
-    board.style.gridTemplateColumns =
-        "repeat(" +
-        columns +
-        ",80px)";
-
-
-    cards.forEach(function(symbol,index){
-
-        const button =
-            document.createElement(
-                "button"
+        }catch(error){
+
+            console.error(
+                "Ошибка чтения данных:",
+                error
             );
 
+            return JSON.parse(
+                JSON.stringify(this.defaultData)
+            );
 
-        button.className =
-            "memory-card";
+        }
 
+    },
 
-        button.dataset.symbol =
-            symbol;
+    save(data){
 
+        localStorage.setItem(
+            "easyflow_data",
+            JSON.stringify(data)
+        );
 
-        button.dataset.index =
-            index;
+    },
 
+    setName(name){
 
-        button.textContent =
-            "❓";
+        const data=this.get();
 
+        data.playerName=String(name);
 
-        button.onclick =
-            function(){
+        this.save(data);
 
-                memoryClick(button);
+    },
 
+    getName(){
+
+        return this.get().playerName;
+
+    },
+
+    setDifficulty(level){
+
+        if(
+            !["easy","medium","hard"]
+            .includes(level)
+        ){
+
+            return;
+
+        }
+
+        const data=this.get();
+
+        data.difficulty=level;
+
+        this.save(data);
+
+    },
+
+    getDifficulty(){
+
+        return this.get().difficulty;
+
+    },
+
+    getRecord(game,level){
+
+        const data=this.get();
+
+        if(
+            !data.records[game] ||
+            data.records[game][level] === undefined
+        ){
+
+            return 0;
+
+        }
+
+        return Number(
+            data.records[game][level]
+        ) || 0;
+
+    },
+
+    setRecord(game,level,score){
+
+        const data=this.get();
+
+        if(!data.records[game]){
+
+            data.records[game]={
+                easy:0,
+                medium:0,
+                hard:0
             };
 
+        }
 
-        board.appendChild(button);
+        const oldRecord=
+            Number(data.records[game][level]) || 0;
+
+        score=Number(score) || 0;
+
+        if(score>oldRecord){
+
+            data.records[game][level]=score;
+
+            this.save(data);
+
+            return true;
+
+        }
+
+        return false;
+
+    },
+
+    addGame(){
+
+        const data=this.get();
+
+        data.totalGames++;
+
+        this.save(data);
+
+    },
+
+    addWin(){
+
+        const data=this.get();
+
+        data.totalWins++;
+
+        this.save(data);
+
+    },
+
+    addScore(score){
+
+        const data=this.get();
+
+        data.totalScore+=
+            Number(score) || 0;
+
+        this.save(data);
+
+    },
+
+    getStats(){
+
+        return this.get();
+
+    },
+
+    getAllRecords(){
+
+        return this.get().records;
+
+    },
+
+    reset(){
+
+        localStorage.removeItem(
+            "easyflow_data"
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+ОБЩИЕ НАСТРОЙКИ
+===================================================== */
+
+let difficulty =
+    EasyFlowData.getDifficulty();
+
+function difficultyName(){
+
+    if(difficulty==="easy")
+        return "🟢 Лёгкий";
+
+    if(difficulty==="medium")
+        return "🟡 Средний";
+
+    return "🔴 Сложный";
+
+}
+
+function selectDifficulty(level){
+
+    difficulty=level;
+
+    EasyFlowData.setDifficulty(level);
+
+    document.querySelectorAll(".level")
+    .forEach(button=>{
+        button.classList.remove(
+            "active"
+        );
+    });
+
+    const active =
+        document.getElementById(
+            level+"Button"
+        );
+
+    active.classList.add(
+        "active",
+        level
+    );
+
+    resetTTT();
+    resetPong();
+    resetFlags();
+    resetMemory();
+    resetSnake();
+
+    updateAllRecords();
+
+}
+
+
+/* =====================================================
+ВЫБОР ИГРЫ
+===================================================== */
+
+function showGame(game,button){
+
+    document.querySelectorAll(".game")
+    .forEach(g=>{
+        g.classList.remove("active");
+    });
+
+    document.getElementById(
+        "game-"+game
+    ).classList.add("active");
+
+    document.querySelectorAll(
+        ".game-select button"
+    ).forEach(b=>{
+        b.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    if(game==="pong")
+        drawPong();
+
+}
+
+
+/* =====================================================
+RECORD
+===================================================== */
+
+function getRecord(game){
+
+    return EasyFlowData.getRecord(
+        game,
+        difficulty
+    );
+
+}
+
+function saveRecord(game,value){
+
+    EasyFlowData.setRecord(
+        game,
+        difficulty,
+        value
+    );
+
+}
+
+function updateAllRecords(){
+
+    document.getElementById(
+        "tttRecord"
+    ).textContent=
+        getRecord("ttt");
+
+    document.getElementById(
+        "pongRecord"
+    ).textContent=
+        getRecord("pong");
+
+    document.getElementById(
+        "flagRecord"
+    ).textContent=
+        getRecord("flags");
+
+    document.getElementById(
+        "memoryRecord"
+    ).textContent=
+        getRecord("memory");
+
+    document.getElementById(
+        "snakeRecord"
+    ).textContent=
+        getRecord("snake");
+
+}
+
+
+/* =====================================================
+ВСПОМОГАТЕЛЬНОЕ
+===================================================== */
+
+function shuffle(array){
+
+    let a=[...array];
+
+    for(
+        let i=a.length-1;
+        i>0;
+        i--
+    ){
+
+        let j=
+            Math.floor(
+                Math.random()*(i+1)
+            );
+
+        [a[i],a[j]]=
+        [a[j],a[i]];
+
+    }
+
+    return a;
+
+}
+
+
+/* =====================================================
+КРЕСТИКИ-НОЛИКИ
+===================================================== */
+
+let tttBoard=Array(9).fill("");
+let tttRunning=false;
+let tttPlayerTurn=true;
+let tttWins=0;
+let tttTimer=null;
+
+const tttCells=
+    document.querySelectorAll(
+        ".ttt-cell"
+    );
+
+tttCells.forEach(cell=>{
+
+    cell.addEventListener(
+        "click",
+        ()=>{
+            tttPlayerMove(
+                Number(
+                    cell.dataset.index
+                )
+            );
+        }
+    );
+
+});
+
+function resetTTT(){
+
+    clearTimeout(tttTimer);
+
+    tttBoard=Array(9).fill("");
+    tttRunning=false;
+    tttPlayerTurn=true;
+
+    tttCells.forEach(c=>{
+
+        c.textContent="";
+        c.disabled=false;
+        c.className="ttt-cell";
 
     });
 
-
-    updateMemoryStatus();
+    document.getElementById(
+        "tttMessage"
+    ).textContent=
+        "Нажми «Новая игра»";
 
 }
 
+function startTTT(){
 
-function updateMemoryStatus(){
+    clearTimeout(tttTimer);
+
+    tttBoard=Array(9).fill("");
+    tttRunning=true;
+    tttPlayerTurn=true;
+
+    EasyFlowData.addGame();
+
+    tttCells.forEach(c=>{
+
+        c.textContent="";
+        c.disabled=false;
+
+    });
 
     document.getElementById(
-        "memoryStatus"
-    ).textContent =
-        "Ходы: " +
-        memoryMoves +
-        " | Найдено пар: " +
-        memoryMatched +
-        "/" +
-        getMemorySymbols().length;
+        "tttMessage"
+    ).textContent=
+        difficultyName()+
+        " • Твой ход";
+
+}
+
+function tttWinner(board){
+
+    const wins=[
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ];
+
+    for(const line of wins){
+
+        const [a,b,c]=line;
+
+        if(
+            board[a] &&
+            board[a]===board[b] &&
+            board[a]===board[c]
+        ){
+
+            return board[a];
+
+        }
+
+    }
+
+    if(board.every(Boolean))
+        return "draw";
+
+    return null;
+
+}
+
+function tttPlayerMove(index){
+
+    if(
+        !tttRunning ||
+        !tttPlayerTurn ||
+        tttBoard[index]
+    )
+        return;
+
+    tttBoard[index]="X";
+
+    renderTTT();
+
+    let result=
+        tttWinner(tttBoard);
+
+    if(result){
+
+        finishTTT(result);
+        return;
+
+    }
+
+    tttPlayerTurn=false;
+
+    document.getElementById(
+        "tttMessage"
+    ).textContent=
+        "🤖 Ход компьютера...";
+
+    tttTimer=setTimeout(
+        tttComputerMove,
+        difficulty==="easy"
+            ?350
+            :500
+    );
+
+}
+
+function tttComputerMove(){
+
+    if(!tttRunning)
+        return;
+
+    let move;
+
+    if(difficulty==="easy"){
+
+        move=randomMove(tttBoard);
+
+    }else if(difficulty==="medium"){
+
+        move=mediumMove(tttBoard);
+
+    }else{
+
+        move=bestMove(tttBoard);
+
+    }
+
+    if(move!==undefined)
+        tttBoard[move]="O";
+
+    renderTTT();
+
+    let result=
+        tttWinner(tttBoard);
+
+    if(result){
+
+        finishTTT(result);
+        return;
+
+    }
+
+    tttPlayerTurn=true;
+
+    document.getElementById(
+        "tttMessage"
+    ).textContent=
+        difficultyName()+
+        " • Твой ход";
+
+}
+
+function randomMove(board){
+
+    const empty=[];
+
+    board.forEach((v,i)=>{
+
+        if(!v)
+            empty.push(i);
+
+    });
+
+    if(!empty.length)
+        return undefined;
+
+    return empty[
+        Math.floor(
+            Math.random()*empty.length
+        )
+    ];
+
+}
+
+function mediumMove(board){
+
+    for(let i=0;i<9;i++){
+
+        if(!board[i]){
+
+            board[i]="O";
+
+            if(
+                tttWinner(board)==="O"
+            ){
+
+                board[i]="";
+
+                return i;
+
+            }
+
+            board[i]="";
+
+        }
+
+    }
+
+    for(let i=0;i<9;i++){
+
+        if(!board[i]){
+
+            board[i]="X";
+
+            if(
+                tttWinner(board)==="X"
+            ){
+
+                board[i]="";
+
+                return i;
+
+            }
+
+            board[i]="";
+
+        }
+
+    }
+
+    if(!board[4])
+        return 4;
+
+    const corners=[
+        0,2,6,8
+    ].filter(i=>!board[i]);
+
+    if(corners.length){
+
+        return corners[
+            Math.floor(
+                Math.random()*corners.length
+            )
+        ];
+
+    }
+
+    return randomMove(board);
+
+}
+
+function bestMove(board){
+
+    let bestScore=-Infinity;
+    let move;
+
+    for(let i=0;i<9;i++){
+
+        if(!board[i]){
+
+            board[i]="O";
+
+            let score=
+                minimax(
+                    board,
+                    false,
+                    0
+                );
+
+            board[i]="";
+
+            if(score>bestScore){
+
+                bestScore=score;
+                move=i;
+
+            }
+
+        }
+
+    }
+
+    return move;
+
+}
+
+function minimax(
+    board,
+    isMax,
+    depth
+){
+
+    const result=
+        tttWinner(board);
+
+    if(result==="O")
+        return 10-depth;
+
+    if(result==="X")
+        return depth-10;
+
+    if(result==="draw")
+        return 0;
+
+    if(isMax){
+
+        let best=-Infinity;
+
+        for(let i=0;i<9;i++){
+
+            if(!board[i]){
+
+                board[i]="O";
+
+                best=Math.max(
+                    best,
+                    minimax(
+                        board,
+                        false,
+                        depth+1
+                    )
+                );
+
+                board[i]="";
+
+            }
+
+        }
+
+        return best;
+
+    }else{
+
+        let best=Infinity;
+
+        for(let i=0;i<9;i++){
+
+            if(!board[i]){
+
+                board[i]="X";
+
+                best=Math.min(
+                    best,
+                    minimax(
+                        board,
+                        true,
+                        depth+1
+                    )
+                );
+
+                board[i]="";
+
+            }
+
+        }
+
+        return best;
+
+    }
+
+}
+
+function renderTTT(){
+
+    tttCells.forEach(
+        (cell,i)=>{
+
+            cell.textContent=
+                tttBoard[i]==="X"
+                    ?"❌"
+                    :tttBoard[i]==="O"
+                        ?"⭕"
+                        :"";
+
+        }
+    );
+
+}
+
+function finishTTT(result){
+
+    tttRunning=false;
+
+    if(result==="X"){
+
+        tttWins++;
+
+        document.getElementById(
+            "tttWins"
+        ).textContent=tttWins;
+
+        EasyFlowData.addWin();
+
+        if(
+            tttWins>getRecord("ttt")
+        ){
+
+            saveRecord(
+                "ttt",
+                tttWins
+            );
+
+        }
+
+        document.getElementById(
+            "tttMessage"
+        ).textContent=
+            "🏆 Ты победил!";
+
+    }else if(result==="O"){
+
+        document.getElementById(
+            "tttMessage"
+        ).textContent=
+            "🤖 Компьютер победил";
+
+    }else{
+
+        document.getElementById(
+            "tttMessage"
+        ).textContent=
+            "🤝 Ничья";
+
+    }
+
+    updateAllRecords();
 
 }
 
 
-function memoryClick(card){
+/* =====================================================
+ПИНГ-ПОНГ
+===================================================== */
+
+const pongCanvas=
+    document.getElementById(
+        "pongCanvas"
+    );
+
+const pongCtx=
+    pongCanvas.getContext("2d");
+
+let pongRunning=false;
+let pongAnimation=null;
+
+let pongPlayer=0;
+let pongAI=0;
+
+let paddlePlayer={
+    x:20,
+    y:160,
+    w:12,
+    h:80
+};
+
+let paddleAI={
+    x:668,
+    y:160,
+    w:12,
+    h:80
+};
+
+let pongBall={
+    x:350,
+    y:200,
+    size:10,
+    vx:4,
+    vy:3
+};
+
+function resetPong(){
+
+    pongRunning=false;
+
+    if(pongAnimation)
+        cancelAnimationFrame(
+            pongAnimation
+        );
+
+    pongPlayer=0;
+    pongAI=0;
+
+    document.getElementById(
+        "pongPlayerScore"
+    ).textContent=0;
+
+    document.getElementById(
+        "pongAIScore"
+    ).textContent=0;
+
+    paddlePlayer.y=160;
+    paddleAI.y=160;
+
+    pongBall.x=350;
+    pongBall.y=200;
+
+    document.getElementById(
+        "pongMessage"
+    ).textContent=
+        "Нажми «Начать»";
+
+    drawPong();
+
+}
+
+function startPong(){
+
+    if(pongAnimation)
+        cancelAnimationFrame(
+            pongAnimation
+        );
+
+    pongRunning=true;
+
+    pongPlayer=0;
+    pongAI=0;
+
+    EasyFlowData.addGame();
+
+    document.getElementById(
+        "pongPlayerScore"
+    ).textContent=0;
+
+    document.getElementById(
+        "pongAIScore"
+    ).textContent=0;
+
+    resetPongBall();
+
+    document.getElementById(
+        "pongMessage"
+    ).textContent=
+        difficultyName()+
+        " • Играй!";
+
+    pongLoop();
+
+}
+
+function resetPongBall(){
+
+    pongBall.x=350;
+    pongBall.y=200;
+
+    let speed=
+        difficulty==="easy"
+            ?4
+            :difficulty==="medium"
+                ?5
+                :6.5;
+
+    pongBall.vx=
+        Math.random()<.5
+            ?-speed
+            :speed;
+
+    pongBall.vy=
+        (Math.random()>.5?1:-1)*
+        (2+Math.random()*2);
+
+}
+
+function drawPong(){
+
+    pongCtx.clearRect(
+        0,
+        0,
+        pongCanvas.width,
+        pongCanvas.height
+    );
+
+    pongCtx.strokeStyle="#ffffff";
+    pongCtx.setLineDash([
+        8,8
+    ]);
+
+    pongCtx.beginPath();
+
+    pongCtx.moveTo(350,0);
+    pongCtx.lineTo(350,400);
+
+    pongCtx.stroke();
+
+    pongCtx.setLineDash([]);
+
+    pongCtx.fillStyle="#ffffff";
+
+    pongCtx.fillRect(
+        paddlePlayer.x,
+        paddlePlayer.y,
+        paddlePlayer.w,
+        paddlePlayer.h
+    );
+
+    pongCtx.fillRect(
+        paddleAI.x,
+        paddleAI.y,
+        paddleAI.w,
+        paddleAI.h
+    );
+
+    pongCtx.beginPath();
+
+    pongCtx.arc(
+        pongBall.x,
+        pongBall.y,
+        pongBall.size,
+        0,
+        Math.PI*2
+    );
+
+    pongCtx.fill();
+
+}
+
+function pongLoop(){
+
+    if(!pongRunning)
+        return;
+
+    pongBall.x+=pongBall.vx;
+    pongBall.y+=pongBall.vy;
 
     if(
-        memoryLocked ||
-        card.classList.contains("open") ||
-        card.classList.contains("matched")
+        pongBall.y<10 ||
+        pongBall.y>390
     ){
 
-        return;
+        pongBall.vy*=-1;
 
     }
 
+    let aiSpeed=
+        difficulty==="easy"
+            ?2.5
+            :difficulty==="medium"
+                ?4
+                :6;
 
-    card.textContent =
-        card.dataset.symbol;
+    if(paddleAI.y<pongBall.y)
+        paddleAI.y+=aiSpeed;
 
+    if(paddleAI.y>pongBall.y)
+        paddleAI.y-=aiSpeed;
 
-    card.classList.add("open");
+    paddleAI.y=Math.max(
+        0,
+        Math.min(
+            320,
+            paddleAI.y
+        )
+    );
 
+    if(
+        pongBall.x<40 &&
+        pongBall.y>paddlePlayer.y &&
+        pongBall.y<
+            paddlePlayer.y+80
+    ){
 
-    if(!memoryFirst){
-
-        memoryFirst = card;
-
-        return;
+        pongBall.vx=
+            Math.abs(
+                pongBall.vx
+            );
 
     }
 
-
-    memorySecond = card;
-
-    memoryMoves++;
-
-
     if(
-        memoryFirst.dataset.symbol ===
-        memorySecond.dataset.symbol
+        pongBall.x>660 &&
+        pongBall.y>paddleAI.y &&
+        pongBall.y<
+            paddleAI.y+80
     ){
 
-        memoryFirst.classList.add(
-            "matched"
+        pongBall.vx=
+            -Math.abs(
+                pongBall.vx
+            );
+
+    }
+
+    if(pongBall.x<0){
+
+        pongAI++;
+
+        document.getElementById(
+            "pongAIScore"
+        ).textContent=pongAI;
+
+        if(pongAI>=5){
+
+            endPong(false);
+            return;
+
+        }
+
+        resetPongBall();
+
+    }
+
+    if(pongBall.x>700){
+
+        pongPlayer++;
+
+        document.getElementById(
+            "pongPlayerScore"
+        ).textContent=pongPlayer;
+
+        if(pongPlayer>=5){
+
+            endPong(true);
+            return;
+
+        }
+
+        resetPongBall();
+
+    }
+
+    drawPong();
+
+    pongAnimation=
+        requestAnimationFrame(
+            pongLoop
         );
 
+}
 
-        memorySecond.classList.add(
-            "matched"
-        );
+function endPong(win){
 
+    pongRunning=false;
 
-        memoryMatched++;
+    if(win){
 
+        EasyFlowData.addWin();
 
-        memoryFirst = null;
-
-        memorySecond = null;
-
-
-        updateMemoryStatus();
-
+        document.getElementById(
+            "pongMessage"
+        ).textContent=
+            "🏆 Ты победил!";
 
         if(
-            memoryMatched ===
-            getMemorySymbols().length
+            pongPlayer>getRecord("pong")
         ){
 
-            setTimeout(function(){
-
-                document.getElementById(
-                    "memoryStatus"
-                ).textContent =
-                    "🎉 Победа! Ходов: " +
-                    memoryMoves;
-
-            },300);
+            saveRecord(
+                "pong",
+                pongPlayer
+            );
 
         }
 
     }else{
 
-        memoryLocked = true;
-
-
-        setTimeout(function(){
-
-            memoryFirst.textContent =
-                "❓";
-
-
-            memorySecond.textContent =
-                "❓";
-
-
-            memoryFirst.classList.remove(
-                "open"
-            );
-
-
-            memorySecond.classList.remove(
-                "open"
-            );
-
-
-            memoryFirst = null;
-
-            memorySecond = null;
-
-            memoryLocked = false;
-
-
-            updateMemoryStatus();
-
-        },800);
-
-    }
-
-
-    updateMemoryStatus();
-
-}
-
-
-/* ==========================================
-   ЗМЕЙКА
-========================================== */
-
-const snakeCanvas =
-    document.getElementById(
-        "snakeCanvas"
-    );
-
-
-const snakeCtx =
-    snakeCanvas.getContext("2d");
-
-
-let snake = [];
-
-
-let snakeFood = {
-
-    x:10,
-    y:10
-
-};
-
-
-let snakeDirection = {
-
-    x:1,
-    y:0
-
-};
-
-
-let snakeNextDirection = {
-
-    x:1,
-    y:0
-
-};
-
-
-let snakeTimer = null;
-
-let snakeScore = 0;
-
-
-const snakeSpeed = {
-
-    easy:600,
-
-    medium:400,
-
-    hard:220
-
-};
-
-
-function startSnake(){
-
-    stopSnake();
-
-
-    snake = [
-
-        {
-            x:10,
-            y:10
-        },
-
-        {
-            x:9,
-            y:10
-        },
-
-        {
-            x:8,
-            y:10
-        }
-
-    ];
-
-
-    snakeDirection = {
-
-        x:1,
-        y:0
-
-    };
-
-
-    snakeNextDirection = {
-
-        x:1,
-        y:0
-
-    };
-
-
-    snakeScore = 0;
-
-
-    createSnakeFood();
-
-
-    updateSnakeStatus();
-
-
-    snakeTimer =
-        setInterval(
-            updateSnake,
-            snakeSpeed[
-                gameDifficulty.snake
-            ]
-        );
-
-
-    drawSnake();
-
-}
-
-
-function stopSnake(){
-
-    if(snakeTimer){
-
-        clearInterval(
-            snakeTimer
-        );
-
-        snakeTimer = null;
-
-    }
-
-}
-
-
-function updateSnakeStatus(){
-
-    document.getElementById(
-        "snakeStatus"
-    ).textContent =
-        "Счёт: " +
-        snakeScore;
-
-}
-
-
-function createSnakeFood(){
-
-    do{
-
-        snakeFood = {
-
-            x:
-                Math.floor(
-                    Math.random() * 20
-                ),
-
-            y:
-                Math.floor(
-                    Math.random() * 20
-                )
-
-        };
-
-
-    }while(
-
-        snake.some(function(part){
-
-            return (
-                part.x === snakeFood.x &&
-                part.y === snakeFood.y
-            );
-
-        })
-
-    );
-
-}
-
-
-function updateSnake(){
-
-    snakeDirection =
-        snakeNextDirection;
-
-
-    const head = {
-
-        x:
-            snake[0].x +
-            snakeDirection.x,
-
-        y:
-            snake[0].y +
-            snakeDirection.y
-
-    };
-
-
-    if(
-
-        head.x < 0 ||
-        head.x >= 20 ||
-        head.y < 0 ||
-        head.y >= 20 ||
-
-        snake.some(function(part){
-
-            return (
-                part.x === head.x &&
-                part.y === head.y
-            );
-
-        })
-
-    ){
-
-        stopSnake();
-
-
         document.getElementById(
-            "snakeStatus"
-        ).textContent =
-            "💀 Игра окончена! Счёт: " +
-            snakeScore;
+            "pongMessage"
+        ).textContent=
+            "🤖 Компьютер победил";
 
+    }
+
+    updateAllRecords();
+
+}
+
+document.addEventListener(
+    "keydown",
+    e=>{
+
+        if(e.key==="ArrowUp")
+            paddlePlayer.y-=25;
+
+        if(e.key==="ArrowDown")
+            paddlePlayer.y+=25;
+
+        paddlePlayer.y=Math.max(
+            0,
+            Math.min(
+                320,
+                paddlePlayer.y
+            )
+        );
+
+    }
+);
+
+pongCanvas.addEventListener(
+    "mousemove",
+    e=>{
+
+        const rect=
+            pongCanvas.getBoundingClientRect();
+
+        paddlePlayer.y=
+            (e.clientY-rect.top)-40;
+
+        paddlePlayer.y=Math.max(
+            0,
+            Math.min(
+                320,
+                paddlePlayer.y
+            )
+        );
+
+    }
+);
+
+
+/* =====================================================
+ФЛАГИ
+===================================================== */
+
+const countries=[
+
+["Казахстан","kz","easy"],
+["Россия","ru","easy"],
+["Украина","ua","easy"],
+["Беларусь","by","easy"],
+["Германия","de","easy"],
+["Франция","fr","easy"],
+["Италия","it","easy"],
+["Испания","es","easy"],
+["Португалия","pt","easy"],
+["Великобритания","gb","easy"],
+["США","us","easy"],
+["Канада","ca","easy"],
+["Бразилия","br","easy"],
+["Аргентина","ar","easy"],
+["Китай","cn","easy"],
+["Япония","jp","easy"],
+["Индия","in","easy"],
+["Австралия","au","easy"],
+["Турция","tr","easy"],
+["Египет","eg","easy"],
+
+["Австрия","at","medium"],
+["Ирландия","ie","medium"],
+["Чехия","cz","medium"],
+["Словакия","sk","medium"],
+["Венгрия","hu","medium"],
+["Румыния","ro","medium"],
+["Болгария","bg","medium"],
+["Хорватия","hr","medium"],
+["Сербия","rs","medium"],
+["Словения","si","medium"],
+["Грузия","ge","medium"],
+["Армения","am","medium"],
+["Азербайджан","az","medium"],
+["Узбекистан","uz","medium"],
+["Кыргызстан","kg","medium"],
+["Таджикистан","tj","medium"],
+["Монголия","mn","medium"],
+["Непал","np","medium"],
+["Пакистан","pk","medium"],
+["Индонезия","id","medium"],
+
+["Андорра","ad","hard"],
+["Антигуа и Барбуда","ag","hard"],
+["Багамы","bs","hard"],
+["Барбадос","bb","hard"],
+["Белиз","bz","hard"],
+["Бенин","bj","hard"],
+["Бурунди","bi","hard"],
+["Кабо-Верде","cv","hard"],
+["Камерун","cm","hard"],
+["Чад","td","hard"],
+["Коморы","km","hard"],
+["Джибути","dj","hard"],
+["Эритрея","er","hard"],
+["Габон","ga","hard"],
+["Гамбия","gm","hard"],
+["Гвинея","gn","hard"],
+["Лесото","ls","hard"],
+["Либерия","lr","hard"],
+["Малави","mw","hard"],
+["Мали","ml","hard"],
+["Нигер","ne","hard"],
+["Руанда","rw","hard"],
+["Сомали","so","hard"],
+["Судан","sd","hard"],
+["Того","tg","hard"],
+["Бруней","bn","hard"],
+["Палау","pw","hard"],
+["Науру","nr","hard"],
+["Кирибати","ki","hard"],
+["Тувалу","tv","hard"]
+
+];
+
+let flagCurrent=null;
+let flagUsed=[];
+let flagScore=0;
+let flagLives=3;
+let flagRunning=false;
+let flagAnswered=false;
+
+function resetFlags(){
+
+    flagCurrent=null;
+    flagUsed=[];
+    flagScore=0;
+    flagLives=3;
+    flagRunning=false;
+    flagAnswered=false;
+
+    document.getElementById(
+        "flagScore"
+    ).textContent=0;
+
+    document.getElementById(
+        "flagLives"
+    ).textContent=3;
+
+    document.getElementById(
+        "flag"
+    ).removeAttribute("src");
+
+    document.getElementById(
+        "flagAnswers"
+    ).innerHTML="";
+
+    document.getElementById(
+        "flagQuestion"
+    ).textContent=
+        "Нажми «Начать игру»";
+
+    document.getElementById(
+        "flagNext"
+    ).classList.add("hidden");
+
+    document.getElementById(
+        "flagProgress"
+    ).textContent="";
+
+}
+
+function startFlags(){
+
+    const available=
+        countries.filter(
+            c=>c[2]===difficulty
+        );
+
+    if(available.length<4){
+
+        alert(
+            "Недостаточно стран для этого уровня"
+        );
 
         return;
 
     }
 
+    flagUsed=[];
+    flagScore=0;
+    flagLives=3;
+    flagRunning=true;
+
+    EasyFlowData.addGame();
+
+    document.getElementById(
+        "flagScore"
+    ).textContent=0;
+
+    document.getElementById(
+        "flagLives"
+    ).textContent=3;
+
+    nextFlag();
+
+}
+
+function nextFlag(){
+
+    if(!flagRunning)
+        return;
+
+    const available=
+        countries.filter(
+            c=>c[2]===difficulty
+        );
+
+    const unused=
+        available.filter(
+            c=>!flagUsed.includes(c[1])
+        );
+
+    if(!unused.length){
+
+        finishFlags();
+        return;
+
+    }
+
+    flagAnswered=false;
+
+    flagCurrent=
+        unused[
+            Math.floor(
+                Math.random()*unused.length
+            )
+        ];
+
+    flagUsed.push(
+        flagCurrent[1]
+    );
+
+    document.getElementById(
+        "flag"
+    ).src=
+        "https://flagcdn.com/w640/"+
+        flagCurrent[1]+
+        ".png";
+
+    document.getElementById(
+        "flagQuestion"
+    ).textContent=
+        "Какая это страна?";
+
+    document.getElementById(
+        "flagNext"
+    ).classList.add("hidden");
+
+    createFlagAnswers(
+        available
+    );
+
+    document.getElementById(
+        "flagProgress"
+    ).textContent=
+        difficultyName()+
+        " • "+
+        flagUsed.length+
+        "/"+
+        available.length;
+
+}
+
+function createFlagAnswers(available){
+
+    const wrong=
+        shuffle(
+            available.filter(
+                c=>c[1]!==flagCurrent[1]
+            )
+        ).slice(0,3);
+
+    const options=
+        shuffle([
+            flagCurrent,
+            ...wrong
+        ]);
+
+    const box=
+        document.getElementById(
+            "flagAnswers"
+        );
+
+    box.innerHTML="";
+
+    options.forEach(
+        country=>{
+
+            const button=
+                document.createElement(
+                    "button"
+                );
+
+            button.className="answer";
+
+            button.textContent=
+                country[0];
+
+            button.onclick=()=>{
+                checkFlag(
+                    country,
+                    button
+                );
+            };
+
+            box.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+function checkFlag(
+    country,
+    button
+){
+
+    if(
+        !flagRunning ||
+        flagAnswered
+    )
+        return;
+
+    flagAnswered=true;
+
+    const buttons=
+        document.querySelectorAll(
+            "#flagAnswers .answer"
+        );
+
+    buttons.forEach(
+        b=>b.disabled=true
+    );
+
+    if(
+        country[1]===
+        flagCurrent[1]
+    ){
+
+        button.classList.add(
+            "correct"
+        );
+
+        flagScore++;
+
+        EasyFlowData.addScore(1);
+
+        document.getElementById(
+            "flagScore"
+        ).textContent=
+            flagScore;
+
+        document.getElementById(
+            "flagQuestion"
+        ).textContent=
+            "✅ Правильно!";
+
+        if(
+            flagScore>
+            getRecord("flags")
+        ){
+
+            saveRecord(
+                "flags",
+                flagScore
+            );
+
+        }
+
+        if(
+            flagUsed.length>=
+            countries.filter(
+                c=>c[2]===difficulty
+            ).length
+        ){
+
+            finishFlags();
+
+        }else{
+
+            document.getElementById(
+                "flagNext"
+            ).classList.remove(
+                "hidden"
+            );
+
+        }
+
+    }else{
+
+        button.classList.add(
+            "wrong"
+        );
+
+        buttons.forEach(
+            b=>{
+
+                if(
+                    b.textContent===
+                    flagCurrent[0]
+                ){
+
+                    b.classList.add(
+                        "correct"
+                    );
+
+                }
+
+            }
+        );
+
+        flagLives--;
+
+        document.getElementById(
+            "flagLives"
+        ).textContent=
+            flagLives;
+
+        document.getElementById(
+            "flagQuestion"
+        ).textContent=
+            "❌ Правильно: "+
+            flagCurrent[0];
+
+        if(flagLives<=0){
+
+            flagRunning=false;
+
+        }else{
+
+            document.getElementById(
+                "flagNext"
+            ).classList.remove(
+                "hidden"
+            );
+
+        }
+
+    }
+
+}
+
+function finishFlags(){
+
+    flagRunning=false;
+
+    document.getElementById(
+        "flagQuestion"
+    ).textContent=
+        "🏆 Уровень пройден! Очки: "+
+        flagScore;
+
+    document.getElementById(
+        "flagNext"
+    ).classList.add(
+        "hidden"
+    );
+
+    updateAllRecords();
+
+}
+
+
+/* =====================================================
+ПАМЯТЬ
+===================================================== */
+
+const memorySymbols=[
+    "🍎",
+    "🚗",
+    "⚽",
+    "🎮",
+    "🚀",
+    "🐱",
+    "🌟",
+    "🎵",
+    "🍕",
+    "🔥",
+    "🌈",
+    "🦊"
+];
+
+let memoryCards=[];
+let memoryFirst=null;
+let memoryLock=false;
+let memoryPairs=0;
+let memoryMoves=0;
+let memoryTimer=null;
+
+function resetMemory(){
+
+    clearTimeout(
+        memoryTimer
+    );
+
+    memoryCards=[];
+    memoryFirst=null;
+    memoryLock=false;
+    memoryPairs=0;
+    memoryMoves=0;
+
+    document.getElementById(
+        "memoryBoard"
+    ).innerHTML="";
+
+    document.getElementById(
+        "memoryPairs"
+    ).textContent=0;
+
+    document.getElementById(
+        "memoryMoves"
+    ).textContent=0;
+
+    document.getElementById(
+        "memoryMessage"
+    ).textContent=
+        "Нажми «Новая игра»";
+
+}
+
+function startMemory(){
+
+    clearTimeout(
+        memoryTimer
+    );
+
+    let pairCount=
+        difficulty==="easy"
+            ?3
+            :difficulty==="medium"
+                ?4
+                :6;
+
+    const symbols=
+        memorySymbols.slice(
+            0,
+            pairCount
+        );
+
+    memoryCards=
+        shuffle([
+            ...symbols,
+            ...symbols
+        ]).map(
+            (symbol,index)=>({
+
+                symbol,
+                index,
+                open:false,
+                matched:false
+
+            })
+        );
+
+    memoryFirst=null;
+    memoryLock=false;
+    memoryPairs=0;
+    memoryMoves=0;
+
+    EasyFlowData.addGame();
+
+    renderMemory();
+
+    document.getElementById(
+        "memoryMessage"
+    ).textContent=
+        difficultyName()+
+        " • Найди пары";
+
+}
+
+function renderMemory(){
+
+    const board=
+        document.getElementById(
+            "memoryBoard"
+        );
+
+    board.innerHTML="";
+
+    memoryCards.forEach(
+        (card,index)=>{
+
+            const button=
+                document.createElement(
+                    "button"
+                );
+
+            button.className=
+                "memory-card";
+
+            if(
+                card.open ||
+                card.matched
+            ){
+
+                button.textContent=
+                    card.symbol;
+
+                button.classList.add(
+                    "open"
+                );
+
+            }else{
+
+                button.textContent="❓";
+
+            }
+
+            if(card.matched){
+
+                button.classList.add(
+                    "matched"
+                );
+
+            }
+
+            button.onclick=()=>{
+                memoryClick(index);
+            };
+
+            board.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+function memoryClick(index){
+
+    if(memoryLock)
+        return;
+
+    const card=
+        memoryCards[index];
+
+    if(
+        card.open ||
+        card.matched
+    )
+        return;
+
+    card.open=true;
+
+    renderMemory();
+
+    if(memoryFirst===null){
+
+        memoryFirst=index;
+
+        return;
+
+    }
+
+    memoryMoves++;
+
+    document.getElementById(
+        "memoryMoves"
+    ).textContent=
+        memoryMoves;
+
+    const second=index;
+    const first=memoryFirst;
+
+    memoryFirst=null;
+
+    if(
+        memoryCards[first].symbol===
+        memoryCards[second].symbol
+    ){
+
+        memoryCards[first].matched=true;
+        memoryCards[second].matched=true;
+
+        memoryPairs++;
+
+        document.getElementById(
+            "memoryPairs"
+        ).textContent=
+            memoryPairs;
+
+        EasyFlowData.addScore(5);
+
+        renderMemory();
+
+        if(
+            memoryPairs===
+            memoryCards.length/2
+        ){
+
+            finishMemory();
+
+        }
+
+    }else{
+
+        memoryLock=true;
+
+        memoryTimer=
+            setTimeout(
+                ()=>{
+
+                    memoryCards[first]
+                        .open=false;
+
+                    memoryCards[second]
+                        .open=false;
+
+                    memoryLock=false;
+
+                    renderMemory();
+
+                },
+                700
+            );
+
+    }
+
+}
+
+function finishMemory(){
+
+    let score=
+        Math.max(
+            1,
+            memoryCards.length*10-
+            memoryMoves*2
+        );
+
+    EasyFlowData.addScore(
+        score
+    );
+
+    if(
+        score>
+        getRecord("memory")
+    ){
+
+        saveRecord(
+            "memory",
+            score
+        );
+
+    }
+
+    EasyFlowData.addWin();
+
+    document.getElementById(
+        "memoryMessage"
+    ).textContent=
+        "🏆 Готово! Результат: "+
+        score;
+
+    updateAllRecords();
+
+}
+
+
+/* =====================================================
+ЗМЕЙКА
+===================================================== */
+
+const snakeCanvas=
+    document.getElementById(
+        "snakeCanvas"
+    );
+
+const snakeCtx=
+    snakeCanvas.getContext("2d");
+
+let snake=[];
+let snakeFood={
+    x:0,
+    y:0
+};
+
+let snakeDir={
+    x:1,
+    y:0
+};
+
+let snakeNextDir={
+    x:1,
+    y:0
+};
+
+let snakeScore=0;
+let snakeTimer=null;
+let snakeRunning=false;
+
+const snakeGrid=20;
+const snakeCell=20;
+
+function resetSnake(){
+
+    clearInterval(
+        snakeTimer
+    );
+
+    snakeRunning=false;
+    snake=[];
+
+    snakeScore=0;
+
+    document.getElementById(
+        "snakeScore"
+    ).textContent=0;
+
+    document.getElementById(
+        "snakeMessage"
+    ).textContent=
+        "Нажми «Начать»";
+
+    drawSnake();
+
+}
+
+function startSnake(){
+
+    clearInterval(
+        snakeTimer
+    );
+
+    snakeRunning=true;
+
+    snake=[
+        {
+            x:10,
+            y:10
+        },
+        {
+            x:9,
+            y:10
+        },
+        {
+            x:8,
+            y:10
+        }
+    ];
+
+    snakeDir={
+        x:1,
+        y:0
+    };
+
+    snakeNextDir={
+        x:1,
+        y:0
+    };
+
+    snakeScore=0;
+
+    EasyFlowData.addGame();
+
+    placeSnakeFood();
+
+    document.getElementById(
+        "snakeScore"
+    ).textContent=0;
+
+    document.getElementById(
+        "snakeMessage"
+    ).textContent=
+        difficultyName()+
+        " • Играй!";
+
+    const speed=
+        difficulty==="easy"
+            ?180
+            :difficulty==="medium"
+                ?130
+                :90;
+
+    snakeTimer=
+        setInterval(
+            snakeStep,
+            speed
+        );
+
+    drawSnake();
+
+}
+
+function placeSnakeFood(){
+
+    let valid=false;
+
+    while(!valid){
+
+        snakeFood={
+            x:Math.floor(
+                Math.random()*snakeGrid
+            ),
+            y:Math.floor(
+                Math.random()*snakeGrid
+            )
+        };
+
+        valid=!snake.some(
+            part=>
+                part.x===snakeFood.x &&
+                part.y===snakeFood.y
+        );
+
+    }
+
+}
+
+function snakeStep(){
+
+    if(!snakeRunning)
+        return;
+
+    snakeDir=snakeNextDir;
+
+    const head={
+        x:
+            snake[0].x+
+            snakeDir.x,
+
+        y:
+            snake[0].y+
+            snakeDir.y
+    };
+
+    if(
+        head.x<0 ||
+        head.x>=snakeGrid ||
+        head.y<0 ||
+        head.y>=snakeGrid ||
+        snake.some(
+            (part,index)=>
+                index>0 &&
+                part.x===head.x &&
+                part.y===head.y
+        )
+    ){
+
+        endSnake();
+        return;
+
+    }
 
     snake.unshift(head);
 
-
     if(
-
-        head.x === snakeFood.x &&
-        head.y === snakeFood.y
-
+        head.x===snakeFood.x &&
+        head.y===snakeFood.y
     ){
 
         snakeScore++;
 
-        createSnakeFood();
+        EasyFlowData.addScore(1);
 
-        updateSnakeStatus();
+        document.getElementById(
+            "snakeScore"
+        ).textContent=
+            snakeScore;
+
+        if(
+            snakeScore>
+            getRecord("snake")
+        ){
+
+            saveRecord(
+                "snake",
+                snakeScore
+            );
+
+        }
+
+        placeSnakeFood();
 
     }else{
 
@@ -3747,65 +2895,41 @@ function updateSnake(){
 
     }
 
-
     drawSnake();
 
 }
 
-
 function drawSnake(){
 
-    snakeCtx.fillStyle =
-        "#07111f";
-
-
-    snakeCtx.fillRect(
+    snakeCtx.clearRect(
         0,
         0,
         400,
         400
     );
 
-
-    const size = 20;
-
-
-    snakeCtx.fillStyle =
-        "#ef4444";
-
+    snakeCtx.fillStyle="#ef4444";
 
     snakeCtx.fillRect(
-
-        snakeFood.x * size,
-
-        snakeFood.y * size,
-
-        size - 2,
-
-        size - 2
-
+        snakeFood.x*snakeCell,
+        snakeFood.y*snakeCell,
+        snakeCell-2,
+        snakeCell-2
     );
 
-
     snake.forEach(
-        function(part,index){
+        (part,index)=>{
 
-            snakeCtx.fillStyle =
-                index === 0
-                ? "#22c55e"
-                : "#16a34a";
-
+            snakeCtx.fillStyle=
+                index===0
+                    ?"#22c55e"
+                    :"#86efac";
 
             snakeCtx.fillRect(
-
-                part.x * size,
-
-                part.y * size,
-
-                size - 2,
-
-                size - 2
-
+                part.x*snakeCell,
+                part.y*snakeCell,
+                snakeCell-2,
+                snakeCell-2
             );
 
         }
@@ -3813,118 +2937,75 @@ function drawSnake(){
 
 }
 
+function endSnake(){
 
-function setSnakeDirection(direction){
+    snakeRunning=false;
 
-    if(
-        direction === "up" &&
-        snakeDirection.y !== 1
-    ){
+    clearInterval(
+        snakeTimer
+    );
 
-        snakeNextDirection = {
+    EasyFlowData.addWin();
 
-            x:0,
-            y:-1
+    document.getElementById(
+        "snakeMessage"
+    ).textContent=
+        "💥 Игра окончена! Очки: "+
+        snakeScore;
 
-        };
-
-    }
-
-
-    if(
-        direction === "down" &&
-        snakeDirection.y !== -1
-    ){
-
-        snakeNextDirection = {
-
-            x:0,
-            y:1
-
-        };
-
-    }
-
-
-    if(
-        direction === "left" &&
-        snakeDirection.x !== 1
-    ){
-
-        snakeNextDirection = {
-
-            x:-1,
-            y:0
-
-        };
-
-    }
-
-
-    if(
-        direction === "right" &&
-        snakeDirection.x !== -1
-    ){
-
-        snakeNextDirection = {
-
-            x:1,
-            y:0
-
-        };
-
-    }
+    updateAllRecords();
 
 }
-
 
 document.addEventListener(
     "keydown",
-    function(event){
+    e=>{
 
         if(
-            document
-            .getElementById(
-                "game-snake"
-            )
-            .classList
-            .contains("active")
+            e.key==="ArrowUp" &&
+            snakeDir.y!==1
         ){
 
-            if(event.key === "ArrowUp"){
+            snakeNextDir={
+                x:0,
+                y:-1
+            };
 
-                event.preventDefault();
+        }
 
-                setSnakeDirection("up");
+        if(
+            e.key==="ArrowDown" &&
+            snakeDir.y!==-1
+        ){
 
-            }
+            snakeNextDir={
+                x:0,
+                y:1
+            };
 
+        }
 
-            if(event.key === "ArrowDown"){
+        if(
+            e.key==="ArrowLeft" &&
+            snakeDir.x!==1
+        ){
 
-                event.preventDefault();
+            snakeNextDir={
+                x:-1,
+                y:0
+            };
 
-                setSnakeDirection("down");
+        }
 
-            }
+        if(
+            e.key==="ArrowRight" &&
+            snakeDir.x!==-1
+        ){
 
-
-            if(event.key === "ArrowLeft"){
-
-                event.preventDefault();
-
-                setSnakeDirection("left");
-
-            }
-
-
-            if(event.key === "ArrowRight"){
-
-                event.preventDefault();
-
-                setSnakeDirection("right");
-
-            }
+            snakeNextDir={
+                x:1,
+                y:0
+            };
 
         }
 
@@ -3932,901 +3013,45 @@ document.addEventListener(
 );
 
 
-/* ==========================================
-   ПРОФИЛЬ
-========================================== */
-
-function saveProfile(){
-
-    const name =
-        document
-        .getElementById("nameInput")
-        .value
-        .trim();
-
-
-    const description =
-        document
-        .getElementById("descriptionInput")
-        .value
-        .trim();
-
-
-    if(name){
-
-        localStorage.setItem(
-            "easyflow_name",
-            name
-        );
-
-
-        document.getElementById(
-            "profileName"
-        ).textContent =
-            name;
-
-    }
-
-
-    if(description){
-
-        localStorage.setItem(
-            "easyflow_description",
-            description
-        );
-
-
-        document.getElementById(
-            "profileDescription"
-        ).textContent =
-            description;
-
-    }
-
-
-    const success =
-        document.getElementById(
-            "successMessage"
-        );
-
-
-    success.style.display =
-        "block";
-
-
-    setTimeout(function(){
-
-        success.style.display =
-            "none";
-
-    },2500);
-
-}
-
-
-/* ==========================================
-   АВАТАР
-========================================== */
-
-document
-.getElementById("avatarInput")
-.addEventListener(
-    "change",
-    function(event){
-
-        const file =
-            event.target.files[0];
-
-
-        if(!file){
-
-            return;
-
-        }
-
-
-        const reader =
-            new FileReader();
-
-
-        reader.onload =
-            function(event){
-
-                document.getElementById(
-                    "avatarImage"
-                ).src =
-                    event.target.result;
-
-
-                document.getElementById(
-                    "avatarImage"
-                ).style.display =
-                    "block";
-
-
-                document.getElementById(
-                    "avatarPlaceholder"
-                ).style.display =
-                    "none";
-
-
-                localStorage.setItem(
-                    "easyflow_avatar",
-                    event.target.result
-                );
-
-            };
-
-
-        reader.readAsDataURL(file);
-
-    }
-);
-
-
-/* ==========================================
-   ФОТОГРАФИИ
-========================================== */
-
-document
-.getElementById("imageInput")
-.addEventListener(
-    "change",
-    function(event){
-
-        const files =
-            Array.from(
-                event.target.files
-            );
-
-
-        files.forEach(function(file){
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                function(event){
-
-                    addImage(
-                        event.target.result
-                    );
-
-                };
-
-
-            reader.readAsDataURL(file);
-
-        });
-
-
-        event.target.value = "";
-
-    }
-);
-
-
-function addImage(src){
-
-    const images =
-        JSON.parse(
-            localStorage.getItem(
-                "easyflow_images"
-            ) || "[]"
-        );
-
-
-    images.push(src);
-
-
-    localStorage.setItem(
-        "easyflow_images",
-        JSON.stringify(images)
-    );
-
-
-    renderGallery();
-
-}
-
-
-function deleteImage(index){
-
-    const images =
-        JSON.parse(
-            localStorage.getItem(
-                "easyflow_images"
-            ) || "[]"
-        );
-
-
-    images.splice(
-        index,
-        1
-    );
-
-
-    localStorage.setItem(
-        "easyflow_images",
-        JSON.stringify(images)
-    );
-
-
-    renderGallery();
-
-}
-
-
-function renderGallery(){
-
-    const gallery =
-        document.getElementById(
-            "gallery"
-        );
-
-
-    const images =
-        JSON.parse(
-            localStorage.getItem(
-                "easyflow_images"
-            ) || "[]"
-        );
-
-
-    gallery.innerHTML = "";
-
-
-    if(images.length === 0){
-
-        gallery.innerHTML = `
-
-            <div class="gallery-empty">
-
-                <div>🖼️</div>
-
-                <h3>
-                    Пока нет фотографий
-                </h3>
-
-                <p>
-                    Добавь первую фотографию.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    images.forEach(function(src,index){
-
-        const item =
-            document.createElement(
-                "div"
-            );
-
-
-        item.className =
-            "gallery-item";
-
-
-        const img =
-            document.createElement(
-                "img"
-            );
-
-
-        img.src = src;
-
-
-        img.alt =
-            "Моя фотография";
-
-
-        img.onclick =
-            function(){
-
-                openModal(src);
-
-            };
-
-
-        const del =
-            document.createElement(
-                "button"
-            );
-
-
-        del.className =
-            "delete-photo";
-
-
-        del.textContent =
-            "🗑";
-
-
-        del.onclick =
-            function(){
-
-                deleteImage(index);
-
-            };
-
-
-        item.appendChild(img);
-
-        item.appendChild(del);
-
-        gallery.appendChild(item);
-
-    });
-
-}
-
-
-/* ==========================================
-   ССЫЛКИ
-========================================== */
-
-function addLink(){
-
-    const name =
-        document
-        .getElementById("linkName")
-        .value
-        .trim();
-
-
-    let url =
-        document
-        .getElementById("linkUrl")
-        .value
-        .trim();
-
-
-    if(!name || !url){
-
-        alert(
-            "Заполни название и адрес ссылки."
-        );
-
-        return;
-
-    }
-
-
-    if(
-        !url.startsWith("http://") &&
-        !url.startsWith("https://")
-    ){
-
-        url =
-            "https://" + url;
-
-    }
-
-
-    const links =
-        JSON.parse(
-            localStorage.getItem(
-                "easyflow_links"
-            ) || "[]"
-        );
-
-
-    links.push({
-
-        name:name,
-        url:url
-
-    });
-
-
-    localStorage.setItem(
-        "easyflow_links",
-        JSON.stringify(links)
-    );
-
-
-    document.getElementById(
-        "linkName"
-    ).value = "";
-
-
-    document.getElementById(
-        "linkUrl"
-    ).value = "";
-
-
-    renderLinks();
-
-}
-
-
-function deleteLink(index){
-
-    const links =
-        JSON.parse(
-            localStorage.getItem(
-                "easyflow_links"
-            ) || "[]"
-        );
-
-
-    links.splice(
-        index,
-        1
-    );
-
-
-    localStorage.setItem(
-        "easyflow_links",
-        JSON.stringify(links)
-    );
-
-
-    renderLinks();
-
-}
-
-
-function escapeHtml(text){
-
-    return String(text)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-function renderLinks(){
-
-    const container =
-        document.getElementById(
-            "linksContainer"
-        );
-
-
-    const links =
-        JSON.parse(
-            localStorage.getItem(
-                "easyflow_links"
-            ) || "[]"
-        );
-
-
-    container.innerHTML = "";
-
-
-    if(links.length === 0){
-
-        container.innerHTML = `
-
-            <div class="gallery-empty">
-
-                <div>🔗</div>
-
-                <h3>
-                    Пока нет ссылок
-                </h3>
-
-                <p>
-                    Добавь первую ссылку ниже.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    links.forEach(function(link,index){
-
-        const card =
-            document.createElement(
-                "div"
-            );
-
-
-        card.className =
-            "link-card";
-
-
-        card.innerHTML = `
-
-            <div class="link-info">
-
-                <h3>
-                    ${escapeHtml(link.name)}
-                </h3>
-
-                <p>
-                    ${escapeHtml(link.url)}
-                </p>
-
-            </div>
-
-            <div class="link-actions">
-
-                <a
-                    href="${escapeHtml(link.url)}"
-                    target="_blank"
-                    rel="noopener"
-                    class="open-link"
-                >
-                    Открыть
-                </a>
-
-                <button class="delete-link">
-                    🗑
-                </button>
-
-            </div>
-
-        `;
-
-
-        card
-        .querySelector(".delete-link")
-        .onclick =
-            function(){
-
-                deleteLink(index);
-
-            };
-
-
-        container.appendChild(card);
-
-    });
-
-}
-
-
-/* ==========================================
-   ДИЗАЙН
-========================================== */
-
-function changeColor(color){
-
-    document.documentElement
-    .style
-    .setProperty(
-        "--main",
-        color
-    );
-
-
-    localStorage.setItem(
-        "easyflow_color",
-        color
-    );
-
-}
-
-
-function changeFont(font){
-
-    document.body.style.fontFamily =
-        font;
-
-
-    localStorage.setItem(
-        "easyflow_font",
-        font
-    );
-
-}
-
-
-function changeRadius(radius){
-
-    document.documentElement
-    .style
-    .setProperty(
-        "--radius",
-        radius
-    );
-
-
-    localStorage.setItem(
-        "easyflow_radius",
-        radius
-    );
-
-}
-
-
-function setTheme(theme,button){
-
-    if(theme === "dark"){
-
-        document.body.classList.add(
-            "dark"
-        );
-
-    }else{
-
-        document.body.classList.remove(
-            "dark"
-        );
-
-    }
-
-
-    localStorage.setItem(
-        "easyflow_theme",
-        theme
-    );
-
-
-    document
-    .querySelectorAll(
-        ".theme-button"
-    )
-    .forEach(function(btn){
-
-        btn.classList.remove(
+/* =====================================================
+ЗАПУСК
+===================================================== */
+
+function initDifficulty(){
+
+    document.querySelectorAll(
+        ".level"
+    ).forEach(button=>{
+        button.classList.remove(
             "active"
         );
-
     });
 
-
-    button.classList.add(
-        "active"
-    );
-
-}
-
-
-/* ==========================================
-   MODAL
-========================================== */
-
-function openModal(src){
-
-    document.getElementById(
-        "modalImage"
-    ).src = src;
-
-
-    document.getElementById(
-        "imageModal"
-    ).classList.add(
-        "active"
-    );
-
-}
-
-
-function closeModal(){
-
-    document.getElementById(
-        "imageModal"
-    ).classList.remove(
-        "active"
-    );
-
-}
-
-
-/* ==========================================
-   ЗАГРУЗКА ДАННЫХ
-========================================== */
-
-window.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        const name =
-            localStorage.getItem(
-                "easyflow_name"
-            );
-
-
-        const description =
-            localStorage.getItem(
-                "easyflow_description"
-            );
-
-
-        if(name){
-
-            document.getElementById(
-                "nameInput"
-            ).value =
-                name;
-
-
-            document.getElementById(
-                "profileName"
-            ).textContent =
-                name;
-
-        }
-
-
-        if(description){
-
-            document.getElementById(
-                "descriptionInput"
-            ).value =
-                description;
-
-
-            document.getElementById(
-                "profileDescription"
-            ).textContent =
-                description;
-
-        }
-
-
-        const avatar =
-            localStorage.getItem(
-                "easyflow_avatar"
-            );
-
-
-        if(avatar){
-
-            document.getElementById(
-                "avatarImage"
-            ).src =
-                avatar;
-
-
-            document.getElementById(
-                "avatarImage"
-            ).style.display =
-                "block";
-
-
-            document.getElementById(
-                "avatarPlaceholder"
-            ).style.display =
-                "none";
-
-        }
-
-
-        const color =
-            localStorage.getItem(
-                "easyflow_color"
-            );
-
-
-        if(color){
-
-            changeColor(color);
-
-
-            document.getElementById(
-                "mainColor"
-            ).value =
-                color;
-
-        }
-
-
-        const font =
-            localStorage.getItem(
-                "easyflow_font"
-            );
-
-
-        if(font){
-
-            changeFont(font);
-
-
-            document.getElementById(
-                "fontSelect"
-            ).value =
-                font;
-
-        }
-
-
-        const radius =
-            localStorage.getItem(
-                "easyflow_radius"
-            );
-
-
-        if(radius){
-
-            changeRadius(radius);
-
-
-            document.getElementById(
-                "radiusSelect"
-            ).value =
-                radius;
-
-        }
-
-
-        const theme =
-            localStorage.getItem(
-                "easyflow_theme"
-            );
-
-
-        if(theme === "dark"){
-
-            document.body.classList.add(
-                "dark"
-            );
-
-
-            document
-            .querySelectorAll(
-                ".theme-button"
-            )[0]
-            .classList
-            .remove(
-                "active"
-            );
-
-
-            document
-            .querySelectorAll(
-                ".theme-button"
-            )[1]
-            .classList
-            .add(
-                "active"
-            );
-
-        }
-
-
-        renderGallery();
-
-        renderLinks();
-
-        newTicTacToe();
-
-        startFlags();
-
-        startMemory();
-
-        drawSnake();
+    const button=
+        document.getElementById(
+            difficulty+"Button"
+        );
+
+    if(button){
+
+        button.classList.add(
+            "active",
+            difficulty
+        );
 
     }
-);
+
+}
+
+initDifficulty();
+
+updateAllRecords();
+
+resetTTT();
+resetPong();
+resetFlags();
+resetMemory();
+resetSnake();
 
 </script>
 
