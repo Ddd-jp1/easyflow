@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>EasyFlow — Тетрис</title>
 
 <style>
@@ -26,7 +27,7 @@ header {
 }
 
 .header {
-    max-width: 900px;
+    max-width: 1000px;
     margin: auto;
     display: flex;
     justify-content: space-between;
@@ -65,7 +66,7 @@ button:hover,
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: auto;
     padding: 30px 15px;
     text-align: center;
@@ -80,6 +81,64 @@ h1 {
     color: #64748b;
     margin-bottom: 20px;
 }
+
+/* =========================
+   НАСТРОЙКИ
+========================= */
+
+.settings {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.settings h2 {
+    margin-bottom: 18px;
+}
+
+.setting-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.setting {
+    text-align: left;
+}
+
+.setting label {
+    display: block;
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.setting select,
+.setting input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.check-setting {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.check-setting input {
+    width: auto;
+}
+
+/* =========================
+   ИГРА
+========================= */
 
 .game-area {
     display: flex;
@@ -102,11 +161,15 @@ canvas {
     border: 1px solid #e5e7eb;
     border-radius: 16px;
     padding: 20px;
-    min-width: 170px;
+    min-width: 190px;
 }
 
 .info div {
     margin-bottom: 15px;
+}
+
+.info div:last-child {
+    margin-bottom: 0;
 }
 
 .info strong {
@@ -114,6 +177,27 @@ canvas {
     font-size: 25px;
     color: #2563eb;
     margin-top: 5px;
+}
+
+.next-piece {
+    margin-top: 20px;
+}
+
+.next-piece canvas {
+    width: 120px;
+    height: 120px;
+    border: 3px solid #2563eb;
+    margin: 10px auto 0;
+}
+
+/* =========================
+   СООБЩЕНИЯ
+========================= */
+
+.message {
+    margin-top: 15px;
+    font-weight: bold;
+    min-height: 24px;
 }
 
 .controls {
@@ -130,15 +214,96 @@ canvas {
     flex-wrap: wrap;
 }
 
-.message {
-    margin-top: 15px;
-    font-weight: bold;
-    min-height: 24px;
+.mobile-controls button {
+    min-width: 55px;
+    font-size: 18px;
 }
 
-@media(max-width:600px) {
+/* =========================
+   РЕКОРД
+========================= */
+
+.records {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 20px;
+    margin-top: 25px;
+}
+
+.records h2 {
+    margin-bottom: 15px;
+}
+
+.record-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eef0f3;
+}
+
+.record-row:last-child {
+    border-bottom: none;
+}
+
+.record-row strong {
+    color: #2563eb;
+}
+
+.danger {
+    background: #ef4444;
+}
+
+.danger:hover {
+    background: #dc2626;
+}
+
+.secondary {
+    background: #64748b;
+}
+
+.secondary:hover {
+    background: #475569;
+}
+
+/* =========================
+   ПАУЗА
+========================= */
+
+.pause-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(17,24,39,.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.pause-box {
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.pause-box h2 {
+    margin-bottom: 15px;
+    color: #2563eb;
+}
+
+/* =========================
+   АДАПТИВ
+========================= */
+
+@media(max-width:700px) {
+
     .header {
         flex-direction: column;
+    }
+
+    .setting-grid {
+        grid-template-columns: 1fr;
     }
 
     canvas {
@@ -159,18 +324,29 @@ canvas {
 <header>
 <div class="header">
 
-<a href="index.html" class="logo">EasyFlow</a>
+<a href="index.html" class="logo">
+EasyFlow
+</a>
 
 <div class="buttons">
-<a href="games.html" class="link-button">← Назад</a>
 
-<button onclick="exitGame()">🚪 Выйти</button>
+<a href="games.html" class="link-button">
+← Назад
+</a>
 
-<button onclick="toggleFullscreen()">⛶ Полный экран</button>
+<button onclick="exitGame()">
+🚪 Выйти
+</button>
+
+<button onclick="toggleFullscreen()">
+⛶ Полный экран
+</button>
+
 </div>
 
 </div>
 </header>
+
 
 <main class="container">
 
@@ -180,9 +356,148 @@ canvas {
 Собирай линии и набирай как можно больше очков!
 </p>
 
+
+<!-- =========================
+     РАСШИРЕННЫЕ НАСТРОЙКИ
+========================= -->
+
+<div class="settings">
+
+<h2>⚙️ Настройки игры</h2>
+
+<div class="setting-grid">
+
+<div class="setting">
+
+<label>
+Сложность
+</label>
+
+<select id="difficulty">
+<option value="easy">🟢 Лёгкая</option>
+<option value="medium" selected>🟡 Средняя</option>
+<option value="hard">🔴 Сложная</option>
+<option value="expert">🔥 Эксперт</option>
+</select>
+
+</div>
+
+
+<div class="setting">
+
+<label>
+Размер поля
+</label>
+
+<select id="boardSize">
+
+<option value="small">
+Маленькое — 8×16
+</option>
+
+<option value="normal" selected>
+Обычное — 10×20
+</option>
+
+<option value="large">
+Большое — 12×24
+</option>
+
+</select>
+
+</div>
+
+
+<div class="setting">
+
+<label>
+Начальная скорость
+</label>
+
+<select id="speed">
+
+<option value="slow">
+Медленная
+</option>
+
+<option value="normal" selected>
+Обычная
+</option>
+
+<option value="fast">
+Быстрая
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="check-setting">
+
+<label>
+<input
+type="checkbox"
+id="ghost"
+checked
+>
+
+👻 Показывать место падения фигуры
+
+</label>
+
+</div>
+
+
+<div class="check-setting">
+
+<label>
+<input
+type="checkbox"
+id="sound"
+checked
+>
+
+🔊 Звук
+
+</label>
+
+</div>
+
+
+<div class="buttons">
+
+<button onclick="applySettings()">
+✅ Применить настройки
+</button>
+
+<button
+class="secondary"
+onclick="resetSettings()">
+
+↩️ Сбросить настройки
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     ИГРОВАЯ ОБЛАСТЬ
+========================= -->
+
 <div class="game-area">
 
-<canvas id="game" width="300" height="600"></canvas>
+<canvas
+id="game"
+width="300"
+height="600">
+</canvas>
+
 
 <div class="info">
 
@@ -201,55 +516,173 @@ canvas {
 <strong id="level">1</strong>
 </div>
 
+<div>
+Рекорд
+<strong id="best">0</strong>
+</div>
+
+
+<div class="next-piece">
+
+Следующая фигура
+
+<canvas
+id="next"
+width="120"
+height="120">
+</canvas>
+
 </div>
 
 </div>
+
+</div>
+
 
 <div id="message" class="message">
 Нажми «Начать игру»
 </div>
 
-<div class="buttons" style="margin-top:15px;">
-<button onclick="startGame()">▶ Начать игру</button>
-<button onclick="restartGame()">🔄 Заново</button>
+
+<div class="buttons">
+
+<button onclick="startGame()">
+▶ Начать игру
+</button>
+
+<button onclick="restartGame()">
+🔄 Заново
+</button>
+
+<button
+class="secondary"
+onclick="togglePause()">
+
+⏸ Пауза
+
+</button>
+
 </div>
+
 
 <div class="mobile-controls">
 
-<button onclick="moveLeft()">⬅</button>
-<button onclick="rotatePiece()">🔄</button>
-<button onclick="moveDown()">⬇</button>
-<button onclick="moveRight()">➡</button>
+<button onclick="moveLeft()">
+⬅
+</button>
+
+<button onclick="rotatePiece()">
+🔄
+</button>
+
+<button onclick="moveDown()">
+⬇
+</button>
+
+<button onclick="hardDrop()">
+⏬
+</button>
+
+<button onclick="moveRight()">
+➡
+</button>
 
 </div>
 
+
 <div class="controls">
+
 ⌨️ Клавиатура:<br>
+
 ⬅ ➡ — движение<br>
+
 ⬇ — ускорить<br>
+
 ⬆ — вращение<br>
-Пробел — падение
+
+Пробел — мгновенное падение<br>
+
+P — пауза
+
+</div>
+
+
+<!-- =========================
+     РЕКОРДЫ
+========================= -->
+
+<div class="records">
+
+<h2>🏆 Рекорды</h2>
+
+<div class="record-row">
+<span>🧱 Лучший результат</span>
+<strong id="recordValue">0</strong>
+</div>
+
+<div class="record-row">
+<span>🎯 Лучший уровень</span>
+<strong id="bestLevel">1</strong>
+</div>
+
+<div class="record-row">
+<span>📊 Всего линий</span>
+<strong id="totalLines">0</strong>
+</div>
+
 </div>
 
 </main>
 
+
+<!-- =========================
+     ПАУЗА
+========================= -->
+
+<div
+id="pauseOverlay"
+class="pause-overlay">
+
+<div class="pause-box">
+
+<h2>⏸ Игра на паузе</h2>
+
+<p>
+Нажми кнопку, чтобы продолжить
+</p>
+
+<br>
+
+<button onclick="togglePause()">
+▶ Продолжить
+</button>
+
+</div>
+
+</div>
+
+
 <script>
 
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
+/* =========================
+   ОСНОВНЫЕ ПЕРЕМЕННЫЕ
+========================= */
 
-const COLS = 10;
-const ROWS = 20;
-const SIZE = 30;
+let COLS = 10;
+let ROWS = 20;
+let SIZE = 30;
 
-ctx.scale(SIZE, SIZE);
-
-let arena = createMatrix(COLS, ROWS);
+let arena;
 
 let player = {
-    pos: {x: 0, y: 0},
+    pos: {
+        x: 0,
+        y: 0
+    },
     matrix: null
 };
+
+let nextPiece = null;
 
 let score = 0;
 let lines = 0;
@@ -257,90 +690,179 @@ let level = 1;
 
 let gameRunning = false;
 let gameOver = false;
+let paused = false;
 
 let dropCounter = 0;
 let dropInterval = 800;
 let lastTime = 0;
 
+let ghostEnabled = true;
+let soundEnabled = true;
+
+
+/* =========================
+   CANVAS
+========================= */
+
+const canvas =
+    document.getElementById("game");
+
+const ctx =
+    canvas.getContext("2d");
+
+const nextCanvas =
+    document.getElementById("next");
+
+const nextCtx =
+    nextCanvas.getContext("2d");
+
+
+/* =========================
+   ЦВЕТА
+========================= */
+
 const colors = [
+
     null,
+
     "#ef4444",
+
     "#f97316",
+
     "#eab308",
+
     "#22c55e",
+
     "#06b6d4",
+
     "#3b82f6",
+
     "#8b5cf6"
+
 ];
+
+
+/* =========================
+   МАТРИЦА
+========================= */
 
 function createMatrix(w, h) {
 
     const matrix = [];
 
     while (h--) {
-        matrix.push(new Array(w).fill(0));
+
+        matrix.push(
+            new Array(w).fill(0)
+        );
+
     }
 
     return matrix;
 }
 
+
+/* =========================
+   ФИГУРЫ
+========================= */
+
 function createPiece(type) {
 
     if (type === "T") {
+
         return [
             [0,0,0],
             [1,1,1],
             [0,1,0]
         ];
+
     }
 
     if (type === "O") {
+
         return [
             [2,2],
             [2,2]
         ];
+
     }
 
     if (type === "L") {
+
         return [
             [0,3,0],
             [0,3,0],
             [0,3,3]
         ];
+
     }
 
     if (type === "J") {
+
         return [
             [0,4,0],
             [0,4,0],
             [4,4,0]
         ];
+
     }
 
     if (type === "I") {
+
         return [
             [5,5,5,5]
         ];
+
     }
 
     if (type === "S") {
+
         return [
             [0,6,6],
             [6,6,0],
             [0,0,0]
         ];
+
     }
 
     if (type === "Z") {
+
         return [
             [7,7,0],
             [0,7,7],
             [0,0,0]
         ];
+
     }
+
 }
 
-function drawMatrix(matrix, offset) {
+
+/* =========================
+   СЛУЧАЙНАЯ ФИГУРА
+========================= */
+
+function randomPiece() {
+
+    const pieces = "TJLOSZI";
+
+    return createPiece(
+        pieces[
+            Math.floor(
+                Math.random() *
+                pieces.length
+            )
+        ]
+    );
+
+}
+
+
+/* =========================
+   ОТРИСОВКА
+========================= */
+
+function drawMatrix(matrix, offset, context = ctx) {
 
     matrix.forEach((row, y) => {
 
@@ -348,52 +870,173 @@ function drawMatrix(matrix, offset) {
 
             if (value !== 0) {
 
-                ctx.fillStyle = colors[value];
+                context.fillStyle =
+                    colors[value];
 
-                ctx.fillRect(
+                context.fillRect(
                     x + offset.x,
                     y + offset.y,
                     1,
                     1
                 );
 
-                ctx.strokeStyle = "rgba(255,255,255,.25)";
-                ctx.lineWidth = 0.05;
+                context.strokeStyle =
+                    "rgba(255,255,255,.25)";
 
-                ctx.strokeRect(
+                context.lineWidth = .05;
+
+                context.strokeRect(
                     x + offset.x,
                     y + offset.y,
                     1,
                     1
                 );
+
             }
+
         });
+
     });
+
 }
+
+
+/* =========================
+   ОСНОВНОЙ DRAW
+========================= */
 
 function draw() {
 
-    ctx.fillStyle = "#111827";
-    ctx.fillRect(0, 0, COLS, ROWS);
+    ctx.fillStyle =
+        "#111827";
 
-    drawMatrix(arena, {x:0,y:0});
+    ctx.fillRect(
+        0,
+        0,
+        COLS,
+        ROWS
+    );
+
+
+    drawMatrix(
+        arena,
+        {
+            x: 0,
+            y: 0
+        }
+    );
+
+
+    /* Призрачная фигура */
+
+    if (
+        ghostEnabled &&
+        player.matrix &&
+        gameRunning &&
+        !paused
+    ) {
+
+        const ghost = {
+            x: player.pos.x,
+            y: player.pos.y
+        };
+
+        while (
+            !collide(
+                arena,
+                {
+                    matrix: player.matrix,
+                    pos: ghost
+                }
+            )
+        ) {
+
+            ghost.y++;
+
+        }
+
+        ghost.y--;
+
+        ctx.globalAlpha = .25;
+
+        drawMatrix(
+            player.matrix,
+            ghost
+        );
+
+        ctx.globalAlpha = 1;
+
+    }
+
 
     if (player.matrix) {
+
         drawMatrix(
             player.matrix,
             player.pos
         );
+
     }
+
 }
+
+
+/* =========================
+   NEXT PIECE
+========================= */
+
+function drawNextPiece() {
+
+    nextCtx.fillStyle =
+        "#111827";
+
+    nextCtx.fillRect(
+        0,
+        0,
+        4,
+        4
+    );
+
+    if (!nextPiece) return;
+
+    const x =
+        (4 - nextPiece[0].length) / 2;
+
+    const y =
+        (4 - nextPiece.length) / 2;
+
+    drawMatrix(
+        nextPiece,
+        {
+            x: x,
+            y: y
+        },
+        nextCtx
+    );
+
+}
+
+
+/* =========================
+   COLLISION
+========================= */
 
 function collide(arena, player) {
 
     const m = player.matrix;
     const o = player.pos;
 
-    for (let y = 0; y < m.length; y++) {
+    for (
+        let y = 0;
+        y < m.length;
+        y++
+    ) {
 
-        for (let x = 0; x < m[y].length; x++) {
+        for (
+            let x = 0;
+            x < m[y].length;
+            x++
+        ) {
 
             if (
                 m[y][x] !== 0 &&
@@ -402,41 +1045,75 @@ function collide(arena, player) {
                     arena[y + o.y][x + o.x]
                 ) !== 0
             ) {
+
                 return true;
+
             }
+
+            if (
+                m[y][x] !== 0 &&
+                (
+                    x + o.x < 0 ||
+                    x + o.x >= COLS ||
+                    y + o.y >= ROWS
+                )
+            ) {
+
+                return true;
+
+            }
+
         }
+
     }
 
     return false;
+
 }
+
+
+/* =========================
+   MERGE
+========================= */
 
 function merge(arena, player) {
 
-    player.matrix.forEach((row, y) => {
+    player.matrix.forEach(
+        (row, y) => {
 
-        row.forEach((value, x) => {
+            row.forEach(
+                (value, x) => {
 
-            if (value !== 0) {
+                    if (value !== 0) {
 
-                arena[y + player.pos.y]
-                    [x + player.pos.x] = value;
-            }
-        });
-    });
+                        arena[
+                            y + player.pos.y
+                        ][
+                            x + player.pos.x
+                        ] = value;
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
 }
+
+
+/* =========================
+   RESET PLAYER
+========================= */
 
 function playerReset() {
 
-    const pieces = "TJLOSZI";
+    player.matrix = nextPiece || randomPiece();
 
-    player.matrix =
-        createPiece(
-            pieces[
-                Math.floor(
-                    Math.random() * pieces.length
-                )
-            ]
-        );
+    nextPiece = randomPiece();
+
+    drawNextPiece();
 
     player.pos.y = 0;
 
@@ -446,41 +1123,82 @@ function playerReset() {
             player.matrix[0].length / 2
         );
 
-    if (collide(arena, player)) {
+
+    if (
+        collide(
+            arena,
+            player
+        )
+    ) {
 
         gameOver = true;
         gameRunning = false;
 
-        document.getElementById("message")
-            .textContent =
+        document.getElementById(
+            "message"
+        ).textContent =
             "💥 Игра окончена!";
 
         saveBestScore();
+
     }
+
 }
+
+
+/* =========================
+   MOVE
+========================= */
 
 function playerMove(dir) {
 
-    if (!gameRunning) return;
+    if (
+        !gameRunning ||
+        paused
+    ) return;
 
     player.pos.x += dir;
 
-    if (collide(arena, player)) {
+    if (
+        collide(
+            arena,
+            player
+        )
+    ) {
+
         player.pos.x -= dir;
+
     }
+
 }
+
+
+/* =========================
+   DROP
+========================= */
 
 function playerDrop() {
 
-    if (!gameRunning) return;
+    if (
+        !gameRunning ||
+        paused
+    ) return;
 
     player.pos.y++;
 
-    if (collide(arena, player)) {
+    if (
+        collide(
+            arena,
+            player
+        )
+    ) {
 
         player.pos.y--;
 
-        merge(arena, player);
+        merge(
+            arena,
+            player
+        );
 
         arenaSweep();
 
@@ -489,7 +1207,62 @@ function playerDrop() {
     }
 
     dropCounter = 0;
+
 }
+
+
+/* =========================
+   HARD DROP
+========================= */
+
+function hardDrop() {
+
+    if (
+        !gameRunning ||
+        paused
+    ) return;
+
+    let distance = 0;
+
+    while (
+        !collide(
+            arena,
+            player
+        )
+    ) {
+
+        player.pos.y++;
+
+        distance++;
+
+    }
+
+    player.pos.y--;
+
+    distance--;
+
+    score += Math.max(
+        0,
+        distance * 2
+    );
+
+    merge(
+        arena,
+        player
+    );
+
+    arenaSweep();
+
+    playerReset();
+
+    updateInfo();
+
+}
+
+
+/* =========================
+   ROTATE
+========================= */
 
 function rotate(matrix, dir) {
 
@@ -513,27 +1286,51 @@ function rotate(matrix, dir) {
                 matrix[y][x],
                 matrix[x][y]
             ];
+
         }
+
     }
 
+
     if (dir > 0) {
-        matrix.forEach(row => row.reverse());
+
+        matrix.forEach(
+            row => row.reverse()
+        );
+
     } else {
+
         matrix.reverse();
+
     }
+
 }
+
 
 function playerRotate(dir = 1) {
 
-    if (!gameRunning) return;
+    if (
+        !gameRunning ||
+        paused
+    ) return;
 
-    const pos = player.pos.x;
+    const pos =
+        player.pos.x;
 
-    rotate(player.matrix, dir);
+    rotate(
+        player.matrix,
+        dir
+    );
 
     let offset = 1;
 
-    while (collide(arena, player)) {
+
+    while (
+        collide(
+            arena,
+            player
+        )
+    ) {
 
         player.pos.x += offset;
 
@@ -541,23 +1338,38 @@ function playerRotate(dir = 1) {
             -(offset +
             (offset > 0 ? 1 : -1));
 
-        if (offset >
-            player.matrix[0].length) {
 
-            rotate(player.matrix, -dir);
+        if (
+            offset >
+            player.matrix[0].length
+        ) {
+
+            rotate(
+                player.matrix,
+                -dir
+            );
 
             player.pos.x = pos;
 
             return;
+
         }
+
     }
+
 }
+
+
+/* =========================
+   CLEAR LINES
+========================= */
 
 function arenaSweep() {
 
     let rowCount = 1;
 
     outer:
+
     for (
         let y = arena.length - 1;
         y >= 0;
@@ -570,10 +1382,16 @@ function arenaSweep() {
             ++x
         ) {
 
-            if (arena[y][x] === 0) {
+            if (
+                arena[y][x] === 0
+            ) {
+
                 continue outer;
+
             }
+
         }
+
 
         const row =
             arena.splice(y, 1)[0]
@@ -583,42 +1401,143 @@ function arenaSweep() {
 
         ++y;
 
+
         lines += rowCount;
-        score += rowCount * 100 * level;
+
+        score +=
+            rowCount *
+            100 *
+            level;
 
         rowCount *= 2;
+
     }
 
+
     level =
-        Math.floor(lines / 10) + 1;
+        Math.floor(
+            lines / 10
+        ) + 1;
+
+
+    updateSpeed();
+
+    updateInfo();
+
+}
+
+
+/* =========================
+   СКОРОСТЬ
+========================= */
+
+function updateSpeed() {
+
+    const difficulty =
+        document.getElementById(
+            "difficulty"
+        ).value;
+
+    let base = 800;
+
+
+    const speed =
+        document.getElementById(
+            "speed"
+        ).value;
+
+
+    if (speed === "slow")
+        base = 1100;
+
+    if (speed === "normal")
+        base = 800;
+
+    if (speed === "fast")
+        base = 500;
+
+
+    if (difficulty === "easy")
+        base += 200;
+
+    if (difficulty === "medium")
+        base += 0;
+
+    if (difficulty === "hard")
+        base -= 150;
+
+    if (difficulty === "expert")
+        base -= 300;
+
 
     dropInterval =
         Math.max(
-            100,
-            800 - (level - 1) * 60
+            80,
+            base -
+            (level - 1) * 60
         );
 
-    updateInfo();
 }
+
+
+/* =========================
+   INFO
+========================= */
 
 function updateInfo() {
 
-    document.getElementById("score")
-        .textContent = score;
+    document.getElementById(
+        "score"
+    ).textContent = score;
 
-    document.getElementById("lines")
-        .textContent = lines;
+    document.getElementById(
+        "lines"
+    ).textContent = lines;
 
-    document.getElementById("level")
-        .textContent = level;
+    document.getElementById(
+        "level"
+    ).textContent = level;
+
+    document.getElementById(
+        "best"
+    ).textContent =
+        getBestScore();
+
+    document.getElementById(
+        "recordValue"
+    ).textContent =
+        getBestScore();
+
 }
+
+
+/* =========================
+   GAME LOOP
+========================= */
 
 function update(time = 0) {
 
     if (!gameRunning) {
+
         draw();
+
         return;
+
     }
+
+
+    if (paused) {
+
+        draw();
+
+        requestAnimationFrame(
+            update
+        );
+
+        return;
+
+    }
+
 
     const deltaTime =
         time - lastTime;
@@ -627,45 +1546,367 @@ function update(time = 0) {
 
     dropCounter += deltaTime;
 
-    if (dropCounter > dropInterval) {
+
+    if (
+        dropCounter >
+        dropInterval
+    ) {
+
         playerDrop();
+
     }
+
 
     draw();
 
-    requestAnimationFrame(update);
+    requestAnimationFrame(
+        update
+    );
+
 }
+
+
+/* =========================
+   START
+========================= */
 
 function startGame() {
 
+    applyBoardSize();
+
+
     arena =
-        createMatrix(COLS, ROWS);
+        createMatrix(
+            COLS,
+            ROWS
+        );
+
 
     score = 0;
     lines = 0;
     level = 1;
 
-    dropInterval = 800;
-
-    gameRunning = true;
     gameOver = false;
+    paused = false;
+    gameRunning = true;
+
+    nextPiece = randomPiece();
+
+    updateSpeed();
 
     updateInfo();
 
-    document.getElementById("message")
-        .textContent =
+    document.getElementById(
+        "message"
+    ).textContent =
         "🎮 Игра началась!";
+
 
     playerReset();
 
-    lastTime = performance.now();
+    lastTime =
+        performance.now();
 
-    requestAnimationFrame(update);
+    requestAnimationFrame(
+        update
+    );
+
 }
+
+
+/* =========================
+   RESTART
+========================= */
 
 function restartGame() {
+
     startGame();
+
 }
+
+
+/* =========================
+   РАЗМЕР ПОЛЯ
+========================= */
+
+function applyBoardSize() {
+
+    const value =
+        document.getElementById(
+            "boardSize"
+        ).value;
+
+
+    if (value === "small") {
+
+        COLS = 8;
+        ROWS = 16;
+        SIZE = 35;
+
+    }
+
+
+    if (value === "normal") {
+
+        COLS = 10;
+        ROWS = 20;
+        SIZE = 30;
+
+    }
+
+
+    if (value === "large") {
+
+        COLS = 12;
+        ROWS = 24;
+        SIZE = 25;
+
+    }
+
+
+    canvas.width =
+        COLS * SIZE;
+
+    canvas.height =
+        ROWS * SIZE;
+
+
+    ctx.setTransform(
+        SIZE,
+        0,
+        0,
+        SIZE,
+        0,
+        0
+    );
+
+}
+
+
+/* =========================
+   ПРИМЕНИТЬ НАСТРОЙКИ
+========================= */
+
+function applySettings() {
+
+    ghostEnabled =
+        document.getElementById(
+            "ghost"
+        ).checked;
+
+
+    soundEnabled =
+        document.getElementById(
+            "sound"
+        ).checked;
+
+
+    applyBoardSize();
+
+    updateSpeed();
+
+
+    if (gameRunning) {
+
+        restartGame();
+
+    }
+
+
+    saveSettings();
+
+}
+
+
+/* =========================
+   СОХРАНЕНИЕ НАСТРОЕК
+========================= */
+
+function saveSettings() {
+
+    try {
+
+        localStorage.setItem(
+            "easyflow_tetris_settings",
+            JSON.stringify({
+
+                difficulty:
+                    document.getElementById(
+                        "difficulty"
+                    ).value,
+
+                boardSize:
+                    document.getElementById(
+                        "boardSize"
+                    ).value,
+
+                speed:
+                    document.getElementById(
+                        "speed"
+                    ).value,
+
+                ghost:
+                    ghostEnabled,
+
+                sound:
+                    soundEnabled
+
+            })
+        );
+
+    } catch {}
+
+}
+
+
+/* =========================
+   ЗАГРУЗКА НАСТРОЕК
+========================= */
+
+function loadSettings() {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(
+                    "easyflow_tetris_settings"
+                )
+            );
+
+
+        if (!data) return;
+
+
+        document.getElementById(
+            "difficulty"
+        ).value =
+            data.difficulty ||
+            "medium";
+
+
+        document.getElementById(
+            "boardSize"
+        ).value =
+            data.boardSize ||
+            "normal";
+
+
+        document.getElementById(
+            "speed"
+        ).value =
+            data.speed ||
+            "normal";
+
+
+        document.getElementById(
+            "ghost"
+        ).checked =
+            data.ghost !== false;
+
+
+        document.getElementById(
+            "sound"
+        ).checked =
+            data.sound !== false;
+
+
+        ghostEnabled =
+            data.ghost !== false;
+
+        soundEnabled =
+            data.sound !== false;
+
+    } catch {}
+
+}
+
+
+/* =========================
+   СБРОС НАСТРОЕК
+========================= */
+
+function resetSettings() {
+
+    document.getElementById(
+        "difficulty"
+    ).value = "medium";
+
+    document.getElementById(
+        "boardSize"
+    ).value = "normal";
+
+    document.getElementById(
+        "speed"
+    ).value = "normal";
+
+    document.getElementById(
+        "ghost"
+    ).checked = true;
+
+    document.getElementById(
+        "sound"
+    ).checked = true;
+
+
+    ghostEnabled = true;
+    soundEnabled = true;
+
+    saveSettings();
+
+    applyBoardSize();
+
+    updateSpeed();
+
+}
+
+
+/* =========================
+   ПАУЗА
+========================= */
+
+function togglePause() {
+
+    if (
+        !gameRunning ||
+        gameOver
+    ) return;
+
+
+    paused = !paused;
+
+
+    document.getElementById(
+        "pauseOverlay"
+    ).style.display =
+        paused ? "flex" : "none";
+
+
+    if (paused) {
+
+        document.getElementById(
+            "message"
+        ).textContent =
+            "⏸ Пауза";
+
+    } else {
+
+        document.getElementById(
+            "message"
+        ).textContent =
+            "🎮 Игра продолжается";
+
+        lastTime =
+            performance.now();
+
+    }
+
+}
+
+
+/* =========================
+   УПРАВЛЕНИЕ
+========================= */
 
 function moveLeft() {
     playerMove(-1);
@@ -683,84 +1924,183 @@ function rotatePiece() {
     playerRotate(1);
 }
 
+
+/* =========================
+   КЛАВИАТУРА
+========================= */
+
 document.addEventListener(
     "keydown",
     event => {
 
-        if (event.key === "ArrowLeft") {
+        if (
+            event.key ===
+            "ArrowLeft"
+        ) {
+
             event.preventDefault();
+
             moveLeft();
+
         }
 
-        if (event.key === "ArrowRight") {
+
+        if (
+            event.key ===
+            "ArrowRight"
+        ) {
+
             event.preventDefault();
+
             moveRight();
+
         }
 
-        if (event.key === "ArrowDown") {
+
+        if (
+            event.key ===
+            "ArrowDown"
+        ) {
+
             event.preventDefault();
+
             moveDown();
+
         }
 
-        if (event.key === "ArrowUp") {
+
+        if (
+            event.key ===
+            "ArrowUp"
+        ) {
+
             event.preventDefault();
+
             rotatePiece();
+
         }
 
-        if (event.code === "Space") {
+
+        if (
+            event.code === "Space"
+        ) {
 
             event.preventDefault();
 
-            if (!gameRunning) return;
+            hardDrop();
 
-            while (!collide(arena, player)) {
-                player.pos.y++;
-            }
-
-            player.pos.y--;
-
-            merge(arena, player);
-            arenaSweep();
-            playerReset();
         }
+
+
+        if (
+            event.key.toLowerCase()
+            === "p"
+        ) {
+
+            togglePause();
+
+        }
+
     }
 );
 
-function saveBestScore() {
 
-    const oldBest =
-        Number(
+/* =========================
+   РЕКОРД
+========================= */
+
+function getBestScore() {
+
+    try {
+
+        return Number(
             localStorage.getItem(
                 "easyflow_tetris_best"
             ) || 0
         );
 
-    if (score > oldBest) {
+    } catch {
 
-        localStorage.setItem(
-            "easyflow_tetris_best",
-            score
-        );
+        return 0;
+
     }
 
-    const stars =
-        Number(
-            localStorage.getItem(
-                "easyflow_stars"
-            ) || 0
-        );
-
-    const reward =
-        Math.floor(score / 500);
-
-    if (reward > 0) {
-
-        localStorage.setItem(
-            "easyflow_stars",
-            stars + reward
-        );
-    }
 }
+
+
+function saveBestScore() {
+
+    const best =
+        getBestScore();
+
+
+    if (score > best) {
+
+        try {
+
+            localStorage.setItem(
+                "easyflow_tetris_best",
+                score
+            );
+
+        } catch {}
+
+    }
+
+
+    try {
+
+        const oldLevel =
+            Number(
+                localStorage.getItem(
+                    "easyflow_tetris_best_level"
+                ) || 1
+            );
+
+
+        if (level > oldLevel) {
+
+            localStorage.setItem(
+                "easyflow_tetris_best_level",
+                level
+            );
+
+        }
+
+    } catch {}
+
+
+    updateInfo();
+
+}
+
+
+/* =========================
+   ПОЛНЫЙ ЭКРАН
+========================= */
+
+function toggleFullscreen() {
+
+    if (
+        !document.fullscreenElement
+    ) {
+
+        document.documentElement
+            .requestFullscreen()
+            .catch(() => {});
+
+    } else {
+
+        document.exitFullscreen();
+
+    }
+
+}
+
+
+/* =========================
+   ВЫХОД
+========================= */
 
 function exitGame() {
 
@@ -772,24 +2112,33 @@ function exitGame() {
 
         window.location.href =
             "games.html";
+
     }
+
 }
 
-function toggleFullscreen() {
 
-    if (!document.fullscreenElement) {
+/* =========================
+   ЗАПУСК
+========================= */
 
-        document.documentElement
-            .requestFullscreen()
-            .catch(() => {});
+loadSettings();
 
-    } else {
+applyBoardSize();
 
-        document.exitFullscreen();
-    }
-}
+arena =
+    createMatrix(
+        COLS,
+        ROWS
+    );
+
+updateSpeed();
+
+updateInfo();
 
 draw();
+
+drawNextPiece();
 
 </script>
 
