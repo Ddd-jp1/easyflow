@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EasyFlow — Сапёр</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #111827;
+    min-height: 100vh;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 15px 5%;
+}
+
+.header {
+    max-width: 900px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.logo {
+    color: #2563eb;
+    font-size: 26px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+button,
+.link-button {
+    border: none;
+    background: #2563eb;
+    color: white;
+
+    padding: 11px 15px;
+    border-radius: 10px;
+
+    cursor: pointer;
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+button:hover,
+.link-button:hover {
+    background: #1d4ed8;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px 15px;
+    text-align: center;
+}
+
+h1 {
+    color: #2563eb;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.info {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+
+    padding: 15px;
+
+    display: flex;
+    justify-content: center;
+
+    gap: 25px;
+    flex-wrap: wrap;
+
+    margin-bottom: 15px;
+}
+
+.info strong {
+    color: #2563eb;
+}
+
+.board {
+    display: grid;
+
+    grid-template-columns:
+        repeat(10, 36px);
+
+    grid-template-rows:
+        repeat(10, 36px);
+
+    gap: 3px;
+
+    justify-content: center;
+
+    margin: auto;
+
+    background: #64748b;
+
+    padding: 5px;
+
+    border-radius: 12px;
+
+    width: max-content;
+}
+
+.cell {
+    width: 36px;
+    height: 36px;
+
+    padding: 0;
+
+    border-radius: 5px;
+
+    background: #cbd5e1;
+
+    color: #111827;
+
+    font-size: 17px;
+
+    box-shadow:
+        inset 2px 2px 0 #f8fafc,
+        inset -2px -2px 0 #94a3b8;
+}
+
+.cell:hover {
+    background: #e2e8f0;
+}
+
+.cell.open {
+    background: #f8fafc;
+
+    box-shadow:
+        inset 0 0 0 1px #cbd5e1;
+}
+
+.cell.mine {
+    background: #fecaca;
+}
+
+.cell.flag {
+    background: #fde68a;
+}
+
+.message {
+    min-height: 25px;
+    margin: 15px;
+
+    font-weight: bold;
+}
+
+.difficulty {
+    margin-bottom: 15px;
+}
+
+.difficulty select {
+    padding: 10px;
+
+    border-radius: 9px;
+
+    border: 1px solid #cbd5e1;
+}
+
+@media(max-width:500px) {
+
+    .header {
+        flex-direction: column;
+    }
+
+    .board {
+        grid-template-columns:
+            repeat(10, 29px);
+
+        grid-template-rows:
+            repeat(10, 29px);
+    }
+
+    .cell {
+        width: 29px;
+        height: 29px;
+
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="header">
+
+<a href="index.html" class="logo">
+EasyFlow
+</a>
+
+<div class="buttons">
+
+<a href="games.html" class="link-button">
+← Назад
+</a>
+
+<button onclick="exitGame()">
+🚪 Выйти
+</button>
+
+<button onclick="toggleFullscreen()">
+⛶ Полный экран
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+<h1>💣 Сапёр</h1>
+
+<p class="subtitle">
+Открывай клетки и не попади на мину!
+</p>
+
+
+<div class="difficulty">
+
+<select id="difficulty" onchange="newGame()">
+
+<option value="easy">
+🟢 Лёгкий — 10 мин
+</option>
+
+<option value="medium">
+🟡 Средний — 20 мин
+</option>
+
+<option value="hard">
+🔴 Сложный — 35 мин
+</option>
+
+</select>
+
+</div>
+
+
+<div class="info">
+
+<div>
+💣 Мин осталось:
+<strong id="mineCount">10</strong>
+</div>
+
+<div>
+⏱️ Время:
+<strong id="time">0</strong>
+</div>
+
+<div>
+⭐ Звёзды:
+<strong id="stars">0</strong>
+</div>
+
+</div>
+
+
+<div id="board" class="board"></div>
+
+
+<div id="message" class="message">
+Нажми на клетку, чтобы начать
+</div>
+
+
+<div class="buttons"
+style="justify-content:center">
+
+<button onclick="newGame()">
+🔄 Новая игра
+</button>
+
+</div>
+
+
+<p style="
+margin-top:20px;
+color:#64748b;
+line-height:1.6;
+">
+
+🖱️ Левая кнопка — открыть клетку<br>
+🚩 Правая кнопка — поставить флажок
+
+</p>
+
+</main>
+
+
+<script>
+
+const boardElement =
+    document.getElementById("board");
+
+const messageElement =
+    document.getElementById("message");
+
+const mineCountElement =
+    document.getElementById("mineCount");
+
+const timeElement =
+    document.getElementById("time");
+
+let size = 10;
+let mines = 10;
+
+let cells = [];
+
+let gameOver = false;
+let firstClick = true;
+
+let timer = null;
+let seconds = 0;
+
+function newGame() {
+
+    clearInterval(timer);
+
+    timer = null;
+
+    seconds = 0;
+
+    timeElement.textContent = "0";
+
+    gameOver = false;
+
+    firstClick = true;
+
+    const difficulty =
+        document.getElementById(
+            "difficulty"
+        ).value;
+
+    if (difficulty === "easy") {
+        size = 10;
+        mines = 10;
+    }
+
+    if (difficulty === "medium") {
+        size = 12;
+        mines = 20;
+    }
+
+    if (difficulty === "hard") {
+        size = 14;
+        mines = 35;
+    }
+
+    boardElement.style.gridTemplateColumns =
+        `repeat(${size}, 36px)`;
+
+    boardElement.style.gridTemplateRows =
+        `repeat(${size}, 36px)`;
+
+    cells = [];
+
+    for (let i = 0; i < size * size; i++) {
+
+        cells.push({
+            mine: false,
+            open: false,
+            flag: false,
+            number: 0
+        });
+    }
+
+    mineCountElement.textContent =
+        mines;
+
+    messageElement.textContent =
+        "Нажми на клетку, чтобы начать";
+
+    render();
+}
+
+function placeMines(firstIndex) {
+
+    let available = [];
+
+    for (
+        let i = 0;
+        i < cells.length;
+        i++
+    ) {
+
+        if (i !== firstIndex) {
+            available.push(i);
+        }
+    }
+
+    for (
+        let i = available.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+        [
+            available[i],
+            available[j]
+        ] =
+        [
+            available[j],
+            available[i]
+        ];
+    }
+
+    for (
+        let i = 0;
+        i < mines;
+        i++
+    ) {
+
+        cells[available[i]].mine = true;
+    }
+
+    calculateNumbers();
+}
+
+function getNeighbors(index) {
+
+    const result = [];
+
+    const row =
+        Math.floor(index / size);
+
+    const col =
+        index % size;
+
+    for (
+        let dr = -1;
+        dr <= 1;
+        dr++
+    ) {
+
+        for (
+            let dc = -1;
+            dc <= 1;
+            dc++
+        ) {
+
+            if (
+                dr === 0 &&
+                dc === 0
+            ) {
+                continue;
+            }
+
+            const r = row + dr;
+            const c = col + dc;
+
+            if (
+                r >= 0 &&
+                r < size &&
+                c >= 0 &&
+                c < size
+            ) {
+
+                result.push(
+                    r * size + c
+                );
+            }
+        }
+    }
+
+    return result;
+}
+
+function calculateNumbers() {
+
+    cells.forEach(
+        (cell, index) => {
+
+            if (cell.mine) {
+                return;
+            }
+
+            cell.number =
+                getNeighbors(index)
+                    .filter(
+                        i => cells[i].mine
+                    ).length;
+        }
+    );
+}
+
+function openCell(index) {
+
+    if (gameOver) return;
+
+    const cell = cells[index];
+
+    if (cell.open || cell.flag) {
+        return;
+    }
+
+    if (firstClick) {
+
+        placeMines(index);
+
+        firstClick = false;
+
+        startTimer();
+    }
+
+    if (cell.mine) {
+
+        cell.open = true;
+
+        endGame(false);
+
+        render();
+
+        return;
+    }
+
+    openSafeArea(index);
+
+    render();
+
+    checkWin();
+}
+
+function openSafeArea(index) {
+
+    const cell = cells[index];
+
+    if (
+        cell.open ||
+        cell.flag ||
+        cell.mine
+    ) {
+        return;
+    }
+
+    cell.open = true;
+
+    if (cell.number === 0) {
+
+        getNeighbors(index)
+            .forEach(
+                neighbor => {
+
+                    if (
+                        !cells[neighbor].mine &&
+                        !cells[neighbor].open
+                    ) {
+
+                        openSafeArea(
+                            neighbor
+                        );
+                    }
+                }
+            );
+    }
+}
+
+function toggleFlag(index, event) {
+
+    event.preventDefault();
+
+    if (gameOver) return;
+
+    if (firstClick) return;
+
+    const cell = cells[index];
+
+    if (cell.open) return;
+
+    cell.flag = !cell.flag;
+
+    updateMineCount();
+
+    render();
+}
+
+function updateMineCount() {
+
+    const flags =
+        cells.filter(
+            cell => cell.flag
+        ).length;
+
+    mineCountElement.textContent =
+        Math.max(
+            0,
+            mines - flags
+        );
+}
+
+function checkWin() {
+
+    const safeCells =
+        cells.filter(
+            cell =>
+                !cell.mine &&
+                !cell.open
+        );
+
+    if (safeCells.length === 0) {
+
+        endGame(true);
+    }
+}
+
+function endGame(won) {
+
+    gameOver = true;
+
+    clearInterval(timer);
+
+    cells.forEach(cell => {
+
+        if (cell.mine) {
+            cell.open = true;
+        }
+    });
+
+    if (won) {
+
+        messageElement.textContent =
+            "🏆 Победа! Все мины найдены!";
+
+        addStars(
+            Math.max(
+                5,
+                Math.floor(
+                    100 / Math.max(
+                        seconds,
+                        1
+                    )
+                )
+            )
+        );
+
+    } else {
+
+        messageElement.textContent =
+            "💥 Бум! Ты попал на мину.";
+    }
+
+    saveBestTime();
+}
+
+function startTimer() {
+
+    timer =
+        setInterval(
+            () => {
+
+                seconds++;
+
+                timeElement.textContent =
+                    seconds;
+
+            },
+            1000
+        );
+}
+
+function render() {
+
+    boardElement.innerHTML = "";
+
+    cells.forEach(
+        (cell, index) => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.className = "cell";
+
+            if (cell.open) {
+
+                button.classList.add(
+                    "open"
+                );
+
+                if (cell.mine) {
+
+                    button.textContent =
+                        "💣";
+
+                    button.classList.add(
+                        "mine"
+                    );
+
+                } else if (
+                    cell.number > 0
+                ) {
+
+                    button.textContent =
+                        cell.number;
+
+                }
+
+            } else if (cell.flag) {
+
+                button.textContent =
+                    "🚩";
+
+                button.classList.add(
+                    "flag"
+                );
+            }
+
+            button.onclick =
+                () => openCell(index);
+
+            button.oncontextmenu =
+                event =>
+                    toggleFlag(
+                        index,
+                        event
+                    );
+
+            boardElement.appendChild(
+                button
+            );
+        }
+    );
+}
+
+function addStars(amount) {
+
+    let stars =
+        Number(
+            localStorage.getItem(
+                "easyflow_stars"
+            ) || 0
+        );
+
+    stars += amount;
+
+    localStorage.setItem(
+        "easyflow_stars",
+        stars
+    );
+
+    document.getElementById(
+        "stars"
+    ).textContent = stars;
+}
+
+function saveBestTime() {
+
+    if (!gameOver) return;
+
+    if (
+        messageElement.textContent
+            .includes("Победа")
+    ) {
+
+        const key =
+            "easyflow_minesweeper_best_" +
+            document.getElementById(
+                "difficulty"
+            ).value;
+
+        const old =
+            Number(
+                localStorage.getItem(
+                    key
+                ) || 0
+            );
+
+        if (
+            old === 0 ||
+            seconds < old
+        ) {
+
+            localStorage.setItem(
+                key,
+                seconds
+            );
+        }
+    }
+}
+
+function exitGame() {
+
+    if (
+        confirm(
+            "Выйти из игры?"
+        )
+    ) {
+
+        window.location.href =
+            "games.html";
+    }
+}
+
+function toggleFullscreen() {
+
+    if (!document.fullscreenElement) {
+
+        document.documentElement
+            .requestFullscreen()
+            .catch(() => {});
+
+    } else {
+
+        document.exitFullscreen();
+    }
+}
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Escape") {
+
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            }
+        }
+    }
+);
+
+newGame();
+
+</script>
+
+</body>
+</html>
