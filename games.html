@@ -2,388 +2,204 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>EasyFlow — Игры</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-    font-family:Arial,sans-serif;
-    background:#f4f7fb;
-    color:#111827;
-    min-height:100vh
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-header{
-    background:#fff;
-    border-bottom:1px solid #e5e7eb;
-    padding:18px 6%
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #111827;
+    min-height: 100vh;
 }
 
-.header{
-    max-width:1100px;
-    margin:auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 15px 5%;
 }
 
-.logo{
-    color:#2563eb;
-    font-size:27px;
-    font-weight:bold;
-    text-decoration:none
+.header {
+    max-width: 1100px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
 }
 
-.nav{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap
+.logo {
+    color: #2563eb;
+    font-size: 27px;
+    font-weight: bold;
+    text-decoration: none;
 }
 
-.nav a{
-    text-decoration:none;
-    color:#2563eb;
-    font-weight:bold;
-    padding:8px 12px;
-    border-radius:9px
+.buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
-.nav a:hover{background:#eff6ff}
+button,
+.link-button {
+    border: none;
+    background: #2563eb;
+    color: white;
 
-.container{
-    max-width:1100px;
-    margin:auto;
-    padding:30px 15px
+    padding: 11px 15px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    text-decoration: none;
 }
 
-.title{
-    text-align:center;
-    margin-bottom:25px
+button:hover,
+.link-button:hover {
+    background: #1d4ed8;
 }
 
-.title h1{
-    color:#2563eb;
-    font-size:40px;
-    margin-bottom:8px
+.container {
+    max-width: 1100px;
+    margin: auto;
+
+    padding: 35px 15px;
 }
 
-.title p{color:#64748b}
-
-.player-info{
-    background:#fff;
-    border:1px solid #e5e7eb;
-    border-radius:16px;
-    padding:15px;
-    margin-bottom:20px;
-    display:flex;
-    justify-content:center;
-    gap:25px;
-    flex-wrap:wrap
+.title {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.player-info strong{color:#2563eb}
-
-.game-select{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    margin-bottom:20px
+.title h1 {
+    color: #2563eb;
+    margin-bottom: 8px;
 }
 
-.game-select button,
-.level{
-    border:2px solid #e5e7eb;
-    background:#fff;
-    padding:13px;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:bold;
-    font-size:14px
+.title p {
+    color: #64748b;
 }
 
-.game-select button.active{
-    border-color:#2563eb;
-    background:#eff6ff;
-    color:#2563eb
+.games {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
 }
 
-.difficulty{
-    background:#fff;
-    border:1px solid #e5e7eb;
-    padding:18px;
-    border-radius:17px;
-    text-align:center;
-    margin-bottom:20px
+.game-card {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.06);
+
+    transition:
+        transform .2s,
+        box-shadow .2s;
 }
 
-.difficulty h2{margin-bottom:12px}
+.game-card:hover {
+    transform: translateY(-5px);
 
-.levels{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    flex-wrap:wrap
+    box-shadow:
+        0 15px 35px
+        rgba(0,0,0,.12);
 }
 
-.level.active.easy{
-    background:#dcfce7;
-    border-color:#22c55e;
-    color:#166534
+.game-icon {
+    font-size: 65px;
+    margin-bottom: 15px;
 }
 
-.level.active.medium{
-    background:#fef9c3;
-    border-color:#eab308;
-    color:#854d0e
+.game-card h2 {
+    margin-bottom: 10px;
 }
 
-.level.active.hard{
-    background:#fee2e2;
-    border-color:#ef4444;
-    color:#991b1b
+.game-card p {
+    color: #64748b;
+    min-height: 45px;
+    margin-bottom: 20px;
+    line-height: 1.5;
 }
 
-.game{display:none}
+.play {
+    display: inline-block;
 
-.game.active{display:block}
+    width: 100%;
 
-.game-box{
-    background:#fff;
-    border:1px solid #e5e7eb;
-    border-radius:20px;
-    padding:25px;
-    text-align:center;
-    box-shadow:0 12px 30px rgba(0,0,0,.07)
+    background: #2563eb;
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 13px;
+
+    border-radius: 12px;
+
+    font-weight: bold;
 }
 
-.game-box h2{margin-bottom:18px}
-
-.stats{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:18px
+.play:hover {
+    background: #1d4ed8;
 }
 
-.stat{
-    min-width:105px;
-    background:#f8fafc;
-    border:1px solid #e5e7eb;
-    padding:11px;
-    border-radius:12px
+.profile {
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 15px;
+
+    padding: 12px 16px;
+
+    color: #475569;
+
+    font-weight: bold;
 }
 
-.stat span{
-    display:block;
-    color:#64748b;
-    font-size:13px;
-    margin-bottom:4px
+@media(max-width:800px) {
+
+    .games {
+        grid-template-columns: 1fr 1fr;
+    }
+
 }
 
-.stat strong{font-size:20px}
+@media(max-width:550px) {
 
-.main-button{
-    border:0;
-    background:#2563eb;
-    color:#fff;
-    padding:13px 20px;
-    border-radius:11px;
-    cursor:pointer;
-    font-weight:bold;
-    font-size:15px;
-    margin:5px
-}
+    .header {
+        flex-direction: column;
+    }
 
-.main-button:hover{background:#1d4ed8}
+    .games {
+        grid-template-columns: 1fr;
+    }
 
-.message{
-    min-height:28px;
-    margin:15px 0;
-    font-weight:bold;
-    font-size:17px
-}
-
-.correct{
-    background:#dcfce7!important;
-    border-color:#22c55e!important;
-    color:#166534!important
-}
-
-.wrong{
-    background:#fee2e2!important;
-    border-color:#ef4444!important;
-    color:#991b1b!important
-}
-
-/* TTT */
-.ttt-board{
-    display:grid;
-    grid-template-columns:repeat(3,85px);
-    gap:8px;
-    justify-content:center;
-    margin:20px
-}
-
-.ttt-cell{
-    width:85px;
-    height:85px;
-    border:2px solid #e5e7eb;
-    background:#f8fafc;
-    border-radius:12px;
-    font-size:38px;
-    cursor:pointer
-}
-
-/* pong */
-canvas{
-    max-width:100%
-}
-
-#pongCanvas,
-#snakeCanvas,
-#flappyCanvas,
-#tetrisCanvas{
-    background:#111827;
-    border-radius:14px;
-    display:block;
-    margin:20px auto
-}
-
-/* flags */
-.flag-wrapper{
-    width:100%;
-    max-width:520px;
-    height:270px;
-    margin:auto;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#f8fafc;
-    border:2px solid #e5e7eb;
-    border-radius:15px;
-    overflow:hidden
-}
-
-#flag{
-    max-width:90%;
-    max-height:85%
-}
-
-.answers{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    max-width:600px;
-    margin:15px auto
-}
-
-.answer{
-    padding:14px;
-    background:#fff;
-    border:2px solid #e5e7eb;
-    border-radius:11px;
-    cursor:pointer;
-    font-weight:bold
-}
-
-/* memory */
-.memory-board{
-    display:grid;
-    grid-template-columns:repeat(4,75px);
-    gap:9px;
-    justify-content:center;
-    margin:20px
-}
-
-.memory-card{
-    width:75px;
-    height:75px;
-    border:0;
-    border-radius:12px;
-    background:#2563eb;
-    color:white;
-    font-size:30px;
-    cursor:pointer
-}
-
-.memory-card.open{background:#eff6ff;color:#111827}
-.memory-card.matched{background:#dcfce7;color:#166534}
-
-/* tetris */
-.tetris-wrap{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    align-items:flex-start;
-    flex-wrap:wrap
-}
-
-#tetrisCanvas{
-    width:250px;
-    height:500px
-}
-
-#tetrisNextCanvas{
-    background:#f8fafc;
-    border-radius:12px
-}
-
-/* mines */
-.mines-board{
-    display:grid;
-    justify-content:center;
-    gap:3px;
-    margin:20px auto
-}
-
-.mine-cell{
-    width:32px;
-    height:32px;
-    border:1px solid #cbd5e1;
-    background:#2563eb;
-    color:#fff;
-    font-weight:bold;
-    cursor:pointer;
-    border-radius:4px
-}
-
-.mine-cell.open{
-    background:#e2e8f0;
-    color:#111827
-}
-
-.mine-cell.mine{
-    background:#ef4444
-}
-
-/* flappy */
-#flappyCanvas{
-    width:420px;
-    max-width:100%
-}
-
-.hidden{display:none!important}
-
-footer{
-    background:#111827;
-    color:#9ca3af;
-    text-align:center;
-    padding:25px;
-    margin-top:40px
-}
-
-@media(max-width:700px){
-    .game-select{grid-template-columns:repeat(2,1fr)}
-    .title h1{font-size:31px}
-    .game-box{padding:15px}
-    .answers{grid-template-columns:1fr}
-    .memory-board{grid-template-columns:repeat(4,62px)}
-    .memory-card{width:62px;height:62px}
-    .ttt-board{grid-template-columns:repeat(3,72px)}
-    .ttt-cell{width:72px;height:72px}
 }
 </style>
 </head>
@@ -391,435 +207,192 @@ footer{
 <body>
 
 <header>
+
 <div class="header">
 
-<a class="logo" href="index.html">EasyFlow</a>
+<a href="index.html" class="logo">
+EasyFlow
+</a>
 
-<div class="nav">
-<a href="index.html">Главная</a>
-<a href="profile.html">👤 Профиль</a>
-<a href="admin.html">🛡️ Admin</a>
+<div class="buttons">
+
+<div
+    id="profileName"
+    class="profile">
+    👤 Гость
+</div>
+
+<a
+    href="index.html"
+    class="link-button">
+    🏠 Главная
+</a>
+
+<button onclick="logout()">
+    🚪 Выйти
+</button>
+
 </div>
 
 </div>
+
 </header>
+
 
 <main class="container">
 
 <div class="title">
+
 <h1>🎮 Игры EasyFlow</h1>
-<p>Играй, набирай очки и получай EasyStars ⭐</p>
-</div>
 
-<div class="player-info">
-<div>👤 Игрок: <strong id="playerName">Гость</strong></div>
-<div>⭐ EasyStars: <strong id="stars">0</strong></div>
-<div>🎮 Игр: <strong id="totalGames">0</strong></div>
-<div>🏆 Побед: <strong id="totalWins">0</strong></div>
-<div>💯 Очков: <strong id="totalScore">0</strong></div>
-</div>
-
-<div class="game-select">
-
-<button class="active" onclick="showGame('ttt',this)">❌ Крестики</button>
-<button onclick="showGame('pong',this)">🏓 Пинг-понг</button>
-<button onclick="showGame('flags',this)">🌍 Флаги</button>
-<button onclick="showGame('memory',this)">🧠 Память</button>
-<button onclick="showGame('snake',this)">🐍 Змейка</button>
-<button onclick="showGame('tetris',this)">🧱 Тетрис</button>
-<button onclick="showGame('flappy',this)">🐦 Flappy Bird</button>
-<button onclick="showGame('mines',this)">💣 Сапёр</button>
+<p>
+Выбери игру и попробуй установить новый рекорд!
+</p>
 
 </div>
 
-<div class="difficulty">
 
-<h2>Выбери сложность</h2>
+<div class="games">
 
-<div class="levels">
 
-<button id="easyButton" class="level easy"
-onclick="selectDifficulty('easy')">🟢 Лёгкий</button>
+<!-- =========================
+     ТЕТРИС
+========================= -->
 
-<button id="mediumButton" class="level medium"
-onclick="selectDifficulty('medium')">🟡 Средний</button>
+<div class="game-card">
 
-<button id="hardButton" class="level hard"
-onclick="selectDifficulty('hard')">🔴 Сложный</button>
-
-</div>
+<div class="game-icon">
+🧱
 </div>
 
+<h2>
+Тетрис
+</h2>
 
-<!-- ================= КРЕСТИКИ ================= -->
+<p>
+Собирай линии, повышай уровень
+и устанавливай рекорды.
+</p>
 
-<section id="game-ttt" class="game active">
+<a
+    href="tetris.html"
+    class="play">
 
-<div class="game-box">
+    ▶ Играть
 
-<h2>❌ Крестики-нолики</h2>
-
-<div class="stats">
-<div class="stat"><span>Победы</span><strong id="tttWins">0</strong></div>
-<div class="stat"><span>Рекорд</span><strong id="tttRecord">0</strong></div>
-</div>
-
-<div id="tttMessage" class="message">Нажми «Новая игра»</div>
-
-<div class="ttt-board" id="tttBoard">
-<button class="ttt-cell"></button>
-<button class="ttt-cell"></button>
-<button class="ttt-cell"></button>
-<button class="ttt-cell"></button>
-<button class="ttt-cell"></button>
-<button class="ttt-cell"></button>
-<button class="ttt-cell"></button>
-<button class="ttt-cell"></button>
-<button class="ttt-cell"></button>
-</div>
-
-<button class="main-button" onclick="startTTT()">🔄 Новая игра</button>
-
-</div>
-</section>
-
-
-<!-- ================= ПИНГ-ПОНГ ================= -->
-
-<section id="game-pong" class="game">
-
-<div class="game-box">
-
-<h2>🏓 Пинг-понг</h2>
-
-<div class="stats">
-<div class="stat"><span>Ты</span><strong id="pongPlayerScore">0</strong></div>
-<div class="stat"><span>Компьютер</span><strong id="pongAIScore">0</strong></div>
-<div class="stat"><span>Рекорд</span><strong id="pongRecord">0</strong></div>
-</div>
-
-<canvas id="pongCanvas" width="700" height="400"></canvas>
-
-<div id="pongMessage" class="message">Нажми «Начать»</div>
-
-<button class="main-button" onclick="startPong()">▶️ Начать</button>
-
-<p>Управление: ↑ ↓ или мышкой</p>
-
-</div>
-</section>
-
-
-<!-- ================= ФЛАГИ ================= -->
-
-<section id="game-flags" class="game">
-
-<div class="game-box">
-
-<h2>🌍 Угадай флаг</h2>
-
-<div class="stats">
-<div class="stat"><span>Очки</span><strong id="flagScore">0</strong></div>
-<div class="stat"><span>Жизни</span><strong id="flagLives">3</strong></div>
-<div class="stat"><span>Рекорд</span><strong id="flagRecord">0</strong></div>
-</div>
-
-<div class="flag-wrapper">
-<img id="flag" alt="Флаг">
-</div>
-
-<div id="flagQuestion" class="message">
-Нажми «Начать игру»
-</div>
-
-<div id="flagAnswers" class="answers"></div>
-
-<button class="main-button" onclick="startFlags()">▶️ Начать игру</button>
-<button id="flagNext" class="main-button hidden" onclick="nextFlag()">➡️ Следующий</button>
-
-<div id="flagProgress"></div>
-
-</div>
-</section>
-
-
-<!-- ================= ПАМЯТЬ ================= -->
-
-<section id="game-memory" class="game">
-
-<div class="game-box">
-
-<h2>🧠 Память</h2>
-
-<div class="stats">
-<div class="stat"><span>Пары</span><strong id="memoryPairs">0</strong></div>
-<div class="stat"><span>Ходы</span><strong id="memoryMoves">0</strong></div>
-<div class="stat"><span>Рекорд</span><strong id="memoryRecord">0</strong></div>
-</div>
-
-<div id="memoryBoard" class="memory-board"></div>
-
-<div id="memoryMessage" class="message">
-Нажми «Новая игра»
-</div>
-
-<button class="main-button" onclick="startMemory()">🔄 Новая игра</button>
-
-</div>
-</section>
-
-
-<!-- ================= ЗМЕЙКА ================= -->
-
-<section id="game-snake" class="game">
-
-<div class="game-box">
-
-<h2>🐍 Змейка</h2>
-
-<div class="stats">
-<div class="stat"><span>Очки</span><strong id="snakeScore">0</strong></div>
-<div class="stat"><span>Рекорд</span><strong id="snakeRecord">0</strong></div>
-</div>
-
-<canvas id="snakeCanvas" width="400" height="400"></canvas>
-
-<div id="snakeMessage" class="message">
-Нажми «Начать»
-</div>
-
-<button class="main-button" onclick="startSnake()">▶️ Начать</button>
-
-</div>
-</section>
-
-
-<!-- ================= ТЕТРИС ================= -->
-
-<section id="game-tetris" class="game">
-
-<div class="game-box">
-
-<h2>🧱 Тетрис</h2>
-
-<div class="stats">
-<div class="stat"><span>Очки</span><strong id="tetrisScore">0</strong></div>
-<div class="stat"><span>Линии</span><strong id="tetrisLines">0</strong></div>
-<div class="stat"><span>Уровень</span><strong id="tetrisLevel">1</strong></div>
-<div class="stat"><span>Рекорд</span><strong id="tetrisRecord">0</strong></div>
-</div>
-
-<div class="tetris-wrap">
-
-<div>
-<canvas id="tetrisCanvas" width="250" height="500"></canvas>
-</div>
-
-<div>
-<h3>Следующая</h3>
-<canvas id="tetrisNextCanvas" width="100" height="100"></canvas>
-</div>
+</a>
 
 </div>
 
-<div id="tetrisMessage" class="message">
-Нажми «Начать»
+
+<!-- =========================
+     FLAPPY BIRD
+========================= -->
+
+<div class="game-card">
+
+<div class="game-icon">
+🐦
 </div>
 
-<button class="main-button" onclick="EasyFlowTetris.start()">
-▶️ Начать
-</button>
+<h2>
+Flappy Bird
+</h2>
 
-<p>← → движение • ↑ поворот • ↓ ускорение • пробел — бросок</p>
+<p>
+Пролетай между трубами
+и набирай как можно больше очков.
+</p>
 
-</div>
-</section>
+<a
+    href="flappy.html"
+    class="play">
 
+    ▶ Играть
 
-<!-- ================= FLAPPY ================= -->
-
-<section id="game-flappy" class="game">
-
-<div class="game-box">
-
-<h2>🐦 Flappy Bird</h2>
-
-<div class="stats">
-<div class="stat"><span>Очки</span><strong id="flappyScore">0</strong></div>
-<div class="stat"><span>Рекорд</span><strong id="flappyRecord">0</strong></div>
-</div>
-
-<canvas id="flappyCanvas" width="420" height="500"></canvas>
-
-<div id="flappyMessage" class="message">
-Нажми «Начать»
-</div>
-
-<button class="main-button" onclick="startFlappy()">
-▶️ Начать
-</button>
-
-<p>Нажимай пробел или кликай по игре</p>
+</a>
 
 </div>
-</section>
 
 
-<!-- ================= САПЁР ================= -->
+<!-- =========================
+     САПЁР
+========================= -->
 
-<section id="game-mines" class="game">
+<div class="game-card">
 
-<div class="game-box">
-
-<h2>💣 Сапёр</h2>
-
-<div class="stats">
-<div class="stat"><span>Мины</span><strong id="mineCount">0</strong></div>
-<div class="stat"><span>Открыто</span><strong id="mineOpen">0</strong></div>
-<div class="stat"><span>Рекорд</span><strong id="mineRecord">0</strong></div>
+<div class="game-icon">
+💣
 </div>
 
-<div id="minesBoard" class="mines-board"></div>
+<h2>
+Сапёр
+</h2>
 
-<div id="minesMessage" class="message">
-Нажми «Начать»
+<p>
+Открывай клетки, ставь флажки
+и избегай мин.
+</p>
+
+<a
+    href="minesweeper.html"
+    class="play">
+
+    ▶ Играть
+
+</a>
+
 </div>
 
-<button class="main-button" onclick="startMines()">
-▶️ Начать
+
+<!-- =========================
+     ЗАГОТОВКА
+========================= -->
+
+<div class="game-card">
+
+<div class="game-icon">
+🎯
+</div>
+
+<h2>
+Скоро
+</h2>
+
+<p>
+Новые игры EasyFlow
+появятся здесь.
+</p>
+
+<button
+    onclick="alert('Эта игра пока находится в разработке!')"
+    style="width:100%;">
+
+    🔒 Скоро
+
 </button>
 
 </div>
-</section>
+
+
+</div>
 
 </main>
-
-<footer>
-© 2026 EasyFlow
-</footer>
 
 
 <script>
 
-/* =====================================================
-   EASYFLOW DATA
-===================================================== */
+function getCurrentUser() {
 
-const EasyFlowData={
-
-defaultData:{
-    playerName:"",
-    stars:0,
-    difficulty:"easy",
-    totalGames:0,
-    totalWins:0,
-    totalScore:0,
-    records:{
-        ttt:{easy:0,medium:0,hard:0},
-        pong:{easy:0,medium:0,hard:0},
-        flags:{easy:0,medium:0,hard:0},
-        memory:{easy:0,medium:0,hard:0},
-        snake:{easy:0,medium:0,hard:0},
-        tetris:{easy:0,medium:0,hard:0},
-        flappy:{easy:0,medium:0,hard:0},
-        mines:{easy:0,medium:0,hard:0}
-    }
-},
-
-get(){
-
-    try{
-
-        const saved=localStorage.getItem("easyflow_data");
-
-        if(!saved)
-            return JSON.parse(JSON.stringify(this.defaultData));
-
-        const d=JSON.parse(saved);
-        const base=JSON.parse(JSON.stringify(this.defaultData));
-
-        return {
-            ...base,
-            ...d,
-            records:{
-                ...base.records,
-                ...(d.records||{})
-            }
-        };
-
-    }catch(e){
-
-        return JSON.parse(JSON.stringify(this.defaultData));
-
-    }
-},
-
-save(data){
-    localStorage.setItem("easyflow_data",JSON.stringify(data));
-},
-
-addGame(){
-    const d=this.get();
-    d.totalGames++;
-    this.save(d);
-    updateInfo();
-},
-
-addWin(){
-    const d=this.get();
-    d.totalWins++;
-    d.stars+=5;
-    this.save(d);
-    updateInfo();
-},
-
-addScore(score){
-    const d=this.get();
-    d.totalScore+=Number(score)||0;
-    this.save(d);
-    updateInfo();
-},
-
-addStars(amount){
-    const d=this.get();
-    d.stars+=Number(amount)||0;
-    this.save(d);
-    updateInfo();
-},
-
-record(game,score){
-
-    const d=this.get();
-    const level=d.difficulty;
-
-    if(score>(d.records[game][level]||0)){
-
-        d.records[game][level]=score;
-        this.save(d);
-        updateInfo();
-
-        return true;
-    }
-
-    return false;
-}
-
-};
-
-
-/* =====================================================
-   ИМЯ ПОЛЬЗОВАТЕЛЯ
-===================================================== */
-
-function getCurrentUser(){
-
-    try{
+    try {
 
         return JSON.parse(
-            localStorage.getItem("easyflow_current_user")
+            localStorage.getItem(
+                "easyflow_current_user"
+            )
         );
 
-    }catch(e){
+    } catch {
 
         return null;
 
@@ -827,2153 +400,45 @@ function getCurrentUser(){
 
 }
 
-function updateInfo(){
 
-    const d=EasyFlowData.get();
-    const user=getCurrentUser();
+function showUser() {
 
-    document.getElementById("playerName").textContent=
-        user?.name || d.playerName || "Гость";
+    const user =
+        getCurrentUser();
 
-    document.getElementById("stars").textContent=d.stars;
-    document.getElementById("totalGames").textContent=d.totalGames;
-    document.getElementById("totalWins").textContent=d.totalWins;
-    document.getElementById("totalScore").textContent=d.totalScore;
-
-}
-
-
-/* =====================================================
-   СЛОЖНОСТЬ
-===================================================== */
-
-let difficulty=EasyFlowData.get().difficulty;
-
-function difficultyName(){
-
-    return difficulty==="easy"
-        ?"🟢 Лёгкий"
-        :difficulty==="medium"
-            ?"🟡 Средний"
-            :"🔴 Сложный";
-
-}
-
-function selectDifficulty(level){
-
-    difficulty=level;
-
-    const d=EasyFlowData.get();
-    d.difficulty=level;
-    EasyFlowData.save(d);
-
-    document.querySelectorAll(".level")
-    .forEach(x=>x.classList.remove("active"));
-
-    document.getElementById(level+"Button")
-        .classList.add("active");
-
-    updateRecords();
-
-    resetAllGames();
-
-}
-
-
-/* =====================================================
-   ПЕРЕКЛЮЧЕНИЕ ИГР
-===================================================== */
-
-function showGame(game,button){
-
-    document.querySelectorAll(".game")
-        .forEach(g=>g.classList.remove("active"));
-
-    document.getElementById("game-"+game)
-        .classList.add("active");
-
-    document.querySelectorAll(".game-select button")
-        .forEach(b=>b.classList.remove("active"));
-
-    button.classList.add("active");
-
-    if(game==="pong") drawPong();
-    if(game==="snake") drawSnake();
-    if(game==="tetris") EasyFlowTetris.draw();
-
-}
-
-
-/* =====================================================
-   RECORDS
-===================================================== */
-
-function getRecord(game){
-
-    return EasyFlowData.get()
-        .records[game][difficulty]||0;
-
-}
-
-function updateRecords(){
-
-    document.getElementById("tttRecord").textContent=getRecord("ttt");
-    document.getElementById("pongRecord").textContent=getRecord("pong");
-    document.getElementById("flagRecord").textContent=getRecord("flags");
-    document.getElementById("memoryRecord").textContent=getRecord("memory");
-    document.getElementById("snakeRecord").textContent=getRecord("snake");
-    document.getElementById("tetrisRecord").textContent=getRecord("tetris");
-    document.getElementById("flappyRecord").textContent=getRecord("flappy");
-    document.getElementById("mineRecord").textContent=getRecord("mines");
-
-}
-
-
-/* =====================================================
-   КРЕСТИКИ
-===================================================== */
-
-let tttBoard=Array(9).fill("");
-let tttRunning=false;
-let tttTurn=true;
-let tttWins=0;
-let tttTimer;
-
-const tttCells=document.querySelectorAll(".ttt-cell");
-
-tttCells.forEach((cell,i)=>{
-
-    cell.onclick=()=>tttMove(i);
-
-});
-
-function resetTTT(){
-
-    clearTimeout(tttTimer);
-
-    tttBoard=Array(9).fill("");
-    tttRunning=false;
-    tttTurn=true;
-
-    tttCells.forEach(c=>{
-        c.textContent="";
-        c.disabled=false;
-    });
-
-    document.getElementById("tttMessage")
-        .textContent="Нажми «Новая игра»";
-
-}
-
-function startTTT(){
-
-    clearTimeout(tttTimer);
-
-    tttBoard=Array(9).fill("");
-    tttRunning=true;
-    tttTurn=true;
-
-    EasyFlowData.addGame();
-
-    tttCells.forEach(c=>{
-        c.textContent="";
-        c.disabled=false;
-    });
-
-    document.getElementById("tttMessage")
-        .textContent=difficultyName()+" • Твой ход";
-
-}
-
-function tttMove(i){
-
-    if(!tttRunning||!tttTurn||tttBoard[i])
-        return;
-
-    tttBoard[i]="X";
-    renderTTT();
-
-    let result=tttWinner(tttBoard);
-
-    if(result){
-        finishTTT(result);
-        return;
-    }
-
-    tttTurn=false;
-
-    document.getElementById("tttMessage")
-        .textContent="🤖 Ход компьютера...";
-
-    tttTimer=setTimeout(tttAI,
-        difficulty==="easy"?300:450);
-
-}
-
-function tttAI(){
-
-    if(!tttRunning)return;
-
-    let move;
-
-    if(difficulty==="easy")
-        move=randomMove(tttBoard);
-
-    else if(difficulty==="medium")
-        move=mediumMove(tttBoard);
-
-    else
-        move=bestMove(tttBoard);
-
-    if(move!==undefined)
-        tttBoard[move]="O";
-
-    renderTTT();
-
-    const result=tttWinner(tttBoard);
-
-    if(result){
-        finishTTT(result);
-        return;
-    }
-
-    tttTurn=true;
-
-    document.getElementById("tttMessage")
-        .textContent=difficultyName()+" • Твой ход";
-
-}
-
-function tttWinner(b){
-
-    const lines=[
-        [0,1,2],[3,4,5],[6,7,8],
-        [0,3,6],[1,4,7],[2,5,8],
-        [0,4,8],[2,4,6]
-    ];
-
-    for(const [a,b1,c] of lines){
-
-        if(b[a]&&b[a]===b[b1]&&b[a]===b[c])
-            return b[a];
-
-    }
-
-    return b.every(Boolean)?"draw":null;
-
-}
-
-function randomMove(b){
-
-    const empty=b.map((v,i)=>v?null:i)
-        .filter(v=>v!==null);
-
-    return empty.length
-        ?empty[Math.floor(Math.random()*empty.length)]
-        :undefined;
-
-}
-
-function mediumMove(b){
-
-    for(let i=0;i<9;i++){
-
-        if(!b[i]){
-
-            b[i]="O";
-
-            if(tttWinner(b)==="O"){
-                b[i]="";
-                return i;
-            }
-
-            b[i]="";
-
-        }
-
-    }
-
-    for(let i=0;i<9;i++){
-
-        if(!b[i]){
-
-            b[i]="X";
-
-            if(tttWinner(b)==="X"){
-                b[i]="";
-                return i;
-            }
-
-            b[i]="";
-
-        }
-
-    }
-
-    if(!b[4])return 4;
-
-    return randomMove(b);
-
-}
-
-function bestMove(b){
-
-    let best=-Infinity;
-    let move;
-
-    for(let i=0;i<9;i++){
-
-        if(!b[i]){
-
-            b[i]="O";
-
-            const score=minimax(b,false,0);
-
-            b[i]="";
-
-            if(score>best){
-                best=score;
-                move=i;
-            }
-
-        }
-
-    }
-
-    return move;
-
-}
-
-function minimax(b,max,depth){
-
-    const result=tttWinner(b);
-
-    if(result==="O")return 10-depth;
-    if(result==="X")return depth-10;
-    if(result==="draw")return 0;
-
-    if(max){
-
-        let best=-Infinity;
-
-        for(let i=0;i<9;i++){
-
-            if(!b[i]){
-
-                b[i]="O";
-                best=Math.max(best,minimax(b,false,depth+1));
-                b[i]="";
-
-            }
-
-        }
-
-        return best;
-
-    }
-
-    let best=Infinity;
-
-    for(let i=0;i<9;i++){
-
-        if(!b[i]){
-
-            b[i]="X";
-            best=Math.min(best,minimax(b,true,depth+1));
-            b[i]="";
-
-        }
-
-    }
-
-    return best;
-
-}
-
-function renderTTT(){
-
-    tttCells.forEach((c,i)=>{
-        c.textContent=
-            tttBoard[i]==="X"?"❌":
-            tttBoard[i]==="O"?"⭕":"";
-    });
-
-}
-
-function finishTTT(result){
-
-    tttRunning=false;
-
-    if(result==="X"){
-
-        tttWins++;
-
-        document.getElementById("tttWins")
-            .textContent=tttWins;
-
-        EasyFlowData.addWin();
-        EasyFlowData.addScore(10);
-        EasyFlowData.record("ttt",tttWins);
-
-        document.getElementById("tttMessage")
-            .textContent="🏆 Ты победил! +5 ⭐";
-
-    }else if(result==="O"){
-
-        document.getElementById("tttMessage")
-            .textContent="🤖 Компьютер победил";
-
-    }else{
-
-        document.getElementById("tttMessage")
-            .textContent="🤝 Ничья";
-
-    }
-
-    updateRecords();
-
-}
-
-
-/* =====================================================
-   ПИНГ-ПОНГ
-===================================================== */
-
-const pongCanvas=document.getElementById("pongCanvas");
-const pongCtx=pongCanvas.getContext("2d");
-
-let pongRunning=false;
-let pongAnimation;
-let pongPlayer=0;
-let pongAI=0;
-
-let paddlePlayer={x:20,y:160,w:12,h:80};
-let paddleAI={x:668,y:160,w:12,h:80};
-
-let pongBall={
-    x:350,y:200,size:9,vx:5,vy:3
-};
-
-function resetPong(){
-
-    pongRunning=false;
-
-    if(pongAnimation)
-        cancelAnimationFrame(pongAnimation);
-
-    pongPlayer=0;
-    pongAI=0;
-
-    document.getElementById("pongPlayerScore").textContent=0;
-    document.getElementById("pongAIScore").textContent=0;
-    document.getElementById("pongMessage").textContent="Нажми «Начать»";
-
-    paddlePlayer.y=160;
-    paddleAI.y=160;
-
-    resetPongBall();
-    drawPong();
-
-}
-
-function startPong(){
-
-    resetPong();
-
-    pongRunning=true;
-
-    EasyFlowData.addGame();
-
-    document.getElementById("pongMessage")
-        .textContent=difficultyName()+" • Играй!";
-
-    pongLoop();
-
-}
-
-function resetPongBall(){
-
-    pongBall.x=350;
-    pongBall.y=200;
-
-    const speed=
-        difficulty==="easy"?4:
-        difficulty==="medium"?5:6;
-
-    pongBall.vx=(Math.random()<.5?-1:1)*speed;
-    pongBall.vy=(Math.random()<.5?-1:1)*(2+Math.random()*2);
-
-}
-
-function drawPong(){
-
-    pongCtx.clearRect(0,0,700,400);
-
-    pongCtx.fillStyle="#fff";
-    pongCtx.setLineDash([8,8]);
-
-    pongCtx.beginPath();
-    pongCtx.moveTo(350,0);
-    pongCtx.lineTo(350,400);
-    pongCtx.stroke();
-
-    pongCtx.setLineDash([]);
-
-    pongCtx.fillRect(
-        paddlePlayer.x,paddlePlayer.y,
-        paddlePlayer.w,paddlePlayer.h
-    );
-
-    pongCtx.fillRect(
-        paddleAI.x,paddleAI.y,
-        paddleAI.w,paddleAI.h
-    );
-
-    pongCtx.beginPath();
-    pongCtx.arc(
-        pongBall.x,pongBall.y,
-        pongBall.size,0,Math.PI*2
-    );
-    pongCtx.fill();
-
-}
-
-function pongLoop(){
-
-    if(!pongRunning)return;
-
-    pongBall.x+=pongBall.vx;
-    pongBall.y+=pongBall.vy;
-
-    if(pongBall.y<10||pongBall.y>390)
-        pongBall.vy*=-1;
-
-    const aiSpeed=
-        difficulty==="easy"?2.5:
-        difficulty==="medium"?4:6;
-
-    if(paddleAI.y<pongBall.y)paddleAI.y+=aiSpeed;
-    if(paddleAI.y>pongBall.y)paddleAI.y-=aiSpeed;
-
-    paddleAI.y=Math.max(0,Math.min(320,paddleAI.y));
-
-    if(
-        pongBall.x<40 &&
-        pongBall.y>paddlePlayer.y &&
-        pongBall.y<paddlePlayer.y+80
-    )
-        pongBall.vx=Math.abs(pongBall.vx);
-
-    if(
-        pongBall.x>660 &&
-        pongBall.y>paddleAI.y &&
-        pongBall.y<paddleAI.y+80
-    )
-        pongBall.vx=-Math.abs(pongBall.vx);
-
-    if(pongBall.x<0){
-
-        pongAI++;
-        document.getElementById("pongAIScore").textContent=pongAI;
-
-        if(pongAI>=5){
-            endPong(false);
-            return;
-        }
-
-        resetPongBall();
-
-    }
-
-    if(pongBall.x>700){
-
-        pongPlayer++;
-        document.getElementById("pongPlayerScore").textContent=pongPlayer;
-
-        if(pongPlayer>=5){
-            endPong(true);
-            return;
-        }
-
-        resetPongBall();
-
-    }
-
-    drawPong();
-
-    pongAnimation=requestAnimationFrame(pongLoop);
-
-}
-
-function endPong(win){
-
-    pongRunning=false;
-
-    if(win){
-
-        EasyFlowData.addWin();
-        EasyFlowData.addScore(pongPlayer*2);
-        EasyFlowData.record("pong",pongPlayer);
-
-        document.getElementById("pongMessage")
-            .textContent="🏆 Победа! +5 ⭐";
-
-    }else{
-
-        document.getElementById("pongMessage")
-            .textContent="🤖 Компьютер победил";
-
-    }
-
-    updateRecords();
-
-}
-
-document.addEventListener("keydown",e=>{
-
-    if(e.key==="ArrowUp")
-        paddlePlayer.y-=25;
-
-    if(e.key==="ArrowDown")
-        paddlePlayer.y+=25;
-
-    paddlePlayer.y=Math.max(0,Math.min(320,paddlePlayer.y));
-
-});
-
-pongCanvas.addEventListener("mousemove",e=>{
-
-    const r=pongCanvas.getBoundingClientRect();
-
-    paddlePlayer.y=
-        (e.clientY-r.top)*(400/r.height)-40;
-
-    paddlePlayer.y=Math.max(0,Math.min(320,paddlePlayer.y));
-
-});
-
-
-/* =====================================================
-   ФЛАГИ
-===================================================== */
-
-const countries=[
-["Казахстан","kz","easy"],
-["Россия","ru","easy"],
-["Украина","ua","easy"],
-["Беларусь","by","easy"],
-["Германия","de","easy"],
-["Франция","fr","easy"],
-["Италия","it","easy"],
-["Испания","es","easy"],
-["США","us","easy"],
-["Канада","ca","easy"],
-["Япония","jp","easy"],
-["Китай","cn","easy"],
-["Австралия","au","easy"],
-["Бразилия","br","easy"],
-
-["Австрия","at","medium"],
-["Ирландия","ie","medium"],
-["Чехия","cz","medium"],
-["Словакия","sk","medium"],
-["Венгрия","hu","medium"],
-["Румыния","ro","medium"],
-["Болгария","bg","medium"],
-["Хорватия","hr","medium"],
-["Сербия","rs","medium"],
-["Грузия","ge","medium"],
-["Армения","am","medium"],
-["Азербайджан","az","medium"],
-
-["Андорра","ad","hard"],
-["Антигуа и Барбуда","ag","hard"],
-["Багамы","bs","hard"],
-["Барбадос","bb","hard"],
-["Белиз","bz","hard"],
-["Бенин","bj","hard"],
-["Бурунди","bi","hard"],
-["Кабо-Верде","cv","hard"],
-["Камерун","cm","hard"],
-["Чад","td","hard"],
-["Коморы","km","hard"],
-["Джибути","dj","hard"],
-["Эритрея","er","hard"],
-["Габон","ga","hard"]
-];
-
-let flagCurrent;
-let flagUsed=[];
-let flagScore=0;
-let flagLives=3;
-let flagRunning=false;
-let flagAnswered=false;
-
-function startFlags(){
-
-    flagUsed=[];
-    flagScore=0;
-    flagLives=3;
-    flagRunning=true;
-
-    EasyFlowData.addGame();
-
-    document.getElementById("flagScore").textContent=0;
-    document.getElementById("flagLives").textContent=3;
-
-    nextFlag();
-
-}
-
-function nextFlag(){
-
-    if(!flagRunning)return;
-
-    const available=countries.filter(c=>c[2]===difficulty);
-
-    const unused=available.filter(c=>!flagUsed.includes(c[1]));
-
-    if(!unused.length){
-        finishFlags();
-        return;
-    }
-
-    flagAnswered=false;
-
-    flagCurrent=unused[Math.floor(Math.random()*unused.length)];
-    flagUsed.push(flagCurrent[1]);
-
-    document.getElementById("flag").src=
-        "https://flagcdn.com/w640/"+flagCurrent[1]+".png";
-
-    document.getElementById("flagQuestion")
-        .textContent="Какая это страна?";
-
-    document.getElementById("flagNext")
-        .classList.add("hidden");
-
-    createFlagAnswers(available);
-
-    document.getElementById("flagProgress")
-        .textContent=
-        difficultyName()+" • "+flagUsed.length+"/"+available.length;
-
-}
-
-function createFlagAnswers(available){
-
-    const wrong=shuffle(
-        available.filter(c=>c[1]!==flagCurrent[1])
-    ).slice(0,3);
-
-    const options=shuffle([flagCurrent,...wrong]);
-
-    const box=document.getElementById("flagAnswers");
-
-    box.innerHTML="";
-
-    options.forEach(country=>{
-
-        const b=document.createElement("button");
-
-        b.className="answer";
-        b.textContent=country[0];
-
-        b.onclick=()=>checkFlag(country,b);
-
-        box.appendChild(b);
-
-    });
-
-}
-
-function checkFlag(country,button){
-
-    if(!flagRunning||flagAnswered)return;
-
-    flagAnswered=true;
-
-    const buttons=document.querySelectorAll("#flagAnswers .answer");
-    buttons.forEach(b=>b.disabled=true);
-
-    if(country[1]===flagCurrent[1]){
-
-        button.classList.add("correct");
-
-        flagScore++;
-
-        EasyFlowData.addScore(1);
-
-        if(flagScore>getRecord("flags"))
-            EasyFlowData.record("flags",flagScore);
-
-        document.getElementById("flagScore").textContent=flagScore;
-        document.getElementById("flagQuestion").textContent="✅ Правильно!";
-
-        document.getElementById("flagNext").classList.remove("hidden");
-
-    }else{
-
-        button.classList.add("wrong");
-
-        buttons.forEach(b=>{
-            if(b.textContent===flagCurrent[0])
-                b.classList.add("correct");
-        });
-
-        flagLives--;
-
-        document.getElementById("flagLives").textContent=flagLives;
-
-        document.getElementById("flagQuestion")
-            .textContent="❌ Правильно: "+flagCurrent[0];
-
-        if(flagLives<=0){
-
-            flagRunning=false;
-
-        }else{
-
-            document.getElementById("flagNext")
-                .classList.remove("hidden");
-
-        }
-
-    }
-
-}
-
-function finishFlags(){
-
-    flagRunning=false;
-
-    EasyFlowData.addWin();
-    EasyFlowData.addStars(5);
-
-    document.getElementById("flagQuestion")
-        .textContent="🏆 Уровень пройден! Очки: "+flagScore;
-
-    document.getElementById("flagNext")
-        .classList.add("hidden");
-
-    updateRecords();
-
-}
-
-
-/* =====================================================
-   ПАМЯТЬ
-===================================================== */
-
-const memorySymbols=[
-"🍎","🚗","⚽","🎮","🚀","🐱",
-"🌟","🎵","🍕","🔥","🌈","🦊"
-];
-
-let memoryCards=[];
-let memoryFirst=null;
-let memoryLock=false;
-let memoryPairs=0;
-let memoryMoves=0;
-let memoryTimer;
-
-function startMemory(){
-
-    clearTimeout(memoryTimer);
-
-    const pairs=
-        difficulty==="easy"?3:
-        difficulty==="medium"?4:6;
-
-    const symbols=memorySymbols.slice(0,pairs);
-
-    memoryCards=shuffle([...symbols,...symbols])
-        .map((symbol,index)=>({
-            symbol,index,open:false,matched:false
-        }));
-
-    memoryFirst=null;
-    memoryLock=false;
-    memoryPairs=0;
-    memoryMoves=0;
-
-    EasyFlowData.addGame();
-
-    document.getElementById("memoryPairs").textContent=0;
-    document.getElementById("memoryMoves").textContent=0;
-
-    document.getElementById("memoryMessage")
-        .textContent=difficultyName()+" • Найди пары";
-
-    renderMemory();
-
-}
-
-function renderMemory(){
-
-    const board=document.getElementById("memoryBoard");
-
-    board.innerHTML="";
-
-    memoryCards.forEach((card,i)=>{
-
-        const b=document.createElement("button");
-
-        b.className="memory-card";
-
-        if(card.open||card.matched){
-
-            b.textContent=card.symbol;
-            b.classList.add("open");
-
-        }else{
-
-            b.textContent="❓";
-
-        }
-
-        if(card.matched)
-            b.classList.add("matched");
-
-        b.onclick=()=>memoryClick(i);
-
-        board.appendChild(b);
-
-    });
-
-}
-
-function memoryClick(index){
-
-    if(memoryLock)return;
-
-    const card=memoryCards[index];
-
-    if(card.open||card.matched)return;
-
-    card.open=true;
-
-    renderMemory();
-
-    if(memoryFirst===null){
-
-        memoryFirst=index;
-        return;
-
-    }
-
-    memoryMoves++;
-
-    document.getElementById("memoryMoves")
-        .textContent=memoryMoves;
-
-    const first=memoryFirst;
-    const second=index;
-
-    memoryFirst=null;
-
-    if(memoryCards[first].symbol===memoryCards[second].symbol){
-
-        memoryCards[first].matched=true;
-        memoryCards[second].matched=true;
-
-        memoryPairs++;
-
-        document.getElementById("memoryPairs")
-            .textContent=memoryPairs;
-
-        renderMemory();
-
-        if(memoryPairs===memoryCards.length/2)
-            finishMemory();
-
-    }else{
-
-        memoryLock=true;
-
-        memoryTimer=setTimeout(()=>{
-
-            memoryCards[first].open=false;
-            memoryCards[second].open=false;
-
-            memoryLock=false;
-
-            renderMemory();
-
-        },700);
-
-    }
-
-}
-
-function finishMemory(){
-
-    const score=Math.max(
-        1,
-        memoryCards.length*10-memoryMoves*2
-    );
-
-    EasyFlowData.addScore(score);
-    EasyFlowData.addWin();
-
-    if(score>getRecord("memory"))
-        EasyFlowData.record("memory",score);
-
-    document.getElementById("memoryMessage")
-        .textContent="🏆 Готово! Результат: "+score;
-
-    updateRecords();
-
-}
-
-
-/* =====================================================
-   ЗМЕЙКА
-===================================================== */
-
-const snakeCanvas=document.getElementById("snakeCanvas");
-const snakeCtx=snakeCanvas.getContext("2d");
-
-const snakeGrid=20;
-const snakeCell=20;
-
-let snake=[];
-let snakeFood={x:5,y:5};
-let snakeDir={x:1,y:0};
-let snakeNext={x:1,y:0};
-let snakeScore=0;
-let snakeTimer;
-let snakeRunning=false;
-
-function resetSnake(){
-
-    clearInterval(snakeTimer);
-
-    snakeRunning=false;
-    snake=[];
-
-    snakeScore=0;
-
-    document.getElementById("snakeScore").textContent=0;
-    document.getElementById("snakeMessage")
-        .textContent="Нажми «Начать»";
-
-    drawSnake();
-
-}
-
-function startSnake(){
-
-    clearInterval(snakeTimer);
-
-    snakeRunning=true;
-
-    snake=[
-        {x:10,y:10},
-        {x:9,y:10},
-        {x:8,y:10}
-    ];
-
-    snakeDir={x:1,y:0};
-    snakeNext={x:1,y:0};
-    snakeScore=0;
-
-    EasyFlowData.addGame();
-
-    placeSnakeFood();
-
-    document.getElementById("snakeScore").textContent=0;
-    document.getElementById("snakeMessage")
-        .textContent=difficultyName()+" • Играй!";
-
-    const speed=
-        difficulty==="easy"?180:
-        difficulty==="medium"?130:90;
-
-    snakeTimer=setInterval(snakeStep,speed);
-
-    drawSnake();
-
-}
-
-function placeSnakeFood(){
-
-    do{
-
-        snakeFood={
-            x:Math.floor(Math.random()*20),
-            y:Math.floor(Math.random()*20)
-        };
-
-    }while(
-        snake.some(p=>p.x===snakeFood.x&&p.y===snakeFood.y)
-    );
-
-}
-
-function snakeStep(){
-
-    if(!snakeRunning)return;
-
-    snakeDir=snakeNext;
-
-    const head={
-        x:snake[0].x+snakeDir.x,
-        y:snake[0].y+snakeDir.y
-    };
-
-    if(
-        head.x<0||head.x>=20||
-        head.y<0||head.y>=20||
-        snake.some((p,i)=>i>0&&p.x===head.x&&p.y===head.y)
-    ){
-
-        endSnake();
-        return;
-
-    }
-
-    snake.unshift(head);
-
-    if(head.x===snakeFood.x&&head.y===snakeFood.y){
-
-        snakeScore++;
-
-        EasyFlowData.addScore(1);
-
-        document.getElementById("snakeScore")
-            .textContent=snakeScore;
-
-        if(snakeScore>getRecord("snake"))
-            EasyFlowData.record("snake",snakeScore);
-
-        placeSnakeFood();
-
-    }else{
-
-        snake.pop();
-
-    }
-
-    drawSnake();
-
-}
-
-function drawSnake(){
-
-    snakeCtx.clearRect(0,0,400,400);
-
-    snakeCtx.fillStyle="#ef4444";
-
-    snakeCtx.fillRect(
-        snakeFood.x*20,
-        snakeFood.y*20,
-        18,18
-    );
-
-    snake.forEach((p,i)=>{
-
-        snakeCtx.fillStyle=i===0?"#22c55e":"#86efac";
-
-        snakeCtx.fillRect(
-            p.x*20,p.y*20,18,18
+    const element =
+        document.getElementById(
+            "profileName"
         );
 
-    });
+    if (user && user.name) {
+
+        element.textContent =
+            "👤 " + user.name;
+
+    } else {
+
+        element.textContent =
+            "👤 Гость";
+
+    }
 
 }
 
-function endSnake(){
 
-    snakeRunning=false;
-    clearInterval(snakeTimer);
+function logout() {
 
-    if(snakeScore>=3)
-        EasyFlowData.addWin();
-
-    document.getElementById("snakeMessage")
-        .textContent="💥 Игра окончена! Очки: "+snakeScore;
-
-    updateRecords();
-
-}
-
-document.addEventListener("keydown",e=>{
-
-    if(e.key==="ArrowUp"&&snakeDir.y!==1)
-        snakeNext={x:0,y:-1};
-
-    if(e.key==="ArrowDown"&&snakeDir.y!==-1)
-        snakeNext={x:0,y:1};
-
-    if(e.key==="ArrowLeft"&&snakeDir.x!==1)
-        snakeNext={x:-1,y:0};
-
-    if(e.key==="ArrowRight"&&snakeDir.x!==-1)
-        snakeNext={x:1,y:0};
-
-});
-
-
-/* =====================================================
-   ТЕТРИС
-===================================================== */
-
-const EasyFlowTetris={
-
-canvas:document.getElementById("tetrisCanvas"),
-ctx:document.getElementById("tetrisCanvas").getContext("2d"),
-
-nextCanvas:document.getElementById("tetrisNextCanvas"),
-nextCtx:document.getElementById("tetrisNextCanvas").getContext("2d"),
-
-board:[],
-piece:null,
-next:null,
-score:0,
-lines:0,
-level:1,
-running:false,
-timer:null,
-
-shapes:[
-[
-[1,1,1,1]
-],
-[
-[1,1],
-[1,1]
-],
-[
-[0,1,0],
-[1,1,1]
-],
-[
-[1,0,0],
-[1,1,1]
-],
-[
-[0,0,1],
-[1,1,1]
-],
-[
-[0,1,1],
-[1,1,0]
-],
-[
-[1,1,0],
-[0,1,1]
-]
-],
-
-colors:[
-"#22d3ee",
-"#facc15",
-"#a855f7",
-"#3b82f6",
-"#f97316",
-"#22c55e",
-"#ef4444"
-],
-
-start(){
-
-    clearInterval(this.timer);
-
-    this.board=Array.from(
-        {length:20},
-        ()=>Array(10).fill(0)
+    localStorage.removeItem(
+        "easyflow_current_user"
     );
 
-    this.score=0;
-    this.lines=0;
-    this.level=1;
-    this.running=true;
-
-    EasyFlowData.addGame();
-
-    this.next=this.randomPiece();
-    this.newPiece();
-
-    this.updateUI();
-    this.draw();
-
-    document.getElementById("tetrisMessage")
-        .textContent=difficultyName()+" • Играй!";
-
-    this.loop();
-
-},
-
-randomPiece(){
-
-    const id=Math.floor(Math.random()*this.shapes.length);
-
-    return {
-        shape:this.shapes[id].map(row=>[...row]),
-        color:this.colors[id],
-        x:3,
-        y:0
-    };
-
-},
-
-newPiece(){
-
-    this.piece=this.next||this.randomPiece();
-    this.piece.x=3;
-    this.piece.y=0;
-
-    this.next=this.randomPiece();
-
-    if(this.collision(this.piece,0,0)){
-
-        this.gameOver();
-
-    }
-
-    this.drawNext();
-
-},
-
-collision(piece,dx,dy,shape=piece.shape){
-
-    for(let y=0;y<shape.length;y++){
-
-        for(let x=0;x<shape[y].length;x++){
-
-            if(!shape[y][x])continue;
-
-            const nx=piece.x+x+dx;
-            const ny=piece.y+y+dy;
-
-            if(
-                nx<0||nx>=10||
-                ny>=20||
-                (ny>=0&&this.board[ny][nx])
-            )
-                return true;
-
-        }
-
-    }
-
-    return false;
-
-},
-
-move(dx){
-
-    if(
-        this.running&&
-        !this.collision(this.piece,dx,0)
-    ){
-
-        this.piece.x+=dx;
-        this.draw();
-
-    }
-
-},
-
-drop(){
-
-    if(!this.running)return;
-
-    while(!this.collision(this.piece,0,1))
-        this.piece.y++;
-
-    this.lock();
-
-},
-
-rotate(){
-
-    if(!this.running)return;
-
-    const old=this.piece.shape;
-
-    const rotated=old[0].map(
-        (_,i)=>old.map(row=>row[i]).reverse()
-    );
-
-    if(!this.collision(this.piece,0,0,rotated))
-        this.piece.shape=rotated;
-
-    this.draw();
-
-},
-
-step(){
-
-    if(!this.running)return;
-
-    if(this.collision(this.piece,0,1))
-        this.lock();
-    else
-        this.piece.y++;
-
-    this.draw();
-
-},
-
-lock(){
-
-    const p=this.piece;
-
-    for(let y=0;y<p.shape.length;y++){
-
-        for(let x=0;x<p.shape[y].length;x++){
-
-            if(p.shape[y][x]){
-
-                const yy=p.y+y;
-
-                if(yy>=0)
-                    this.board[yy][p.x+x]=p.color;
-
-            }
-
-        }
-
-    }
-
-    this.clearLines();
-
-    this.newPiece();
-
-    this.draw();
-
-},
-
-clearLines(){
-
-    let cleared=0;
-
-    for(let y=19;y>=0;y--){
-
-        if(this.board[y].every(Boolean)){
-
-            this.board.splice(y,1);
-            this.board.unshift(Array(10).fill(0));
-
-            cleared++;
-            y++;
-
-        }
-
-    }
-
-    if(cleared){
-
-        const points=[0,100,300,500,800][cleared]||800;
-
-        this.score+=points*this.level;
-        this.lines+=cleared;
-
-        this.level=1+Math.floor(this.lines/10);
-
-        EasyFlowData.addScore(points*this.level);
-
-        if(this.score>getRecord("tetris"))
-            EasyFlowData.record("tetris",this.score);
-
-        this.updateUI();
-
-    }
-
-},
-
-loop(){
-
-    if(!this.running)return;
-
-    const speed=Math.max(
-        100,
-        800-(this.level-1)*60
-    );
-
-    this.timer=setTimeout(()=>{
-
-        this.step();
-        this.loop();
-
-    },speed);
-
-},
-
-draw(){
-
-    const ctx=this.ctx;
-
-    ctx.clearRect(0,0,250,500);
-
-    const size=25;
-
-    for(let y=0;y<20;y++){
-
-        for(let x=0;x<10;x++){
-
-            ctx.strokeStyle="#1f2937";
-            ctx.strokeRect(x*size,y*size,size,size);
-
-            if(this.board[y][x]){
-
-                ctx.fillStyle=this.board[y][x];
-
-                ctx.fillRect(
-                    x*size+1,
-                    y*size+1,
-                    size-2,
-                    size-2
-                );
-
-            }
-
-        }
-
-    }
-
-    if(this.piece){
-
-        this.piece.shape.forEach((row,y)=>{
-
-            row.forEach((v,x)=>{
-
-                if(v){
-
-                    ctx.fillStyle=this.piece.color;
-
-                    ctx.fillRect(
-                        (this.piece.x+x)*size+1,
-                        (this.piece.y+y)*size+1,
-                        size-2,
-                        size-2
-                    );
-
-                }
-
-            });
-
-        });
-
-    }
-
-},
-
-drawNext(){
-
-    const c=this.nextCtx;
-
-    c.clearRect(0,0,100,100);
-
-    if(!this.next)return;
-
-    this.next.shape.forEach((row,y)=>{
-
-        row.forEach((v,x)=>{
-
-            if(v){
-
-                c.fillStyle=this.next.color;
-
-                c.fillRect(
-                    x*22+8,
-                    y*22+8,
-                    20,
-                    20
-                );
-
-            }
-
-        });
-
-    });
-
-},
-
-updateUI(){
-
-    document.getElementById("tetrisScore").textContent=this.score;
-    document.getElementById("tetrisLines").textContent=this.lines;
-    document.getElementById("tetrisLevel").textContent=this.level;
-    document.getElementById("tetrisRecord").textContent=getRecord("tetris");
-
-},
-
-gameOver(){
-
-    this.running=false;
-
-    clearTimeout(this.timer);
-
-    if(this.score>0)
-        EasyFlowData.addStars(2);
-
-    document.getElementById("tetrisMessage")
-        .textContent="💥 Игра окончена! Очки: "+this.score;
-
-    this.updateUI();
-
-},
-
-draw(){
-
-    this.ctx.clearRect(0,0,250,500);
-
-    const size=25;
-
-    for(let y=0;y<20;y++){
-
-        for(let x=0;x<10;x++){
-
-            this.ctx.strokeStyle="#1f2937";
-            this.ctx.strokeRect(x*size,y*size,size,size);
-
-            if(this.board[y][x]){
-
-                this.ctx.fillStyle=this.board[y][x];
-
-                this.ctx.fillRect(
-                    x*size+1,
-                    y*size+1,
-                    size-2,
-                    size-2
-                );
-
-            }
-
-        }
-
-    }
-
-    if(this.piece){
-
-        this.piece.shape.forEach((row,y)=>{
-
-            row.forEach((v,x)=>{
-
-                if(v){
-
-                    this.ctx.fillStyle=this.piece.color;
-
-                    this.ctx.fillRect(
-                        (this.piece.x+x)*size+1,
-                        (this.piece.y+y)*size+1,
-                        size-2,
-                        size-2
-                    );
-
-                }
-
-            });
-
-        });
-
-    }
-
-}
-
-};
-
-
-/* =====================================================
-   УПРАВЛЕНИЕ ТЕТРИСОМ
-===================================================== */
-
-document.addEventListener("keydown",e=>{
-
-    if(!EasyFlowTetris.running)return;
-
-    if(e.key==="ArrowLeft")
-        EasyFlowTetris.move(-1);
-
-    if(e.key==="ArrowRight")
-        EasyFlowTetris.move(1);
-
-    if(e.key==="ArrowDown")
-        EasyFlowTetris.step();
-
-    if(e.key==="ArrowUp")
-        EasyFlowTetris.rotate();
-
-    if(e.code==="Space"){
-
-        e.preventDefault();
-        EasyFlowTetris.drop();
-
-    }
-
-});
-
-
-/* =====================================================
-   FLAPPY BIRD
-===================================================== */
-
-const flappyCanvas=document.getElementById("flappyCanvas");
-const flappyCtx=flappyCanvas.getContext("2d");
-
-let flappyRunning=false;
-let flappyAnimation;
-let flappyBird;
-let flappyPipes=[];
-let flappyScore=0;
-let flappyFrame=0;
-
-function startFlappy(){
-
-    cancelAnimationFrame(flappyAnimation);
-
-    flappyRunning=true;
-    flappyScore=0;
-    flappyFrame=0;
-
-    flappyBird={
-        x:80,
-        y:240,
-        velocity:0
-    };
-
-    flappyPipes=[];
-
-    EasyFlowData.addGame();
-
-    document.getElementById("flappyScore").textContent=0;
-    document.getElementById("flappyMessage")
-        .textContent="🐦 Лети!";
-
-    flappyLoop();
-
-}
-
-function flap(){
-
-    if(!flappyRunning)return;
-
-    flappyBird.velocity=-7;
-
-}
-
-function createPipe(){
-
-    const gap=
-        difficulty==="easy"?150:
-        difficulty==="medium"?125:105;
-
-    const top=
-        50+Math.random()*250;
-
-    flappyPipes.push({
-        x:420,
-        top,
-        gap,
-        passed:false
-    });
-
-}
-
-function flappyLoop(){
-
-    if(!flappyRunning)return;
-
-    flappyFrame++;
-
-    flappyBird.velocity+=0.35;
-    flappyBird.y+=flappyBird.velocity;
-
-    if(flappyFrame%100===0)
-        createPipe();
-
-    flappyPipes.forEach(pipe=>{
-        pipe.x-=3;
-    });
-
-    flappyPipes=flappyPipes.filter(p=>p.x>-60);
-
-    for(const pipe of flappyPipes){
-
-        if(!pipe.passed&&pipe.x<flappyBird.x){
-
-            pipe.passed=true;
-            flappyScore++;
-
-            EasyFlowData.addScore(1);
-
-            document.getElementById("flappyScore")
-                .textContent=flappyScore;
-
-            if(flappyScore>getRecord("flappy"))
-                EasyFlowData.record("flappy",flappyScore);
-
-        }
-
-        if(
-            flappyBird.x+22>pipe.x &&
-            flappyBird.x<pipe.x+55 &&
-            (
-                flappyBird.y<pipe.top ||
-                flappyBird.y+22>pipe.top+pipe.gap
-            )
-        ){
-
-            endFlappy();
-            return;
-
-        }
-
-    }
-
-    if(flappyBird.y<0||flappyBird.y>478){
-
-        endFlappy();
-        return;
-
-    }
-
-    drawFlappy();
-
-    flappyAnimation=requestAnimationFrame(flappyLoop);
-
-}
-
-function drawFlappy(){
-
-    flappyCtx.fillStyle="#7dd3fc";
-    flappyCtx.fillRect(0,0,420,500);
-
-    flappyPipes.forEach(pipe=>{
-
-        flappyCtx.fillStyle="#22c55e";
-
-        flappyCtx.fillRect(
-            pipe.x,0,55,pipe.top
-        );
-
-        flappyCtx.fillRect(
-            pipe.x,
-            pipe.top+pipe.gap,
-            55,
-            500
-        );
-
-    });
-
-    flappyCtx.fillStyle="#facc15";
-
-    flappyCtx.beginPath();
-
-    flappyCtx.arc(
-        flappyBird.x+11,
-        flappyBird.y+11,
-        11,
-        0,
-        Math.PI*2
-    );
-
-    flappyCtx.fill();
-
-}
-
-function endFlappy(){
-
-    flappyRunning=false;
-
-    cancelAnimationFrame(flappyAnimation);
-
-    if(flappyScore>=3)
-        EasyFlowData.addWin();
-
-    EasyFlowData.addStars(
-        Math.floor(flappyScore/5)
-    );
-
-    document.getElementById("flappyMessage")
-        .textContent="💥 Игра окончена! Очки: "+flappyScore;
-
-}
-
-flappyCanvas.addEventListener("click",flap);
-document.addEventListener("keydown",e=>{
-    if(e.code==="Space"&&
-       document.getElementById("game-flappy").classList.contains("active")){
-        e.preventDefault();
-        flap();
-    }
-});
-
-
-/* =====================================================
-   САПЁР
-===================================================== */
-
-let mineRows=9;
-let mineCols=9;
-let mineTotal=10;
-let mineBoard=[];
-let mineRunning=false;
-let mineOpened=0;
-
-function startMines(){
-
-    mineRows=
-        difficulty==="easy"?8:
-        difficulty==="medium"?10:12;
-
-    mineCols=mineRows;
-
-    mineTotal=
-        difficulty==="easy"?10:
-        difficulty==="medium"?20:30;
-
-    mineOpened=0;
-    mineRunning=true;
-
-    EasyFlowData.addGame();
-
-    mineBoard=Array.from(
-        {length:mineRows},
-        ()=>Array(mineCols).fill(null)
-    );
-
-    let placed=0;
-
-    while(placed<mineTotal){
-
-        const r=Math.floor(Math.random()*mineRows);
-        const c=Math.floor(Math.random()*mineCols);
-
-        if(mineBoard[r][c]!=="mine"){
-
-            mineBoard[r][c]="mine";
-            placed++;
-
-        }
-
-    }
-
-    for(let r=0;r<mineRows;r++){
-
-        for(let c=0;c<mineCols;c++){
-
-            if(mineBoard[r][c]==="mine")continue;
-
-            let count=0;
-
-            for(let dr=-1;dr<=1;dr++){
-
-                for(let dc=-1;dc<=1;dc++){
-
-                    const rr=r+dr;
-                    const cc=c+dc;
-
-                    if(
-                        rr>=0&&rr<mineRows&&
-                        cc>=0&&cc<mineCols&&
-                        mineBoard[rr][cc]==="mine"
-                    )
-                        count++;
-
-                }
-
-            }
-
-            mineBoard[r][c]=count;
-
-        }
-
-    }
-
-    document.getElementById("mineCount")
-        .textContent=mineTotal;
-
-    document.getElementById("mineOpen")
-        .textContent=0;
-
-    document.getElementById("minesMessage")
-        .textContent=difficultyName()+" • Открой клетки";
-
-    renderMines();
-
-}
-
-function renderMines(){
-
-    const board=document.getElementById("minesBoard");
-
-    board.innerHTML="";
-
-    board.style.gridTemplateColumns=
-        `repeat(${mineCols},32px)`;
-
-    mineBoard.forEach((row,r)=>{
-
-        row.forEach((value,c)=>{
-
-            const b=document.createElement("button");
-
-            b.className="mine-cell";
-
-            b.textContent="";
-
-            b.onclick=()=>openMine(r,c,b);
-
-            board.appendChild(b);
-
-        });
-
-    });
-
-}
-
-function openMine(r,c,button){
-
-    if(!mineRunning)return;
-
-    if(button.classList.contains("open"))
-        return;
-
-    button.classList.add("open");
-
-    const value=mineBoard[r][c];
-
-    if(value==="mine"){
-
-        button.classList.add("mine");
-        button.textContent="💣";
-
-        mineRunning=false;
-
-        revealMines();
-
-        document.getElementById("minesMessage")
-            .textContent="💥 Бум! Ты проиграл";
-
-        return;
-
-    }
-
-    mineOpened++;
-
-    button.textContent=value===0?"":value;
-
-    document.getElementById("mineOpen")
-        .textContent=mineOpened;
-
-    const safe=mineRows*mineCols-mineTotal;
-
-    if(mineOpened>=safe){
-
-        mineRunning=false;
-
-        EasyFlowData.addWin();
-        EasyFlowData.addStars(5);
-        EasyFlowData.addScore(20);
-
-        EasyFlowData.record("mines",mineOpened);
-
-        document.getElementById("minesMessage")
-            .textContent="🏆 Победа! Все мины найдены";
-
-        updateRecords();
-
-    }
-
-}
-
-function revealMines(){
-
-    const buttons=document.querySelectorAll(".mine-cell");
-
-    let i=0;
-
-    mineBoard.forEach(row=>{
-
-        row.forEach(value=>{
-
-            if(value==="mine"){
-
-                buttons[i].classList.add("mine");
-                buttons[i].textContent="💣";
-
-            }
-
-            i++;
-
-        });
-
-    });
+    window.location.href =
+        "login.html";
 
 }
 
 
-/* =====================================================
-   ОБЩИЕ ФУНКЦИИ
-===================================================== */
-
-function shuffle(array){
-
-    const a=[...array];
-
-    for(let i=a.length-1;i>0;i--){
-
-        const j=Math.floor(Math.random()*(i+1));
-
-        [a[i],a[j]]=[a[j],a[i]];
-
-    }
-
-    return a;
-
-}
-
-function resetAllGames(){
-
-    resetTTT();
-    resetPong();
-    resetSnake();
-
-    if(typeof flagRunning!=="undefined")
-        flagRunning=false;
-
-    if(typeof memoryLock!=="undefined")
-        memoryLock=false;
-
-    if(typeof EasyFlowTetris!=="undefined"){
-        EasyFlowTetris.running=false;
-        clearTimeout(EasyFlowTetris.timer);
-    }
-
-    if(typeof flappyRunning!=="undefined")
-        flappyRunning=false;
-
-    if(typeof mineRunning!=="undefined")
-        mineRunning=false;
-
-}
-
-function init(){
-
-    document.querySelectorAll(".level")
-        .forEach(b=>b.classList.remove("active"));
-
-    const button=document.getElementById(
-        difficulty+"Button"
-    );
-
-    if(button)
-        button.classList.add("active");
-
-    updateInfo();
-    updateRecords();
-
-    resetTTT();
-    resetPong();
-    resetSnake();
-
-}
-
-init();
+showUser();
 
 </script>
 
