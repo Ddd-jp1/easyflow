@@ -3,703 +3,2493 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>EasyFlow — Игры</title>
+<title>EasyFlow — Games Engine</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f4f7fb;color:#111827;min-height:100vh}
-header{background:#fff;border-bottom:1px solid #e5e7eb;padding:15px}
-nav{max-width:1100px;margin:auto;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.logo{font-size:27px;font-weight:bold;color:#2563eb}
-button,.btn{border:0;background:#2563eb;color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:bold;text-decoration:none}
-button:hover,.btn:hover{background:#1d4ed8}
-.container{max-width:1100px;margin:auto;padding:25px 15px}
-h1,h2{color:#2563eb;margin-bottom:15px}
-section{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:20px;margin-bottom:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-.card{padding:18px;border:1px solid #e5e7eb;border-radius:15px;text-align:center}
-.card h3{margin:8px 0}
-.small{color:#64748b;font-size:14px}
-input,select{padding:11px;border:1px solid #cbd5e1;border-radius:9px;width:100%;margin:5px 0 10px}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.center{text-align:center}
-.hidden{display:none!important}
-.stat{font-size:28px;font-weight:bold;color:#2563eb}
-#gameScreen{text-align:center}
-canvas{background:#111827;border-radius:12px;border:4px solid #2563eb;max-width:95vw}
-.game-controls{margin:12px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-.cell{width:34px;height:34px;padding:0;background:#cbd5e1;color:#111827}
-.mineboard{display:grid;gap:3px;justify-content:center;background:#64748b;padding:5px;border-radius:10px;margin:15px auto;width:max-content}
-.tcell{width:32px;height:32px;padding:0;border-radius:4px}
-.shopitem{min-height:160px}
-.admin{border:2px solid #ef4444}
-#loginBox{max-width:420px;margin:40px auto}
-.badge{display:inline-block;padding:5px 9px;border-radius:20px;background:#dbeafe;color:#1d4ed8;margin:3px}
-.dark{background:#111827;color:#f8fafc}
-.dark section,.dark .card{background:#1f2937;border-color:#374151}
-body.bigfont{font-size:18px}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f7fb;
+    color:#111827;
+    min-height:100vh;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:25px 15px;
+}
+
+section{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+h1,h2,h3{
+    color:#2563eb;
+    margin-bottom:15px;
+}
+
+button{
+    border:0;
+    background:#2563eb;
+    color:white;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+button.secondary{
+    background:#64748b;
+}
+
+button.danger{
+    background:#ef4444;
+}
+
+button.success{
+    background:#16a34a;
+}
+
+input,select{
+    padding:11px;
+    border:1px solid #cbd5e1;
+    border-radius:9px;
+    width:100%;
+    margin:5px 0 10px;
+}
+
+.row{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:12px;
+}
+
+.card{
+    padding:18px;
+    border:1px solid #e5e7eb;
+    border-radius:15px;
+    text-align:center;
+}
+
+.small{
+    color:#64748b;
+    font-size:14px;
+}
+
+.center{
+    text-align:center;
+}
+
+.hidden{
+    display:none!important;
+}
+
+#gameScreen{
+    text-align:center;
+}
+
+canvas{
+    background:#111827;
+    border-radius:12px;
+    border:4px solid #2563eb;
+    max-width:95vw;
+}
+
+.game-controls{
+    margin:12px;
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.game-info{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin:12px;
+}
+
+.game-info span{
+    background:#dbeafe;
+    color:#1d4ed8;
+    padding:8px 14px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.settings-box{
+    max-width:500px;
+    margin:15px auto;
+    text-align:left;
+}
+
+.touch-controls{
+    display:grid;
+    grid-template-columns:repeat(3,60px);
+    justify-content:center;
+    gap:6px;
+    margin-top:15px;
+}
+
+.touch-controls button{
+    height:55px;
+}
+
+.touch-controls button:nth-child(1){
+    grid-column:2;
+}
+
+.dark{
+    background:#111827;
+    color:#f8fafc;
+}
+
+.dark section,
+.dark .card{
+    background:#1f2937;
+    border-color:#374151;
+}
+
+.dark input,
+.dark select{
+    background:#111827;
+    color:white;
+    border-color:#475569;
+}
 </style>
 </head>
 
 <body>
 
-<header>
-<nav>
-<div class="logo">EasyFlow</div>
-<div class="row">
-<button onclick="show('home')">🏠 Главная</button>
-<button onclick="show('games')">🎮 Игры</button>
-<button onclick="show('profile')">👤 Профиль</button>
-<button onclick="show('shop')">🛍️ Магазин</button>
-<button onclick="show('inventory')">🎒 Инвентарь</button>
-<button onclick="show('achievements')">🏆 Достижения</button>
-<button onclick="show('stats')">📊 Статистика</button>
-<button onclick="show('settings')">⚙️</button>
-<button id="adminBtn" class="hidden" onclick="show('admin')">🛡️ Admin</button>
-</div>
-</nav>
-</header>
-
 <main class="container">
 
-<section id="home">
-<div class="center">
-<h1>🎮 EasyFlow</h1>
-<p class="small">Игры, достижения, EasyStars и личный профиль</p>
+<section id="gameMenu">
+
+<h1>🎮 EasyFlow Games</h1>
+
+<p class="small">
+Расширенный игровой центр EasyFlow
+</p>
+
 <br>
+
 <div class="grid">
-<div class="card"><div class="stat" id="homeStars">0</div>⭐ EasyStars</div>
-<div class="card"><div class="stat" id="homeGames">0</div>🎮 Игр сыграно</div>
-<div class="card"><div class="stat" id="homeWins">0</div>🏆 Побед</div>
-<div class="card"><div class="stat" id="homeAchievements">0</div>🏅 Достижений</div>
-</div>
+
+<div class="card">
+<h3>🧱 Тетрис</h3>
+<p class="small">Линии, уровни и скорость.</p>
 <br>
-<button onclick="show('games')">🎮 Играть</button>
-<button onclick="show('profile')">👤 Мой профиль</button>
+<button onclick="openGameSettings('tetris')">Играть</button>
 </div>
+
+<div class="card">
+<h3>💣 Сапёр</h3>
+<p class="small">Разные размеры поля и количество мин.</p>
+<br>
+<button onclick="openGameSettings('mines')">Играть</button>
+</div>
+
+<div class="card">
+<h3>🐦 Flappy Bird</h3>
+<p class="small">Настрой скорость и размер прохода.</p>
+<br>
+<button onclick="openGameSettings('flappy')">Играть</button>
+</div>
+
+<div class="card">
+<h3>🐍 Змейка</h3>
+<p class="small">Скорость, поле и препятствия.</p>
+<br>
+<button onclick="openGameSettings('snake')">Играть</button>
+</div>
+
+<div class="card">
+<h3>🎯 Кликер</h3>
+<p class="small">Настрой время и множители.</p>
+<br>
+<button onclick="openGameSettings('clicker')">Играть</button>
+</div>
+
+<div class="card">
+<h3>🧠 Память</h3>
+<p class="small">Количество пар и время.</p>
+<br>
+<button onclick="openGameSettings('memory')">Играть</button>
+</div>
+
+<div class="card">
+<h3>🔢 2048</h3>
+<p class="small">Размер поля и цель.</p>
+<br>
+<button onclick="openGameSettings('2048')">Играть</button>
+</div>
+
+<div class="card">
+<h3>🏓 Pong</h3>
+<p class="small">Скорость мяча и сложность AI.</p>
+<br>
+<button onclick="openGameSettings('pong')">Играть</button>
+</div>
+
+</div>
+
 </section>
 
-<section id="auth">
-<div id="loginBox">
-<h2>👤 Регистрация и вход</h2>
-<input id="username" placeholder="Имя пользователя">
-<input id="password" type="password" placeholder="Пароль">
+
+<!-- НАСТРОЙКИ ИГРЫ -->
+
+<section id="settingsScreen" class="hidden">
+
+<h2 id="settingsTitle">⚙️ Настройки</h2>
+
+<div class="settings-box">
+
+<label>🎚️ Сложность</label>
+
+<select id="difficulty">
+<option value="easy">Лёгкая</option>
+<option value="normal" selected>Обычная</option>
+<option value="hard">Сложная</option>
+<option value="extreme">Экстремальная</option>
+</select>
+
+<div id="extraSettings"></div>
+
+<br>
+
 <div class="row">
-<button onclick="register()">📝 Регистрация</button>
-<button onclick="login()">🔑 Войти</button>
-<button onclick="logout()" class="hidden" id="logoutBtn">Выйти</button>
+
+<button onclick="launchSelectedGame()">
+🎮 Начать
+</button>
+
+<button class="secondary" onclick="backToMenu()">
+← Назад
+</button>
+
 </div>
-<p id="authMsg" class="small"></p>
+
 </div>
+
 </section>
 
-<section id="games" class="hidden">
-<h2>🎮 8 игр</h2>
-<div class="grid">
 
-<div class="card"><h3>🧱 Тетрис</h3><p class="small">Собирай линии.</p><br><button onclick="startGame('tetris')">Играть</button></div>
-<div class="card"><h3>💣 Сапёр</h3><p class="small">Не попади на мину.</p><br><button onclick="startGame('mines')">Играть</button></div>
-<div class="card"><h3>🐦 Flappy Bird</h3><p class="small">Лети между трубами.</p><br><button onclick="startGame('flappy')">Играть</button></div>
-<div class="card"><h3>🐍 Змейка</h3><p class="small">Собирай еду.</p><br><button onclick="startGame('snake')">Играть</button></div>
-<div class="card"><h3>🎯 Кликер</h3><p class="small">Набери максимум кликов.</p><br><button onclick="startGame('clicker')">Играть</button></div>
-<div class="card"><h3>🧠 Память</h3><p class="small">Найди одинаковые пары.</p><br><button onclick="startGame('memory')">Играть</button></div>
-<div class="card"><h3>🔢 2048</h3><p class="small">Объединяй числа.</p><br><button onclick="startGame('2048')">Играть</button></div>
-<div class="card"><h3>🏓 Pong</h3><p class="small">Победи компьютер.</p><br><button onclick="startGame('pong')">Играть</button></div>
-
-</div>
-</section>
+<!-- ИГРА -->
 
 <section id="gameScreen" class="hidden">
+
 <h2 id="gameTitle"></h2>
+
+<div class="game-info">
+
+<span>⭐ Очки: <b id="score">0</b></span>
+<span>🏆 Рекорд: <b id="record">0</b></span>
+<span>❤️ Жизни: <b id="lives">3</b></span>
+
+</div>
+
 <div id="game"></div>
-<br>
-<button onclick="stopGame()">← К играм</button>
-<button onclick="restartCurrentGame()">🔄 Заново</button>
-</section>
 
-<section id="profile" class="hidden">
-<h2>👤 Профиль</h2>
-<div class="card">
-<div style="font-size:60px" id="avatar">😀</div>
-<h2 id="profileName">Гость</h2>
-<p>⭐ EasyStars: <b id="profileStars">0</b></p>
-<p>🎮 Игр: <b id="profileGames">0</b></p>
-<p>🏆 Побед: <b id="profileWins">0</b></p>
-</div>
-</section>
+<div class="game-controls">
 
-<section id="stats" class="hidden">
-<h2>📊 Статистика</h2>
-<div class="grid">
-<div class="card">🎮 Игр<div class="stat" id="sGames">0</div></div>
-<div class="card">🏆 Побед<div class="stat" id="sWins">0</div></div>
-<div class="card">⭐ Звёзд<div class="stat" id="sStars">0</div></div>
-<div class="card">🏅 Достижений<div class="stat" id="sAch">0</div></div>
-</div>
-<br>
-<div id="gameStats"></div>
-</section>
+<button onclick="pauseGame()" id="pauseBtn">
+⏸ Пауза
+</button>
 
-<section id="achievements" class="hidden">
-<h2>🏆 Достижения</h2>
-<div id="achievementList" class="grid"></div>
-</section>
+<button onclick="restartGame()">
+🔄 Заново
+</button>
 
-<section id="shop" class="hidden">
-<h2>🛍️ Магазин</h2>
-<p>⭐ Баланс: <b id="shopStars">0</b></p><br>
-<div id="shopList" class="grid"></div>
-</section>
+<button class="danger" onclick="backToMenu()">
+← Выйти
+</button>
 
-<section id="inventory" class="hidden">
-<h2>🎒 Инвентарь</h2>
-<div id="inventoryList" class="grid"></div>
-</section>
+</div>
 
-<section id="settings" class="hidden">
-<h2>⚙️ Настройки</h2>
-<label>Тема</label>
-<select id="theme" onchange="saveSettings()">
-<option value="light">☀️ Светлая</option>
-<option value="dark">🌙 Тёмная</option>
-</select>
-<label>Размер шрифта</label>
-<select id="font" onchange="saveSettings()">
-<option value="normal">Обычный</option>
-<option value="big">Большой</option>
-</select>
-<label>Звук</label>
-<select id="sound" onchange="saveSettings()">
-<option value="on">🔊 Включён</option>
-<option value="off">🔇 Выключен</option>
-</select>
-</section>
-
-<section id="admin" class="hidden admin">
-<h2>🛡️ Admin Panel</h2>
-<div class="grid">
-<div class="card">
-<h3>👥 Пользователи</h3>
-<div id="usersList"></div>
-</div>
-<div class="card">
-<h3>📈 Общая статистика сайта</h3>
-<p>Пользователей: <b id="totalUsers">0</b></p>
-<p>Игр сыграно: <b id="totalGames">0</b></p>
-<p>Побед: <b id="totalWins">0</b></p>
-<p>Звёзд у пользователей: <b id="totalStars">0</b></p>
-</div>
-</div>
-<br>
-<h3>⭐ Управление звёздами</h3>
-<div class="row">
-<input id="adminUser" placeholder="Имя пользователя">
-<input id="adminStars" type="number" placeholder="Количество">
-<button onclick="adminAddStars()">Добавить</button>
-<button onclick="adminRemoveStars()">Убрать</button>
-</div>
-<br>
-<h3>🛍️ Управление магазином</h3>
-<div class="row">
-<input id="newItem" placeholder="Название предмета">
-<input id="newPrice" type="number" placeholder="Цена">
-<button onclick="adminAddItem()">Добавить товар</button>
-</div>
-<br>
-<h3>🏆 Управление достижениями и рекордами</h3>
-<button onclick="resetAllRecords()">♻️ Сбросить рекорды</button>
 </section>
 
 </main>
 
+
 <script>
-/* =========================
-   ДАННЫЕ
-========================= */
 
-const ADMIN="admin";
-let currentUser=localStorage.getItem("easyflow_current")||null;
+/* =====================================================
+   GAME ENGINE
+===================================================== */
 
-const defaultShop=[
-["Шапка 🎩",20,"accessory"],["Очки 🕶️",25,"accessory"],
-["Корона 👑",50,"accessory"],["Кепка 🧢",30,"accessory"],
-["Усы 🥸",35,"accessory"],["Наушники 🎧",40,"accessory"],
-["Крылья 🪽",60,"accessory"],["Галстук 👔",30,"accessory"],
-["Рюкзак 🎒",45,"accessory"],["Маска 😎",55,"accessory"],
-["Огонь 🔥",50,"effect"],["Молния ⚡",50,"effect"],
-["Снег ❄️",40,"effect"],["Радуга 🌈",70,"effect"],
-["Звёзды ✨",60,"effect"],["Неон 💎",80,"effect"]
-];
+let currentGame=null;
+let gameConfig={};
+let gameTimer=null;
+let animation=null;
+let paused=false;
 
-const achievements=[
-["first","🎮 Первая игра","Сыграть 1 игру",1],
-["winner","🏆 Победитель","Одержать первую победу",1],
-["stars","⭐ Звёздный","Получить 50 EasyStars",50],
-["master","👑 Мастер","Сыграть 10 игр",10],
-["legend","🔥 Легенда","Сыграть 50 игр",50],
-["collector","🎒 Коллекционер","Купить предмет",1]
-];
+let scores={};
 
-function users(){
-return JSON.parse(localStorage.getItem("easyflow_users")||"{}");
+try{
+    scores=JSON.parse(localStorage.getItem("easyflow_game_records")||"{}");
+}catch(e){
+    scores={};
 }
-function saveUsers(u){
-localStorage.setItem("easyflow_users",JSON.stringify(u));
-}
-function user(){
-if(!currentUser)return null;
-let u=users();
-return u[currentUser]||null;
-}
-function register(){
-let n=document.getElementById("username").value.trim();
-let p=document.getElementById("password").value;
-if(!n||!p)return msg("Заполни имя и пароль");
-let u=users();
-if(u[n])return msg("Такой пользователь уже существует");
-u[n]={
-password:p,stars:0,games:0,wins:0,
-achievements:[],inventory:[],records:{}
+
+
+const gameNames={
+    tetris:"🧱 Тетрис",
+    mines:"💣 Сапёр",
+    flappy:"🐦 Flappy Bird",
+    snake:"🐍 Змейка",
+    clicker:"🎯 Кликер",
+    memory:"🧠 Память",
+    "2048":"🔢 2048",
+    pong:"🏓 Pong"
 };
-saveUsers(u);
-currentUser=n;
-localStorage.setItem("easyflow_current",n);
-msg("Регистрация успешна!");
-refresh();
-}
-function login(){
-let n=document.getElementById("username").value.trim();
-let p=document.getElementById("password").value;
-let u=users();
-if(!u[n]||u[n].password!==p)return msg("Неверное имя или пароль");
-currentUser=n;
-localStorage.setItem("easyflow_current",n);
-msg("Вход выполнен!");
-refresh();
-}
-function logout(){
-currentUser=null;
-localStorage.removeItem("easyflow_current");
-refresh();
-show("home");
-}
-function msg(t){
-document.getElementById("authMsg").textContent=t;
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function hideAll(){
+
+    document
+    .querySelectorAll("section")
+    .forEach(x=>x.classList.add("hidden"));
+
 }
 
-/* =========================
-   НАВИГАЦИЯ
-========================= */
+function backToMenu(){
 
-const sections=["home","auth","games","gameScreen","profile","stats","achievements","shop","inventory","settings","admin"];
-function show(id){
-sections.forEach(x=>document.getElementById(x).classList.add("hidden"));
-document.getElementById(id).classList.remove("hidden");
-if(id==="profile"||id==="stats"||id==="achievements"||id==="shop"||id==="inventory"||id==="admin")refresh();
-}
-function refresh(){
-let u=user();
-if(!u){
-document.getElementById("auth").classList.remove("hidden");
-document.getElementById("logoutBtn").classList.add("hidden");
-}else{
-document.getElementById("auth").classList.add("hidden");
-document.getElementById("logoutBtn").classList.remove("hidden");
-}
-document.getElementById("adminBtn").classList.toggle("hidden",currentUser!==ADMIN);
-if(u){
-document.getElementById("profileName").textContent=currentUser;
-document.getElementById("profileStars").textContent=u.stars;
-document.getElementById("profileGames").textContent=u.games;
-document.getElementById("profileWins").textContent=u.wins;
-document.getElementById("homeStars").textContent=u.stars;
-document.getElementById("homeGames").textContent=u.games;
-document.getElementById("homeWins").textContent=u.wins;
-document.getElementById("homeAchievements").textContent=u.achievements.length;
-document.getElementById("sGames").textContent=u.games;
-document.getElementById("sWins").textContent=u.wins;
-document.getElementById("sStars").textContent=u.stars;
-document.getElementById("sAch").textContent=u.achievements.length;
-}
-renderAchievements();
-renderShop();
-renderInventory();
-renderAdmin();
+    stopEverything();
+
+    hideAll();
+
+    document
+    .getElementById("gameMenu")
+    .classList.remove("hidden");
+
 }
 
-/* =========================
-   НАГРАДЫ / STARS
-========================= */
 
-function addStars(n){
-let u=user();if(!u)return;
-u.stars+=n;
-saveUser(u);
-checkAchievements();
-refresh();
-}
-function saveUser(u){
-let a=users();a[currentUser]=u;saveUsers(a);
-}
-function checkAchievements(){
-let u=user();if(!u)return;
-function give(id){
-if(!u.achievements.includes(id))u.achievements.push(id);
-}
-if(u.games>=1)give("first");
-if(u.wins>=1)give("winner");
-if(u.stars>=50)give("stars");
-if(u.games>=10)give("master");
-if(u.games>=50)give("legend");
-if(u.inventory.length>=1)give("collector");
-saveUser(u);
-}
-function renderAchievements(){
-let el=document.getElementById("achievementList");
-if(!el)return;
-let u=user();
-el.innerHTML=achievements.map(a=>{
-let ok=u&&u.achievements.includes(a[0]);
-return `<div class="card"><h3>${a[1]}</h3><p>${a[2]}</p><br><span class="badge">${ok?"✅ Получено":"🔒 Не получено"}</span></div>`;
-}).join("");
+function stopEverything(){
+
+    clearInterval(gameTimer);
+
+    if(animation)
+        cancelAnimationFrame(animation);
+
+    document.onkeydown=null;
+
+    gameTimer=null;
+    animation=null;
+    paused=false;
+
 }
 
-/* =========================
-   МАГАЗИН
-========================= */
 
-function shopData(){
-return JSON.parse(localStorage.getItem("easyflow_shop")||JSON.stringify(defaultShop));
-}
-function saveShop(x){
-localStorage.setItem("easyflow_shop",JSON.stringify(x));
-}
-function buy(i){
-let u=user(),s=shopData();
-if(!u)return alert("Сначала войди");
-let item=s[i];
-if(u.inventory.includes(item[0]))return alert("Уже куплено");
-if(u.stars<item[1])return alert("Недостаточно EasyStars");
-u.stars-=item[1];
-u.inventory.push(item[0]);
-saveUser(u);
-checkAchievements();
-refresh();
-alert("Покупка выполнена!");
-}
-function renderShop(){
-let el=document.getElementById("shopList");
-if(!el)return;
-let u=user(),s=shopData();
-document.getElementById("shopStars").textContent=u?u.stars:0;
-el.innerHTML=s.map((x,i)=>`
-<div class="card shopitem">
-<h3>${x[0]}</h3>
-<p>${x[2]==="effect"?"✨ Эффект":"👤 Аксессуар"}</p>
-<p>⭐ ${x[1]}</p><br>
-<button onclick="buy(${i})">${u&&u.inventory.includes(x[0])?"✅ Куплено":"Купить"}</button>
-</div>`).join("");
-}
-function renderInventory(){
-let el=document.getElementById("inventoryList");
-if(!el)return;
-let u=user();
-el.innerHTML=u&&u.inventory.length?u.inventory.map(x=>`<div class="card"><h3>${x}</h3><button onclick="equip('${x.replace(/'/g,"\\'")}')">🎒 Экипировать</button></div>`).join(""):`<p>Инвентарь пуст.</p>`;
-}
-function equip(x){
-localStorage.setItem("easyflow_equipped",x);
-alert("Экипировано: "+x);
+/* =====================================================
+   GAME SETTINGS
+===================================================== */
+
+function openGameSettings(type){
+
+    currentGame=type;
+
+    hideAll();
+
+    document
+    .getElementById("settingsScreen")
+    .classList.remove("hidden");
+
+    document
+    .getElementById("settingsTitle")
+    .textContent=
+        "⚙️ "+gameNames[type]+" — настройки";
+
+    renderExtraSettings(type);
+
 }
 
-/* =========================
-   НАСТРОЙКИ
-========================= */
 
-function saveSettings(){
-let d={
-theme:document.getElementById("theme").value,
-font:document.getElementById("font").value,
-sound:document.getElementById("sound").value
-};
-localStorage.setItem("easyflow_settings",JSON.stringify(d));
-applySettings();
-}
-function applySettings(){
-let d=JSON.parse(localStorage.getItem("easyflow_settings")||"{}");
-document.body.classList.toggle("dark",d.theme==="dark");
-document.body.classList.toggle("bigfont",d.font==="big");
-}
-function loadSettings(){
-let d=JSON.parse(localStorage.getItem("easyflow_settings")||"{}");
-document.getElementById("theme").value=d.theme||"light";
-document.getElementById("font").value=d.font||"normal";
-document.getElementById("sound").value=d.sound||"on";
-applySettings();
+function renderExtraSettings(type){
+
+    let el=document.getElementById("extraSettings");
+
+    if(type==="tetris"){
+
+        el.innerHTML=`
+
+        <label>⚡ Скорость падения</label>
+
+        <select id="speed">
+            <option value="900">Медленная</option>
+            <option value="600" selected>Обычная</option>
+            <option value="350">Быстрая</option>
+            <option value="180">Очень быстрая</option>
+        </select>
+
+        <label>🎨 Цвета</label>
+
+        <select id="themeGame">
+            <option value="classic">Классика</option>
+            <option value="neon">Неон</option>
+        </select>
+
+        `;
+
+    }
+
+    if(type==="mines"){
+
+        el.innerHTML=`
+
+        <label>📐 Размер поля</label>
+
+        <select id="mineSize">
+            <option value="8">8 × 8</option>
+            <option value="10" selected>10 × 10</option>
+            <option value="12">12 × 12</option>
+            <option value="16">16 × 16</option>
+        </select>
+
+        <label>💣 Количество мин</label>
+
+        <select id="mineCount">
+            <option value="8">8</option>
+            <option value="15" selected>15</option>
+            <option value="25">25</option>
+            <option value="40">40</option>
+        </select>
+
+        `;
+
+    }
+
+    if(type==="flappy"){
+
+        el.innerHTML=`
+
+        <label>🚀 Скорость</label>
+
+        <select id="flappySpeed">
+            <option value="2">Медленная</option>
+            <option value="3" selected>Обычная</option>
+            <option value="4">Быстрая</option>
+            <option value="5">Экстремальная</option>
+        </select>
+
+        <label>🚪 Размер прохода</label>
+
+        <select id="gap">
+            <option value="190">Большой</option>
+            <option value="160" selected>Средний</option>
+            <option value="130">Маленький</option>
+            <option value="105">Очень маленький</option>
+        </select>
+
+        `;
+
+    }
+
+    if(type==="snake"){
+
+        el.innerHTML=`
+
+        <label>⚡ Скорость змейки</label>
+
+        <select id="snakeSpeed">
+            <option value="180">Медленная</option>
+            <option value="120" selected>Обычная</option>
+            <option value="80">Быстрая</option>
+            <option value="50">Экстремальная</option>
+        </select>
+
+        <label>📐 Размер поля</label>
+
+        <select id="snakeSize">
+            <option value="15">15 × 15</option>
+            <option value="20" selected>20 × 20</option>
+            <option value="25">25 × 25</option>
+        </select>
+
+        `;
+
+    }
+
+    if(type==="clicker"){
+
+        el.innerHTML=`
+
+        <label>⏱️ Время игры</label>
+
+        <select id="clickTime">
+            <option value="10">10 секунд</option>
+            <option value="15" selected>15 секунд</option>
+            <option value="30">30 секунд</option>
+            <option value="60">60 секунд</option>
+        </select>
+
+        <label>⭐ Множитель</label>
+
+        <select id="clickMultiplier">
+            <option value="1">×1</option>
+            <option value="2">×2</option>
+            <option value="3">×3</option>
+        </select>
+
+        `;
+
+    }
+
+    if(type==="memory"){
+
+        el.innerHTML=`
+
+        <label>🧠 Количество пар</label>
+
+        <select id="memoryPairs">
+            <option value="6">6 пар</option>
+            <option value="8" selected>8 пар</option>
+            <option value="10">10 пар</option>
+            <option value="12">12 пар</option>
+        </select>
+
+        `;
+
+    }
+
+    if(type==="2048"){
+
+        el.innerHTML=`
+
+        <label>📐 Размер поля</label>
+
+        <select id="size2048">
+            <option value="3">3 × 3</option>
+            <option value="4" selected>4 × 4</option>
+            <option value="5">5 × 5</option>
+        </select>
+
+        <label>🎯 Цель</label>
+
+        <select id="target2048">
+            <option value="512">512</option>
+            <option value="1024">1024</option>
+            <option value="2048" selected>2048</option>
+            <option value="4096">4096</option>
+        </select>
+
+        `;
+
+    }
+
+    if(type==="pong"){
+
+        el.innerHTML=`
+
+        <label>🤖 Сложность компьютера</label>
+
+        <select id="ai">
+            <option value="2">Лёгкая</option>
+            <option value="3" selected>Обычная</option>
+            <option value="4">Сложная</option>
+            <option value="5">Экстремальная</option>
+        </select>
+
+        <label>🚀 Скорость мяча</label>
+
+        <select id="ballSpeed">
+            <option value="3">Медленная</option>
+            <option value="4" selected>Обычная</option>
+            <option value="6">Быстрая</option>
+            <option value="8">Экстремальная</option>
+        </select>
+
+        `;
+
+    }
+
 }
 
-/* =========================
-   ИГРОВОЙ ДВИЖОК
-========================= */
 
-let currentGame=null,gameTimer=null,gameState=null;
+/* =====================================================
+   START
+===================================================== */
 
-function startGame(type){
-if(!user())return alert("Сначала зарегистрируйся или войди.");
-currentGame=type;
-show("gameScreen");
-let names={
-tetris:"🧱 Тетрис",mines:"💣 Сапёр",flappy:"🐦 Flappy Bird",
-snake:"🐍 Змейка",clicker:"🎯 Кликер",memory:"🧠 Память",
-"2048":"🔢 2048",pong:"🏓 Pong"
-};
-document.getElementById("gameTitle").textContent=names[type];
-clearInterval(gameTimer);
-document.getElementById("game").innerHTML="";
-if(type==="tetris")tetris();
-if(type==="mines")mines();
-if(type==="flappy")flappy();
-if(type==="snake")snake();
-if(type==="clicker")clicker();
-if(type==="memory")memory();
-if(type==="2048")game2048();
-if(type==="pong")pong();
-}
-function stopGame(){
-clearInterval(gameTimer);
-if(gameState?.keys)document.onkeydown=null;
-currentGame=null;
-show("games");
-}
-function restartCurrentGame(){
-if(currentGame)startGame(currentGame);
-}
-function played(win=false,stars=1,record=0){
-let u=user();if(!u)return;
-u.games++;
-if(win)u.wins++;
-u.stars+=stars;
-if(currentGame){
-u.records[currentGame]=Math.max(Number(u.records[currentGame]||0),Number(record||0));
-}
-saveUser(u);checkAchievements();refresh();
-}
+function launchSelectedGame(){
 
-/* =========================
-   FLAPPY BIRD
-========================= */
+    stopEverything();
 
-function flappy(){
-document.getElementById("game").innerHTML=`
-<canvas id="fl" width="400" height="600"></canvas>
-<div class="game-controls"><button onclick="flap()">🐦 Прыжок</button></div>
-<p>Пробел / ↑ / клик — прыжок</p>`;
-let c=document.getElementById("fl"),x=c.getContext("2d");
-let b={x:70,y:280,v:0},pipes=[],score=0,run=true,last=0,t=0;
-function jump(){if(!run)return;b.v=-7}
-window.flap=jump;
-c.onclick=jump;
-document.onkeydown=e=>{if(e.code==="Space"||e.key==="ArrowUp"){e.preventDefault();jump()}};
-function loop(time){
-if(!run)return;
-let d=time-last;last=time;t+=d;
-b.v+=.42;b.y+=b.v;
-if(t>1400){let top=60+Math.random()*300;pipes.push({x:400,top,pass:false});t=0}
-x.fillStyle="#7dd3fc";x.fillRect(0,0,400,600);
-x.fillStyle="#22c55e";
-pipes.forEach(p=>{
-p.x-=2.5;
-x.fillRect(p.x,0,60,p.top);
-x.fillRect(p.x,p.top+160,60,600);
-if(!p.pass&&p.x<70){p.pass=true;score++}
-if(b.x+28>p.x&&b.x<p.x+60&&(b.y<p.top||b.y+22>p.top+160))over();
-});
-pipes=pipes.filter(p=>p.x>-70);
-x.fillStyle="#facc15";x.beginPath();x.arc(b.x+15,b.y+12,15,0,7);x.fill();
-x.fillStyle="#fff";x.beginPath();x.arc(b.x+20,b.y+7,5,0,7);x.fill();
-x.fillStyle="#111";x.beginPath();x.arc(b.x+21,b.y+7,2,0,7);x.fill();
-x.fillStyle="#fff";x.font="30px Arial";x.fillText(score,190,45);
-if(b.y<0||b.y>575)over();
-requestAnimationFrame(loop);
-}
-function over(){if(!run)return;run=false;played(false,Math.floor(score/3),score);alert("Игра окончена! Счёт: "+score)}
-requestAnimationFrame(loop);
-}
+    let difficulty=
+        document.getElementById("difficulty").value;
 
-/* =========================
-   САПЁР
-========================= */
+    gameConfig={difficulty:difficulty};
 
-function mines(){
-let size=10,m=10,cells=[],started=false,over=false,time=0;
-document.getElementById("game").innerHTML=`<div class="game-controls"><button onclick="startGame('mines')">🔄 Новая игра</button></div><div id="mb" class="mineboard"></div><p id="mm">Открой клетку</p>`;
-let board=document.getElementById("mb");
-board.style.gridTemplateColumns=`repeat(${size},32px)`;
-for(let i=0;i<100;i++)cells.push({mine:false,open:false,flag:false,n:0});
-function neigh(i){let a=[],r=Math.floor(i/size),c=i%size;for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){let R=r+dr,C=c+dc;if((dr||dc)&&R>=0&&R<size&&C>=0&&C<size)a.push(R*size+C)}return a}
-function setup(first){
-let a=[...Array(100).keys()].filter(i=>i!==first);
-a.sort(()=>Math.random()-.5);
-a.slice(0,m).forEach(i=>cells[i].mine=true);
-cells.forEach((z,i)=>z.n=z.mine?0:neigh(i).filter(j=>cells[j].mine).length);
-started=true;
-gameTimer=setInterval(()=>{time++},1000);
-}
-function open(i){
-if(over||cells[i].flag||cells[i].open)return;
-if(!started)setup(i);
-if(cells[i].mine){over=true;cells.forEach(z=>{if(z.mine)z.open=true});render();played(false,0,0);return}
-let q=[i];
-while(q.length){let j=q.pop();if(cells[j].open||cells[j].mine||cells[j].flag)continue;cells[j].open=true;if(cells[j].n===0)neigh(j).forEach(k=>q.push(k))}
-render();
-if(cells.filter(z=>!z.mine&&!z.open).length===0){over=true;clearInterval(gameTimer);played(true,Math.max(5,Math.floor(100/Math.max(time,1))),1000-time);document.getElementById("mm").textContent="🏆 Победа!"}
-}
-function flag(e,i){e.preventDefault();if(!started||over||cells[i].open)return;cells[i].flag=!cells[i].flag;render()}
-function render(){board.innerHTML="";cells.forEach((z,i)=>{let b=document.createElement("button");b.className="tcell";b.textContent=z.open?(z.mine?"💣":z.n||""):z.flag?"🚩":"";b.onclick=()=>open(i);b.oncontextmenu=e=>flag(e,i);board.appendChild(b)})}
-render();
+    if(currentGame==="tetris"){
+
+        gameConfig.speed=
+            Number(document.getElementById("speed").value);
+
+        tetris();
+
+    }
+
+    if(currentGame==="mines"){
+
+        gameConfig.size=
+            Number(document.getElementById("mineSize").value);
+
+        gameConfig.mines=
+            Number(document.getElementById("mineCount").value);
+
+        mines();
+
+    }
+
+    if(currentGame==="flappy"){
+
+        gameConfig.speed=
+            Number(document.getElementById("flappySpeed").value);
+
+        gameConfig.gap=
+            Number(document.getElementById("gap").value);
+
+        flappy();
+
+    }
+
+    if(currentGame==="snake"){
+
+        gameConfig.speed=
+            Number(document.getElementById("snakeSpeed").value);
+
+        gameConfig.size=
+            Number(document.getElementById("snakeSize").value);
+
+        snake();
+
+    }
+
+    if(currentGame==="clicker"){
+
+        gameConfig.time=
+            Number(document.getElementById("clickTime").value);
+
+        gameConfig.multiplier=
+            Number(document.getElementById("clickMultiplier").value);
+
+        clicker();
+
+    }
+
+    if(currentGame==="memory"){
+
+        gameConfig.pairs=
+            Number(document.getElementById("memoryPairs").value);
+
+        memory();
+
+    }
+
+    if(currentGame==="2048"){
+
+        gameConfig.size=
+            Number(document.getElementById("size2048").value);
+
+        gameConfig.target=
+            Number(document.getElementById("target2048").value);
+
+        game2048();
+
+    }
+
+    if(currentGame==="pong"){
+
+        gameConfig.ai=
+            Number(document.getElementById("ai").value);
+
+        gameConfig.ballSpeed=
+            Number(document.getElementById("ballSpeed").value);
+
+        pong();
+
+    }
+
 }
 
-/* =========================
-   ТЕТРИС
-========================= */
+
+/* =====================================================
+   GAME SCREEN
+===================================================== */
+
+function prepareGame(title){
+
+    hideAll();
+
+    document
+    .getElementById("gameScreen")
+    .classList.remove("hidden");
+
+    document
+    .getElementById("gameTitle")
+    .textContent=title;
+
+    document
+    .getElementById("score")
+    .textContent=0;
+
+    document
+    .getElementById("record")
+    .textContent=
+        scores[currentGame]||0;
+
+    document
+    .getElementById("lives")
+    .textContent=3;
+
+    document
+    .getElementById("game")
+    .innerHTML="";
+
+}
+
+
+function setScore(v){
+
+    document
+    .getElementById("score")
+    .textContent=v;
+
+}
+
+
+function finishGame(score=0,win=false){
+
+    if(score>(scores[currentGame]||0)){
+
+        scores[currentGame]=score;
+
+        localStorage.setItem(
+            "easyflow_game_records",
+            JSON.stringify(scores)
+        );
+
+    }
+
+    setScore(score);
+
+    setTimeout(()=>{
+
+        alert(
+            win
+            ?"🏆 Победа!\nСчёт: "+score
+            :"Игра окончена!\nСчёт: "+score
+        );
+
+    },100);
+
+}
+
+
+/* =====================================================
+   PAUSE
+===================================================== */
+
+function pauseGame(){
+
+    paused=!paused;
+
+    document
+    .getElementById("pauseBtn")
+    .textContent=
+        paused?"▶ Продолжить":"⏸ Пауза";
+
+}
+
+
+/* =====================================================
+   TETRIS
+===================================================== */
 
 function tetris(){
-document.getElementById("game").innerHTML=`<canvas id="tc" width="300" height="600"></canvas><p id="ts">Очки: 0</p>`;
-let c=document.getElementById("tc"),x=c.getContext("2d"),W=10,H=20,a=Array.from({length:H},()=>Array(W).fill(0)),score=0,over=false;
-let shapes=[
-[[1,1,1,1]],[[2,2],[2,2]],[[0,3,0],[3,3,3]],[[4,0,0],[4,4,4]],[[0,0,5],[5,5,5]],[[0,6,6],[6,6,0]],[[7,7,0],[0,7,7]]
-],colors=["","#ef4444","#eab308","#8b5cf6","#3b82f6","#f97316","#22c55e","#06b6d4"];
-let p={m:null,x:3,y:0};
-function newP(){p.m=JSON.parse(JSON.stringify(shapes[Math.floor(Math.random()*7)]));p.x=Math.floor(W/2-p.m[0].length/2);p.y=0;if(hit())end()}
-function hit(){for(let y=0;y<p.m.length;y++)for(let xx=0;xx<p.m[y].length;xx++)if(p.m[y][xx]&&(p.x+xx<0||p.x+xx>=W||p.y+y>=H||(p.y+y>=0&&a[p.y+y][p.x+xx])))return true;return false}
-function merge(){p.m.forEach((r,y)=>r.forEach((v,xx)=>{if(v&&p.y+y>=0)a[p.y+y][p.x+xx]=v}))}
-function clear(){for(let y=H-1;y>=0;y--)if(a[y].every(Boolean)){a.splice(y,1);a.unshift(Array(W).fill(0));score+=100;y++}}
-function draw(){x.fillStyle="#111827";x.fillRect(0,0,300,600);for(let y=0;y<H;y++)for(let xx=0;xx<W;xx++){if(a[y][xx]){x.fillStyle=colors[a[y][xx]];x.fillRect(xx*30,y*30,29,29)}}p.m.forEach((r,y)=>r.forEach((v,xx)=>{if(v){x.fillStyle=colors[v];x.fillRect((p.x+xx)*30,(p.y+y)*30,29,29)}}));document.getElementById("ts").textContent="Очки: "+score}
-function rot(){let old=p.m;p.m=p.m[0].map((_,i)=>p.m.map(r=>r[i]).reverse());if(hit())p.m=old}
-function drop(){p.y++;if(hit()){p.y--;merge();clear();newP()}draw()}
-document.onkeydown=e=>{if(e.key==="ArrowLeft"){p.x--;if(hit())p.x++}if(e.key==="ArrowRight"){p.x++;if(hit())p.x--}if(e.key==="ArrowUp")rot();if(e.key==="ArrowDown")drop();if(e.code==="Space"){while(!hit())p.y++;p.y--;merge();clear();newP()}draw()};
-newP();draw();gameTimer=setInterval(drop,600);
-function end(){if(over)return;over=true;clearInterval(gameTimer);played(false,Math.floor(score/100),score);alert("Тетрис окончен: "+score)}
+
+    prepareGame("🧱 Тетрис");
+
+    let canvas=document.createElement("canvas");
+
+    canvas.width=300;
+    canvas.height=600;
+
+    document
+    .getElementById("game")
+    .appendChild(canvas);
+
+    let ctx=canvas.getContext("2d");
+
+    const W=10;
+    const H=20;
+
+    let board=
+        Array.from(
+            {length:H},
+            ()=>Array(W).fill(0)
+        );
+
+    const shapes=[
+
+        [[1,1,1,1]],
+
+        [[2,2],[2,2]],
+
+        [[0,3,0],[3,3,3]],
+
+        [[4,0,0],[4,4,4]],
+
+        [[0,0,5],[5,5,5]],
+
+        [[0,6,6],[6,6,0]],
+
+        [[7,7,0],[0,7,7]]
+
+    ];
+
+    const colors=[
+        "",
+        "#ef4444",
+        "#eab308",
+        "#8b5cf6",
+        "#3b82f6",
+        "#f97316",
+        "#22c55e",
+        "#06b6d4"
+    ];
+
+    let piece;
+    let score=0;
+    let gameOver=false;
+
+    function newPiece(){
+
+        piece={
+            matrix:
+                JSON.parse(
+                    JSON.stringify(
+                        shapes[
+                            Math.floor(
+                                Math.random()*shapes.length
+                            )
+                        ]
+                    )
+                ),
+
+            x:3,
+            y:0
+        };
+
+        if(hit())
+            end();
+
+    }
+
+
+    function hit(){
+
+        for(let y=0;y<piece.matrix.length;y++){
+
+            for(let x=0;x<piece.matrix[y].length;x++){
+
+                if(
+                    piece.matrix[y][x] &&
+                    (
+                        piece.x+x<0 ||
+                        piece.x+x>=W ||
+                        piece.y+y>=H ||
+                        (
+                            piece.y+y>=0 &&
+                            board[piece.y+y][piece.x+x]
+                        )
+                    )
+                )
+                    return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+
+    function merge(){
+
+        piece.matrix.forEach((row,y)=>{
+
+            row.forEach((v,x)=>{
+
+                if(v)
+                    board[piece.y+y][piece.x+x]=v;
+
+            });
+
+        });
+
+    }
+
+
+    function clearLines(){
+
+        let lines=0;
+
+        for(let y=H-1;y>=0;y--){
+
+            if(board[y].every(Boolean)){
+
+                board.splice(y,1);
+
+                board.unshift(
+                    Array(W).fill(0)
+                );
+
+                lines++;
+                y++;
+
+            }
+
+        }
+
+        if(lines===1)score+=100;
+        if(lines===2)score+=300;
+        if(lines===3)score+=600;
+        if(lines>=4)score+=1000;
+
+        setScore(score);
+
+    }
+
+
+    function rotate(){
+
+        let old=piece.matrix;
+
+        piece.matrix=
+            piece.matrix[0]
+            .map((_,i)=>
+                piece.matrix
+                .map(row=>row[i])
+                .reverse()
+            );
+
+        if(hit())
+            piece.matrix=old;
+
+    }
+
+
+    function drop(){
+
+        if(paused||gameOver)
+            return;
+
+        piece.y++;
+
+        if(hit()){
+
+            piece.y--;
+
+            merge();
+
+            clearLines();
+
+            newPiece();
+
+        }
+
+        draw();
+
+    }
+
+
+    function draw(){
+
+        ctx.fillStyle="#111827";
+
+        ctx.fillRect(
+            0,0,
+            canvas.width,
+            canvas.height
+        );
+
+        for(let y=0;y<H;y++){
+
+            for(let x=0;x<W;x++){
+
+                if(board[y][x]){
+
+                    ctx.fillStyle=
+                        colors[board[y][x]];
+
+                    ctx.fillRect(
+                        x*30,
+                        y*30,
+                        29,
+                        29
+                    );
+
+                }
+
+            }
+
+        }
+
+
+        piece.matrix.forEach((row,y)=>{
+
+            row.forEach((v,x)=>{
+
+                if(v){
+
+                    ctx.fillStyle=colors[v];
+
+                    ctx.fillRect(
+                        (piece.x+x)*30,
+                        (piece.y+y)*30,
+                        29,
+                        29
+                    );
+
+                }
+
+            });
+
+        });
+
+    }
+
+
+    function end(){
+
+        if(gameOver)return;
+
+        gameOver=true;
+
+        stopEverything();
+
+        finishGame(score);
+
+    }
+
+
+    document.onkeydown=e=>{
+
+        if(paused||gameOver)return;
+
+        if(e.key==="ArrowLeft"){
+
+            piece.x--;
+
+            if(hit())
+                piece.x++;
+
+        }
+
+        if(e.key==="ArrowRight"){
+
+            piece.x++;
+
+            if(hit())
+                piece.x--;
+
+        }
+
+        if(e.key==="ArrowDown")
+            drop();
+
+        if(e.key==="ArrowUp")
+            rotate();
+
+        if(e.code==="Space"){
+
+            while(!hit())
+                piece.y++;
+
+            piece.y--;
+
+            merge();
+
+            clearLines();
+
+            newPiece();
+
+        }
+
+        draw();
+
+    };
+
+
+    newPiece();
+    draw();
+
+    gameTimer=
+        setInterval(
+            drop,
+            gameConfig.speed||600
+        );
+
 }
 
-/* =========================
-   ЗМЕЙКА
-========================= */
+
+/* =====================================================
+   MINESWEEPER
+===================================================== */
+
+function mines(){
+
+    prepareGame("💣 Сапёр");
+
+    let size=gameConfig.size||10;
+    let mineCount=gameConfig.mines||15;
+
+    let board=
+        document.createElement("div");
+
+    board.style.display="grid";
+    board.style.gridTemplateColumns=
+        `repeat(${size},32px)`;
+    board.style.gap="3px";
+    board.style.justifyContent="center";
+
+    document
+    .getElementById("game")
+    .appendChild(board);
+
+    let cells=[];
+
+    let started=false;
+    let ended=false;
+    let time=0;
+
+    for(let i=0;i<size*size;i++){
+
+        cells.push({
+            mine:false,
+            open:false,
+            flag:false,
+            n:0
+        });
+
+    }
+
+
+    function neighbors(i){
+
+        let result=[];
+
+        let r=Math.floor(i/size);
+        let c=i%size;
+
+        for(let dr=-1;dr<=1;dr++){
+
+            for(let dc=-1;dc<=1;dc++){
+
+                let R=r+dr;
+                let C=c+dc;
+
+                if(
+                    (dr||dc) &&
+                    R>=0 &&
+                    R<size &&
+                    C>=0 &&
+                    C<size
+                ){
+
+                    result.push(R*size+C);
+
+                }
+
+            }
+
+        }
+
+        return result;
+
+    }
+
+
+    function setup(first){
+
+        let indexes=
+            [...Array(size*size).keys()]
+            .filter(i=>i!==first);
+
+        indexes.sort(
+            ()=>Math.random()-.5
+        );
+
+        indexes
+        .slice(
+            0,
+            Math.min(
+                mineCount,
+                indexes.length
+            )
+        )
+        .forEach(i=>{
+            cells[i].mine=true;
+        });
+
+
+        cells.forEach((cell,i)=>{
+
+            cell.n=
+                neighbors(i)
+                .filter(j=>cells[j].mine)
+                .length;
+
+        });
+
+        started=true;
+
+        gameTimer=setInterval(()=>{
+
+            if(!paused)
+                time++;
+
+        },1000);
+
+    }
+
+
+    function open(i){
+
+        if(
+            ended ||
+            cells[i].open ||
+            cells[i].flag
+        )return;
+
+        if(!started)
+            setup(i);
+
+        if(cells[i].mine){
+
+            cells.forEach(c=>{
+                if(c.mine)c.open=true;
+            });
+
+            ended=true;
+
+            draw();
+
+            stopEverything();
+
+            finishGame(0);
+
+            return;
+
+        }
+
+        let queue=[i];
+
+        while(queue.length){
+
+            let j=queue.pop();
+
+            if(
+                cells[j].open ||
+                cells[j].mine ||
+                cells[j].flag
+            )continue;
+
+            cells[j].open=true;
+
+            if(cells[j].n===0){
+
+                neighbors(j)
+                .forEach(k=>{
+                    queue.push(k);
+                });
+
+            }
+
+        }
+
+        draw();
+
+        let left=
+            cells.filter(
+                c=>!c.mine&&!c.open
+            ).length;
+
+        if(left===0){
+
+            ended=true;
+
+            stopEverything();
+
+            finishGame(
+                Math.max(
+                    10,
+                    1000-time
+                ),
+                true
+            );
+
+        }
+
+    }
+
+
+    function draw(){
+
+        board.innerHTML="";
+
+        cells.forEach((cell,i)=>{
+
+            let b=
+                document.createElement("button");
+
+            b.style.width="32px";
+            b.style.height="32px";
+            b.style.padding="0";
+
+            if(cell.open){
+
+                b.textContent=
+                    cell.mine
+                    ?"💣"
+                    :(cell.n||"");
+
+                b.style.background=
+                    cell.mine
+                    ?"red"
+                    :"#e2e8f0";
+
+                b.style.color="#111";
+
+            }else{
+
+                b.textContent=
+                    cell.flag?"🚩":"";
+
+                b.style.background="#94a3b8";
+
+            }
+
+            b.onclick=()=>{
+                open(i);
+            };
+
+            b.oncontextmenu=e=>{
+
+                e.preventDefault();
+
+                if(
+                    !started ||
+                    ended ||
+                    cell.open
+                )return;
+
+                cell.flag=!cell.flag;
+
+                draw();
+
+            };
+
+            board.appendChild(b);
+
+        });
+
+    }
+
+
+    draw();
+
+}
+
+
+/* =====================================================
+   FLAPPY BIRD
+===================================================== */
+
+function flappy(){
+
+    prepareGame("🐦 Flappy Bird");
+
+    let canvas=document.createElement("canvas");
+
+    canvas.width=400;
+    canvas.height=600;
+
+    document
+    .getElementById("game")
+    .appendChild(canvas);
+
+    let ctx=canvas.getContext("2d");
+
+    let bird={
+        x:70,
+        y:280,
+        velocity:0
+    };
+
+    let pipes=[];
+    let score=0;
+    let timer=0;
+    let last=0;
+    let ended=false;
+
+    let speed=gameConfig.speed||3;
+    let gap=gameConfig.gap||160;
+
+
+    function jump(){
+
+        if(ended)return;
+
+        bird.velocity=-7;
+
+    }
+
+
+    canvas.onclick=jump;
+
+    document.onkeydown=e=>{
+
+        if(
+            e.code==="Space" ||
+            e.key==="ArrowUp"
+        ){
+
+            e.preventDefault();
+
+            jump();
+
+        }
+
+    };
+
+
+    function end(){
+
+        if(ended)return;
+
+        ended=true;
+
+        stopEverything();
+
+        finishGame(
+            score,
+            false
+        );
+
+    }
+
+
+    function loop(time){
+
+        if(ended)return;
+
+        if(!last)
+            last=time;
+
+        let delta=time-last;
+        last=time;
+
+        if(!paused){
+
+            bird.velocity+=0.42;
+            bird.y+=bird.velocity;
+
+            timer+=delta;
+
+            if(timer>1400){
+
+                let top=
+                    50+
+                    Math.random()*320;
+
+                pipes.push({
+                    x:400,
+                    top:top
+                });
+
+                timer=0;
+
+            }
+
+
+            pipes.forEach(p=>{
+
+                p.x-=speed;
+
+                if(
+                    p.x<70 &&
+                    !p.counted
+                ){
+
+                    p.counted=true;
+
+                    score++;
+
+                    setScore(score);
+
+                }
+
+
+                if(
+                    bird.x+25>p.x &&
+                    bird.x<p.x+55 &&
+                    (
+                        bird.y<p.top ||
+                        bird.y+25>
+                        p.top+gap
+                    )
+                ){
+
+                    end();
+
+                }
+
+            });
+
+            pipes=
+                pipes.filter(
+                    p=>p.x>-70
+                );
+
+
+            if(
+                bird.y<0 ||
+                bird.y>575
+            )
+                end();
+
+        }
+
+
+        ctx.fillStyle="#7dd3fc";
+
+        ctx.fillRect(
+            0,0,400,600
+        );
+
+
+        ctx.fillStyle="#22c55e";
+
+        pipes.forEach(p=>{
+
+            ctx.fillRect(
+                p.x,
+                0,
+                55,
+                p.top
+            );
+
+            ctx.fillRect(
+                p.x,
+                p.top+gap,
+                55,
+                600
+            );
+
+        });
+
+
+        ctx.fillStyle="#facc15";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            bird.x+12,
+            bird.y+12,
+            15,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+
+        animation=
+            requestAnimationFrame(loop);
+
+    }
+
+
+    animation=
+        requestAnimationFrame(loop);
+
+}
+
+
+/* =====================================================
+   SNAKE
+===================================================== */
 
 function snake(){
-document.getElementById("game").innerHTML=`<canvas id="sc" width="400" height="400"></canvas><p id="ss">Счёт: 0</p>`;
-let c=document.getElementById("sc"),x=c.getContext("2d"),s=[{x:10,y:10}],d={x:1,y:0},food={x:15,y:15},score=0,over=false;
-function key(e){if(e.key==="ArrowUp"&&d.y!==1)d={x:0,y:-1};if(e.key==="ArrowDown"&&d.y!==-1)d={x:0,y:1};if(e.key==="ArrowLeft"&&d.x!==1)d={x:-1,y:0};if(e.key==="ArrowRight"&&d.x!==-1)d={x:1,y:0}}
-document.onkeydown=key;
-function loop(){if(over)return;let h={x:s[0].x+d.x,y:s[0].y+d.y};if(h.x<0||h.y<0||h.x>=20||h.y>=20||s.some(z=>z.x===h.x&&z.y===h.y)){over=true;played(false,Math.floor(score/5),score);return}s.unshift(h);if(h.x===food.x&&h.y===food.y){score++;food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}}else s.pop();x.fillStyle="#111827";x.fillRect(0,0,400,400);x.fillStyle="#22c55e";s.forEach(z=>x.fillRect(z.x*20,z.y*20,19,19));x.fillStyle="#ef4444";x.fillRect(food.x*20,food.y*20,19,19);document.getElementById("ss").textContent="Счёт: "+score}
-gameTimer=setInterval(loop,120);
+
+    prepareGame("🐍 Змейка");
+
+    let size=gameConfig.size||20;
+
+    let canvas=document.createElement("canvas");
+
+    canvas.width=400;
+    canvas.height=400;
+
+    document
+    .getElementById("game")
+    .appendChild(canvas);
+
+    let ctx=canvas.getContext("2d");
+
+    let snake=[
+        {
+            x:Math.floor(size/2),
+            y:Math.floor(size/2)
+        }
+    ];
+
+    let direction={
+        x:1,
+        y:0
+    };
+
+    let food={
+        x:5,
+        y:5
+    };
+
+    let score=0;
+    let ended=false;
+
+
+    function newFood(){
+
+        food={
+            x:Math.floor(
+                Math.random()*size
+            ),
+
+            y:Math.floor(
+                Math.random()*size
+            )
+        };
+
+    }
+
+
+    document.onkeydown=e=>{
+
+        if(e.key==="ArrowUp"&&direction.y!==1)
+            direction={x:0,y:-1};
+
+        if(e.key==="ArrowDown"&&direction.y!==-1)
+            direction={x:0,y:1};
+
+        if(e.key==="ArrowLeft"&&direction.x!==1)
+            direction={x:-1,y:0};
+
+        if(e.key==="ArrowRight"&&direction.x!==-1)
+            direction={x:1,y:0};
+
+    };
+
+
+    function loop(){
+
+        if(paused||ended)return;
+
+        let head={
+            x:snake[0].x+direction.x,
+            y:snake[0].y+direction.y
+        };
+
+
+        if(
+            head.x<0 ||
+            head.y<0 ||
+            head.x>=size ||
+            head.y>=size ||
+            snake.some(
+                s=>s.x===head.x&&s.y===head.y
+            )
+        ){
+
+            ended=true;
+
+            stopEverything();
+
+            finishGame(score);
+
+            return;
+
+        }
+
+
+        snake.unshift(head);
+
+
+        if(
+            head.x===food.x &&
+            head.y===food.y
+        ){
+
+            score++;
+
+            setScore(score);
+
+            newFood();
+
+        }else{
+
+            snake.pop();
+
+        }
+
+
+        let cell=
+            400/size;
+
+
+        ctx.fillStyle="#111827";
+
+        ctx.fillRect(
+            0,0,400,400
+        );
+
+
+        ctx.fillStyle="#22c55e";
+
+        snake.forEach((s,i)=>{
+
+            ctx.fillStyle=
+                i===0
+                ?"lime"
+                :"#22c55e";
+
+            ctx.fillRect(
+                s.x*cell,
+                s.y*cell,
+                cell-1,
+                cell-1
+            );
+
+        });
+
+
+        ctx.fillStyle="#ef4444";
+
+        ctx.fillRect(
+            food.x*cell,
+            food.y*cell,
+            cell-1,
+            cell-1
+        );
+
+    }
+
+
+    gameTimer=
+        setInterval(
+            loop,
+            gameConfig.speed||120
+        );
+
 }
 
-/* =========================
-   КЛИКЕР
-========================= */
+
+/* =====================================================
+   CLICKER
+===================================================== */
 
 function clicker(){
-let score=0,time=15;
-document.getElementById("game").innerHTML=`<h1 id="clickScore">0</h1><button style="font-size:40px;padding:40px" id="clickBtn">👆</button><p>Осталось: <b id="ct">15</b> сек.</p>`;
-document.getElementById("clickBtn").onclick=()=>{score++;document.getElementById("clickScore").textContent=score};
-gameTimer=setInterval(()=>{time--;document.getElementById("ct").textContent=time;if(time<=0){clearInterval(gameTimer);played(true,Math.floor(score/5),score);alert("Результат: "+score)}},1000);
+
+    prepareGame("🎯 Кликер");
+
+    let time=
+        gameConfig.time||15;
+
+    let multiplier=
+        gameConfig.multiplier||1;
+
+    let score=0;
+
+    let box=document.createElement("div");
+
+    box.innerHTML=`
+
+        <h1 id="clickNumber">0</h1>
+
+        <button
+            id="bigClick"
+            style="
+                font-size:50px;
+                padding:50px;
+                margin:20px
+            "
+        >
+            👆
+        </button>
+
+        <p>
+            Осталось:
+            <b id="clickTimer">${time}</b>
+            секунд
+        </p>
+
+    `;
+
+    document
+    .getElementById("game")
+    .appendChild(box);
+
+
+    document
+    .getElementById("bigClick")
+    .onclick=()=>{
+
+        if(paused)return;
+
+        score+=multiplier;
+
+        document
+        .getElementById("clickNumber")
+        .textContent=score;
+
+        setScore(score);
+
+    };
+
+
+    gameTimer=setInterval(()=>{
+
+        if(paused)return;
+
+        time--;
+
+        document
+        .getElementById("clickTimer")
+        .textContent=time;
+
+        if(time<=0){
+
+            stopEverything();
+
+            finishGame(
+                score,
+                true
+            );
+
+        }
+
+    },1000);
+
 }
 
-/* =========================
-   ПАМЯТЬ
-========================= */
+
+/* =====================================================
+   MEMORY
+===================================================== */
 
 function memory(){
-let nums=["🍎","🍌","🍒","🍇","🍉","🍋","🥝","🍓"],deck=[...nums,...nums].sort(()=>Math.random()-.5),open=[],found=0;
-document.getElementById("game").innerHTML=`<div id="mem" class="grid"></div>`;
-let el=document.getElementById("mem");
-deck.forEach((v,i)=>{let b=document.createElement("button");b.style.height="80px";b.textContent="❓";b.onclick=()=>{if(open.length===2||b.dataset.open)return;b.textContent=v;b.dataset.open="1";open.push([i,b]);if(open.length===2){if(deck[open[0][0]]===deck[open[1][0]]){found++;open=[];if(found===nums.length){played(true,10,found)}}else setTimeout(()=>{open.forEach(q=>{q[1].textContent="❓";delete q[1].dataset.open});open=[]},600)}};el.appendChild(b)})
+
+    prepareGame("🧠 Память");
+
+    const all=[
+        "🍎","🍌","🍒","🍇",
+        "🍉","🍋","🥝","🍓",
+        "🥑","🍑","🥥","🍍"
+    ];
+
+    let pairs=
+        Math.min(
+            gameConfig.pairs||8,
+            all.length
+        );
+
+    let deck=
+        [...all.slice(0,pairs),
+         ...all.slice(0,pairs)]
+        .sort(()=>Math.random()-.5);
+
+
+    let board=
+        document.createElement("div");
+
+    board.style.display="grid";
+
+    board.style.gridTemplateColumns=
+        "repeat(4,80px)";
+
+    board.style.gap="8px";
+
+    board.style.justifyContent="center";
+
+    document
+    .getElementById("game")
+    .appendChild(board);
+
+
+    let opened=[];
+    let found=0;
+    let moves=0;
+    let locked=false;
+
+
+    deck.forEach((value,index)=>{
+
+        let button=
+            document.createElement("button");
+
+        button.textContent="❓";
+
+        button.style.height="80px";
+
+        button.style.fontSize="30px";
+
+
+        button.onclick=()=>{
+
+            if(
+                locked ||
+                button.dataset.open
+            )return;
+
+            button.dataset.open="1";
+
+            button.textContent=value;
+
+            opened.push({
+                index:index,
+                button:button
+            });
+
+            moves++;
+
+            if(opened.length===2){
+
+                locked=true;
+
+                if(
+                    deck[
+                        opened[0].index
+                    ]===
+                    deck[
+                        opened[1].index
+                    ]
+                ){
+
+                    found++;
+
+                    opened=[];
+
+                    locked=false;
+
+                    setScore(found);
+
+                    if(found===pairs){
+
+                        stopEverything();
+
+                        finishGame(
+                            found,
+                            true
+                        );
+
+                    }
+
+                }else{
+
+                    setTimeout(()=>{
+
+                        opened.forEach(item=>{
+
+                            item.button.textContent="❓";
+
+                            delete item.button.dataset.open;
+
+                        });
+
+                        opened=[];
+
+                        locked=false;
+
+                    },700);
+
+                }
+
+            }
+
+        };
+
+
+        board.appendChild(button);
+
+    });
+
 }
 
-/* =========================
+
+/* =====================================================
    2048
-========================= */
+===================================================== */
 
 function game2048(){
-let a=Array.from({length:4},()=>Array(4).fill(0)),score=0;
-document.getElementById("game").innerHTML=`<div id="g2048" class="grid"></div><p>Очки: <b id="2048score">0</b></p>`;
-function add(){let e=[];a.forEach((r,y)=>r.forEach((v,x)=>{if(!v)e.push([y,x])}));if(e.length){let q=e[Math.floor(Math.random()*e.length)];a[q[0]][q[1]]=Math.random()<.9?2:4}}
-function draw(){let el=document.getElementById("g2048");el.style.gridTemplateColumns="repeat(4,70px)";el.innerHTML="";a.flat().forEach(v=>{let b=document.createElement("button");b.style.height="70px";b.textContent=v||"";el.appendChild(b)});document.getElementById("2048score").textContent=score}
-function move(dx,dy){let old=JSON.stringify(a);if(dx){for(let y=0;y<4;y++){let r=a[y].filter(Boolean);if(dx>0)r.reverse();for(let i=0;i<r.length-1;i++)if(r[i]===r[i+1]){r[i]*=2;score+=r[i];r.splice(i+1,1)}while(r.length<4)r.push(0);if(dx>0)r.reverse();a[y]=r}}else{for(let x=0;x<4;x++){let r=a.map(z=>z[x]).filter(Boolean);if(dy>0)r.reverse();for(let i=0;i<r.length-1;i++)if(r[i]===r[i+1]){r[i]*=2;score+=r[i];r.splice(i+1,1)}while(r.length<4)r.push(0);if(dy>0)r.reverse();r.forEach((v,y)=>a[y][x]=v)}}if(old!==JSON.stringify(a)){add();draw()}}
-document.onkeydown=e=>{if(e.key==="ArrowLeft")move(-1,0);if(e.key==="ArrowRight")move(1,0);if(e.key==="ArrowUp")move(0,-1);if(e.key==="ArrowDown")move(0,1)};
-add();add();draw();
+
+    prepareGame("🔢 2048");
+
+    let size=gameConfig.size||4;
+    let target=gameConfig.target||2048;
+
+    let board=
+        Array.from(
+            {length:size},
+            ()=>Array(size).fill(0)
+        );
+
+    let score=0;
+    let ended=false;
+
+
+    let container=
+        document.createElement("div");
+
+    container.style.display="grid";
+
+    container.style.gridTemplateColumns=
+        `repeat(${size},70px)`;
+
+    container.style.gap="6px";
+
+    container.style.justifyContent="center";
+
+    document
+    .getElementById("game")
+    .appendChild(container);
+
+
+    function addTile(){
+
+        let empty=[];
+
+        board.forEach((row,y)=>{
+
+            row.forEach((v,x)=>{
+
+                if(!v)
+                    empty.push([y,x]);
+
+            });
+
+        });
+
+        if(!empty.length)return;
+
+        let p=
+            empty[
+                Math.floor(
+                    Math.random()*empty.length
+                )
+            ];
+
+        board[p[0]][p[1]]=
+            Math.random()<.9?2:4;
+
+    }
+
+
+    function draw(){
+
+        container.innerHTML="";
+
+        board.flat().forEach(v=>{
+
+            let b=
+                document.createElement("button");
+
+            b.style.height="70px";
+
+            b.style.fontSize="20px";
+
+            b.textContent=v||"";
+
+            container.appendChild(b);
+
+        });
+
+        setScore(score);
+
+    }
+
+
+    function move(dx,dy){
+
+        if(paused||ended)return;
+
+        let before=
+            JSON.stringify(board);
+
+
+        if(dx!==0){
+
+            for(let y=0;y<size;y++){
+
+                let row=
+                    board[y].filter(Boolean);
+
+                if(dx>0)
+                    row.reverse();
+
+
+                for(
+                    let i=0;
+                    i<row.length-1;
+                    i++
+                ){
+
+                    if(
+                        row[i]===row[i+1]
+                    ){
+
+                        row[i]*=2;
+
+                        score+=row[i];
+
+                        row.splice(i+1,1);
+
+                    }
+
+                }
+
+
+                while(row.length<size)
+                    row.push(0);
+
+
+                if(dx>0)
+                    row.reverse();
+
+
+                board[y]=row;
+
+            }
+
+        }else{
+
+            for(let x=0;x<size;x++){
+
+                let col=[];
+
+                for(let y=0;y<size;y++){
+
+                    if(board[y][x])
+                        col.push(board[y][x]);
+
+                }
+
+
+                if(dy>0)
+                    col.reverse();
+
+
+                for(
+                    let i=0;
+                    i<col.length-1;
+                    i++
+                ){
+
+                    if(
+                        col[i]===col[i+1]
+                    ){
+
+                        col[i]*=2;
+
+                        score+=col[i];
+
+                        col.splice(i+1,1);
+
+                    }
+
+                }
+
+
+                while(col.length<size)
+                    col.push(0);
+
+
+                if(dy>0)
+                    col.reverse();
+
+
+                for(let y=0;y<size;y++)
+                    board[y][x]=col[y];
+
+            }
+
+        }
+
+
+        if(
+            before!==
+            JSON.stringify(board)
+        ){
+
+            addTile();
+
+            draw();
+
+        }
+
+
+        if(
+            board.flat()
+            .some(v=>v>=target)
+        ){
+
+            ended=true;
+
+            stopEverything();
+
+            finishGame(
+                score,
+                true
+            );
+
+        }
+
+    }
+
+
+    document.onkeydown=e=>{
+
+        if(e.key==="ArrowLeft")
+            move(-1,0);
+
+        if(e.key==="ArrowRight")
+            move(1,0);
+
+        if(e.key==="ArrowUp")
+            move(0,-1);
+
+        if(e.key==="ArrowDown")
+            move(0,1);
+
+    };
+
+
+    addTile();
+    addTile();
+
+    draw();
+
 }
 
-/* =========================
+
+/* =====================================================
    PONG
-========================= */
+===================================================== */
 
 function pong(){
-document.getElementById("game").innerHTML=`<canvas id="pc" width="600" height="400"></canvas><p>⬆️⬇️ Управление ракеткой</p>`;
-let c=document.getElementById("pc"),x=c.getContext("2d"),py=160,ey=160,b={x:300,y:200,vx:4,vy:3},score=0,over=false;
-document.onkeydown=e=>{if(e.key==="ArrowUp")py-=25;if(e.key==="ArrowDown")py+=25};
-function loop(){if(over)return;b.x+=b.vx;b.y+=b.vy;if(b.y<0||b.y>390)b.vy*=-1;ey+=b.y>ey+40?3:-3;if(b.x<25&&b.y>py&&b.y<py+80)b.vx=Math.abs(b.vx);if(b.x>575&&b.y>ey&&b.y<ey+80){b.vx=-Math.abs(b.vx);score++}if(b.x<0||b.x>600){over=true;played(score>2,score,score);alert("Pong: "+score)}x.fillStyle="#111827";x.fillRect(0,0,600,400);x.fillStyle="#fff";x.fillRect(10,py,15,80);x.fillRect(575,ey,15,80);x.beginPath();x.arc(b.x,b.y,8,0,7);x.fill()}
-gameTimer=setInterval(loop,16);
+
+    prepareGame("🏓 Pong");
+
+    let canvas=
+        document.createElement("canvas");
+
+    canvas.width=600;
+    canvas.height=400;
+
+    document
+    .getElementById("game")
+    .appendChild(canvas);
+
+    let ctx=canvas.getContext("2d");
+
+
+    let player=160;
+    let enemy=160;
+
+    let ball={
+        x:300,
+        y:200,
+        vx:gameConfig.ballSpeed||4,
+        vy:3
+    };
+
+    let score=0;
+    let ended=false;
+
+
+    document.onkeydown=e=>{
+
+        if(e.key==="ArrowUp")
+            player-=25;
+
+        if(e.key==="ArrowDown")
+            player+=25;
+
+        player=
+            Math.max(
+                0,
+                Math.min(
+                    320,
+                    player
+                )
+            );
+
+    };
+
+
+    function loop(){
+
+        if(paused||ended)return;
+
+
+        ball.x+=ball.vx;
+        ball.y+=ball.vy;
+
+
+        if(
+            ball.y<=0 ||
+            ball.y>=392
+        ){
+
+            ball.vy*=-1;
+
+        }
+
+
+        enemy+=
+            ball.y >
+            enemy+40
+            ?gameConfig.ai||3
+            :-(gameConfig.ai||3);
+
+
+        enemy=
+            Math.max(
+                0,
+                Math.min(
+                    320,
+                    enemy
+                )
+            );
+
+
+        if(
+            ball.x<30 &&
+            ball.y>player &&
+            ball.y<player+80
+        ){
+
+            ball.vx=
+                Math.abs(ball.vx);
+
+            score++;
+
+            setScore(score);
+
+        }
+
+
+        if(
+            ball.x>570 &&
+            ball.y>enemy &&
+            ball.y<enemy+80
+        ){
+
+            ball.vx=
+                -Math.abs(ball.vx);
+
+        }
+
+
+        if(
+            ball.x<0 ||
+            ball.x>600
+        ){
+
+            ended=true;
+
+            stopEverything();
+
+            finishGame(
+                score,
+                score>=5
+            );
+
+            return;
+
+        }
+
+
+        ctx.fillStyle="#111827";
+
+        ctx.fillRect(
+            0,0,600,400
+        );
+
+
+        ctx.fillStyle="#fff";
+
+        ctx.fillRect(
+            10,
+            player,
+            15,
+            80
+        );
+
+        ctx.fillRect(
+            575,
+            enemy,
+            15,
+            80
+        );
+
+
+        ctx.beginPath();
+
+        ctx.arc(
+            ball.x,
+            ball.y,
+            8,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+    }
+
+
+    gameTimer=
+        setInterval(
+            loop,
+            16
+        );
+
 }
 
-/* =========================
-   ADMIN
-========================= */
-
-function renderAdmin(){
-if(currentUser!==ADMIN)return;
-let u=users();
-document.getElementById("usersList").innerHTML=Object.keys(u).map(n=>`<p>👤 ${n} — ⭐ ${u[n].stars} — 🎮 ${u[n].games}</p>`).join("");
-document.getElementById("totalUsers").textContent=Object.keys(u).length;
-document.getElementById("totalGames").textContent=Object.values(u).reduce((a,b)=>a+b.games,0);
-document.getElementById("totalWins").textContent=Object.values(u).reduce((a,b)=>a+b.wins,0);
-document.getElementById("totalStars").textContent=Object.values(u).reduce((a,b)=>a+b.stars,0);
-}
-function adminAddStars(){
-let n=document.getElementById("adminUser").value,u=users(),v=Number(document.getElementById("adminStars").value);
-if(!u[n])return alert("Пользователь не найден");
-u[n].stars+=v;saveUsers(u);refresh();
-}
-function adminRemoveStars(){
-let n=document.getElementById("adminUser").value,u=users(),v=Number(document.getElementById("adminStars").value);
-if(!u[n])return alert("Пользователь не найден");
-u[n].stars=Math.max(0,u[n].stars-v);saveUsers(u);refresh();
-}
-function adminAddItem(){
-let n=document.getElementById("newItem").value,p=Number(document.getElementById("newPrice").value);
-if(!n||!p)return;
-let s=shopData();s.push([n,p,"accessory"]);saveShop(s);refresh();
-}
-function resetAllRecords(){
-if(!confirm("Сбросить все рекорды?"))return;
-let u=users();Object.values(u).forEach(x=>x.records={});saveUsers(u);alert("Рекорды сброшены");refresh();
-}
-
-/* =========================
-   ОБЩАЯ СТАТИСТИКА
-========================= */
-
-function renderGameStats(){
-let u=user();if(!u)return;
-document.getElementById("gameStats").innerHTML=Object.entries(u.records).map(([k,v])=>`<div class="card">${k}: <b>${v}</b></div>`).join("");
-}
-
-/* =========================
-   ИНИЦИАЛИЗАЦИЯ
-========================= */
-
-if(!users()[ADMIN]){
-let u=users();
-u[ADMIN]={
-password:"admin123",
-stars:0,games:0,wins:0,
-achievements:[],inventory:[],records:{}
-};
-saveUsers(u);
-}
-
-loadSettings();
-refresh();
-show("home");
 </script>
 
 </body>
