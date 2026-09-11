@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EasyFlow — Admin Panel</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f7fb;
+    color:#111827;
+}
+
+header{
+    background:#111827;
+    color:white;
+    padding:20px;
+}
+
+.header{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logout{
+    background:#ef4444;
+    color:white;
+    border:0;
+    padding:10px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:35px 15px;
+}
+
+h1{
+    color:#2563eb;
+    margin-bottom:25px;
+}
+
+.admin-card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.admin-card h2{
+    margin-bottom:15px;
+}
+
+.stat-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.stat{
+    background:#eff6ff;
+    padding:20px;
+    border-radius:14px;
+    text-align:center;
+}
+
+.stat strong{
+    display:block;
+    font-size:30px;
+    color:#2563eb;
+    margin-top:8px;
+}
+
+.user{
+    padding:14px;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.user:last-child{
+    border-bottom:0;
+}
+
+.role{
+    color:#64748b;
+    font-size:14px;
+}
+
+@media(max-width:700px){
+
+    .stat-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="header">
+
+<div class="logo">
+🛡️ EasyFlow Admin
+</div>
+
+<button class="logout" onclick="logout()">
+Выйти
+</button>
+
+</div>
+
+</header>
+
+<main class="container">
+
+<h1>🛡️ Панель администратора</h1>
+
+<div class="admin-card">
+
+<h2>👤 Администратор</h2>
+
+<p>
+Имя:
+<strong id="adminName">Admin</strong>
+</p>
+
+<p style="margin-top:8px;color:#64748b;">
+Роль: administrator
+</p>
+
+</div>
+
+<div class="admin-card">
+
+<h2>📊 Статистика</h2>
+
+<div class="stat-grid">
+
+<div class="stat">
+Игры
+<strong id="totalGames">0</strong>
+</div>
+
+<div class="stat">
+Победы
+<strong id="totalWins">0</strong>
+</div>
+
+<div class="stat">
+Очки
+<strong id="totalScore">0</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="admin-card">
+
+<h2>👥 Пользователи</h2>
+
+<div id="usersList"></div>
+
+</div>
+
+</main>
+
+<script>
+
+function getCurrentUser(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "easyflow_current_user"
+            )
+        );
+
+    }catch(error){
+
+        return null;
+
+    }
+
+}
+
+/*
+    ЗАЩИТА ADMIN PANEL
+*/
+
+const currentUser=
+    getCurrentUser();
+
+if(
+    !currentUser ||
+    currentUser.role!=="admin"
+){
+
+    window.location.href=
+        "index.html";
+
+}
+
+/* Статистика */
+
+function loadStats(){
+
+    try{
+
+        const data=
+            JSON.parse(
+                localStorage.getItem(
+                    "easyflow_data"
+                )
+            ) || {};
+
+        document.getElementById(
+            "totalGames"
+        ).textContent=
+            data.totalGames || 0;
+
+        document.getElementById(
+            "totalWins"
+        ).textContent=
+            data.totalWins || 0;
+
+        document.getElementById(
+            "totalScore"
+        ).textContent=
+            data.totalScore || 0;
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+/* Пользователи */
+
+function loadUsers(){
+
+    let users=[];
+
+    try{
+
+        users=
+            JSON.parse(
+                localStorage.getItem(
+                    "easyflow_users"
+                )
+            ) || [];
+
+    }catch(error){
+
+        users=[];
+
+    }
+
+    const box=
+        document.getElementById(
+            "usersList"
+        );
+
+    box.innerHTML="";
+
+    /*
+       Сам Admin тоже отображается
+    */
+
+    const admin=document.createElement(
+        "div"
+    );
+
+    admin.className="user";
+
+    admin.innerHTML=`
+        <strong>🛡️ Admin</strong>
+        <div class="role">Администратор</div>
+    `;
+
+    box.appendChild(admin);
+
+    users.forEach(user=>{
+
+        const div=
+            document.createElement(
+                "div"
+            );
+
+        div.className="user";
+
+        div.innerHTML=`
+            <strong>👤 ${escapeHtml(user.name)}</strong>
+            <div class="role">Пользователь</div>
+        `;
+
+        box.appendChild(div);
+
+    });
+
+}
+
+function escapeHtml(text){
+
+    const div=
+        document.createElement("div");
+
+    div.textContent=text;
+
+    return div.innerHTML;
+
+}
+
+function logout(){
+
+    localStorage.removeItem(
+        "easyflow_current_user"
+    );
+
+    window.location.href=
+        "login.html";
+
+}
+
+loadStats();
+loadUsers();
+
+</script>
+
+</body>
+</html>
