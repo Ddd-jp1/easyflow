@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyFlow — Тетрис</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #111827;
+    min-height: 100vh;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 15px 5%;
+}
+
+.header {
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    color: #2563eb;
+    font-size: 26px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+button,
+.link-button {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 11px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+button:hover,
+.link-button:hover {
+    background: #1d4ed8;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px 15px;
+    text-align: center;
+}
+
+h1 {
+    color: #2563eb;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.game-area {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+canvas {
+    background: #111827;
+    border: 5px solid #2563eb;
+    border-radius: 12px;
+    display: block;
+    max-width: 90vw;
+}
+
+.info {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    min-width: 170px;
+}
+
+.info div {
+    margin-bottom: 15px;
+}
+
+.info strong {
+    display: block;
+    font-size: 25px;
+    color: #2563eb;
+    margin-top: 5px;
+}
+
+.controls {
+    margin-top: 20px;
+    color: #64748b;
+    line-height: 1.7;
+}
+
+.mobile-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.message {
+    margin-top: 15px;
+    font-weight: bold;
+    min-height: 24px;
+}
+
+@media(max-width:600px) {
+    .header {
+        flex-direction: column;
+    }
+
+    canvas {
+        width: 300px;
+        height: 600px;
+        max-height: 65vh;
+    }
+
+    .info {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="header">
+
+<a href="index.html" class="logo">EasyFlow</a>
+
+<div class="buttons">
+<a href="games.html" class="link-button">← Назад</a>
+
+<button onclick="exitGame()">🚪 Выйти</button>
+
+<button onclick="toggleFullscreen()">⛶ Полный экран</button>
+</div>
+
+</div>
+</header>
+
+<main class="container">
+
+<h1>🧱 Тетрис</h1>
+
+<p class="subtitle">
+Собирай линии и набирай как можно больше очков!
+</p>
+
+<div class="game-area">
+
+<canvas id="game" width="300" height="600"></canvas>
+
+<div class="info">
+
+<div>
+Очки
+<strong id="score">0</strong>
+</div>
+
+<div>
+Линии
+<strong id="lines">0</strong>
+</div>
+
+<div>
+Уровень
+<strong id="level">1</strong>
+</div>
+
+</div>
+
+</div>
+
+<div id="message" class="message">
+Нажми «Начать игру»
+</div>
+
+<div class="buttons" style="margin-top:15px;">
+<button onclick="startGame()">▶ Начать игру</button>
+<button onclick="restartGame()">🔄 Заново</button>
+</div>
+
+<div class="mobile-controls">
+
+<button onclick="moveLeft()">⬅</button>
+<button onclick="rotatePiece()">🔄</button>
+<button onclick="moveDown()">⬇</button>
+<button onclick="moveRight()">➡</button>
+
+</div>
+
+<div class="controls">
+⌨️ Клавиатура:<br>
+⬅ ➡ — движение<br>
+⬇ — ускорить<br>
+⬆ — вращение<br>
+Пробел — падение
+</div>
+
+</main>
+
+<script>
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+const COLS = 10;
+const ROWS = 20;
+const SIZE = 30;
+
+ctx.scale(SIZE, SIZE);
+
+let arena = createMatrix(COLS, ROWS);
+
+let player = {
+    pos: {x: 0, y: 0},
+    matrix: null
+};
+
+let score = 0;
+let lines = 0;
+let level = 1;
+
+let gameRunning = false;
+let gameOver = false;
+
+let dropCounter = 0;
+let dropInterval = 800;
+let lastTime = 0;
+
+const colors = [
+    null,
+    "#ef4444",
+    "#f97316",
+    "#eab308",
+    "#22c55e",
+    "#06b6d4",
+    "#3b82f6",
+    "#8b5cf6"
+];
+
+function createMatrix(w, h) {
+
+    const matrix = [];
+
+    while (h--) {
+        matrix.push(new Array(w).fill(0));
+    }
+
+    return matrix;
+}
+
+function createPiece(type) {
+
+    if (type === "T") {
+        return [
+            [0,0,0],
+            [1,1,1],
+            [0,1,0]
+        ];
+    }
+
+    if (type === "O") {
+        return [
+            [2,2],
+            [2,2]
+        ];
+    }
+
+    if (type === "L") {
+        return [
+            [0,3,0],
+            [0,3,0],
+            [0,3,3]
+        ];
+    }
+
+    if (type === "J") {
+        return [
+            [0,4,0],
+            [0,4,0],
+            [4,4,0]
+        ];
+    }
+
+    if (type === "I") {
+        return [
+            [5,5,5,5]
+        ];
+    }
+
+    if (type === "S") {
+        return [
+            [0,6,6],
+            [6,6,0],
+            [0,0,0]
+        ];
+    }
+
+    if (type === "Z") {
+        return [
+            [7,7,0],
+            [0,7,7],
+            [0,0,0]
+        ];
+    }
+}
+
+function drawMatrix(matrix, offset) {
+
+    matrix.forEach((row, y) => {
+
+        row.forEach((value, x) => {
+
+            if (value !== 0) {
+
+                ctx.fillStyle = colors[value];
+
+                ctx.fillRect(
+                    x + offset.x,
+                    y + offset.y,
+                    1,
+                    1
+                );
+
+                ctx.strokeStyle = "rgba(255,255,255,.25)";
+                ctx.lineWidth = 0.05;
+
+                ctx.strokeRect(
+                    x + offset.x,
+                    y + offset.y,
+                    1,
+                    1
+                );
+            }
+        });
+    });
+}
+
+function draw() {
+
+    ctx.fillStyle = "#111827";
+    ctx.fillRect(0, 0, COLS, ROWS);
+
+    drawMatrix(arena, {x:0,y:0});
+
+    if (player.matrix) {
+        drawMatrix(
+            player.matrix,
+            player.pos
+        );
+    }
+}
+
+function collide(arena, player) {
+
+    const m = player.matrix;
+    const o = player.pos;
+
+    for (let y = 0; y < m.length; y++) {
+
+        for (let x = 0; x < m[y].length; x++) {
+
+            if (
+                m[y][x] !== 0 &&
+                (
+                    arena[y + o.y] &&
+                    arena[y + o.y][x + o.x]
+                ) !== 0
+            ) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+function merge(arena, player) {
+
+    player.matrix.forEach((row, y) => {
+
+        row.forEach((value, x) => {
+
+            if (value !== 0) {
+
+                arena[y + player.pos.y]
+                    [x + player.pos.x] = value;
+            }
+        });
+    });
+}
+
+function playerReset() {
+
+    const pieces = "TJLOSZI";
+
+    player.matrix =
+        createPiece(
+            pieces[
+                Math.floor(
+                    Math.random() * pieces.length
+                )
+            ]
+        );
+
+    player.pos.y = 0;
+
+    player.pos.x =
+        Math.floor(
+            COLS / 2 -
+            player.matrix[0].length / 2
+        );
+
+    if (collide(arena, player)) {
+
+        gameOver = true;
+        gameRunning = false;
+
+        document.getElementById("message")
+            .textContent =
+            "💥 Игра окончена!";
+
+        saveBestScore();
+    }
+}
+
+function playerMove(dir) {
+
+    if (!gameRunning) return;
+
+    player.pos.x += dir;
+
+    if (collide(arena, player)) {
+        player.pos.x -= dir;
+    }
+}
+
+function playerDrop() {
+
+    if (!gameRunning) return;
+
+    player.pos.y++;
+
+    if (collide(arena, player)) {
+
+        player.pos.y--;
+
+        merge(arena, player);
+
+        arenaSweep();
+
+        playerReset();
+
+    }
+
+    dropCounter = 0;
+}
+
+function rotate(matrix, dir) {
+
+    for (
+        let y = 0;
+        y < matrix.length;
+        y++
+    ) {
+
+        for (
+            let x = 0;
+            x < y;
+            x++
+        ) {
+
+            [
+                matrix[x][y],
+                matrix[y][x]
+            ] =
+            [
+                matrix[y][x],
+                matrix[x][y]
+            ];
+        }
+    }
+
+    if (dir > 0) {
+        matrix.forEach(row => row.reverse());
+    } else {
+        matrix.reverse();
+    }
+}
+
+function playerRotate(dir = 1) {
+
+    if (!gameRunning) return;
+
+    const pos = player.pos.x;
+
+    rotate(player.matrix, dir);
+
+    let offset = 1;
+
+    while (collide(arena, player)) {
+
+        player.pos.x += offset;
+
+        offset =
+            -(offset +
+            (offset > 0 ? 1 : -1));
+
+        if (offset >
+            player.matrix[0].length) {
+
+            rotate(player.matrix, -dir);
+
+            player.pos.x = pos;
+
+            return;
+        }
+    }
+}
+
+function arenaSweep() {
+
+    let rowCount = 1;
+
+    outer:
+    for (
+        let y = arena.length - 1;
+        y >= 0;
+        --y
+    ) {
+
+        for (
+            let x = 0;
+            x < arena[y].length;
+            ++x
+        ) {
+
+            if (arena[y][x] === 0) {
+                continue outer;
+            }
+        }
+
+        const row =
+            arena.splice(y, 1)[0]
+            .fill(0);
+
+        arena.unshift(row);
+
+        ++y;
+
+        lines += rowCount;
+        score += rowCount * 100 * level;
+
+        rowCount *= 2;
+    }
+
+    level =
+        Math.floor(lines / 10) + 1;
+
+    dropInterval =
+        Math.max(
+            100,
+            800 - (level - 1) * 60
+        );
+
+    updateInfo();
+}
+
+function updateInfo() {
+
+    document.getElementById("score")
+        .textContent = score;
+
+    document.getElementById("lines")
+        .textContent = lines;
+
+    document.getElementById("level")
+        .textContent = level;
+}
+
+function update(time = 0) {
+
+    if (!gameRunning) {
+        draw();
+        return;
+    }
+
+    const deltaTime =
+        time - lastTime;
+
+    lastTime = time;
+
+    dropCounter += deltaTime;
+
+    if (dropCounter > dropInterval) {
+        playerDrop();
+    }
+
+    draw();
+
+    requestAnimationFrame(update);
+}
+
+function startGame() {
+
+    arena =
+        createMatrix(COLS, ROWS);
+
+    score = 0;
+    lines = 0;
+    level = 1;
+
+    dropInterval = 800;
+
+    gameRunning = true;
+    gameOver = false;
+
+    updateInfo();
+
+    document.getElementById("message")
+        .textContent =
+        "🎮 Игра началась!";
+
+    playerReset();
+
+    lastTime = performance.now();
+
+    requestAnimationFrame(update);
+}
+
+function restartGame() {
+    startGame();
+}
+
+function moveLeft() {
+    playerMove(-1);
+}
+
+function moveRight() {
+    playerMove(1);
+}
+
+function moveDown() {
+    playerDrop();
+}
+
+function rotatePiece() {
+    playerRotate(1);
+}
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            moveLeft();
+        }
+
+        if (event.key === "ArrowRight") {
+            event.preventDefault();
+            moveRight();
+        }
+
+        if (event.key === "ArrowDown") {
+            event.preventDefault();
+            moveDown();
+        }
+
+        if (event.key === "ArrowUp") {
+            event.preventDefault();
+            rotatePiece();
+        }
+
+        if (event.code === "Space") {
+
+            event.preventDefault();
+
+            if (!gameRunning) return;
+
+            while (!collide(arena, player)) {
+                player.pos.y++;
+            }
+
+            player.pos.y--;
+
+            merge(arena, player);
+            arenaSweep();
+            playerReset();
+        }
+    }
+);
+
+function saveBestScore() {
+
+    const oldBest =
+        Number(
+            localStorage.getItem(
+                "easyflow_tetris_best"
+            ) || 0
+        );
+
+    if (score > oldBest) {
+
+        localStorage.setItem(
+            "easyflow_tetris_best",
+            score
+        );
+    }
+
+    const stars =
+        Number(
+            localStorage.getItem(
+                "easyflow_stars"
+            ) || 0
+        );
+
+    const reward =
+        Math.floor(score / 500);
+
+    if (reward > 0) {
+
+        localStorage.setItem(
+            "easyflow_stars",
+            stars + reward
+        );
+    }
+}
+
+function exitGame() {
+
+    if (
+        confirm(
+            "Выйти из игры и вернуться к списку игр?"
+        )
+    ) {
+
+        window.location.href =
+            "games.html";
+    }
+}
+
+function toggleFullscreen() {
+
+    if (!document.fullscreenElement) {
+
+        document.documentElement
+            .requestFullscreen()
+            .catch(() => {});
+
+    } else {
+
+        document.exitFullscreen();
+    }
+}
+
+draw();
+
+</script>
+
+</body>
+</html>
