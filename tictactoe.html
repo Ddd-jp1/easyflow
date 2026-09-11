@@ -29,11 +29,12 @@ header {
 }
 
 .header {
-    max-width: 900px;
+    max-width: 1000px;
     margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 15px;
 }
 
 .logo {
@@ -51,7 +52,7 @@ header {
 
 .container {
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
     margin: auto;
     padding: 35px 20px;
 }
@@ -70,6 +71,83 @@ header {
 .title p {
     color: #64748b;
 }
+
+/* =========================
+   НАСТРОЙКИ
+========================= */
+
+.settings {
+    background: white;
+    padding: 22px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+}
+
+.settings h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.setting-group {
+    margin-bottom: 18px;
+}
+
+.setting-group:last-child {
+    margin-bottom: 0;
+}
+
+.setting-group h3 {
+    text-align: center;
+    margin-bottom: 12px;
+    color: #334155;
+}
+
+.setting-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.setting-button {
+    border: 2px solid #e5e7eb;
+    background: white;
+    padding: 10px 16px;
+    border-radius: 11px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .15s;
+}
+
+.setting-button:hover {
+    transform: translateY(-2px);
+}
+
+.setting-button.active {
+    border-color: #2563eb;
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.toggle input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* =========================
+   СЛОЖНОСТЬ
+========================= */
 
 .difficulty,
 .first-player {
@@ -134,6 +212,10 @@ header {
     color: #1d4ed8;
 }
 
+/* =========================
+   СТАТИСТИКА
+========================= */
+
 .info {
     display: flex;
     justify-content: center;
@@ -161,6 +243,10 @@ header {
 .stat strong {
     font-size: 23px;
 }
+
+/* =========================
+   ПОЛЕ
+========================= */
 
 .board-wrapper {
     display: flex;
@@ -223,7 +309,6 @@ header {
     text-align: center;
     margin-top: 20px;
     min-height: 28px;
-
     font-size: 18px;
     font-weight: bold;
 }
@@ -236,28 +321,25 @@ header {
     color: #ef4444;
 }
 
+/* =========================
+   КНОПКИ
+========================= */
+
 .buttons {
     display: flex;
     justify-content: center;
-
     gap: 10px;
     flex-wrap: wrap;
-
     margin-top: 20px;
 }
 
 .main-button {
     border: none;
-
     background: #2563eb;
     color: white;
-
     padding: 13px 22px;
-
     border-radius: 11px;
-
     cursor: pointer;
-
     font-weight: bold;
     font-size: 16px;
 }
@@ -274,15 +356,38 @@ header {
     background: #475569;
 }
 
+.fullscreen-button {
+    background: #7c3aed;
+}
+
+.fullscreen-button:hover {
+    background: #6d28d9;
+}
+
+/* =========================
+   ПОДСКАЗКА
+========================= */
+
+.tip {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+    padding: 15px;
+    border-radius: 14px;
+    margin-top: 20px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* =========================
+   РЕКОРДЫ
+========================= */
+
 .records {
     background: white;
-
     border: 1px solid #e5e7eb;
-
     border-radius: 18px;
-
     padding: 25px;
-
     margin-top: 30px;
 }
 
@@ -293,11 +398,8 @@ header {
 
 .record-row {
     display: flex;
-
     justify-content: space-between;
-
     padding: 12px 5px;
-
     border-bottom: 1px solid #eef0f3;
 }
 
@@ -309,37 +411,88 @@ header {
     color: #2563eb;
 }
 
-.tip {
-    background: #eff6ff;
-
-    border: 1px solid #bfdbfe;
-
-    color: #1e40af;
-
-    padding: 15px;
-
-    border-radius: 14px;
-
-    margin-top: 20px;
-
-    text-align: center;
-
-    line-height: 1.5;
-}
+/* =========================
+   FOOTER
+========================= */
 
 footer {
     margin-top: 40px;
-
     background: #111827;
-
     color: #9ca3af;
-
     text-align: center;
-
     padding: 25px;
 }
 
+/* =========================
+   ТЁМНАЯ ТЕМА
+========================= */
+
+body.dark {
+    background: #0f172a;
+    color: #f8fafc;
+}
+
+body.dark header,
+body.dark .difficulty,
+body.dark .first-player,
+body.dark .settings,
+body.dark .stat,
+body.dark .records {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+body.dark .title p,
+body.dark .stat span {
+    color: #94a3b8;
+}
+
+body.dark .setting-button,
+body.dark .level,
+body.dark .first-button {
+    background: #1e293b;
+    border-color: #475569;
+    color: #f8fafc;
+}
+
+body.dark .setting-button.active,
+body.dark .first-button.active {
+    background: #1e3a8a;
+}
+
+body.dark .cell {
+    background: #f8fafc;
+}
+
+body.dark .cell:hover {
+    background: #dbeafe;
+}
+
+body.dark .difficulty h2,
+body.dark .first-player h2,
+body.dark .settings h2,
+body.dark .setting-group h3 {
+    color: #f8fafc;
+}
+
+body.dark .tip {
+    background: #172554;
+    border-color: #1e40af;
+}
+
+body.dark .record-row {
+    border-color: #334155;
+}
+
+/* =========================
+   АДАПТИВ
+========================= */
+
 @media(max-width:600px) {
+
+    .header {
+        flex-direction: column;
+    }
 
     .title h1 {
         font-size: 32px;
@@ -403,7 +556,126 @@ EasyFlow
 </div>
 
 
-<!-- ВЫБОР СЛОЖНОСТИ -->
+<!-- =========================
+     РАСШИРЕННЫЕ НАСТРОЙКИ
+========================= -->
+
+<div class="settings">
+
+<h2>⚙️ Расширенные настройки</h2>
+
+
+<div class="setting-group">
+
+<h3>⏱️ Задержка компьютера</h3>
+
+<div class="setting-buttons">
+
+<button
+class="setting-button active"
+id="delay200"
+onclick="setComputerDelay(200)">
+Быстро
+</button>
+
+<button
+class="setting-button"
+id="delay500"
+onclick="setComputerDelay(500)">
+Обычно
+</button>
+
+<button
+class="setting-button"
+id="delay1000"
+onclick="setComputerDelay(1000)">
+Медленно
+</button>
+
+</div>
+
+</div>
+
+
+<div class="setting-group">
+
+<h3>🎨 Цвет символов</h3>
+
+<div class="setting-buttons">
+
+<button
+class="setting-button active"
+onclick="setColorTheme('blue')"
+id="colorBlue">
+🔵 Синий
+</button>
+
+<button
+class="setting-button"
+onclick="setColorTheme('purple')"
+id="colorPurple">
+🟣 Фиолетовый
+</button>
+
+<button
+class="setting-button"
+onclick="setColorTheme('green')"
+id="colorGreen">
+🟢 Зелёный
+</button>
+
+</div>
+
+</div>
+
+
+<div class="setting-group">
+
+<h3>🌙 Оформление</h3>
+
+<div class="setting-buttons">
+
+<button
+class="setting-button active"
+id="lightThemeButton"
+onclick="setTheme('light')">
+☀️ Светлая
+</button>
+
+<button
+class="setting-button"
+id="darkThemeButton"
+onclick="setTheme('dark')">
+🌙 Тёмная
+</button>
+
+</div>
+
+</div>
+
+
+<div class="setting-group">
+
+<label class="toggle">
+
+<input
+type="checkbox"
+id="soundToggle"
+checked
+onchange="setSound(this.checked)">
+
+🔊 Звуки
+
+</label>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     СЛОЖНОСТЬ
+========================= -->
 
 <div class="difficulty">
 
@@ -445,7 +717,9 @@ onclick="selectDifficulty('hard')">
 </div>
 
 
-<!-- КТО ПЕРВЫЙ -->
+<!-- =========================
+     ПЕРВЫЙ ИГРОК
+========================= -->
 
 <div class="first-player">
 
@@ -477,7 +751,9 @@ onclick="setFirstPlayer('computer')">
 </div>
 
 
-<!-- СТАТИСТИКА -->
+<!-- =========================
+     СТАТИСТИКА
+========================= -->
 
 <div class="info">
 
@@ -516,7 +792,9 @@ onclick="setFirstPlayer('computer')">
 </div>
 
 
-<!-- ИГРОВОЕ ПОЛЕ -->
+<!-- =========================
+     ПОЛЕ
+========================= -->
 
 <div class="board-wrapper">
 
@@ -571,6 +849,15 @@ onclick="resetRecords()">
 
 </button>
 
+
+<button
+class="main-button fullscreen-button"
+onclick="toggleFullscreen()">
+
+⛶ Полный экран
+
+</button>
+
 </div>
 
 
@@ -590,10 +877,17 @@ onclick="resetRecords()">
 
 🔴 Сложный — компьютер использует идеальную стратегию.
 
+<br><br>
+
+⚙️ Дополнительно можно настроить скорость компьютера,
+цвет, тему и звуки.
+
 </div>
 
 
-<!-- РЕКОРДЫ -->
+<!-- =========================
+     РЕКОРДЫ
+========================= -->
 
 <div class="records">
 
@@ -632,6 +926,28 @@ onclick="resetRecords()">
 
 </div>
 
+
+<div class="record-row">
+
+<span>🤝 Ничьи</span>
+
+<strong id="drawsRecord">
+0
+</strong>
+
+</div>
+
+
+<div class="record-row">
+
+<span>💥 Поражения</span>
+
+<strong id="lossesRecord">
+0
+</strong>
+
+</div>
+
 </div>
 
 
@@ -646,7 +962,6 @@ onclick="resetRecords()">
 
 
 <script>
-
 
 /* =========================
    ОСНОВНЫЕ ПЕРЕМЕННЫЕ
@@ -669,14 +984,21 @@ let computerThinking = false;
 let computerTimer = null;
 
 
-/* СИМВОЛЫ */
+/* =========================
+   РАСШИРЕННЫЕ НАСТРОЙКИ
+========================= */
+
+let computerDelay = 200;
+
+let soundEnabled = true;
+
+let colorTheme = "blue";
+
 
 const playerSymbol = "X";
 
 const computerSymbol = "O";
 
-
-/* НАЗВАНИЯ УРОВНЕЙ */
 
 const difficultyNames = {
 
@@ -689,27 +1011,402 @@ const difficultyNames = {
 };
 
 
-/* ПОБЕДНЫЕ КОМБИНАЦИИ */
-
 const winningCombinations = [
 
     [0,1,2],
-
     [3,4,5],
-
     [6,7,8],
-
     [0,3,6],
-
     [1,4,7],
-
     [2,5,8],
-
     [0,4,8],
-
     [2,4,6]
 
 ];
+
+
+/* =========================
+   ЗВУК
+========================= */
+
+function playSound(type) {
+
+    if (!soundEnabled) return;
+
+    try {
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        const audio =
+            new AudioContext();
+
+        const oscillator =
+            audio.createOscillator();
+
+        const gain =
+            audio.createGain();
+
+        oscillator.connect(gain);
+
+        gain.connect(audio.destination);
+
+
+        if (type === "move") {
+
+            oscillator.frequency.value = 500;
+
+        }
+
+        if (type === "win") {
+
+            oscillator.frequency.value = 800;
+
+        }
+
+        if (type === "lose") {
+
+            oscillator.frequency.value = 200;
+
+        }
+
+        if (type === "draw") {
+
+            oscillator.frequency.value = 350;
+
+        }
+
+
+        gain.gain.setValueAtTime(
+            0.08,
+            audio.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            audio.currentTime + 0.15
+        );
+
+
+        oscillator.start();
+
+        oscillator.stop(
+            audio.currentTime + 0.15
+        );
+
+    } catch {}
+
+}
+
+
+/* =========================
+   НАСТРОЙКА ЗАДЕРЖКИ
+========================= */
+
+function setComputerDelay(delay) {
+
+    computerDelay = delay;
+
+
+    document
+        .querySelectorAll(
+            '[id^="delay"]'
+        )
+        .forEach(button => {
+
+            button.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    document
+        .getElementById(
+            "delay" + delay
+        )
+        .classList.add("active");
+
+
+    saveSettings();
+
+}
+
+
+/* =========================
+   ЦВЕТ
+========================= */
+
+function setColorTheme(theme) {
+
+    colorTheme = theme;
+
+
+    document
+        .querySelectorAll(
+            "#colorBlue, #colorPurple, #colorGreen"
+        )
+        .forEach(button => {
+
+            button.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    document
+        .getElementById(
+            "color" +
+            theme.charAt(0).toUpperCase() +
+            theme.slice(1)
+        )
+        .classList.add("active");
+
+
+    const root =
+        document.documentElement;
+
+
+    if (theme === "blue") {
+
+        root.style.setProperty(
+            "--main-color",
+            "#2563eb"
+        );
+
+    }
+
+    if (theme === "purple") {
+
+        root.style.setProperty(
+            "--main-color",
+            "#7c3aed"
+        );
+
+    }
+
+    if (theme === "green") {
+
+        root.style.setProperty(
+            "--main-color",
+            "#16a34a"
+        );
+
+    }
+
+
+    document
+        .querySelectorAll(
+            ".main-button, .board"
+        )
+        .forEach(element => {
+
+            if (
+                element.classList.contains(
+                    "reset-button"
+                ) ||
+                element.classList.contains(
+                    "fullscreen-button"
+                )
+            ) return;
+
+            element.style.background =
+                getThemeColor();
+
+        });
+
+
+    saveSettings();
+
+}
+
+
+/* Цвет текущей темы */
+
+function getThemeColor() {
+
+    if (colorTheme === "purple") {
+
+        return "#7c3aed";
+
+    }
+
+    if (colorTheme === "green") {
+
+        return "#16a34a";
+
+    }
+
+    return "#2563eb";
+
+}
+
+
+/* =========================
+   ТЕМА
+========================= */
+
+function setTheme(theme) {
+
+    if (theme === "dark") {
+
+        document.body.classList.add("dark");
+
+        document
+            .getElementById(
+                "darkThemeButton"
+            )
+            .classList.add("active");
+
+        document
+            .getElementById(
+                "lightThemeButton"
+            )
+            .classList.remove("active");
+
+    } else {
+
+        document.body.classList.remove("dark");
+
+        document
+            .getElementById(
+                "lightThemeButton"
+            )
+            .classList.add("active");
+
+        document
+            .getElementById(
+                "darkThemeButton"
+            )
+            .classList.remove("active");
+
+    }
+
+
+    saveSettings();
+
+}
+
+
+/* =========================
+   ЗВУКИ
+========================= */
+
+function setSound(enabled) {
+
+    soundEnabled = enabled;
+
+    saveSettings();
+
+}
+
+
+/* =========================
+   СОХРАНЕНИЕ НАСТРОЕК
+========================= */
+
+function saveSettings() {
+
+    try {
+
+        localStorage.setItem(
+            "easyflow_ttt_settings",
+            JSON.stringify({
+
+                computerDelay,
+                soundEnabled,
+                colorTheme,
+
+                dark:
+                    document.body
+                        .classList
+                        .contains("dark")
+
+            })
+        );
+
+    } catch {}
+
+}
+
+
+/* =========================
+   ЗАГРУЗКА НАСТРОЕК
+========================= */
+
+function loadSettings() {
+
+    try {
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    "easyflow_ttt_settings"
+                )
+            );
+
+
+        if (!saved) return;
+
+
+        if (
+            saved.computerDelay
+        ) {
+
+            computerDelay =
+                saved.computerDelay;
+
+        }
+
+
+        if (
+            typeof saved.soundEnabled ===
+            "boolean"
+        ) {
+
+            soundEnabled =
+                saved.soundEnabled;
+
+        }
+
+
+        if (saved.colorTheme) {
+
+            colorTheme =
+                saved.colorTheme;
+
+        }
+
+
+        document
+            .getElementById(
+                "soundToggle"
+            )
+            .checked =
+            soundEnabled;
+
+
+        if (saved.dark) {
+
+            setTheme("dark");
+
+        }
+
+
+        setComputerDelay(
+            computerDelay
+        );
+
+
+        setColorTheme(
+            colorTheme
+        );
+
+    } catch {}
+
+}
 
 
 /* =========================
@@ -722,7 +1419,8 @@ function getRecord(level) {
 
         return Number(
             localStorage.getItem(
-                "easyflow_record_" + level
+                "easyflow_level_wins_" +
+                level
             ) || 0
         );
 
@@ -740,7 +1438,8 @@ function saveRecord(level, value) {
     try {
 
         localStorage.setItem(
-            "easyflow_record_" + level,
+            "easyflow_level_wins_" +
+            level,
             String(value)
         );
 
@@ -748,8 +1447,6 @@ function saveRecord(level, value) {
 
 }
 
-
-/* ОБЩИЕ ПОБЕДЫ */
 
 function getWins() {
 
@@ -784,38 +1481,102 @@ function saveWins(value) {
 }
 
 
-/* ОБНОВЛЕНИЕ СТАТИСТИКИ */
+function getDraws() {
 
-function updateRecords() {
+    try {
 
-    document.getElementById("easyRecord")
-        .textContent = getRecord("easy");
+        return Number(
+            localStorage.getItem(
+                "easyflow_ttt_draws"
+            ) || 0
+        );
 
+    } catch {
 
-    document.getElementById("mediumRecord")
-        .textContent = getRecord("medium");
+        return 0;
 
+    }
 
-    document.getElementById("hardRecord")
-        .textContent = getRecord("hard");
-
-
-    document.getElementById("record")
-        .textContent = getRecord(difficulty);
-
-
-    document.getElementById("wins")
-        .textContent = getWins();
+}
 
 
-    document.getElementById("difficultyName")
-        .textContent = difficultyNames[difficulty];
+function getLosses() {
+
+    try {
+
+        return Number(
+            localStorage.getItem(
+                "easyflow_ttt_losses"
+            ) || 0
+        );
+
+    } catch {
+
+        return 0;
+
+    }
 
 }
 
 
 /* =========================
-   ВЫБОР СЛОЖНОСТИ
+   ОБНОВЛЕНИЕ СТАТИСТИКИ
+========================= */
+
+function updateRecords() {
+
+    document.getElementById(
+        "easyRecord"
+    ).textContent =
+        getRecord("easy");
+
+
+    document.getElementById(
+        "mediumRecord"
+    ).textContent =
+        getRecord("medium");
+
+
+    document.getElementById(
+        "hardRecord"
+    ).textContent =
+        getRecord("hard");
+
+
+    document.getElementById(
+        "record"
+    ).textContent =
+        getRecord(difficulty);
+
+
+    document.getElementById(
+        "wins"
+    ).textContent =
+        getWins();
+
+
+    document.getElementById(
+        "drawsRecord"
+    ).textContent =
+        getDraws();
+
+
+    document.getElementById(
+        "lossesRecord"
+    ).textContent =
+        getLosses();
+
+
+    document.getElementById(
+        "difficultyName"
+    ).textContent =
+        difficultyNames[difficulty];
+
+}
+
+
+/* =========================
+   СЛОЖНОСТЬ
 ========================= */
 
 function selectDifficulty(level) {
@@ -841,13 +1602,17 @@ function selectDifficulty(level) {
         .querySelectorAll(".level")
         .forEach(button => {
 
-            button.classList.remove("active");
+            button.classList.remove(
+                "active"
+            );
 
         });
 
 
     document
-        .getElementById(level + "Button")
+        .getElementById(
+            level + "Button"
+        )
         .classList.add("active");
 
 
@@ -860,7 +1625,7 @@ function selectDifficulty(level) {
 
 
 /* =========================
-   КТО ПЕРВЫЙ
+   ПЕРВЫЙ ИГРОК
 ========================= */
 
 function setFirstPlayer(player) {
@@ -883,10 +1648,14 @@ function setFirstPlayer(player) {
 
 
     document
-        .querySelectorAll(".first-button")
+        .querySelectorAll(
+            ".first-button"
+        )
         .forEach(button => {
 
-            button.classList.remove("active");
+            button.classList.remove(
+                "active"
+            );
 
         });
 
@@ -894,13 +1663,17 @@ function setFirstPlayer(player) {
     if (player === "player") {
 
         document
-            .getElementById("playerFirstButton")
+            .getElementById(
+                "playerFirstButton"
+            )
             .classList.add("active");
 
     } else {
 
         document
-            .getElementById("computerFirstButton")
+            .getElementById(
+                "computerFirstButton"
+            )
             .classList.add("active");
 
     }
@@ -937,8 +1710,11 @@ function newGame() {
 
 
     document
-        .getElementById("message")
-        .className = "message";
+        .getElementById(
+            "message"
+        )
+        .className =
+        "message";
 
 
     renderBoard();
@@ -947,19 +1723,25 @@ function newGame() {
     if (firstPlayer === "player") {
 
         document
-            .getElementById("message")
+            .getElementById(
+                "message"
+            )
             .textContent =
             "Твой ход ❌";
 
     } else {
 
         document
-            .getElementById("message")
+            .getElementById(
+                "message"
+            )
             .textContent =
             "Компьютер думает... ⭕";
 
 
-        scheduleComputerMove(500);
+        scheduleComputerMove(
+            computerDelay
+        );
 
     }
 
@@ -1015,13 +1797,18 @@ function playerMove(index) {
     }
 
 
-    board[index] = playerSymbol;
+    board[index] =
+        playerSymbol;
+
+
+    playSound("move");
 
 
     renderBoard();
 
 
-    const result = checkGame();
+    const result =
+        checkGame();
 
 
     if (result) {
@@ -1033,7 +1820,9 @@ function playerMove(index) {
     }
 
 
-    scheduleComputerMove(400);
+    scheduleComputerMove(
+        computerDelay
+    );
 
 }
 
@@ -1058,18 +1847,21 @@ function scheduleComputerMove(delay) {
 
 
     document
-        .getElementById("message")
+        .getElementById(
+            "message"
+        )
         .textContent =
         "Компьютер думает... ⭕";
 
 
-    computerTimer = setTimeout(() => {
+    computerTimer =
+        setTimeout(() => {
 
-        computerTimer = null;
+            computerTimer = null;
 
-        computerMove();
+            computerMove();
 
-    }, delay);
+        }, delay);
 
 }
 
@@ -1078,7 +1870,9 @@ function cancelComputerMove() {
 
     if (computerTimer !== null) {
 
-        clearTimeout(computerTimer);
+        clearTimeout(
+            computerTimer
+        );
 
         computerTimer = null;
 
@@ -1105,7 +1899,8 @@ function computerMove() {
     }
 
 
-    const empty = getEmptyCells();
+    const empty =
+        getEmptyCells();
 
 
     if (empty.length === 0) {
@@ -1126,13 +1921,13 @@ function computerMove() {
 
     }
 
-
-    else if (difficulty === "medium") {
+    else if (
+        difficulty === "medium"
+    ) {
 
         move = mediumMove();
 
     }
-
 
     else {
 
@@ -1143,7 +1938,10 @@ function computerMove() {
 
     if (move !== null) {
 
-        board[move] = computerSymbol;
+        board[move] =
+            computerSymbol;
+
+        playSound("move");
 
     }
 
@@ -1154,7 +1952,8 @@ function computerMove() {
     renderBoard();
 
 
-    const result = checkGame();
+    const result =
+        checkGame();
 
 
     if (result) {
@@ -1167,7 +1966,9 @@ function computerMove() {
 
 
     document
-        .getElementById("message")
+        .getElementById(
+            "message"
+        )
         .textContent =
         "Твой ход ❌";
 
@@ -1180,7 +1981,8 @@ function computerMove() {
 
 function randomMove() {
 
-    const empty = getEmptyCells();
+    const empty =
+        getEmptyCells();
 
 
     if (empty.length === 0) {
@@ -1192,7 +1994,8 @@ function randomMove() {
 
     return empty[
         Math.floor(
-            Math.random() * empty.length
+            Math.random() *
+            empty.length
         )
     ];
 
@@ -1205,10 +2008,10 @@ function randomMove() {
 
 function mediumMove() {
 
-    /* Сначала пытается выиграть */
-
     const winningMove =
-        findWinningMove(computerSymbol);
+        findWinningMove(
+            computerSymbol
+        );
 
 
     if (winningMove !== null) {
@@ -1218,10 +2021,10 @@ function mediumMove() {
     }
 
 
-    /* Потом блокирует игрока */
-
     const blockMove =
-        findWinningMove(playerSymbol);
+        findWinningMove(
+            playerSymbol
+        );
 
 
     if (blockMove !== null) {
@@ -1231,16 +2034,12 @@ function mediumMove() {
     }
 
 
-    /* Берёт центр */
-
     if (board[4] === "") {
 
         return 4;
 
     }
 
-
-    /* Берёт углы */
 
     const corners = [
 
@@ -1269,7 +2068,7 @@ function mediumMove() {
 
 
 /* =========================
-   ПОИСК ПОБЕДНОГО ХОДА
+   ПОБЕДНЫЙ ХОД
 ========================= */
 
 function findWinningMove(symbol) {
@@ -1280,7 +2079,8 @@ function findWinningMove(symbol) {
 
     for (const index of empty) {
 
-        board[index] = symbol;
+        board[index] =
+            symbol;
 
 
         const winner =
@@ -1319,34 +2119,28 @@ function bestMove() {
         getEmptyCells();
 
 
-    /* Центр и углы проверяются первыми */
-
     const orderedMoves = [
 
         4,
-
         0,
-
         2,
-
         6,
-
         8,
-
         1,
-
         3,
-
         5,
-
         7
 
     ].filter(
-        index => empty.includes(index)
+        index =>
+            empty.includes(index)
     );
 
 
-    for (const index of orderedMoves) {
+    for (
+        const index
+        of orderedMoves
+    ) {
 
         board[index] =
             computerSymbol;
@@ -1363,7 +2157,9 @@ function bestMove() {
         board[index] = "";
 
 
-        if (score > bestScore) {
+        if (
+            score > bestScore
+        ) {
 
             bestScore = score;
 
@@ -1395,14 +2191,20 @@ function minimax(
         );
 
 
-    if (winner === computerSymbol) {
+    if (
+        winner ===
+        computerSymbol
+    ) {
 
         return 10 - depth;
 
     }
 
 
-    if (winner === playerSymbol) {
+    if (
+        winner ===
+        playerSymbol
+    ) {
 
         return depth - 10;
 
@@ -1422,10 +2224,15 @@ function minimax(
 
     if (maximizing) {
 
-        let bestScore = -Infinity;
+        let bestScore =
+            -Infinity;
 
 
-        for (let i = 0; i < 9; i++) {
+        for (
+            let i = 0;
+            i < 9;
+            i++
+        ) {
 
             if (
                 currentBoard[i] === ""
@@ -1462,46 +2269,47 @@ function minimax(
     }
 
 
-    else {
-
-        let bestScore = Infinity;
-
-
-        for (let i = 0; i < 9; i++) {
-
-            if (
-                currentBoard[i] === ""
-            ) {
-
-                currentBoard[i] =
-                    playerSymbol;
+    let bestScore =
+        Infinity;
 
 
-                const score =
-                    minimax(
-                        currentBoard,
-                        true,
-                        depth + 1
-                    );
+    for (
+        let i = 0;
+        i < 9;
+        i++
+    ) {
+
+        if (
+            currentBoard[i] === ""
+        ) {
+
+            currentBoard[i] =
+                playerSymbol;
 
 
-                currentBoard[i] = "";
+            const score =
+                minimax(
+                    currentBoard,
+                    true,
+                    depth + 1
+                );
 
 
-                bestScore =
-                    Math.min(
-                        bestScore,
-                        score
-                    );
+            currentBoard[i] = "";
 
-            }
+
+            bestScore =
+                Math.min(
+                    bestScore,
+                    score
+                );
 
         }
 
-
-        return bestScore;
-
     }
+
+
+    return bestScore;
 
 }
 
@@ -1515,9 +2323,15 @@ function getEmptyCells() {
     const empty = [];
 
 
-    for (let i = 0; i < 9; i++) {
+    for (
+        let i = 0;
+        i < 9;
+        i++
+    ) {
 
-        if (board[i] === "") {
+        if (
+            board[i] === ""
+        ) {
 
             empty.push(i);
 
@@ -1633,9 +2447,11 @@ function getWinningCombination() {
 
             board[a] !== "" &&
 
-            board[a] === board[b] &&
+            board[a] ===
+            board[b] &&
 
-            board[a] === board[c]
+            board[a] ===
+            board[c]
 
         ) {
 
@@ -1652,13 +2468,12 @@ function getWinningCombination() {
 
 
 /* =========================
-   ЗАВЕРШЕНИЕ ИГРЫ
+   ЗАВЕРШЕНИЕ
 ========================= */
 
 function finishGame(result) {
 
     cancelComputerMove();
-
 
     gameOver = true;
 
@@ -1685,7 +2500,9 @@ function finishGame(result) {
 
             if (cell) {
 
-                cell.classList.add("win");
+                cell.classList.add(
+                    "win"
+                );
 
             }
 
@@ -1696,7 +2513,9 @@ function finishGame(result) {
 
     /* ПОБЕДА ИГРОКА */
 
-    if (result === playerSymbol) {
+    if (
+        result === playerSymbol
+    ) {
 
         message.textContent =
             "🏆 Ты победил!";
@@ -1706,39 +2525,32 @@ function finishGame(result) {
             "message win-message";
 
 
-        /* Общее количество побед */
+        let wins =
+            getWins();
 
-        let wins = getWins();
 
         wins++;
+
 
         saveWins(wins);
 
 
-        /* Рекорд конкретной сложности */
-
-        let record =
-            getRecord(difficulty);
-
-
-        if (wins > record) {
-
-            /*
-             * Здесь записываем количество
-             * побед именно для этой сложности.
-             */
-
-            let levelWins =
-                getLevelWins(difficulty);
-
-            levelWins++;
-
-            saveLevelWins(
-                difficulty,
-                levelWins
+        let levelWins =
+            getRecord(
+                difficulty
             );
 
-        }
+
+        levelWins++;
+
+
+        saveRecord(
+            difficulty,
+            levelWins
+        );
+
+
+        playSound("win");
 
 
         updateRecords();
@@ -1750,7 +2562,9 @@ function finishGame(result) {
 
     /* ПОБЕДА КОМПЬЮТЕРА */
 
-    if (result === computerSymbol) {
+    if (
+        result === computerSymbol
+    ) {
 
         message.textContent =
             "💥 Компьютер победил!";
@@ -1760,7 +2574,24 @@ function finishGame(result) {
             "message lose-message";
 
 
+        try {
+
+            localStorage.setItem(
+                "easyflow_ttt_losses",
+                String(
+                    getLosses() + 1
+                )
+            );
+
+        } catch {}
+
+
+        playSound("lose");
+
+
         renderBoard();
+
+        updateRecords();
 
         return;
 
@@ -1775,6 +2606,24 @@ function finishGame(result) {
 
     message.className =
         "message";
+
+
+    try {
+
+        localStorage.setItem(
+            "easyflow_ttt_draws",
+            String(
+                getDraws() + 1
+            )
+        );
+
+    } catch {}
+
+
+    playSound("draw");
+
+
+    updateRecords();
 
 }
 
@@ -1838,88 +2687,7 @@ function renderBoard() {
 
 
 /* =========================
-   РЕКОРДЫ ПО УРОВНЯМ
-========================= */
-
-function getLevelWins(level) {
-
-    try {
-
-        return Number(
-            localStorage.getItem(
-                "easyflow_level_wins_" + level
-            ) || 0
-        );
-
-    } catch {
-
-        return 0;
-
-    }
-
-}
-
-
-function saveLevelWins(level, value) {
-
-    try {
-
-        localStorage.setItem(
-            "easyflow_level_wins_" + level,
-            String(value)
-        );
-
-    } catch {}
-
-}
-
-
-/* =========================
-   ОБНОВЛЯЕМ РЕКОРД
-========================= */
-
-function updateRecords() {
-
-    document.getElementById(
-        "easyRecord"
-    ).textContent =
-        getLevelWins("easy");
-
-
-    document.getElementById(
-        "mediumRecord"
-    ).textContent =
-        getLevelWins("medium");
-
-
-    document.getElementById(
-        "hardRecord"
-    ).textContent =
-        getLevelWins("hard");
-
-
-    document.getElementById(
-        "record"
-    ).textContent =
-        getLevelWins(difficulty);
-
-
-    document.getElementById(
-        "wins"
-    ).textContent =
-        getWins();
-
-
-    document.getElementById(
-        "difficultyName"
-    ).textContent =
-        difficultyNames[difficulty];
-
-}
-
-
-/* =========================
-   СБРОС
+   СБРОС РЕКОРДОВ
 ========================= */
 
 function resetRecords() {
@@ -1961,6 +2729,16 @@ function resetRecords() {
             "easyflow_level_wins_hard"
         );
 
+
+        localStorage.removeItem(
+            "easyflow_ttt_draws"
+        );
+
+
+        localStorage.removeItem(
+            "easyflow_ttt_losses"
+        );
+
     } catch {}
 
 
@@ -1979,8 +2757,33 @@ function resetRecords() {
 
 
 /* =========================
+   ПОЛНЫЙ ЭКРАН
+========================= */
+
+function toggleFullscreen() {
+
+    if (
+        !document.fullscreenElement
+    ) {
+
+        document.documentElement
+            .requestFullscreen()
+            .catch(() => {});
+
+    } else {
+
+        document.exitFullscreen();
+
+    }
+
+}
+
+
+/* =========================
    ЗАПУСК
 ========================= */
+
+loadSettings();
 
 updateRecords();
 
