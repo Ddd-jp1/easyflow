@@ -63,7 +63,7 @@ header {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 850px;
     margin: auto;
     padding: 30px 15px;
 }
@@ -80,47 +80,88 @@ h1 {
     margin-bottom: 25px;
 }
 
-.difficulty {
+/* =========================
+   НАСТРОЙКИ
+========================= */
+
+.settings {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 15px;
+    padding: 18px;
     margin-bottom: 15px;
+}
+
+.settings h2 {
     text-align: center;
+    font-size: 19px;
+    margin-bottom: 15px;
 }
 
-.difficulty h2 {
-    font-size: 18px;
-    margin-bottom: 12px;
+.setting-group {
+    margin-bottom: 15px;
 }
 
-.levels {
+.setting-group:last-child {
+    margin-bottom: 0;
+}
+
+.setting-title {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 9px;
+}
+
+.options {
     display: flex;
     justify-content: center;
     gap: 8px;
     flex-wrap: wrap;
 }
 
-.level {
+.option {
     border: 2px solid var(--border);
     background: white;
-    color: #111827;
-    padding: 10px 16px;
+    color: var(--text);
+    padding: 9px 14px;
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
     transition: .2s;
 }
 
-.level:hover {
+.option:hover {
     transform: translateY(-2px);
 }
 
-.level.active {
+.option.active {
     border-color: var(--blue);
     background: #dbeafe;
     color: var(--blue-dark);
 }
+
+.option.green.active {
+    border-color: var(--green);
+    background: #dcfce7;
+    color: #166534;
+}
+
+.option.yellow.active {
+    border-color: var(--yellow);
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.option.red.active {
+    border-color: var(--red);
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* =========================
+   СТАТИСТИКА
+========================= */
 
 .info {
     display: flex;
@@ -134,9 +175,9 @@ h1 {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 10px 20px;
+    padding: 10px 18px;
     text-align: center;
-    min-width: 110px;
+    min-width: 115px;
 }
 
 .stat span {
@@ -147,8 +188,12 @@ h1 {
 }
 
 .stat strong {
-    font-size: 22px;
+    font-size: 20px;
 }
+
+/* =========================
+   ИГРА
+========================= */
 
 .game-box {
     display: flex;
@@ -218,6 +263,10 @@ canvas {
     background: #475569;
 }
 
+/* =========================
+   УПРАВЛЕНИЕ
+========================= */
+
 .controls {
     width: 210px;
     margin: 20px auto;
@@ -246,6 +295,10 @@ canvas {
     visibility: hidden;
 }
 
+/* =========================
+   РЕКОРДЫ
+========================= */
+
 .records {
     background: var(--card);
     border: 1px solid var(--border);
@@ -268,6 +321,17 @@ canvas {
 
 .record:last-child {
     border-bottom: none;
+}
+
+.tip {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+    border-radius: 12px;
+    padding: 13px;
+    text-align: center;
+    margin-top: 18px;
+    line-height: 1.5;
 }
 
 footer {
@@ -297,6 +361,15 @@ footer {
         min-width: 95px;
         padding: 9px 12px;
     }
+
+    .settings {
+        padding: 14px 10px;
+    }
+
+    .option {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
 }
 </style>
 </head>
@@ -304,187 +377,428 @@ footer {
 <body>
 
 <header>
-    <div class="header">
 
-        <a href="index.html" class="logo">
-            EasyFlow
-        </a>
+<div class="header">
 
-        <a href="games.html" class="back">
-            ← Все игры
-        </a>
+<a href="index.html" class="logo">
+EasyFlow
+</a>
 
-    </div>
+<a href="games.html" class="back">
+← Все игры
+</a>
+
+</div>
+
 </header>
 
 <main class="container">
 
-    <h1>🐍 Змейка</h1>
+<h1>🐍 Змейка</h1>
 
-    <p class="subtitle">
-        Собирай еду, увеличивай змейку и побей свой рекорд!
-    </p>
+<p class="subtitle">
+Собирай еду, увеличивай змейку и побей свой рекорд!
+</p>
 
-    <!-- СЛОЖНОСТЬ -->
 
-    <div class="difficulty">
+<!-- =========================
+     НАСТРОЙКИ
+========================= -->
 
-        <h2>Сложность</h2>
+<div class="settings">
 
-        <div class="levels">
+<h2>⚙️ Настройки игры</h2>
 
-            <button
-                class="level active"
-                data-level="easy"
-                type="button">
-                🟢 Лёгкий
-            </button>
 
-            <button
-                class="level"
-                data-level="medium"
-                type="button">
-                🟡 Средний
-            </button>
+<!-- СЛОЖНОСТЬ -->
 
-            <button
-                class="level"
-                data-level="hard"
-                type="button">
-                🔴 Сложный
-            </button>
+<div class="setting-group">
 
-        </div>
+<span class="setting-title">
+🎯 Сложность
+</span>
 
-    </div>
+<div class="options">
 
-    <!-- СТАТИСТИКА -->
+<button
+class="option green active"
+data-setting="difficulty"
+data-value="easy"
+type="button">
 
-    <div class="info">
+🟢 Лёгкий
 
-        <div class="stat">
-            <span>Очки</span>
-            <strong id="score">0</strong>
-        </div>
+</button>
 
-        <div class="stat">
-            <span>🏆 Рекорд</span>
-            <strong id="record">0</strong>
-        </div>
+<button
+class="option yellow"
+data-setting="difficulty"
+data-value="medium"
+type="button">
 
-        <div class="stat">
-            <span>Скорость</span>
-            <strong id="speed">Очень медленно</strong>
-        </div>
+🟡 Средний
 
-    </div>
+</button>
 
-    <!-- ИГРА -->
+<button
+class="option red"
+data-setting="difficulty"
+data-value="hard"
+type="button">
 
-    <div class="game-box">
+🔴 Сложный
 
-        <canvas
-            id="game"
-            width="500"
-            height="500">
-        </canvas>
+</button>
 
-    </div>
+</div>
 
-    <div id="message" class="message">
-        Нажми «Начать»
-    </div>
+</div>
 
-    <!-- КНОПКИ -->
 
-    <div class="buttons">
+<!-- РАЗМЕР ПОЛЯ -->
 
-        <button
-            id="startButton"
-            class="main-button"
-            type="button">
-            ▶️ Начать
-        </button>
+<div class="setting-group">
 
-        <button
-            id="pauseButton"
-            class="main-button pause"
-            type="button">
-            ⏸️ Пауза
-        </button>
+<span class="setting-title">
+📐 Размер поля
+</span>
 
-    </div>
+<div class="options">
 
-    <!-- УПРАВЛЕНИЕ -->
+<button
+class="option"
+data-setting="size"
+data-value="15"
+type="button">
 
-    <div class="controls">
+15×15
 
-        <button class="control empty" type="button"></button>
+</button>
 
-        <button
-            class="control"
-            data-direction="up"
-            type="button">
-            ⬆️
-        </button>
+<button
+class="option"
+data-setting="size"
+data-value="20"
+type="button">
 
-        <button class="control empty" type="button"></button>
+20×20
 
-        <button
-            class="control"
-            data-direction="left"
-            type="button">
-            ⬅️
-        </button>
+</button>
 
-        <button
-            class="control"
-            data-direction="down"
-            type="button">
-            ⬇️
-        </button>
+<button
+class="option active"
+data-setting="size"
+data-value="25"
+type="button">
 
-        <button
-            class="control"
-            data-direction="right"
-            type="button">
-            ➡️
-        </button>
+25×25
 
-    </div>
+</button>
 
-    <!-- РЕКОРДЫ -->
+<button
+class="option"
+data-setting="size"
+data-value="30"
+type="button">
 
-    <div class="records">
+30×30
 
-        <h2>🏆 Рекорды</h2>
+</button>
 
-        <div class="record">
-            <span>🟢 Лёгкий</span>
-            <strong id="easyRecord">0</strong>
-        </div>
+</div>
 
-        <div class="record">
-            <span>🟡 Средний</span>
-            <strong id="mediumRecord">0</strong>
-        </div>
+</div>
 
-        <div class="record">
-            <span>🔴 Сложный</span>
-            <strong id="hardRecord">0</strong>
-        </div>
 
-    </div>
+<!-- СТЕНЫ -->
+
+<div class="setting-group">
+
+<span class="setting-title">
+🧱 Стены
+</span>
+
+<div class="options">
+
+<button
+class="option active"
+data-setting="walls"
+data-value="on"
+type="button">
+
+🚧 Включены
+
+</button>
+
+<button
+class="option"
+data-setting="walls"
+data-value="off"
+type="button">
+
+🌎 Сквозные
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ПРЕПЯТСТВИЯ -->
+
+<div class="setting-group">
+
+<span class="setting-title">
+🚧 Препятствия
+</span>
+
+<div class="options">
+
+<button
+class="option active"
+data-setting="obstacles"
+data-value="none"
+type="button">
+
+Нет
+
+</button>
+
+<button
+class="option"
+data-setting="obstacles"
+data-value="few"
+type="button">
+
+🟡 Мало
+
+</button>
+
+<button
+class="option"
+data-setting="obstacles"
+data-value="many"
+type="button">
+
+🔴 Много
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     СТАТИСТИКА
+========================= -->
+
+<div class="info">
+
+<div class="stat">
+
+<span>Очки</span>
+
+<strong id="score">0</strong>
+
+</div>
+
+<div class="stat">
+
+<span>🏆 Рекорд</span>
+
+<strong id="record">0</strong>
+
+</div>
+
+<div class="stat">
+
+<span>Размер</span>
+
+<strong id="fieldInfo">25×25</strong>
+
+</div>
+
+<div class="stat">
+
+<span>Скорость</span>
+
+<strong id="speed">Очень медленно</strong>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     ИГРА
+========================= -->
+
+<div class="game-box">
+
+<canvas
+id="game"
+width="500"
+height="500">
+</canvas>
+
+</div>
+
+
+<div id="message" class="message">
+
+Нажми «Начать»
+
+</div>
+
+
+<div class="buttons">
+
+<button
+id="startButton"
+class="main-button"
+type="button">
+
+▶️ Начать
+
+</button>
+
+<button
+id="pauseButton"
+class="main-button pause"
+type="button">
+
+⏸️ Пауза
+
+</button>
+
+</div>
+
+
+<!-- =========================
+     УПРАВЛЕНИЕ
+========================= -->
+
+<div class="controls">
+
+<button class="control empty" type="button"></button>
+
+<button
+class="control"
+data-direction="up"
+type="button">
+
+⬆️
+
+</button>
+
+<button class="control empty" type="button"></button>
+
+<button
+class="control"
+data-direction="left"
+type="button">
+
+⬅️
+
+</button>
+
+<button
+class="control"
+data-direction="down"
+type="button">
+
+⬇️
+
+</button>
+
+<button
+class="control"
+data-direction="right"
+type="button">
+
+➡️
+
+</button>
+
+</div>
+
+
+<div class="tip">
+
+💡 <strong>Управление:</strong>
+
+стрелки или WASD на компьютере,
+кнопки и свайпы на телефоне.
+
+<br>
+
+⚙️ Изменение настроек применяется
+после начала новой игры.
+
+</div>
+
+
+<!-- =========================
+     РЕКОРДЫ
+========================= -->
+
+<div class="records">
+
+<h2>🏆 Рекорды</h2>
+
+
+<div class="record">
+
+<span>🟢 Лёгкий</span>
+
+<strong id="easyRecord">
+0
+</strong>
+
+</div>
+
+
+<div class="record">
+
+<span>🟡 Средний</span>
+
+<strong id="mediumRecord">
+0
+</strong>
+
+</div>
+
+
+<div class="record">
+
+<span>🔴 Сложный</span>
+
+<strong id="hardRecord">
+0
+</strong>
+
+</div>
+
+</div>
 
 </main>
 
+
 <footer>
-    © 2026 EasyFlow
+
+© 2026 EasyFlow
+
 </footer>
+
 
 <script>
 
 "use strict";
+
 
 /* =========================================
    CANVAS
@@ -498,27 +812,14 @@ const ctx =
 
 
 /* =========================================
-   НАСТРОЙКИ ПОЛЯ
+   НАСТРОЙКИ
 ========================================= */
 
-const GRID_SIZE = 25;
+let gridSize = 25;
 
-const CELL_SIZE =
-    canvas.width / GRID_SIZE;
+let cellSize =
+    canvas.width / gridSize;
 
-
-/* =========================================
-   СКОРОСТИ
-========================================= */
-
-/*
-   Чем больше delay,
-   тем медленнее змейка.
-
-   🟢 Лёгкий   = 500 мс
-   🟡 Средний  = 400 мс
-   🔴 Сложный  = 300 мс
-*/
 
 const LEVELS = {
 
@@ -534,14 +835,23 @@ const LEVELS = {
 
     hard: {
         delay: 300,
-        name: "Немного быстрее"
+        name: "Быстро"
     }
 
 };
 
 
+let currentLevel = "easy";
+
+let wallsEnabled = true;
+
+let obstacleMode = "none";
+
+let obstacles = [];
+
+
 /* =========================================
-   СОСТОЯНИЕ ИГРЫ
+   СОСТОЯНИЕ
 ========================================= */
 
 let snake = [];
@@ -556,8 +866,6 @@ let direction = "right";
 let nextDirection = "right";
 
 let score = 0;
-
-let currentLevel = "easy";
 
 let gameTimer = null;
 
@@ -579,6 +887,9 @@ const recordElement =
 const speedElement =
     document.getElementById("speed");
 
+const fieldInfoElement =
+    document.getElementById("fieldInfo");
+
 const messageElement =
     document.getElementById("message");
 
@@ -595,18 +906,26 @@ const pauseButton =
 
 function getRecord(level) {
 
-    const key =
-        "easyflow_snake_record_" + level;
+    try {
 
-    const value =
-        Number(localStorage.getItem(key));
+        const value =
+            Number(
+                localStorage.getItem(
+                    "easyflow_snake_record_" +
+                    level
+                )
+            );
 
-    if (
-        Number.isFinite(value) &&
-        value >= 0
-    ) {
-        return value;
-    }
+        if (
+            Number.isFinite(value) &&
+            value >= 0
+        ) {
+
+            return value;
+
+        }
+
+    } catch {}
 
     return 0;
 }
@@ -614,42 +933,42 @@ function getRecord(level) {
 
 function saveRecord(level, value) {
 
-    localStorage.setItem(
-        "easyflow_snake_record_" + level,
-        String(value)
-    );
+    try {
+
+        localStorage.setItem(
+            "easyflow_snake_record_" +
+            level,
+            String(value)
+        );
+
+    } catch {}
+
 }
 
 
 function updateRecords() {
 
-    const easy =
-        getRecord("easy");
-
-    const medium =
-        getRecord("medium");
-
-    const hard =
-        getRecord("hard");
-
-
     document.getElementById(
         "easyRecord"
-    ).textContent = easy;
+    ).textContent =
+        getRecord("easy");
 
 
     document.getElementById(
         "mediumRecord"
-    ).textContent = medium;
+    ).textContent =
+        getRecord("medium");
 
 
     document.getElementById(
         "hardRecord"
-    ).textContent = hard;
+    ).textContent =
+        getRecord("hard");
 
 
     recordElement.textContent =
         getRecord(currentLevel);
+
 }
 
 
@@ -675,15 +994,16 @@ function showMessage(
         );
 
     }
+
 }
 
 
 /* =========================================
-   ВЫБОР СЛОЖНОСТИ
+   НАСТРОЙКИ КНОПОК
 ========================================= */
 
 document
-    .querySelectorAll(".level")
+    .querySelectorAll(".option")
     .forEach(button => {
 
         button.addEventListener(
@@ -698,15 +1018,21 @@ document
                     );
 
                     return;
+
                 }
 
 
-                currentLevel =
-                    this.dataset.level;
+                const setting =
+                    this.dataset.setting;
+
+                const value =
+                    this.dataset.value;
 
 
                 document
-                    .querySelectorAll(".level")
+                    .querySelectorAll(
+                        `[data-setting="${setting}"]`
+                    )
                     .forEach(item => {
 
                         item.classList.remove(
@@ -716,12 +1042,60 @@ document
                     });
 
 
-                this.classList.add("active");
+                this.classList.add(
+                    "active"
+                );
 
 
-                speedElement.textContent =
-                    LEVELS[currentLevel].name;
+                if (
+                    setting ===
+                    "difficulty"
+                ) {
 
+                    currentLevel =
+                        value;
+
+                }
+
+
+                if (
+                    setting ===
+                    "size"
+                ) {
+
+                    gridSize =
+                        Number(value);
+
+                    cellSize =
+                        canvas.width /
+                        gridSize;
+
+                }
+
+
+                if (
+                    setting ===
+                    "walls"
+                ) {
+
+                    wallsEnabled =
+                        value === "on";
+
+                }
+
+
+                if (
+                    setting ===
+                    "obstacles"
+                ) {
+
+                    obstacleMode =
+                        value;
+
+                }
+
+
+                updateSettingsInfo();
 
                 updateRecords();
 
@@ -731,6 +1105,157 @@ document
         );
 
     });
+
+
+/* =========================================
+   ИНФОРМАЦИЯ
+========================================= */
+
+function updateSettingsInfo() {
+
+    fieldInfoElement.textContent =
+        gridSize + "×" + gridSize;
+
+
+    speedElement.textContent =
+        LEVELS[currentLevel].name;
+
+
+    recordElement.textContent =
+        getRecord(currentLevel);
+
+}
+
+
+/* =========================================
+   СОЗДАНИЕ ПРЕПЯТСТВИЙ
+========================================= */
+
+function createObstacles() {
+
+    obstacles = [];
+
+
+    let count = 0;
+
+
+    if (obstacleMode === "few") {
+
+        count =
+            Math.floor(
+                gridSize * gridSize * 0.04
+            );
+
+    }
+
+
+    if (obstacleMode === "many") {
+
+        count =
+            Math.floor(
+                gridSize * gridSize * 0.09
+            );
+
+    }
+
+
+    const forbidden = [];
+
+
+    /* Зона старта змейки */
+
+    for (
+        let y = 0;
+        y < 5;
+        y++
+    ) {
+
+        for (
+            let x = 0;
+            x < 7;
+            x++
+        ) {
+
+            forbidden.push(
+                x + "," + y
+            );
+
+        }
+
+    }
+
+
+    let attempts = 0;
+
+
+    while (
+        obstacles.length < count &&
+        attempts < count * 20
+    ) {
+
+        attempts++;
+
+
+        const x =
+            Math.floor(
+                Math.random() *
+                gridSize
+            );
+
+
+        const y =
+            Math.floor(
+                Math.random() *
+                gridSize
+            );
+
+
+        const key =
+            x + "," + y;
+
+
+        if (
+            forbidden.includes(key)
+        ) {
+            continue;
+        }
+
+
+        const exists =
+            obstacles.some(
+                obstacle =>
+                    obstacle.x === x &&
+                    obstacle.y === y
+            );
+
+
+        if (!exists) {
+
+            obstacles.push({
+                x,
+                y
+            });
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
+   ПРОВЕРКА ПРЕПЯТСТВИЯ
+========================================= */
+
+function isObstacle(x, y) {
+
+    return obstacles.some(
+        obstacle =>
+            obstacle.x === x &&
+            obstacle.y === y
+    );
+
+}
 
 
 /* =========================================
@@ -745,18 +1270,18 @@ function startGame() {
     snake = [
 
         {
-            x: 12,
-            y: 12
+            x: Math.floor(gridSize / 2),
+            y: Math.floor(gridSize / 2)
         },
 
         {
-            x: 11,
-            y: 12
+            x: Math.floor(gridSize / 2) - 1,
+            y: Math.floor(gridSize / 2)
         },
 
         {
-            x: 10,
-            y: 12
+            x: Math.floor(gridSize / 2) - 2,
+            y: Math.floor(gridSize / 2)
         }
 
     ];
@@ -773,24 +1298,22 @@ function startGame() {
     gamePaused = false;
 
 
+    createObstacles();
+
+    createFood();
+
+
     scoreElement.textContent =
         "0";
 
 
-    speedElement.textContent =
-        LEVELS[currentLevel].name;
-
-
-    recordElement.textContent =
-        getRecord(currentLevel);
+    updateSettingsInfo();
 
 
     showMessage(
         "🏁 Игра началась!"
     );
 
-
-    createFood();
 
     draw();
 
@@ -805,7 +1328,7 @@ function startGame() {
 
 
 /* =========================================
-   ОСТАНОВКА ТАЙМЕРА
+   ТАЙМЕР
 ========================================= */
 
 function stopTimer() {
@@ -822,7 +1345,7 @@ function stopTimer() {
 
 
 /* =========================================
-   СОЗДАНИЕ ЕДЫ
+   ЕДА
 ========================================= */
 
 function createFood() {
@@ -832,17 +1355,17 @@ function createFood() {
 
     for (
         let y = 0;
-        y < GRID_SIZE;
+        y < gridSize;
         y++
     ) {
 
         for (
             let x = 0;
-            x < GRID_SIZE;
+            x < gridSize;
             x++
         ) {
 
-            const occupied =
+            const snakeOccupied =
                 snake.some(
                     part =>
                         part.x === x &&
@@ -850,11 +1373,14 @@ function createFood() {
                 );
 
 
-            if (!occupied) {
+            if (
+                !snakeOccupied &&
+                !isObstacle(x, y)
+            ) {
 
                 freeCells.push({
-                    x: x,
-                    y: y
+                    x,
+                    y
                 });
 
             }
@@ -873,15 +1399,13 @@ function createFood() {
     }
 
 
-    const randomIndex =
-        Math.floor(
-            Math.random() *
-            freeCells.length
-        );
-
-
     food =
-        freeCells[randomIndex];
+        freeCells[
+            Math.floor(
+                Math.random() *
+                freeCells.length
+            )
+        ];
 
 }
 
@@ -896,7 +1420,9 @@ function gameLoop() {
         !gameRunning ||
         gamePaused
     ) {
+
         return;
+
     }
 
 
@@ -905,8 +1431,11 @@ function gameLoop() {
 
 
     const head = {
+
         x: snake[0].x,
+
         y: snake[0].y
+
     };
 
 
@@ -931,13 +1460,67 @@ function gameLoop() {
     }
 
 
-    /* СТЕНА */
+    /* =====================================
+       СТЕНЫ
+    ===================================== */
+
+    if (wallsEnabled) {
+
+        if (
+            head.x < 0 ||
+            head.x >= gridSize ||
+            head.y < 0 ||
+            head.y >= gridSize
+        ) {
+
+            finishGame(false);
+
+            return;
+
+        }
+
+    } else {
+
+        /* Сквозное поле */
+
+        if (head.x < 0) {
+
+            head.x =
+                gridSize - 1;
+
+        }
+
+        if (head.x >= gridSize) {
+
+            head.x = 0;
+
+        }
+
+        if (head.y < 0) {
+
+            head.y =
+                gridSize - 1;
+
+        }
+
+        if (head.y >= gridSize) {
+
+            head.y = 0;
+
+        }
+
+    }
+
+
+    /* =====================================
+       ПРЕПЯТСТВИЯ
+    ===================================== */
 
     if (
-        head.x < 0 ||
-        head.x >= GRID_SIZE ||
-        head.y < 0 ||
-        head.y >= GRID_SIZE
+        isObstacle(
+            head.x,
+            head.y
+        )
     ) {
 
         finishGame(false);
@@ -947,7 +1530,9 @@ function gameLoop() {
     }
 
 
-    /* ЕДА */
+    /* =====================================
+       ЕДА
+    ===================================== */
 
     const ateFood =
         head.x === food.x &&
@@ -960,7 +1545,9 @@ function gameLoop() {
             : snake.slice(0, -1);
 
 
-    /* СТОЛКНОВЕНИЕ */
+    /* =====================================
+       СТОЛКНОВЕНИЕ СОБСТВЕННЫМ ТЕЛОМ
+    ===================================== */
 
     const hitSelf =
         bodyToCheck.some(
@@ -979,12 +1566,14 @@ function gameLoop() {
     }
 
 
-    /* ДОБАВЛЯЕМ ГОЛОВУ */
+    /* Добавляем голову */
 
     snake.unshift(head);
 
 
-    /* СЪЕЛИ ЕДУ */
+    /* =====================================
+       ЕДА
+    ===================================== */
 
     if (ateFood) {
 
@@ -1006,8 +1595,12 @@ function gameLoop() {
                 score
             );
 
+
             recordElement.textContent =
                 score;
+
+
+            updateRecords();
 
         }
 
@@ -1038,7 +1631,9 @@ function changeDirection(
         !gameRunning ||
         gamePaused
     ) {
+
         return;
+
     }
 
 
@@ -1059,7 +1654,9 @@ function changeDirection(
         newDirection ===
         opposite[direction]
     ) {
+
         return;
+
     }
 
 
@@ -1067,7 +1664,9 @@ function changeDirection(
         newDirection ===
         opposite[nextDirection]
     ) {
+
         return;
+
     }
 
 
@@ -1078,7 +1677,7 @@ function changeDirection(
 
 
 /* =========================================
-   КНОПКИ НА ЭКРАНЕ
+   ЭКРАННЫЕ КНОПКИ
 ========================================= */
 
 document
@@ -1120,7 +1719,9 @@ document.addEventListener(
             case "ц":
             case "Ц":
 
-                newDirection = "up";
+                newDirection =
+                    "up";
+
                 break;
 
 
@@ -1130,7 +1731,9 @@ document.addEventListener(
             case "ы":
             case "Ы":
 
-                newDirection = "down";
+                newDirection =
+                    "down";
+
                 break;
 
 
@@ -1140,7 +1743,9 @@ document.addEventListener(
             case "ф":
             case "Ф":
 
-                newDirection = "left";
+                newDirection =
+                    "left";
+
                 break;
 
 
@@ -1150,7 +1755,9 @@ document.addEventListener(
             case "в":
             case "В":
 
-                newDirection = "right";
+                newDirection =
+                    "right";
+
                 break;
 
         }
@@ -1200,7 +1807,9 @@ canvas.addEventListener(
         if (
             !event.changedTouches.length
         ) {
+
             return;
+
         }
 
 
@@ -1228,7 +1837,9 @@ canvas.addEventListener(
         if (
             !event.changedTouches.length
         ) {
+
             return;
+
         }
 
 
@@ -1255,7 +1866,9 @@ canvas.addEventListener(
             Math.abs(dy) <
             minimumSwipe
         ) {
+
             return;
+
         }
 
 
@@ -1294,7 +1907,9 @@ canvas.addEventListener(
 function togglePause() {
 
     if (!gameRunning) {
+
         return;
+
     }
 
 
@@ -1338,11 +1953,11 @@ function finishGame(
     gamePaused = false;
 
 
-    const record =
+    const oldRecord =
         getRecord(currentLevel);
 
 
-    if (score > record) {
+    if (score > oldRecord) {
 
         saveRecord(
             currentLevel,
@@ -1357,30 +1972,26 @@ function finishGame(
     if (completed) {
 
         showMessage(
-            "🏆 Победа! Поле полностью заполнено! Очки: " +
+            "🏆 Победа! Поле заполнено! Очки: " +
+            score,
+            "success"
+        );
+
+    } else if (score > oldRecord) {
+
+        showMessage(
+            "🏆 Новый рекорд: " +
             score,
             "success"
         );
 
     } else {
 
-        if (score > record) {
-
-            showMessage(
-                "🏆 Новый рекорд: " +
-                score,
-                "success"
-            );
-
-        } else {
-
-            showMessage(
-                "💥 Игра окончена! Очки: " +
-                score,
-                "error"
-            );
-
-        }
+        showMessage(
+            "💥 Игра окончена! Очки: " +
+            score,
+            "error"
+        );
 
     }
 
@@ -1418,19 +2029,19 @@ function draw() {
 
     for (
         let i = 0;
-        i <= GRID_SIZE;
+        i <= gridSize;
         i++
     ) {
 
         ctx.beginPath();
 
         ctx.moveTo(
-            i * CELL_SIZE,
+            i * cellSize,
             0
         );
 
         ctx.lineTo(
-            i * CELL_SIZE,
+            i * cellSize,
             canvas.height
         );
 
@@ -1441,17 +2052,77 @@ function draw() {
 
         ctx.moveTo(
             0,
-            i * CELL_SIZE
+            i * cellSize
         );
 
         ctx.lineTo(
             canvas.width,
-            i * CELL_SIZE
+            i * cellSize
         );
 
         ctx.stroke();
 
     }
+
+
+    /* Препятствия */
+
+    obstacles.forEach(
+        obstacle => {
+
+            const x =
+                obstacle.x *
+                cellSize + 2;
+
+
+            const y =
+                obstacle.y *
+                cellSize + 2;
+
+
+            const size =
+                cellSize - 4;
+
+
+            ctx.fillStyle =
+                "#475569";
+
+
+            ctx.beginPath();
+
+
+            if (
+                typeof ctx.roundRect ===
+                "function"
+            ) {
+
+                ctx.roundRect(
+                    x,
+                    y,
+                    size,
+                    size,
+                    Math.min(
+                        5,
+                        size / 4
+                    )
+                );
+
+            } else {
+
+                ctx.rect(
+                    x,
+                    y,
+                    size,
+                    size
+                );
+
+            }
+
+
+            ctx.fill();
+
+        }
+    );
 
 
     /* Еда */
@@ -1519,13 +2190,13 @@ function draw() {
 function drawFood() {
 
     const centerX =
-        food.x * CELL_SIZE +
-        CELL_SIZE / 2;
+        food.x * cellSize +
+        cellSize / 2;
 
 
     const centerY =
-        food.y * CELL_SIZE +
-        CELL_SIZE / 2;
+        food.y * cellSize +
+        cellSize / 2;
 
 
     ctx.fillStyle =
@@ -1538,7 +2209,10 @@ function drawFood() {
     ctx.arc(
         centerX,
         centerY,
-        CELL_SIZE / 2 - 4,
+        Math.max(
+            3,
+            cellSize / 2 - 4
+        ),
         0,
         Math.PI * 2
     );
@@ -1555,9 +2229,14 @@ function drawFood() {
 
 
     ctx.arc(
-        centerX - 4,
-        centerY - 4,
-        3,
+        centerX -
+        cellSize * 0.15,
+        centerY -
+        cellSize * 0.15,
+        Math.max(
+            2,
+            cellSize * 0.12
+        ),
         0,
         Math.PI * 2
     );
@@ -1584,15 +2263,18 @@ function drawSnakePart(
 
 
     const x =
-        part.x * CELL_SIZE + 2;
+        part.x * cellSize + 2;
 
 
     const y =
-        part.y * CELL_SIZE + 2;
+        part.y * cellSize + 2;
 
 
     const size =
-        CELL_SIZE - 4;
+        Math.max(
+            2,
+            cellSize - 4
+        );
 
 
     ctx.beginPath();
@@ -1608,7 +2290,10 @@ function drawSnakePart(
             y,
             size,
             size,
-            5
+            Math.min(
+                5,
+                size / 4
+            )
         );
 
     } else {
@@ -1641,16 +2326,31 @@ function drawSnakePart(
 
 function drawSnakeEyes(part) {
 
+    if (cellSize < 12) {
+
+        return;
+
+    }
+
+
     ctx.fillStyle =
         "white";
 
 
     const x =
-        part.x * CELL_SIZE;
+        part.x * cellSize;
 
 
     const y =
-        part.y * CELL_SIZE;
+        part.y * cellSize;
+
+
+    const offset =
+        cellSize * 0.28;
+
+
+    const second =
+        cellSize * 0.72;
 
 
     let eye1;
@@ -1661,13 +2361,13 @@ function drawSnakeEyes(part) {
     if (direction === "left") {
 
         eye1 = {
-            x: x + 7,
-            y: y + 7
+            x: x + offset,
+            y: y + offset
         };
 
         eye2 = {
-            x: x + 7,
-            y: y + 18
+            x: x + offset,
+            y: y + second
         };
 
     } else if (
@@ -1675,13 +2375,13 @@ function drawSnakeEyes(part) {
     ) {
 
         eye1 = {
-            x: x + 7,
-            y: y + 7
+            x: x + offset,
+            y: y + offset
         };
 
         eye2 = {
-            x: x + 18,
-            y: y + 7
+            x: x + second,
+            y: y + offset
         };
 
     } else if (
@@ -1689,28 +2389,35 @@ function drawSnakeEyes(part) {
     ) {
 
         eye1 = {
-            x: x + 7,
-            y: y + 18
+            x: x + offset,
+            y: y + second
         };
 
         eye2 = {
-            x: x + 18,
-            y: y + 18
+            x: x + second,
+            y: y + second
         };
 
     } else {
 
         eye1 = {
-            x: x + 18,
-            y: y + 7
+            x: x + second,
+            y: y + offset
         };
 
         eye2 = {
-            x: x + 18,
-            y: y + 18
+            x: x + second,
+            y: y + second
         };
 
     }
+
+
+    const radius =
+        Math.max(
+            1.5,
+            cellSize * 0.11
+        );
 
 
     ctx.beginPath();
@@ -1718,7 +2425,7 @@ function drawSnakeEyes(part) {
     ctx.arc(
         eye1.x,
         eye1.y,
-        3,
+        radius,
         0,
         Math.PI * 2
     );
@@ -1731,7 +2438,7 @@ function drawSnakeEyes(part) {
     ctx.arc(
         eye2.x,
         eye2.y,
-        3,
+        radius,
         0,
         Math.PI * 2
     );
@@ -1774,7 +2481,7 @@ function drawStart() {
     ctx.fillText(
         "🐍 ЗМЕЙКА",
         canvas.width / 2,
-        210
+        200
     );
 
 
@@ -1789,7 +2496,7 @@ function drawStart() {
     ctx.fillText(
         LEVELS[currentLevel].name,
         canvas.width / 2,
-        250
+        240
     );
 
 
@@ -1802,9 +2509,17 @@ function drawStart() {
 
 
     ctx.fillText(
+        gridSize + "×" +
+        gridSize,
+        canvas.width / 2,
+        270
+    );
+
+
+    ctx.fillText(
         "Нажми «Начать»",
         canvas.width / 2,
-        290
+        300
     );
 
 }
@@ -1830,12 +2545,9 @@ pauseButton.addEventListener(
    ЗАПУСК
 ========================================= */
 
+updateSettingsInfo();
+
 updateRecords();
-
-
-speedElement.textContent =
-    LEVELS[currentLevel].name;
-
 
 drawStart();
 
