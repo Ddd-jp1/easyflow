@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>EasyFlow</title>
 
 <style>
@@ -16,13 +17,18 @@
     --primary:#2563eb;
     --primary-dark:#1d4ed8;
     --bg:#f4f7fb;
-    --card:#fff;
+    --card:#ffffff;
     --text:#111827;
     --muted:#64748b;
     --border:#e5e7eb;
     --success:#22c55e;
     --danger:#ef4444;
     --gold:#f59e0b;
+    --shadow:0 10px 30px rgba(0,0,0,.07);
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
@@ -30,6 +36,7 @@ body{
     background:var(--bg);
     color:var(--text);
     min-height:100vh;
+    transition:.25s;
 }
 
 button,
@@ -42,18 +49,26 @@ button{
     cursor:pointer;
 }
 
+button:disabled{
+    cursor:not-allowed;
+    opacity:.55;
+}
+
+/* ================= HEADER ================= */
+
 header{
     background:var(--card);
     border-bottom:1px solid var(--border);
     position:sticky;
     top:0;
     z-index:100;
+    backdrop-filter:blur(10px);
 }
 
 .header{
-    max-width:1200px;
+    max-width:1250px;
     margin:auto;
-    padding:16px 20px;
+    padding:12px 20px;
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -63,7 +78,7 @@ header{
 .logo{
     color:var(--primary);
     font-size:28px;
-    font-weight:bold;
+    font-weight:900;
 }
 
 .header-right{
@@ -72,26 +87,71 @@ header{
     gap:10px;
 }
 
+.header-profile{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:5px 10px 5px 5px;
+    border:1px solid var(--border);
+    border-radius:30px;
+    background:var(--card);
+}
+
+.header-avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#eff6ff;
+    font-size:22px;
+    overflow:hidden;
+    position:relative;
+}
+
+.header-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.header-name{
+    font-weight:bold;
+    max-width:130px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
 .stars{
     background:#fff7ed;
     color:#b45309;
     padding:9px 13px;
     border-radius:12px;
     font-weight:bold;
+    white-space:nowrap;
 }
+
+/* ================= CONTAINER ================= */
 
 .container{
-    max-width:1200px;
+    max-width:1250px;
     margin:auto;
-    padding:30px 20px 60px;
+    padding:25px 20px 60px;
 }
 
+/* ================= HERO ================= */
+
 .hero{
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    background:
+        radial-gradient(circle at 90% 10%,rgba(255,255,255,.2),transparent 30%),
+        linear-gradient(135deg,var(--primary),#7c3aed);
     color:#fff;
     border-radius:25px;
     padding:40px;
     margin-bottom:25px;
+    box-shadow:0 15px 40px rgba(37,99,235,.2);
 }
 
 .hero h1{
@@ -100,9 +160,19 @@ header{
 }
 
 .hero p{
-    opacity:.9;
-    margin-bottom:20px;
+    opacity:.92;
+    margin-bottom:22px;
+    max-width:700px;
+    line-height:1.6;
 }
+
+.hero-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+/* ================= NAV ================= */
 
 .nav{
     display:flex;
@@ -113,11 +183,17 @@ header{
 
 .nav button{
     border:1px solid var(--border);
-    background:#fff;
+    background:var(--card);
     padding:11px 15px;
     border-radius:12px;
     font-weight:bold;
     color:var(--text);
+    transition:.2s;
+}
+
+.nav button:hover{
+    transform:translateY(-2px);
+    border-color:var(--primary);
 }
 
 .nav button.active{
@@ -126,13 +202,29 @@ header{
     border-color:var(--primary);
 }
 
+/* ================= PAGES ================= */
+
 .page{
     display:none;
 }
 
 .page.active{
     display:block;
+    animation:pageIn .2s ease;
 }
+
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(5px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* ================= CARDS ================= */
 
 .grid{
     display:grid;
@@ -145,7 +237,7 @@ header{
     border:1px solid var(--border);
     border-radius:18px;
     padding:22px;
-    box-shadow:0 8px 25px rgba(0,0,0,.04);
+    box-shadow:var(--shadow);
 }
 
 .card h2,
@@ -166,17 +258,69 @@ header{
     text-align:center;
 }
 
+/* ================= GAME CARDS ================= */
+
+.games-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+
+.game-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px;
+    text-align:center;
+    transition:.2s;
+    box-shadow:var(--shadow);
+}
+
+.game-card:hover{
+    transform:translateY(-5px);
+    border-color:var(--primary);
+}
+
+.game-icon{
+    font-size:58px;
+    margin-bottom:10px;
+}
+
+.game-card h3{
+    margin-bottom:7px;
+}
+
+.game-card p{
+    color:var(--muted);
+    min-height:40px;
+    margin-bottom:15px;
+}
+
+/* ================= AVATAR ================= */
+
+.avatar-wrap{
+    width:130px;
+    height:130px;
+    margin:0 auto 18px;
+    position:relative;
+}
+
 .avatar{
-    width:100px;
-    height:100px;
+    width:120px;
+    height:120px;
     border-radius:50%;
     background:#eff6ff;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:55px;
-    margin:0 auto 15px;
+    font-size:60px;
     overflow:hidden;
+    position:absolute;
+    left:5px;
+    top:5px;
+    border:4px solid #fff;
+    box-shadow:0 5px 25px rgba(0,0,0,.12);
+    z-index:2;
 }
 
 .avatar img{
@@ -185,22 +329,94 @@ header{
     object-fit:cover;
 }
 
-.profile-center{
-    text-align:center;
+.avatar-effect{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:1;
 }
 
-.progress{
-    height:10px;
-    background:#e5e7eb;
-    border-radius:10px;
-    overflow:hidden;
-    margin-top:10px;
+.effect-none{
+    display:none;
 }
 
-.progress div{
-    height:100%;
-    background:var(--primary);
+.effect-spark{
+    border:4px solid #facc15;
+    box-shadow:
+        0 0 10px #facc15,
+        0 0 25px #f59e0b;
+    animation:spinEffect 2s linear infinite;
 }
+
+.effect-rainbow{
+    border:5px solid transparent;
+    background:
+        linear-gradient(var(--card),var(--card)) padding-box,
+        conic-gradient(
+            red,
+            orange,
+            yellow,
+            green,
+            cyan,
+            blue,
+            violet,
+            red
+        ) border-box;
+    animation:spinEffect 3s linear infinite;
+}
+
+.effect-snow{
+    border:4px dotted #60a5fa;
+    box-shadow:0 0 25px #bfdbfe;
+    animation:pulseEffect 1.5s infinite;
+}
+
+.effect-lightning{
+    border:4px solid #fef08a;
+    box-shadow:
+        0 0 10px #fde047,
+        0 0 30px #facc15;
+    animation:lightningEffect .8s infinite;
+}
+
+.effect-fire{
+    border:5px solid #fb923c;
+    box-shadow:
+        0 0 15px #f97316,
+        0 0 35px #ef4444;
+    animation:pulseEffect .7s infinite;
+}
+
+.effect-confetti{
+    border:5px dotted #ec4899;
+    box-shadow:0 0 20px #f472b6;
+    animation:spinEffect 1.5s linear infinite;
+}
+
+@keyframes spinEffect{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes pulseEffect{
+    50%{
+        transform:scale(1.08);
+        opacity:.7;
+    }
+}
+
+@keyframes lightningEffect{
+    20%,80%{
+        opacity:1;
+    }
+    50%{
+        opacity:.3;
+    }
+}
+
+/* ================= BUTTONS ================= */
 
 .btn{
     border:0;
@@ -209,10 +425,12 @@ header{
     padding:11px 16px;
     border-radius:11px;
     font-weight:bold;
+    transition:.2s;
 }
 
 .btn:hover{
     background:var(--primary-dark);
+    transform:translateY(-1px);
 }
 
 .btn.secondary{
@@ -232,6 +450,18 @@ header{
     background:var(--gold);
 }
 
+.btn.dark{
+    background:#111827;
+}
+
+.btn.outline{
+    background:transparent;
+    color:var(--primary);
+    border:1px solid var(--primary);
+}
+
+/* ================= FORMS ================= */
+
 .form{
     display:grid;
     gap:12px;
@@ -243,13 +473,15 @@ select{
     padding:12px;
     border:1px solid var(--border);
     border-radius:10px;
-    background:#fff;
+    background:var(--card);
+    color:var(--text);
     outline:none;
 }
 
 input:focus,
 select:focus{
     border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(37,99,235,.1);
 }
 
 .actions{
@@ -258,6 +490,8 @@ select:focus{
     flex-wrap:wrap;
 }
 
+/* ================= SHOP ================= */
+
 .shop-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -265,11 +499,17 @@ select:focus{
 }
 
 .product{
-    background:#fff;
+    background:var(--card);
     border:1px solid var(--border);
     border-radius:16px;
     padding:18px;
     text-align:center;
+    transition:.2s;
+}
+
+.product:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow);
 }
 
 .product-icon{
@@ -283,14 +523,17 @@ select:focus{
     margin:10px 0;
 }
 
+/* ================= ACHIEVEMENTS ================= */
+
 .achievement{
     display:flex;
     align-items:center;
     gap:15px;
-    background:#fff;
+    background:var(--card);
     border:1px solid var(--border);
     padding:15px;
     border-radius:15px;
+    margin-bottom:10px;
 }
 
 .achievement-icon{
@@ -300,6 +543,8 @@ select:focus{
 .achievement.locked{
     opacity:.45;
 }
+
+/* ================= INVENTORY ================= */
 
 .inventory-item{
     display:flex;
@@ -311,19 +556,41 @@ select:focus{
     margin-bottom:8px;
 }
 
+/* ================= SETTINGS ================= */
+
 .settings-row{
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:15px;
-    padding:15px 0;
+    padding:16px 0;
     border-bottom:1px solid var(--border);
+}
+
+.settings-control{
+    min-width:170px;
 }
 
 .color-input{
     width:60px;
     height:40px;
     padding:3px;
+}
+
+input[type="range"]{
+    accent-color:var(--primary);
+}
+
+input[type="checkbox"]{
+    width:22px;
+    height:22px;
+    accent-color:var(--primary);
+}
+
+/* ================= TABLE ================= */
+
+.table-wrap{
+    overflow-x:auto;
 }
 
 table{
@@ -338,36 +605,59 @@ td{
     text-align:left;
 }
 
+/* ================= ADMIN ================= */
+
 .admin-title{
     color:#dc2626;
 }
 
-.hidden{
-    display:none!important;
+.admin-badge{
+    display:inline-block;
+    background:#fee2e2;
+    color:#b91c1c;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
 }
+
+/* ================= MODAL ================= */
 
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.55);
+    background:rgba(0,0,0,.6);
     display:flex;
     align-items:center;
     justify-content:center;
     padding:20px;
     z-index:500;
+    backdrop-filter:blur(5px);
 }
 
 .modal-box{
     width:100%;
     max-width:450px;
-    background:#fff;
+    background:var(--card);
+    color:var(--text);
     border-radius:20px;
     padding:25px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
 }
 
 .modal-box h2{
     margin-bottom:20px;
 }
+
+.login-logo{
+    text-align:center;
+    font-size:35px;
+    font-weight:900;
+    color:var(--primary);
+    margin-bottom:10px;
+}
+
+/* ================= TOAST ================= */
 
 .toast{
     position:fixed;
@@ -379,7 +669,25 @@ td{
     border-radius:12px;
     z-index:1000;
     display:none;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
+
+/* ================= FULLSCREEN ================= */
+
+.fullscreen-active{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background:var(--bg);
+    overflow:auto;
+    padding:15px;
+}
+
+.fullscreen-active .container{
+    max-width:1400px;
+}
+
+/* ================= FOOTER ================= */
 
 footer{
     background:#111827;
@@ -388,18 +696,38 @@ footer{
     text-align:center;
 }
 
-@media(max-width:900px){
-    .grid{
+/* ================= HIDDEN ================= */
+
+.hidden{
+    display:none!important;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1050px){
+
+    .games-grid{
         grid-template-columns:repeat(2,1fr);
     }
 
     .shop-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:repeat(3,1fr);
     }
+
 }
 
-@media(max-width:600px){
+@media(max-width:900px){
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:650px){
+
     .grid,
+    .games-grid,
     .shop-grid{
         grid-template-columns:1fr;
     }
@@ -413,13 +741,27 @@ footer{
     }
 
     .header{
-        flex-direction:column;
+        flex-wrap:wrap;
+    }
+
+    .header-right{
+        flex-wrap:wrap;
+        justify-content:flex-end;
+    }
+
+    .header-name{
+        display:none;
     }
 
     .settings-row{
         align-items:flex-start;
         flex-direction:column;
     }
+
+    .settings-control{
+        width:100%;
+    }
+
 }
 </style>
 </head>
@@ -427,9 +769,12 @@ footer{
 <body>
 
 <header>
+
 <div class="header">
 
-<div class="logo">EasyFlow</div>
+<div class="logo">
+EasyFlow
+</div>
 
 <div class="header-right">
 
@@ -437,60 +782,129 @@ footer{
 ⭐ <span id="headerStars">0</span>
 </div>
 
-<button class="btn secondary" onclick="logout()">
+<div class="header-profile"
+onclick="goTo('profile')"
+title="Открыть профиль">
+
+<div
+class="header-avatar"
+id="headerAvatar">
+👤
+</div>
+
+<div
+class="header-name"
+id="headerName">
+Игрок
+</div>
+
+</div>
+
+<button
+class="btn secondary"
+onclick="toggleFullscreen()"
+id="fullscreenButton">
+⛶ На весь экран
+</button>
+
+<button
+class="btn secondary"
+onclick="logout()">
 Выйти
 </button>
 
 </div>
+
 </div>
+
 </header>
 
 
-<main class="container">
+<main
+class="container"
+id="mainContainer">
 
 <section class="hero">
-<h1>Добро пожаловать в EasyFlow! 🎮</h1>
+
+<h1>
+Добро пожаловать в EasyFlow! 🎮
+</h1>
+
 <p>
-Твой профиль, игры, достижения, магазин и статистика — всё в одном месте.
+Твой профиль, игры, достижения, магазин,
+инвентарь и статистика — всё в одном месте.
 </p>
 
-<button class="btn" onclick="openGames()">
+<div class="hero-buttons">
+
+<button
+class="btn"
+onclick="openGames()">
 🎮 Играть
 </button>
+
+<button
+class="btn gold"
+onclick="goTo('shop')">
+🛍️ Магазин
+</button>
+
+<button
+class="btn secondary"
+onclick="goTo('profile')">
+👤 Профиль
+</button>
+
+</div>
+
 </section>
 
 
 <nav class="nav">
 
-<button class="active" onclick="showPage('home',this)">
+<button
+class="active"
+onclick="showPage('home',this)">
 🏠 Главная
 </button>
 
-<button onclick="showPage('profile',this)">
+<button
+onclick="showPage('games',this)">
+🎮 Игры
+</button>
+
+<button
+onclick="showPage('profile',this)">
 👤 Профиль
 </button>
 
-<button onclick="showPage('stats',this)">
+<button
+onclick="showPage('stats',this)">
 📊 Статистика
 </button>
 
-<button onclick="showPage('achievements',this)">
+<button
+onclick="showPage('achievements',this)">
 🏆 Достижения
 </button>
 
-<button onclick="showPage('shop',this)">
+<button
+onclick="showPage('shop',this)">
 🛍️ Магазин
 </button>
 
-<button onclick="showPage('inventory',this)">
+<button
+onclick="showPage('inventory',this)">
 🎒 Инвентарь
 </button>
 
-<button onclick="showPage('settings',this)">
+<button
+onclick="showPage('settings',this)">
 ⚙️ Настройки
 </button>
 
-<button id="adminNav"
+<button
+id="adminNav"
 class="hidden"
 onclick="showPage('admin',this)">
 🛡️ Admin Panel
@@ -499,11 +913,11 @@ onclick="showPage('admin',this)">
 </nav>
 
 
-<!-- =====================================================
-ГЛАВНАЯ
-===================================================== -->
+<!-- ================= ГЛАВНАЯ ================= -->
 
-<section id="page-home" class="page active">
+<section
+id="page-home"
+class="page active">
 
 <div class="grid">
 
@@ -532,38 +946,66 @@ onclick="showPage('admin',this)">
 <div class="grid">
 
 <div class="card">
+
 <h2>👤 Профиль</h2>
+
 <p>
 Игрок:
-<strong id="homeName">Гость</strong>
+<strong id="homeName">
+Гость
+</strong>
 </p>
+
 <br>
-<button class="btn" onclick="goTo('profile')">
+
+<button
+class="btn"
+onclick="goTo('profile')">
 Открыть профиль
 </button>
+
 </div>
 
+
 <div class="card">
+
 <h2>🏆 Достижения</h2>
+
 <p>
 Получено:
-<strong id="homeAchievements">0</strong>
+<strong id="homeAchievements">
+0
+</strong>
 </p>
+
 <br>
-<button class="btn" onclick="goTo('achievements')">
+
+<button
+class="btn"
+onclick="goTo('achievements')">
 Посмотреть
 </button>
+
 </div>
 
+
 <div class="card">
+
 <h2>🛍️ Магазин</h2>
+
 <p class="muted">
-Покупай аксессуары и эффекты за EasyStars.
+Покупай аксессуары и эффекты
+за EasyStars.
 </p>
+
 <br>
-<button class="btn gold" onclick="goTo('shop')">
+
+<button
+class="btn gold"
+onclick="goTo('shop')">
 Открыть магазин
 </button>
+
 </div>
 
 </div>
@@ -571,21 +1013,197 @@ onclick="showPage('admin',this)">
 </section>
 
 
-<!-- =====================================================
-ПРОФИЛЬ
-===================================================== -->
+<!-- ================= ИГРЫ ================= -->
 
-<section id="page-profile" class="page">
+<section
+id="page-games"
+class="page">
+
+<div class="card">
+
+<h2>🎮 Игры EasyFlow</h2>
+
+<p class="muted">
+Выбирай игру и начинай играть.
+Результаты будут записываться в статистику.
+</p>
+
+<br>
+
+<div class="games-grid">
+
+<div class="game-card">
+
+<div class="game-icon">🐦</div>
+
+<h3>Птичка</h3>
+
+<p>
+Пройди препятствия
+и набери максимальное количество очков.
+</p>
+
+<button
+class="btn"
+onclick="openGame('bird')">
+Играть
+</button>
+
+</div>
+
+
+<div class="game-card">
+
+<div class="game-icon">💣</div>
+
+<h3>Сапёр</h3>
+
+<p>
+Открой безопасные клетки
+и избегай мин.
+</p>
+
+<button
+class="btn"
+onclick="openGame('minesweeper')">
+Играть
+</button>
+
+</div>
+
+
+<div class="game-card">
+
+<div class="game-icon">❌⭕</div>
+
+<h3>Крестики-нолики</h3>
+
+<p>
+Победи противника
+и получи награду.
+</p>
+
+<button
+class="btn"
+onclick="openGame('ttt')">
+Играть
+</button>
+
+</div>
+
+
+<div class="game-card">
+
+<div class="game-icon">🏓</div>
+
+<h3>Пинг-понг</h3>
+
+<p>
+Проверь скорость реакции.
+</p>
+
+<button
+class="btn"
+onclick="openGame('pong')">
+Играть
+</button>
+
+</div>
+
+
+<div class="game-card">
+
+<div class="game-icon">🌍</div>
+
+<h3>Флаги</h3>
+
+<p>
+Угадывай страны
+по их флагам.
+</p>
+
+<button
+class="btn"
+onclick="openGame('flags')">
+Играть
+</button>
+
+</div>
+
+
+<div class="game-card">
+
+<div class="game-icon">🧠</div>
+
+<h3>Память</h3>
+
+<p>
+Запоминай расположение карточек.
+</p>
+
+<button
+class="btn"
+onclick="openGame('memory')">
+Играть
+</button>
+
+</div>
+
+
+<div class="game-card">
+
+<div class="game-icon">🐍</div>
+
+<h3>Змейка</h3>
+
+<p>
+Собирай предметы
+и увеличивай длину змейки.
+</p>
+
+<button
+class="btn"
+onclick="openGame('snake')">
+Играть
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ПРОФИЛЬ ================= -->
+
+<section
+id="page-profile"
+class="page">
 
 <div class="grid">
 
 <div class="card profile-center">
 
-<div class="avatar" id="profileAvatar">
+<div class="avatar-wrap">
+
+<div
+class="avatar-effect effect-none"
+id="avatarEffect">
+</div>
+
+<div
+class="avatar"
+id="profileAvatar">
 👤
 </div>
 
-<h2 id="profileName">Игрок</h2>
+</div>
+
+<h2 id="profileName">
+Игрок
+</h2>
 
 <p class="muted">
 ⭐ <span id="profileStars">0</span>
@@ -596,20 +1214,20 @@ onclick="showPage('admin',this)">
 <input
 type="text"
 id="nameInput"
-placeholder="Новое имя"
->
+placeholder="Новое имя">
 
 <br><br>
 
 <input
 type="text"
 id="avatarInput"
-placeholder="URL аватара"
->
+placeholder="URL аватара">
 
 <br><br>
 
-<button class="btn" onclick="saveProfile()">
+<button
+class="btn"
+onclick="saveProfile()">
 💾 Сохранить профиль
 </button>
 
@@ -620,13 +1238,31 @@ placeholder="URL аватара"
 
 <h2>📊 Твои результаты</h2>
 
-<p>Игр: <strong id="profileGames">0</strong></p>
+<p>
+Игр:
+<strong id="profileGames">0</strong>
+</p>
+
 <br>
-<p>Побед: <strong id="profileWins">0</strong></p>
+
+<p>
+Побед:
+<strong id="profileWins">0</strong>
+</p>
+
 <br>
-<p>Очков: <strong id="profileScore">0</strong></p>
+
+<p>
+Очков:
+<strong id="profileScore">0</strong>
+</p>
+
 <br>
-<p>Достижений: <strong id="profileAchievementCount">0</strong></p>
+
+<p>
+Достижений:
+<strong id="profileAchievementCount">0</strong>
+</p>
 
 </div>
 
@@ -638,7 +1274,14 @@ placeholder="URL аватара"
 <p>Победы</p>
 
 <div class="progress">
-<div id="winsProgress"></div>
+<div
+id="winsProgress"
+style="
+height:100%;
+background:var(--primary);
+width:0%;
+">
+</div>
 </div>
 
 <br>
@@ -648,6 +1291,15 @@ placeholder="URL аватара"
 <strong id="profileBest">0</strong>
 </p>
 
+<br>
+
+<p>
+Эффект:
+<strong id="profileEffect">
+Нет
+</strong>
+</p>
+
 </div>
 
 </div>
@@ -655,11 +1307,11 @@ placeholder="URL аватара"
 </section>
 
 
-<!-- =====================================================
-СТАТИСТИКА
-===================================================== -->
+<!-- ================= СТАТИСТИКА ================= -->
 
-<section id="page-stats" class="page">
+<section
+id="page-stats"
+class="page">
 
 <div class="grid">
 
@@ -701,15 +1353,19 @@ placeholder="URL аватара"
 
 <h2>🏆 Рекорды игр</h2>
 
+<div class="table-wrap">
+
 <table>
 
 <thead>
+
 <tr>
 <th>Игра</th>
 <th>Лёгкий</th>
 <th>Средний</th>
 <th>Сложный</th>
 </tr>
+
 </thead>
 
 <tbody id="recordsTable"></tbody>
@@ -718,21 +1374,24 @@ placeholder="URL аватара"
 
 </div>
 
+</div>
+
 </section>
 
 
-<!-- =====================================================
-ДОСТИЖЕНИЯ
-===================================================== -->
+<!-- ================= ДОСТИЖЕНИЯ ================= -->
 
-<section id="page-achievements" class="page">
+<section
+id="page-achievements"
+class="page">
 
 <div class="card">
 
 <h2>🏆 Достижения</h2>
 
 <p class="muted">
-Выполняй условия в играх и получай награды.
+Выполняй условия в играх
+и получай EasyStars.
 </p>
 
 <br>
@@ -744,11 +1403,11 @@ placeholder="URL аватара"
 </section>
 
 
-<!-- =====================================================
-МАГАЗИН
-===================================================== -->
+<!-- ================= МАГАЗИН ================= -->
 
-<section id="page-shop" class="page">
+<section
+id="page-shop"
+class="page">
 
 <div class="card">
 
@@ -756,23 +1415,28 @@ placeholder="URL аватара"
 
 <p>
 Твои звёзды:
-<strong>⭐ <span id="shopStars">0</span></strong>
+<strong>
+⭐ <span id="shopStars">0</span>
+</strong>
 </p>
 
 <br>
 
-<div class="shop-grid" id="shopGrid"></div>
+<div
+class="shop-grid"
+id="shopGrid">
+</div>
 
 </div>
 
 </section>
 
 
-<!-- =====================================================
-ИНВЕНТАРЬ
-===================================================== -->
+<!-- ================= ИНВЕНТАРЬ ================= -->
 
-<section id="page-inventory" class="page">
+<section
+id="page-inventory"
+class="page">
 
 <div class="grid">
 
@@ -798,14 +1462,18 @@ placeholder="URL аватара"
 
 <p>
 Аксессуар:
-<strong id="equippedAccessory">Нет</strong>
+<strong id="equippedAccessory">
+Нет
+</strong>
 </p>
 
 <br>
 
 <p>
 Эффект:
-<strong id="equippedEffect">Нет</strong>
+<strong id="equippedEffect">
+Нет
+</strong>
 </p>
 
 </div>
@@ -815,31 +1483,42 @@ placeholder="URL аватара"
 </section>
 
 
-<!-- =====================================================
-НАСТРОЙКИ
-===================================================== -->
+<!-- ================= НАСТРОЙКИ ================= -->
 
-<section id="page-settings" class="page">
+<section
+id="page-settings"
+class="page">
 
 <div class="card">
 
-<h2>⚙️ Настройки</h2>
+<h2>⚙️ Настройки EasyFlow</h2>
+
+<p class="muted">
+Настройки сохраняются автоматически.
+</p>
+
 
 <div class="settings-row">
 
 <div>
-<strong>🎨 Основной цвет</strong>
+
+<strong>🎨 Цвет кнопок</strong>
+
 <p class="muted">
-Цвет кнопок и элементов сайта.
+Основной цвет интерфейса.
 </p>
+
 </div>
+
+<div class="settings-control">
 
 <input
 type="color"
 class="color-input"
 id="primaryColor"
-onchange="changeColor(this.value)"
->
+onchange="changeColor(this.value)">
+
+</div>
 
 </div>
 
@@ -847,37 +1526,134 @@ onchange="changeColor(this.value)"
 <div class="settings-row">
 
 <div>
-<strong>🔤 Размер шрифта</strong>
+
+<strong>🌈 Цвет фона</strong>
+
 <p class="muted">
-Изменение размера текста.
+Измени фон EasyFlow.
 </p>
+
 </div>
 
-<select id="fontSize"
+<div class="settings-control">
+
+<input
+type="color"
+class="color-input"
+id="backgroundColor"
+onchange="changeBackgroundColor(this.value)">
+
+</div>
+
+</div>
+
+
+<div class="settings-row">
+
+<div>
+
+<strong>🔤 Размер шрифта</strong>
+
+<p class="muted">
+Размер текста сайта.
+</p>
+
+</div>
+
+<div class="settings-control">
+
+<select
+id="fontSize"
 onchange="changeFontSize(this.value)">
-<option value="14px">Маленький</option>
-<option value="16px">Обычный</option>
-<option value="18px">Большой</option>
-<option value="20px">Очень большой</option>
+
+<option value="14px">
+Маленький
+</option>
+
+<option value="16px">
+Обычный
+</option>
+
+<option value="18px">
+Большой
+</option>
+
+<option value="20px">
+Очень большой
+</option>
+
 </select>
 
 </div>
 
+</div>
+
 
 <div class="settings-row">
 
 <div>
+
+<strong>🔤 Шрифт</strong>
+
+<p class="muted">
+Выбери оформление текста.
+</p>
+
+</div>
+
+<div class="settings-control">
+
+<select
+id="fontFamily"
+onchange="changeFontFamily(this.value)">
+
+<option value="Arial,sans-serif">
+Arial
+</option>
+
+<option value="Verdana,sans-serif">
+Verdana
+</option>
+
+<option value="'Trebuchet MS',sans-serif">
+Trebuchet MS
+</option>
+
+<option value="Georgia,serif">
+Georgia
+</option>
+
+<option value="'Courier New',monospace">
+Courier New
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="settings-row">
+
+<div>
+
 <strong>🔊 Звуки</strong>
+
 <p class="muted">
 Включить или выключить звуки.
 </p>
+
 </div>
+
+<div class="settings-control">
 
 <input
 type="checkbox"
 id="soundEnabled"
-onchange="toggleSound(this.checked)"
->
+onchange="toggleSound(this.checked)">
+
+</div>
 
 </div>
 
@@ -885,26 +1661,33 @@ onchange="toggleSound(this.checked)"
 <div class="settings-row">
 
 <div>
+
 <strong>🔊 Громкость</strong>
+
 <p class="muted">
-Общая громкость EasyFlow.
+Общая громкость.
 </p>
+
 </div>
+
+<div class="settings-control">
 
 <input
 type="range"
 min="0"
 max="100"
 id="volume"
-oninput="changeVolume(this.value)"
->
+oninput="changeVolume(this.value)">
+
+</div>
 
 </div>
 
 
 <br>
 
-<button class="btn danger"
+<button
+class="btn danger"
 onclick="resetSettings()">
 ↩️ Сбросить настройки
 </button>
@@ -914,17 +1697,21 @@ onclick="resetSettings()">
 </section>
 
 
-<!-- =====================================================
-ADMIN PANEL
-===================================================== -->
+<!-- ================= ADMIN ================= -->
 
-<section id="page-admin" class="page">
+<section
+id="page-admin"
+class="page">
 
 <div class="card">
 
 <h2 class="admin-title">
 🛡️ Admin Panel
 </h2>
+
+<span class="admin-badge">
+ADMINISTRATOR
+</span>
 
 <p class="muted">
 Панель доступна только администратору.
@@ -934,14 +1721,15 @@ ADMIN PANEL
 
 <br>
 
-
 <div class="grid">
 
 <div class="card stat-card">
 
 <h3>👥 Пользователи</h3>
 
-<div class="big" id="adminUsers">
+<div
+class="big"
+id="adminUsers">
 0
 </div>
 
@@ -951,7 +1739,9 @@ ADMIN PANEL
 
 <h3>🎮 Игр</h3>
 
-<div class="big" id="adminGames">
+<div
+class="big"
+id="adminGames">
 0
 </div>
 
@@ -961,7 +1751,9 @@ ADMIN PANEL
 
 <h3>🏆 Побед</h3>
 
-<div class="big" id="adminWins">
+<div
+class="big"
+id="adminWins">
 0
 </div>
 
@@ -971,16 +1763,18 @@ ADMIN PANEL
 
 <br>
 
-
 <div class="card">
 
 <h2>👥 Управление пользователями</h2>
 
 <br>
 
+<div class="table-wrap">
+
 <table>
 
 <thead>
+
 <tr>
 <th>Имя</th>
 <th>⭐</th>
@@ -988,6 +1782,7 @@ ADMIN PANEL
 <th>Побед</th>
 <th>Действия</th>
 </tr>
+
 </thead>
 
 <tbody id="usersTable"></tbody>
@@ -996,15 +1791,16 @@ ADMIN PANEL
 
 </div>
 
-<br>
+</div>
 
+<br>
 
 <div class="card">
 
 <h2>⭐ Управление звёздами</h2>
 
 <p class="muted">
-Выбери пользователя и измени количество EasyStars.
+Изменение EasyStars пользователя.
 </p>
 
 <br>
@@ -1016,17 +1812,18 @@ ADMIN PANEL
 <input
 type="number"
 id="starAmount"
-placeholder="Количество звёзд"
->
+placeholder="Количество звёзд">
 
 <div class="actions">
 
-<button class="btn success"
+<button
+class="btn success"
 onclick="adminAddStars()">
 ➕ Добавить
 </button>
 
-<button class="btn danger"
+<button
+class="btn danger"
 onclick="adminRemoveStars()">
 ➖ Убрать
 </button>
@@ -1039,25 +1836,22 @@ onclick="adminRemoveStars()">
 
 <br>
 
-
 <div class="card">
 
 <h2>🛍️ Управление магазином</h2>
-
-<p class="muted">
-Товары магазина хранятся в общей системе EasyFlow.
-</p>
 
 <br>
 
 <div class="actions">
 
-<button class="btn"
+<button
+class="btn"
 onclick="adminAddProduct()">
-➕ Добавить тестовый товар
+➕ Добавить товар
 </button>
 
-<button class="btn danger"
+<button
+class="btn danger"
 onclick="adminResetShop()">
 ↩️ Сбросить магазин
 </button>
@@ -1068,21 +1862,22 @@ onclick="adminResetShop()">
 
 <br>
 
-
 <div class="card">
 
-<h2>🏆 Управление достижениями и рекордами</h2>
+<h2>🏆 Управление достижениями</h2>
 
 <br>
 
 <div class="actions">
 
-<button class="btn"
+<button
+class="btn danger"
 onclick="adminResetAchievements()">
 🏆 Сбросить достижения
 </button>
 
-<button class="btn danger"
+<button
+class="btn danger"
 onclick="adminResetRecords()">
 📊 Сбросить рекорды
 </button>
@@ -1101,31 +1896,43 @@ onclick="adminResetRecords()">
 </footer>
 
 
-<div id="loginModal" class="modal">
+<!-- ================= LOGIN ================= -->
+
+<div
+id="loginModal"
+class="modal">
 
 <div class="modal-box">
 
-<h2>🔐 Вход в EasyFlow</h2>
+<div class="login-logo">
+EasyFlow
+</div>
+
+<h2>
+🔐 Вход в EasyFlow
+</h2>
 
 <div class="form">
 
 <input
 id="loginName"
 placeholder="Имя пользователя"
->
+autocomplete="username">
 
 <input
 id="loginPassword"
 type="password"
 placeholder="Пароль"
->
+autocomplete="current-password">
 
-<button class="btn"
+<button
+class="btn"
 onclick="login()">
 Войти
 </button>
 
-<button class="btn secondary"
+<button
+class="btn secondary"
 onclick="register()">
 Создать аккаунт
 </button>
@@ -1135,7 +1942,10 @@ onclick="register()">
 <br>
 
 <p class="muted">
-Для администратора: admin / admin123
+Администратор:
+<strong>Admin</strong>
+/
+<strong>08.08.10</strong>
 </p>
 
 </div>
@@ -1143,14 +1953,34 @@ onclick="register()">
 </div>
 
 
-<div id="toast" class="toast"></div>
+<div
+id="toast"
+class="toast">
+</div>
 
 
 <script>
 
 /* =====================================================
-ЕДИНАЯ СИСТЕМА EASYFLOW
+EASYFLOW DATA
 ===================================================== */
+
+const DEFAULT_SETTINGS = {
+
+    primary:"#2563eb",
+
+    background:"#f4f7fb",
+
+    fontSize:"16px",
+
+    fontFamily:"Arial,sans-serif",
+
+    sound:true,
+
+    volume:70
+
+};
+
 
 const DEFAULT_SHOP = [
 
@@ -1188,7 +2018,7 @@ price:100
 
 {
 id:"fire",
-name:"Огненный аксессуар",
+name:"Огонь",
 icon:"🔥",
 type:"accessory",
 price:120
@@ -1196,7 +2026,7 @@ price:120
 
 {
 id:"star",
-name:"Звёздный аксессуар",
+name:"Звезда",
 icon:"⭐",
 type:"accessory",
 price:200
@@ -1224,14 +2054,6 @@ name:"Алмаз",
 icon:"💎",
 type:"accessory",
 price:250
-},
-
-{
-id:"king",
-name:"Король",
-icon:"🤴",
-type:"accessory",
-price:300
 },
 
 {
@@ -1276,7 +2098,7 @@ price:200
 
 {
 id:"fireeffect",
-name:"Огонь",
+name:"Огненный эффект",
 icon:"🔥",
 type:"effect",
 price:250
@@ -1354,60 +2176,9 @@ reward:100
 ];
 
 
-const DEFAULT_SETTINGS = {
-
-primary:"#2563eb",
-fontSize:"16px",
-sound:true,
-volume:70
-
-};
-
-
-function getUsers(){
-
-    const users =
-        localStorage.getItem(
-            "easyflow_users"
-        );
-
-    if(!users){
-
-        const firstUser = createUserObject(
-            "Игрок"
-        );
-
-        localStorage.setItem(
-            "easyflow_users",
-            JSON.stringify([firstUser])
-        );
-
-        return [firstUser];
-
-    }
-
-    try{
-
-        return JSON.parse(users);
-
-    }catch{
-
-        return [];
-
-    }
-
-}
-
-
-function saveUsers(users){
-
-    localStorage.setItem(
-        "easyflow_users",
-        JSON.stringify(users)
-    );
-
-}
-
+/* =====================================================
+USER
+===================================================== */
 
 function createUserObject(name){
 
@@ -1461,19 +2232,13 @@ function createUserObject(name){
                 hard:0
             },
 
-            game6:{
+            bird:{
                 easy:0,
                 medium:0,
                 hard:0
             },
 
-            game7:{
-                easy:0,
-                medium:0,
-                hard:0
-            },
-
-            game8:{
+            minesweeper:{
                 easy:0,
                 medium:0,
                 hard:0
@@ -1502,9 +2267,55 @@ function createUserObject(name){
 }
 
 
+function getUsers(){
+
+    try{
+
+        const saved=
+            localStorage.getItem(
+                "easyflow_users"
+            );
+
+        if(saved){
+
+            const users=
+                JSON.parse(saved);
+
+            if(Array.isArray(users))
+                return users;
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+
+    const firstUser=
+        createUserObject("Игрок");
+
+    saveUsers([firstUser]);
+
+    return [firstUser];
+
+}
+
+
+function saveUsers(users){
+
+    localStorage.setItem(
+        "easyflow_users",
+        JSON.stringify(users)
+    );
+
+}
+
+
 function currentUser(){
 
-    const id =
+    const id=
         localStorage.getItem(
             "easyflow_current_user"
         );
@@ -1538,18 +2349,8 @@ function saveCurrentUser(user){
 }
 
 
-function updateCurrentUser(){
-
-    const user=currentUser();
-
-    if(user)
-        saveCurrentUser(user);
-
-}
-
-
 /* =====================================================
-ВХОД И РЕГИСТРАЦИЯ
+LOGIN
 ===================================================== */
 
 function login(){
@@ -1564,57 +2365,62 @@ function login(){
             "loginPassword"
         ).value;
 
+
     if(!name){
 
-        alert("Введите имя.");
+        toast("Введите имя пользователя");
 
         return;
 
     }
 
 
-    /* Администратор */
+    /* ADMIN */
 
     if(
-        name==="admin" &&
-        password==="admin123"
+        name.toLowerCase()==="admin" &&
+        password==="08.08.10"
     ){
+
+        let users=getUsers();
+
+        let admin=
+            users.find(
+                u=>
+                    u.name.toLowerCase()==="admin"
+            );
+
+
+        if(!admin){
+
+            admin=
+                createUserObject("Admin");
+
+            users.push(admin);
+
+            saveUsers(users);
+
+        }
+
 
         localStorage.setItem(
             "easyflow_admin",
             "true"
         );
 
-        let users=getUsers();
-
-        let adminUser=
-            users.find(
-                u=>u.name==="admin"
-            );
-
-        if(!adminUser){
-
-            adminUser=
-                createUserObject("admin");
-
-            users.push(adminUser);
-
-            saveUsers(users);
-
-        }
-
         localStorage.setItem(
             "easyflow_current_user",
-            adminUser.id
+            admin.id
         );
 
-        document.getElementById(
-            "loginModal"
-        ).classList.add("hidden");
+
+        closeLogin();
 
         init();
 
-        toast("Вход администратора выполнен");
+        toast(
+            "🛡️ Вход администратора выполнен"
+        );
 
         return;
 
@@ -1630,15 +2436,17 @@ function login(){
                 name.toLowerCase()
         );
 
+
     if(!user){
 
-        alert(
-            "Пользователь не найден. Нажмите «Создать аккаунт»."
+        toast(
+            "❌ Пользователь не найден"
         );
 
         return;
 
     }
+
 
     localStorage.setItem(
         "easyflow_current_user",
@@ -1649,13 +2457,15 @@ function login(){
         "easyflow_admin"
     );
 
-    document.getElementById(
-        "loginModal"
-    ).classList.add("hidden");
+
+    closeLogin();
 
     init();
 
-    toast("Добро пожаловать, "+user.name+"!");
+    toast(
+        "👋 Добро пожаловать, "+
+        user.name
+    );
 
 }
 
@@ -1667,27 +2477,31 @@ function register(){
             "loginName"
         ).value.trim();
 
+
     if(!name){
 
-        alert("Введите имя.");
+        toast("Введите имя");
 
         return;
 
     }
 
+
     if(
         name.toLowerCase()==="admin"
     ){
 
-        alert(
-            "Это имя зарезервировано."
+        toast(
+            "Имя Admin зарезервировано"
         );
 
         return;
 
     }
 
+
     const users=getUsers();
+
 
     if(
         users.some(
@@ -1697,20 +2511,23 @@ function register(){
         )
     ){
 
-        alert(
-            "Такой пользователь уже существует."
+        toast(
+            "Такой пользователь уже существует"
         );
 
         return;
 
     }
 
+
     const user=
         createUserObject(name);
+
 
     users.push(user);
 
     saveUsers(users);
+
 
     localStorage.setItem(
         "easyflow_current_user",
@@ -1721,15 +2538,23 @@ function register(){
         "easyflow_admin"
     );
 
-    document.getElementById(
-        "loginModal"
-    ).classList.add("hidden");
+
+    closeLogin();
 
     init();
 
     toast(
-        "Аккаунт создан! Получено ⭐100"
+        "🎉 Аккаунт создан! ⭐100"
     );
+
+}
+
+
+function closeLogin(){
+
+    document.getElementById(
+        "loginModal"
+    ).classList.add("hidden");
 
 }
 
@@ -1750,7 +2575,7 @@ function logout(){
 
 
 /* =====================================================
-НАВИГАЦИЯ
+NAVIGATION
 ===================================================== */
 
 function showPage(page,button){
@@ -1761,13 +2586,16 @@ function showPage(page,button){
         p=>p.classList.remove("active")
     );
 
+
     const target=
         document.getElementById(
             "page-"+page
         );
 
+
     if(!target)
         return;
+
 
     target.classList.add("active");
 
@@ -1778,8 +2606,10 @@ function showPage(page,button){
         b=>b.classList.remove("active")
     );
 
+
     if(button)
         button.classList.add("active");
+
 
     refreshPage();
 
@@ -1788,56 +2618,85 @@ function showPage(page,button){
 
 function goTo(page){
 
-    const buttons=
-        document.querySelectorAll(
-            ".nav button"
-        );
+    const map={
 
-    let button=null;
+        home:"Главная",
 
-    buttons.forEach(
-        b=>{
+        games:"Игры",
+
+        profile:"Профиль",
+
+        stats:"Статистика",
+
+        achievements:"Достижения",
+
+        shop:"Магазин",
+
+        inventory:"Инвентарь",
+
+        settings:"Настройки",
+
+        admin:"Admin Panel"
+
+    };
+
+
+    let found=null;
+
+
+    document.querySelectorAll(
+        ".nav button"
+    ).forEach(
+        button=>{
+
             if(
-                b.textContent
-                .toLowerCase()
+                button.textContent
                 .includes(
-                    page==="profile"
-                        ?"профиль"
-                        :page==="stats"
-                            ?"статистика"
-                            :page==="achievements"
-                                ?"достижения"
-                                :page==="shop"
-                                    ?"магазин"
-                                    :page==="inventory"
-                                        ?"инвентарь"
-                                        :page==="settings"
-                                            ?"настройки"
-                                            :"главная"
+                    map[page] || ""
                 )
             )
-                button=b;
+                found=button;
+
         }
     );
 
-    showPage(page,button);
 
-}
-
-
-function openGames(){
-
-    /*
-    Отдельная страница игр.
-    */
-
-    location.href="games.html";
+    showPage(
+        page,
+        found
+    );
 
 }
 
 
 /* =====================================================
-ПРОФИЛЬ
+GAMES
+===================================================== */
+
+function openGames(){
+
+    goTo("games");
+
+}
+
+
+function openGame(game){
+
+    /*
+    games.html может использовать:
+    ?game=bird
+    ?game=minesweeper
+    */
+
+    location.href=
+        "games.html?game="+
+        encodeURIComponent(game);
+
+}
+
+
+/* =====================================================
+PROFILE
 ===================================================== */
 
 function saveProfile(){
@@ -1846,6 +2705,7 @@ function saveProfile(){
 
     if(!user)
         return;
+
 
     const name=
         document.getElementById(
@@ -1857,324 +2717,76 @@ function saveProfile(){
             "avatarInput"
         ).value.trim();
 
+
     if(name){
+
+        if(
+            name.toLowerCase()==="admin" &&
+            !isAdmin()
+        ){
+
+            toast(
+                "Имя Admin зарезервировано"
+            );
+
+            return;
+
+        }
 
         user.name=name;
 
     }
 
+
     user.avatar=avatar;
+
 
     saveCurrentUser(user);
 
     refreshPage();
 
-    toast("Профиль сохранён");
-
-}
-
-
-/* =====================================================
-СТАТИСТИКА
-===================================================== */
-
-function calculateBestRecord(user){
-
-    let best=0;
-
-    Object.values(
-        user.records
-    ).forEach(game=>{
-
-        Object.values(game)
-        .forEach(value=>{
-
-            best=Math.max(
-                best,
-                Number(value)||0
-            );
-
-        });
-
-    });
-
-    return best;
-
-}
-
-
-function renderRecords(user){
-
-    const names={
-
-        ttt:"❌ Крестики-нолики",
-
-        pong:"🏓 Пинг-понг",
-
-        flags:"🌍 Флаги",
-
-        memory:"🧠 Память",
-
-        snake:"🐍 Змейка",
-
-        game6:"🎮 Игра 6",
-
-        game7:"🎮 Игра 7",
-
-        game8:"🎮 Игра 8"
-
-    };
-
-    const tbody=
-        document.getElementById(
-            "recordsTable"
-        );
-
-    tbody.innerHTML="";
-
-    Object.keys(names).forEach(
-        game=>{
-
-            const record=
-                user.records[game] || {};
-
-            const tr=
-                document.createElement("tr");
-
-            tr.innerHTML=`
-
-<td>${names[game]}</td>
-
-<td>${record.easy||0}</td>
-
-<td>${record.medium||0}</td>
-
-<td>${record.hard||0}</td>
-
-`;
-
-            tbody.appendChild(tr);
-
-        }
+    toast(
+        "💾 Профиль сохранён"
     );
 
 }
 
 
 /* =====================================================
-ДОСТИЖЕНИЯ
-===================================================== */
-
-function achievementCompleted(
-    achievement,
-    user
-){
-
-    if(
-        user.achievements
-        .includes(achievement.id)
-    )
-        return true;
-
-    if(
-        achievement.id==="first_game"
-    )
-        return user.totalGames>=1;
-
-    if(
-        achievement.id==="five_games"
-    )
-        return user.totalGames>=5;
-
-    if(
-        achievement.id==="ten_games"
-    )
-        return user.totalGames>=10;
-
-    if(
-        achievement.id==="first_win"
-    )
-        return user.totalWins>=1;
-
-    if(
-        achievement.id==="five_wins"
-    )
-        return user.totalWins>=5;
-
-    if(
-        achievement.id==="ten_wins"
-    )
-        return user.totalWins>=10;
-
-    if(
-        achievement.id==="score100"
-    )
-        return user.totalScore>=100;
-
-    if(
-        achievement.id==="score500"
-    )
-        return user.totalScore>=500;
-
-    return false;
-
-}
-
-
-function checkAchievements(){
-
-    const user=currentUser();
-
-    if(!user)
-        return;
-
-    DEFAULT_ACHIEVEMENTS.forEach(
-        achievement=>{
-
-            if(
-                achievementCompleted(
-                    achievement,
-                    user
-                ) &&
-                !user.achievements.includes(
-                    achievement.id
-                )
-            ){
-
-                user.achievements.push(
-                    achievement.id
-                );
-
-                user.stars+=
-                    achievement.reward;
-
-                toast(
-                    "🏆 Достижение: "+
-                    achievement.name+
-                    " +⭐"+
-                    achievement.reward
-                );
-
-            }
-
-        }
-    );
-
-    saveCurrentUser(user);
-
-}
-
-
-function renderAchievements(user){
-
-    const box=
-        document.getElementById(
-            "achievementList"
-        );
-
-    box.innerHTML="";
-
-    DEFAULT_ACHIEVEMENTS.forEach(
-        achievement=>{
-
-            const completed=
-                user.achievements
-                .includes(
-                    achievement.id
-                );
-
-            const unlocked=
-                achievementCompleted(
-                    achievement,
-                    user
-                );
-
-            const div=
-                document.createElement(
-                    "div"
-                );
-
-            div.className=
-                "achievement "+
-                (
-                    unlocked
-                        ?""
-                        :"locked"
-                );
-
-            div.innerHTML=`
-
-<div class="achievement-icon">
-${achievement.icon}
-</div>
-
-<div style="flex:1">
-
-<strong>
-${achievement.name}
-</strong>
-
-<p class="muted">
-${achievement.description}
-</p>
-
-</div>
-
-<div>
-${
-completed
-    ?"✅ Получено"
-    :"⭐ "+achievement.reward
-}
-</div>
-
-`;
-
-            box.appendChild(div);
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-МАГАЗИН
+SHOP
 ===================================================== */
 
 function getShop(){
 
-    const saved=
-        localStorage.getItem(
-            "easyflow_shop"
-        );
-
-    if(!saved){
-
-        localStorage.setItem(
-            "easyflow_shop",
-            JSON.stringify(
-                DEFAULT_SHOP
-            )
-        );
-
-        return [
-            ...DEFAULT_SHOP
-        ];
-
-    }
-
     try{
 
-        return JSON.parse(saved);
+        const saved=
+            localStorage.getItem(
+                "easyflow_shop"
+            );
 
-    }catch{
+        if(saved){
 
-        return [
-            ...DEFAULT_SHOP
-        ];
+            const shop=
+                JSON.parse(saved);
+
+            if(Array.isArray(shop))
+                return shop;
+
+        }
+
+    }catch(error){
+
+        console.error(error);
 
     }
+
+
+    saveShop(
+        [...DEFAULT_SHOP]
+    );
+
+    return [...DEFAULT_SHOP];
 
 }
 
@@ -2191,63 +2803,82 @@ function saveShop(shop){
 
 function renderShop(user){
 
-    const shop=getShop();
-
     const grid=
         document.getElementById(
             "shopGrid"
         );
 
+    if(!grid)
+        return;
+
+
     grid.innerHTML="";
 
-    shop.forEach(item=>{
 
-        const owned=
-            user.inventory
-            .includes(item.id);
+    getShop().forEach(
+        item=>{
 
-        const product=
-            document.createElement(
-                "div"
-            );
+            const owned=
+                user.inventory
+                .includes(item.id);
 
-        product.className="product";
 
-        product.innerHTML=`
+            const product=
+                document.createElement(
+                    "div"
+                );
+
+            product.className="product";
+
+
+            product.innerHTML=`
 
 <div class="product-icon">
-${item.icon}
+${escapeHTML(item.icon)}
 </div>
 
-<h3>${item.name}</h3>
+<h3>
+${escapeHTML(item.name)}
+</h3>
 
 <p class="muted">
 ${
 item.type==="accessory"
     ?"Аксессуар"
-    :"Эффект"
+    :"✨ Эффект"
 }
 </p>
 
 <div class="price">
-⭐ ${item.price}
+⭐ ${Number(item.price)||0}
 </div>
 
 <button
-class="btn
-${owned?"secondary":""}"
+class="btn ${
+owned
+    ?"secondary"
+    :""
+}"
 ${owned?"disabled":""}
-onclick="buyItem('${item.id}')">
+onclick="buyItem('${escapeJS(item.id)}')">
 
-${owned?"✅ Куплено":"Купить"}
+${
+owned
+    ?"✅ Куплено"
+    :"Купить"
+}
 
 </button>
 
 `;
 
-        grid.appendChild(product);
 
-    });
+            grid.appendChild(
+                product
+            );
+
+        }
+    );
 
 }
 
@@ -2259,58 +2890,71 @@ function buyItem(id){
     if(!user)
         return;
 
-    const shop=getShop();
 
     const item=
-        shop.find(
+        getShop().find(
             i=>i.id===id
         );
 
+
     if(!item)
         return;
+
 
     if(
         user.inventory.includes(id)
     ){
 
-        toast("Предмет уже куплен");
+        toast(
+            "Предмет уже куплен"
+        );
 
         return;
 
     }
+
 
     if(
-        user.stars<item.price
+        user.stars<
+        Number(item.price)
     ){
 
-        toast("❌ Недостаточно EasyStars");
+        toast(
+            "❌ Недостаточно EasyStars"
+        );
 
         return;
 
     }
 
-    user.stars-=item.price;
+
+    user.stars-=
+        Number(item.price);
 
     user.inventory.push(id);
+
 
     saveCurrentUser(user);
 
     refreshPage();
 
+
     toast(
-        "🛍️ Куплено: "+item.name
+        "🛍️ Куплено: "+
+        item.name
     );
 
 }
 
 
 /* =====================================================
-ИНВЕНТАРЬ
+INVENTORY
 ===================================================== */
 
 function renderInventory(user){
 
     const shop=getShop();
+
 
     const accessoryBox=
         document.getElementById(
@@ -2322,8 +2966,10 @@ function renderInventory(user){
             "effectInventory"
         );
 
+
     accessoryBox.innerHTML="";
     effectBox.innerHTML="";
+
 
     shop
     .filter(
@@ -2339,6 +2985,7 @@ function renderInventory(user){
             )
                 return;
 
+
             const div=
                 document.createElement(
                     "div"
@@ -2347,26 +2994,31 @@ function renderInventory(user){
             div.className=
                 "inventory-item";
 
+
             div.innerHTML=`
 
 <span style="font-size:30px">
-${item.icon}
+${escapeHTML(item.icon)}
 </span>
 
 <span style="flex:1">
-${item.name}
+${escapeHTML(item.name)}
 </span>
 
-<button class="btn"
-onclick="equipItem('${item.id}')">
+<button
+class="btn"
+onclick="equipItem('${escapeJS(item.id)}')">
+
 ${
 user.equipped.accessory===item.id
     ?"Снять"
     :"Надеть"
 }
+
 </button>
 
 `;
+
 
             accessoryBox.appendChild(div);
 
@@ -2388,6 +3040,7 @@ user.equipped.accessory===item.id
             )
                 return;
 
+
             const div=
                 document.createElement(
                     "div"
@@ -2396,26 +3049,31 @@ user.equipped.accessory===item.id
             div.className=
                 "inventory-item";
 
+
             div.innerHTML=`
 
 <span style="font-size:30px">
-${item.icon}
+${escapeHTML(item.icon)}
 </span>
 
 <span style="flex:1">
-${item.name}
+${escapeHTML(item.name)}
 </span>
 
-<button class="btn"
-onclick="equipItem('${item.id}')">
+<button
+class="btn"
+onclick="equipItem('${escapeJS(item.id)}')">
+
 ${
 user.equipped.effect===item.id
     ?"Снять"
     :"Надеть"
 }
+
 </button>
 
 `;
+
 
             effectBox.appendChild(div);
 
@@ -2433,6 +3091,7 @@ user.equipped.effect===item.id
             </p>`;
 
     }
+
 
     if(
         !effectBox.children.length
@@ -2453,12 +3112,14 @@ user.equipped.effect===item.id
                 user.equipped.accessory
         );
 
+
     const effect=
         shop.find(
             i=>
                 i.id===
                 user.equipped.effect
         );
+
 
     document.getElementById(
         "equippedAccessory"
@@ -2469,6 +3130,7 @@ user.equipped.effect===item.id
              accessory.name
             :"Нет";
 
+
     document.getElementById(
         "equippedEffect"
     ).textContent=
@@ -2478,6 +3140,21 @@ user.equipped.effect===item.id
              effect.name
             :"Нет";
 
+
+    document.getElementById(
+        "profileEffect"
+    ).textContent=
+        effect
+            ?effect.icon+
+             " "+
+             effect.name
+            :"Нет";
+
+
+    applyAvatarEffect(
+        user
+    );
+
 }
 
 
@@ -2485,15 +3162,19 @@ function equipItem(id){
 
     const user=currentUser();
 
-    const shop=getShop();
+    if(!user)
+        return;
+
 
     const item=
-        shop.find(
+        getShop().find(
             i=>i.id===id
         );
 
+
     if(!item)
         return;
+
 
     if(
         !user.inventory.includes(id)
@@ -2519,48 +3200,187 @@ function equipItem(id){
 
     }
 
+
     saveCurrentUser(user);
 
-    renderInventory(user);
+    refreshPage();
 
-    toast("Экипировка обновлена");
+
+    toast(
+        "✨ Экипировка обновлена"
+    );
 
 }
 
 
 /* =====================================================
-НАСТРОЙКИ
+AVATAR EFFECT
 ===================================================== */
+
+function applyAvatarEffect(user){
+
+    const effectBox=
+        document.getElementById(
+            "avatarEffect"
+        );
+
+
+    if(!effectBox)
+        return;
+
+
+    effectBox.className=
+        "avatar-effect effect-none";
+
+
+    const effect=
+        getShop().find(
+            i=>
+                i.id===
+                user.equipped.effect
+        );
+
+
+    if(!effect)
+        return;
+
+
+    const map={
+
+        spark:"effect-spark",
+
+        rainbow:"effect-rainbow",
+
+        snow:"effect-snow",
+
+        lightning:"effect-lightning",
+
+        confetti:"effect-confetti",
+
+        fireeffect:"effect-fire"
+
+    };
+
+
+    const className=
+        map[effect.id];
+
+
+    if(className){
+
+        effectBox.className=
+            "avatar-effect "+
+            className;
+
+    }
+
+}
+
+
+/* =====================================================
+SETTINGS
+===================================================== */
+
+function normalizeSettings(user){
+
+    user.settings={
+        ...DEFAULT_SETTINGS,
+        ...(user.settings||{})
+    };
+
+}
+
 
 function loadSettings(user){
 
-    const settings=
-        user.settings || DEFAULT_SETTINGS;
+    normalizeSettings(user);
+
 
     document.documentElement
         .style.setProperty(
             "--primary",
-            settings.primary
+            user.settings.primary
         );
 
-    document.getElementById(
-        "primaryColor"
-    ).value=settings.primary;
 
-    document.getElementById(
-        "fontSize"
-    ).value=settings.fontSize;
+    document.documentElement
+        .style.setProperty(
+            "--primary-dark",
+            darkenColor(
+                user.settings.primary
+            )
+        );
 
-    document.getElementById(
-        "soundEnabled"
-    ).checked=settings.sound;
 
-    document.getElementById(
-        "volume"
-    ).value=settings.volume;
+    document.documentElement
+        .style.setProperty(
+            "--bg",
+            user.settings.background
+        );
+
 
     document.body.style.fontSize=
-        settings.fontSize;
+        user.settings.fontSize;
+
+
+    document.body.style.fontFamily=
+        user.settings.fontFamily;
+
+
+    const primary=
+        document.getElementById(
+            "primaryColor"
+        );
+
+    const background=
+        document.getElementById(
+            "backgroundColor"
+        );
+
+    const fontSize=
+        document.getElementById(
+            "fontSize"
+        );
+
+    const fontFamily=
+        document.getElementById(
+            "fontFamily"
+        );
+
+    const sound=
+        document.getElementById(
+            "soundEnabled"
+        );
+
+    const volume=
+        document.getElementById(
+            "volume"
+        );
+
+
+    if(primary)
+        primary.value=
+            user.settings.primary;
+
+    if(background)
+        background.value=
+            user.settings.background;
+
+    if(fontSize)
+        fontSize.value=
+            user.settings.fontSize;
+
+    if(fontFamily)
+        fontFamily.value=
+            user.settings.fontFamily;
+
+    if(sound)
+        sound.checked=
+            user.settings.sound;
+
+    if(volume)
+        volume.value=
+            user.settings.volume;
 
 }
 
@@ -2572,7 +3392,29 @@ function changeColor(color){
     if(!user)
         return;
 
+
+    normalizeSettings(user);
+
     user.settings.primary=color;
+
+    saveCurrentUser(user);
+
+    loadSettings(user);
+
+}
+
+
+function changeBackgroundColor(color){
+
+    const user=currentUser();
+
+    if(!user)
+        return;
+
+
+    normalizeSettings(user);
+
+    user.settings.background=color;
 
     saveCurrentUser(user);
 
@@ -2588,7 +3430,29 @@ function changeFontSize(size){
     if(!user)
         return;
 
+
+    normalizeSettings(user);
+
     user.settings.fontSize=size;
+
+    saveCurrentUser(user);
+
+    loadSettings(user);
+
+}
+
+
+function changeFontFamily(font){
+
+    const user=currentUser();
+
+    if(!user)
+        return;
+
+
+    normalizeSettings(user);
+
+    user.settings.fontFamily=font;
 
     saveCurrentUser(user);
 
@@ -2604,9 +3468,16 @@ function toggleSound(value){
     if(!user)
         return;
 
+
+    normalizeSettings(user);
+
     user.settings.sound=value;
 
     saveCurrentUser(user);
+
+
+    if(value)
+        EasyFlowSound.correct();
 
 }
 
@@ -2618,8 +3489,12 @@ function changeVolume(value){
     if(!user)
         return;
 
+
+    normalizeSettings(user);
+
     user.settings.volume=
         Number(value);
+
 
     saveCurrentUser(user);
 
@@ -2633,32 +3508,41 @@ function resetSettings(){
     if(!user)
         return;
 
+
     user.settings={
         ...DEFAULT_SETTINGS
     };
+
 
     saveCurrentUser(user);
 
     loadSettings(user);
 
-    toast("Настройки сброшены");
+
+    toast(
+        "↩️ Настройки сброшены"
+    );
 
 }
 
 
 /* =====================================================
-ЗВУКИ
+SOUND
 ===================================================== */
 
 const EasyFlowSound={
+
+    context:null,
 
     enabled(){
 
         const user=currentUser();
 
-        return user
-            ?user.settings.sound
-            :false;
+        return Boolean(
+            user &&
+            user.settings &&
+            user.settings.sound
+        );
 
     },
 
@@ -2670,46 +3554,93 @@ const EasyFlowSound={
         if(!this.enabled())
             return;
 
+
         try{
 
             const AudioContext=
                 window.AudioContext ||
                 window.webkitAudioContext;
 
-            const ctx=
-                new AudioContext();
+
+            if(!AudioContext)
+                return;
+
+
+            if(!this.context)
+                this.context=
+                    new AudioContext();
+
+
+            if(
+                this.context.state===
+                "suspended"
+            ){
+
+                this.context.resume();
+
+            }
+
 
             const oscillator=
-                ctx.createOscillator();
+                this.context
+                    .createOscillator();
+
 
             const gain=
-                ctx.createGain();
+                this.context
+                    .createGain();
+
+
+            const user=
+                currentUser();
+
+
+            const volume=
+                user
+                    ?Number(
+                        user.settings.volume
+                    )/100
+                    :0.7;
+
+
+            oscillator.type="sine";
 
             oscillator.frequency.value=
                 frequency;
 
-            gain.gain.value=
-                (
-                    currentUser()
-                        .settings.volume
-                    /100
-                )*.05;
+
+            gain.gain.setValueAtTime(
+                volume*.05,
+                this.context.currentTime
+            );
+
+
+            gain.gain.exponentialRampToValueAtTime(
+                .001,
+                this.context.currentTime+
+                duration/1000
+            );
+
 
             oscillator.connect(gain);
 
-            gain.connect(ctx.destination);
+            gain.connect(
+                this.context.destination
+            );
+
 
             oscillator.start();
 
             oscillator.stop(
-                ctx.currentTime+
+                this.context.currentTime+
                 duration/1000
             );
 
         }catch(error){
 
-            console.log(
-                "Звук недоступен"
+            console.warn(
+                "Sound error:",
+                error
             );
 
         }
@@ -2725,7 +3656,7 @@ const EasyFlowSound={
     },
 
     wrong(){
-        this.beep(200,180);
+        this.beep(220,180);
     },
 
     win(){
@@ -2735,19 +3666,8 @@ const EasyFlowSound={
 };
 
 
-/*
-Эту систему смогут использовать
-все 8 игр в games.html:
-
-EasyFlowSound.gameStart();
-EasyFlowSound.correct();
-EasyFlowSound.wrong();
-EasyFlowSound.win();
-*/
-
-
 /* =====================================================
-ПЕРЕДАЧА РЕЗУЛЬТАТОВ ИГРАМ
+GAME API
 ===================================================== */
 
 const EasyFlowGameAPI={
@@ -2758,6 +3678,7 @@ const EasyFlowGameAPI={
 
         if(!user)
             return;
+
 
         user.totalGames++;
 
@@ -2777,6 +3698,7 @@ const EasyFlowGameAPI={
         if(!user)
             return;
 
+
         user.totalWins++;
 
         saveCurrentUser(user);
@@ -2795,8 +3717,10 @@ const EasyFlowGameAPI={
         if(!user)
             return;
 
+
         user.totalScore+=
             Number(score)||0;
+
 
         saveCurrentUser(user);
 
@@ -2814,8 +3738,10 @@ const EasyFlowGameAPI={
         if(!user)
             return;
 
+
         user.stars+=
             Number(stars)||0;
+
 
         saveCurrentUser(user);
 
@@ -2835,9 +3761,8 @@ const EasyFlowGameAPI={
         if(!user)
             return false;
 
-        if(
-            !user.records[game]
-        ){
+
+        if(!user.records[game]){
 
             user.records[game]={
                 easy:0,
@@ -2847,6 +3772,11 @@ const EasyFlowGameAPI={
 
         }
 
+
+        score=
+            Number(score)||0;
+
+
         const old=
             Number(
                 user.records[game][
@@ -2854,8 +3784,6 @@ const EasyFlowGameAPI={
                 ]
             )||0;
 
-        score=
-            Number(score)||0;
 
         if(score>old){
 
@@ -2863,11 +3791,13 @@ const EasyFlowGameAPI={
                 difficulty
             ]=score;
 
+
             saveCurrentUser(user);
 
             return true;
 
         }
+
 
         return false;
 
@@ -2894,6 +3824,7 @@ const EasyFlowGameAPI={
         )
             return;
 
+
         localStorage.setItem(
             "easyflow_difficulty",
             level
@@ -2905,64 +3836,379 @@ const EasyFlowGameAPI={
 
 
 /* =====================================================
+ACHIEVEMENTS
+===================================================== */
+
+function achievementCompleted(
+    achievement,
+    user
+){
+
+    if(
+        user.achievements
+        .includes(achievement.id)
+    )
+        return true;
+
+
+    switch(achievement.id){
+
+        case "first_game":
+            return user.totalGames>=1;
+
+        case "five_games":
+            return user.totalGames>=5;
+
+        case "ten_games":
+            return user.totalGames>=10;
+
+        case "first_win":
+            return user.totalWins>=1;
+
+        case "five_wins":
+            return user.totalWins>=5;
+
+        case "ten_wins":
+            return user.totalWins>=10;
+
+        case "score100":
+            return user.totalScore>=100;
+
+        case "score500":
+            return user.totalScore>=500;
+
+        default:
+            return false;
+
+    }
+
+}
+
+
+function checkAchievements(){
+
+    const user=currentUser();
+
+    if(!user)
+        return;
+
+
+    let changed=false;
+
+
+    DEFAULT_ACHIEVEMENTS.forEach(
+        achievement=>{
+
+            if(
+                achievementCompleted(
+                    achievement,
+                    user
+                ) &&
+                !user.achievements
+                    .includes(
+                        achievement.id
+                    )
+            ){
+
+                user.achievements.push(
+                    achievement.id
+                );
+
+                user.stars+=
+                    achievement.reward;
+
+                changed=true;
+
+
+                toast(
+                    "🏆 "+
+                    achievement.name+
+                    " +⭐"+
+                    achievement.reward
+                );
+
+            }
+
+        }
+    );
+
+
+    if(changed)
+        saveCurrentUser(user);
+
+}
+
+
+function renderAchievements(user){
+
+    const box=
+        document.getElementById(
+            "achievementList"
+        );
+
+
+    box.innerHTML="";
+
+
+    DEFAULT_ACHIEVEMENTS.forEach(
+        achievement=>{
+
+            const completed=
+                user.achievements
+                    .includes(
+                        achievement.id
+                    );
+
+
+            const unlocked=
+                achievementCompleted(
+                    achievement,
+                    user
+                );
+
+
+            const div=
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className=
+                "achievement "+
+                (
+                    unlocked
+                        ?""
+                        :"locked"
+                );
+
+
+            div.innerHTML=`
+
+<div class="achievement-icon">
+${achievement.icon}
+</div>
+
+<div style="flex:1">
+
+<strong>
+${escapeHTML(
+    achievement.name
+)}
+</strong>
+
+<p class="muted">
+${escapeHTML(
+    achievement.description
+)}
+</p>
+
+</div>
+
+<div>
+${
+completed
+    ?"✅ Получено"
+    :"⭐ "+achievement.reward
+}
+</div>
+
+`;
+
+
+            box.appendChild(div);
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+RECORDS
+===================================================== */
+
+function calculateBestRecord(user){
+
+    let best=0;
+
+
+    Object.values(
+        user.records||{}
+    ).forEach(
+        game=>{
+
+            Object.values(
+                game||{}
+            ).forEach(
+                value=>{
+
+                    best=
+                        Math.max(
+                            best,
+                            Number(value)||0
+                        );
+
+                }
+            );
+
+        }
+    );
+
+
+    return best;
+
+}
+
+
+function renderRecords(user){
+
+    const names={
+
+        ttt:"❌ Крестики-нолики",
+
+        pong:"🏓 Пинг-понг",
+
+        flags:"🌍 Флаги",
+
+        memory:"🧠 Память",
+
+        snake:"🐍 Змейка",
+
+        bird:"🐦 Птичка",
+
+        minesweeper:"💣 Сапёр"
+
+    };
+
+
+    const tbody=
+        document.getElementById(
+            "recordsTable"
+        );
+
+
+    tbody.innerHTML="";
+
+
+    Object.keys(names).forEach(
+        game=>{
+
+            const record=
+                user.records[game]||{};
+
+
+            const tr=
+                document.createElement(
+                    "tr"
+                );
+
+
+            tr.innerHTML=`
+
+<td>
+${names[game]}
+</td>
+
+<td>
+${record.easy||0}
+</td>
+
+<td>
+${record.medium||0}
+</td>
+
+<td>
+${record.hard||0}
+</td>
+
+`;
+
+
+            tbody.appendChild(tr);
+
+        }
+    );
+
+}
+
+
+/* =====================================================
 ADMIN
 ===================================================== */
 
 function isAdmin(){
 
-    return (
-        localStorage.getItem(
-            "easyflow_admin"
-        )==="true"
-    );
+    return localStorage.getItem(
+        "easyflow_admin"
+    )==="true";
 
 }
 
 
 function renderAdmin(){
 
-    if(!isAdmin()){
-
+    const adminNav=
         document.getElementById(
             "adminNav"
-        ).classList.add("hidden");
+        );
+
+
+    if(!isAdmin()){
+
+        adminNav.classList.add(
+            "hidden"
+        );
 
         return;
 
     }
 
-    document.getElementById(
-        "adminNav"
-    ).classList.remove("hidden");
+
+    adminNav.classList.remove(
+        "hidden"
+    );
 
 
     const users=getUsers();
 
     let games=0;
+
     let wins=0;
 
-    users.forEach(user=>{
 
-        games+=
-            Number(user.totalGames)||0;
+    users.forEach(
+        user=>{
 
-        wins+=
-            Number(user.totalWins)||0;
+            games+=
+                Number(
+                    user.totalGames
+                )||0;
 
-    });
+            wins+=
+                Number(
+                    user.totalWins
+                )||0;
+
+        }
+    );
 
 
     document.getElementById(
         "adminUsers"
-    ).textContent=users.length;
+    ).textContent=
+        users.length;
+
 
     document.getElementById(
         "adminGames"
-    ).textContent=games;
+    ).textContent=
+        games;
+
 
     document.getElementById(
         "adminWins"
-    ).textContent=wins;
+    ).textContent=
+        wins;
 
 
     const tbody=
@@ -2970,29 +4216,42 @@ function renderAdmin(){
             "usersTable"
         );
 
+
     tbody.innerHTML="";
 
 
-    users.forEach(user=>{
+    users.forEach(
+        user=>{
 
-        const tr=
-            document.createElement("tr");
+            const tr=
+                document.createElement(
+                    "tr"
+                );
 
-        tr.innerHTML=`
 
-<td>${user.name}</td>
+            tr.innerHTML=`
 
-<td>⭐ ${user.stars}</td>
+<td>
+${escapeHTML(user.name)}
+</td>
 
-<td>${user.totalGames}</td>
+<td>
+⭐ ${Number(user.stars)||0}
+</td>
 
-<td>${user.totalWins}</td>
+<td>
+${Number(user.totalGames)||0}
+</td>
+
+<td>
+${Number(user.totalWins)||0}
+</td>
 
 <td>
 
 <button
 class="btn danger"
-onclick="adminDeleteUser('${user.id}')">
+onclick="adminDeleteUser('${escapeJS(user.id)}')">
 Удалить
 </button>
 
@@ -3000,9 +4259,11 @@ onclick="adminDeleteUser('${user.id}')">
 
 `;
 
-        tbody.appendChild(tr);
 
-    });
+            tbody.appendChild(tr);
+
+        }
+    );
 
 
     const select=
@@ -3010,25 +4271,35 @@ onclick="adminDeleteUser('${user.id}')">
             "starUser"
         );
 
+
     select.innerHTML="";
 
-    users.forEach(user=>{
 
-        const option=
-            document.createElement(
-                "option"
+    users.forEach(
+        user=>{
+
+            const option=
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value=
+                user.id;
+
+
+            option.textContent=
+                user.name+
+                " — ⭐"+
+                user.stars;
+
+
+            select.appendChild(
+                option
             );
 
-        option.value=user.id;
-
-        option.textContent=
-            user.name+
-            " — ⭐"+
-            user.stars;
-
-        select.appendChild(option);
-
-    });
+        }
+    );
 
 }
 
@@ -3038,6 +4309,24 @@ function adminDeleteUser(id){
     if(!isAdmin())
         return;
 
+
+    const current=
+        localStorage.getItem(
+            "easyflow_current_user"
+        );
+
+
+    if(id===current){
+
+        toast(
+            "Нельзя удалить текущего администратора"
+        );
+
+        return;
+
+    }
+
+
     if(
         !confirm(
             "Удалить пользователя?"
@@ -3045,18 +4334,24 @@ function adminDeleteUser(id){
     )
         return;
 
+
     let users=getUsers();
+
 
     users=
         users.filter(
             user=>user.id!==id
         );
 
+
     saveUsers(users);
 
     renderAdmin();
 
-    toast("Пользователь удалён");
+
+    toast(
+        "Пользователь удалён"
+    );
 
 }
 
@@ -3066,10 +4361,12 @@ function adminAddStars(){
     if(!isAdmin())
         return;
 
+
     const id=
         document.getElementById(
             "starUser"
         ).value;
+
 
     const amount=
         Number(
@@ -3078,20 +4375,33 @@ function adminAddStars(){
             ).value
         );
 
-    if(!amount || amount<=0)
+
+    if(!amount || amount<=0){
+
+        toast(
+            "Введите количество звёзд"
+        );
+
         return;
 
+    }
+
+
     const users=getUsers();
+
 
     const user=
         users.find(
             u=>u.id===id
         );
 
+
     if(!user)
         return;
 
+
     user.stars+=amount;
+
 
     saveUsers(users);
 
@@ -3099,8 +4409,10 @@ function adminAddStars(){
 
     refreshPage();
 
+
     toast(
-        "Добавлено ⭐"+amount
+        "⭐ Добавлено "+
+        amount
     );
 
 }
@@ -3111,10 +4423,12 @@ function adminRemoveStars(){
     if(!isAdmin())
         return;
 
+
     const id=
         document.getElementById(
             "starUser"
         ).value;
+
 
     const amount=
         Number(
@@ -3123,18 +4437,30 @@ function adminRemoveStars(){
             ).value
         );
 
-    if(!amount || amount<=0)
+
+    if(!amount || amount<=0){
+
+        toast(
+            "Введите количество звёзд"
+        );
+
         return;
 
+    }
+
+
     const users=getUsers();
+
 
     const user=
         users.find(
             u=>u.id===id
         );
 
+
     if(!user)
         return;
+
 
     user.stars=
         Math.max(
@@ -3142,14 +4468,17 @@ function adminRemoveStars(){
             user.stars-amount
         );
 
+
     saveUsers(users);
 
     renderAdmin();
 
     refreshPage();
 
+
     toast(
-        "Убрано ⭐"+amount
+        "⭐ Убрано "+
+        amount
     );
 
 }
@@ -3160,29 +4489,39 @@ function adminAddProduct(){
     if(!isAdmin())
         return;
 
+
     const shop=getShop();
 
-    const product={
+
+    shop.push({
 
         id:
             "admin_"+Date.now(),
 
-        name:"Новый предмет",
+        name:
+            "Новый предмет",
 
-        icon:"🎁",
+        icon:
+            "🎁",
 
-        type:"accessory",
+        type:
+            "accessory",
 
-        price:50
+        price:
+            50
 
-    };
+    });
 
-    shop.push(product);
 
     saveShop(shop);
 
+    renderShop(
+        currentUser()
+    );
+
+
     toast(
-        "Тестовый товар добавлен"
+        "🎁 Товар добавлен"
     );
 
 }
@@ -3193,6 +4532,7 @@ function adminResetShop(){
     if(!isAdmin())
         return;
 
+
     if(
         !confirm(
             "Сбросить магазин?"
@@ -3200,15 +4540,20 @@ function adminResetShop(){
     )
         return;
 
-    saveShop([
-        ...DEFAULT_SHOP
-    ]);
+
+    saveShop(
+        [...DEFAULT_SHOP]
+    );
+
 
     renderShop(
         currentUser()
     );
 
-    toast("Магазин сброшен");
+
+    toast(
+        "🛍️ Магазин сброшен"
+    );
 
 }
 
@@ -3218,14 +4563,17 @@ function adminResetAchievements(){
     if(!isAdmin())
         return;
 
+
     if(
         !confirm(
-            "Сбросить достижения у всех?"
+            "Сбросить достижения у всех пользователей?"
         )
     )
         return;
 
+
     const users=getUsers();
+
 
     users.forEach(
         user=>{
@@ -3233,14 +4581,16 @@ function adminResetAchievements(){
         }
     );
 
+
     saveUsers(users);
 
     renderAdmin();
 
     refreshPage();
 
+
     toast(
-        "Достижения сброшены"
+        "🏆 Достижения сброшены"
     );
 
 }
@@ -3251,6 +4601,7 @@ function adminResetRecords(){
     if(!isAdmin())
         return;
 
+
     if(
         !confirm(
             "Сбросить рекорды у всех?"
@@ -3258,13 +4609,15 @@ function adminResetRecords(){
     )
         return;
 
+
     const users=getUsers();
+
 
     users.forEach(
         user=>{
 
             Object.keys(
-                user.records
+                user.records||{}
             ).forEach(
                 game=>{
 
@@ -3280,21 +4633,176 @@ function adminResetRecords(){
         }
     );
 
+
     saveUsers(users);
 
     renderAdmin();
 
     refreshPage();
 
+
     toast(
-        "Рекорды сброшены"
+        "📊 Рекорды сброшены"
     );
 
 }
 
 
 /* =====================================================
-ОБНОВЛЕНИЕ ИНТЕРФЕЙСА
+FULLSCREEN
+===================================================== */
+
+function toggleFullscreen(){
+
+    const container=
+        document.getElementById(
+            "mainContainer"
+        );
+
+
+    if(
+        document.fullscreenElement
+    ){
+
+        document.exitFullscreen();
+
+        document.getElementById(
+            "fullscreenButton"
+        ).textContent=
+            "⛶ На весь экран";
+
+
+        return;
+
+    }
+
+
+    if(
+        container.requestFullscreen
+    ){
+
+        container.requestFullscreen();
+
+    }else{
+
+        container.classList.add(
+            "fullscreen-active"
+        );
+
+    }
+
+
+    document.getElementById(
+        "fullscreenButton"
+    ).textContent=
+        "✕ Выйти из полного экрана";
+
+}
+
+
+document.addEventListener(
+    "fullscreenchange",
+    ()=>{
+
+        const button=
+            document.getElementById(
+                "fullscreenButton"
+            );
+
+
+        if(
+            !document.fullscreenElement
+        ){
+
+            button.textContent=
+                "⛶ На весь экран";
+
+        }else{
+
+            button.textContent=
+                "✕ Выйти из полного экрана";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+UTILS
+===================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+function escapeJS(text){
+
+    return String(text)
+        .replaceAll("\\","\\\\")
+        .replaceAll("'","\\'");
+
+}
+
+
+function darkenColor(hex){
+
+    if(
+        !/^#[0-9a-fA-F]{6}$/.test(hex)
+    )
+        return "#1d4ed8";
+
+
+    const r=
+        Math.max(
+            0,
+            parseInt(
+                hex.slice(1,3),
+                16
+            )-30
+        );
+
+    const g=
+        Math.max(
+            0,
+            parseInt(
+                hex.slice(3,5),
+                16
+            )-30
+        );
+
+    const b=
+        Math.max(
+            0,
+            parseInt(
+                hex.slice(5,7),
+                16
+            )-30
+        );
+
+
+    return "#"+
+        [r,g,b]
+        .map(
+            x=>
+                x.toString(16)
+                 .padStart(2,"0")
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+REFRESH
 ===================================================== */
 
 function refreshPage(){
@@ -3305,29 +4813,44 @@ function refreshPage(){
         return;
 
 
-    checkAchievements();
+    normalizeSettings(user);
 
 
     document.getElementById(
         "headerStars"
-    ).textContent=user.stars;
+    ).textContent=
+        user.stars;
+
+
+    document.getElementById(
+        "headerName"
+    ).textContent=
+        user.name;
 
 
     document.getElementById(
         "homeStars"
-    ).textContent=user.stars;
+    ).textContent=
+        user.stars;
+
 
     document.getElementById(
         "homeGames"
-    ).textContent=user.totalGames;
+    ).textContent=
+        user.totalGames;
+
 
     document.getElementById(
         "homeWins"
-    ).textContent=user.totalWins;
+    ).textContent=
+        user.totalWins;
+
 
     document.getElementById(
         "homeName"
-    ).textContent=user.name;
+    ).textContent=
+        user.name;
+
 
     document.getElementById(
         "homeAchievements"
@@ -3337,28 +4860,39 @@ function refreshPage(){
 
     document.getElementById(
         "profileName"
-    ).textContent=user.name;
+    ).textContent=
+        user.name;
+
 
     document.getElementById(
         "profileStars"
-    ).textContent=user.stars;
+    ).textContent=
+        user.stars;
+
 
     document.getElementById(
         "profileGames"
-    ).textContent=user.totalGames;
+    ).textContent=
+        user.totalGames;
+
 
     document.getElementById(
         "profileWins"
-    ).textContent=user.totalWins;
+    ).textContent=
+        user.totalWins;
+
 
     document.getElementById(
         "profileScore"
-    ).textContent=user.totalScore;
+    ).textContent=
+        user.totalScore;
+
 
     document.getElementById(
         "profileAchievementCount"
     ).textContent=
         user.achievements.length;
+
 
     document.getElementById(
         "profileBest"
@@ -3375,6 +4909,7 @@ function refreshPage(){
             )
             :0;
 
+
     document.getElementById(
         "winsProgress"
     ).style.width=
@@ -3389,25 +4924,30 @@ function refreshPage(){
     ).textContent=
         user.totalGames;
 
+
     document.getElementById(
         "statWins"
     ).textContent=
         user.totalWins;
+
 
     document.getElementById(
         "statStars"
     ).textContent=
         user.stars;
 
+
     document.getElementById(
         "statScore"
     ).textContent=
         user.totalScore;
 
+
     document.getElementById(
         "statAchievements"
     ).textContent=
         user.achievements.length;
+
 
     document.getElementById(
         "statWinRate"
@@ -3421,31 +4961,66 @@ function refreshPage(){
         user.stars;
 
 
-    if(user.avatar){
+    document.getElementById(
+        "nameInput"
+    ).value=
+        user.name;
 
+
+    document.getElementById(
+        "avatarInput"
+    ).value=
+        user.avatar||"";
+
+
+    /* PROFILE AVATAR */
+
+    const profileAvatar=
         document.getElementById(
             "profileAvatar"
-        ).innerHTML=
-            `<img src="${escapeHTML(
-                user.avatar
-            )}" alt="Аватар">`;
+        );
+
+
+    if(user.avatar){
+
+        profileAvatar.innerHTML=
+            `<img
+                src="${escapeHTML(user.avatar)}"
+                alt="Аватар"
+                onerror="this.parentElement.textContent='👤'"
+            >`;
 
     }else{
 
-        document.getElementById(
-            "profileAvatar"
-        ).textContent="👤";
+        profileAvatar.textContent=
+            "👤";
 
     }
 
 
-    document.getElementById(
-        "nameInput"
-    ).value=user.name;
+    /* HEADER AVATAR */
 
-    document.getElementById(
-        "avatarInput"
-    ).value=user.avatar||"";
+    const headerAvatar=
+        document.getElementById(
+            "headerAvatar"
+        );
+
+
+    if(user.avatar){
+
+        headerAvatar.innerHTML=
+            `<img
+                src="${escapeHTML(user.avatar)}"
+                alt="Аватар"
+                onerror="this.parentElement.textContent='👤'"
+            >`;
+
+    }else{
+
+        headerAvatar.textContent=
+            "👤";
+
+    }
 
 
     renderRecords(user);
@@ -3463,25 +5038,12 @@ function refreshPage(){
 }
 
 
-function refreshPageWithoutAchievementLoop(){
-
-    const user=currentUser();
-
-    if(!user)
-        return;
-
-    document.getElementById(
-        "headerStars"
-    ).textContent=user.stars;
-
-}
-
-
 /* =====================================================
-ТОСТ
+TOAST
 ===================================================== */
 
 let toastTimer=null;
+
 
 function toast(text){
 
@@ -3490,35 +5052,26 @@ function toast(text){
             "toast"
         );
 
+
     box.textContent=text;
 
-    box.style.display="block";
+    box.style.display=
+        "block";
 
-    clearTimeout(toastTimer);
+
+    clearTimeout(
+        toastTimer
+    );
+
 
     toastTimer=
         setTimeout(
             ()=>{
-                box.style.display="none";
+                box.style.display=
+                    "none";
             },
             2500
         );
-
-}
-
-
-/* =====================================================
-БЕЗОПАСНЫЙ ТЕКСТ
-===================================================== */
-
-function escapeHTML(text){
-
-    return String(text)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
 
 }
 
@@ -3530,6 +5083,7 @@ INIT
 function init(){
 
     const user=currentUser();
+
 
     if(!user){
 
@@ -3543,29 +5097,43 @@ function init(){
 
     }
 
+
     document.getElementById(
         "loginModal"
     ).classList.add(
         "hidden"
     );
 
-    if(!user.settings){
 
-        user.settings={
-            ...DEFAULT_SETTINGS
-        };
+    normalizeSettings(user);
 
-        saveCurrentUser(user);
-
-    }
 
     if(!user.records){
 
         user.records={};
 
-        saveCurrentUser(user);
+    }
+
+
+    if(!user.inventory){
+
+        user.inventory=[];
 
     }
+
+
+    if(!user.equipped){
+
+        user.equipped={
+            accessory:null,
+            effect:null
+        };
+
+    }
+
+
+    saveCurrentUser(user);
+
 
     refreshPage();
 
