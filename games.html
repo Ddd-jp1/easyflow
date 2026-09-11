@@ -48,17 +48,9 @@ button:hover{
     background:#1d4ed8;
 }
 
-button.secondary{
-    background:#64748b;
-}
-
-button.danger{
-    background:#ef4444;
-}
-
-button.success{
-    background:#16a34a;
-}
+button.secondary{background:#64748b}
+button.danger{background:#ef4444}
+button.success{background:#16a34a}
 
 input,select{
     padding:11px;
@@ -93,23 +85,17 @@ input,select{
     font-size:14px;
 }
 
-.center{
-    text-align:center;
-}
+.center{text-align:center}
+.hidden{display:none!important}
 
-.hidden{
-    display:none!important;
-}
-
-#gameScreen{
-    text-align:center;
-}
+#gameScreen{text-align:center}
 
 canvas{
     background:#111827;
     border-radius:12px;
     border:4px solid #2563eb;
     max-width:95vw;
+    touch-action:none;
 }
 
 .game-controls{
@@ -152,6 +138,8 @@ canvas{
 
 .touch-controls button{
     height:55px;
+    padding:0;
+    font-size:22px;
 }
 
 .touch-controls button:nth-child(1){
@@ -175,6 +163,57 @@ canvas{
     color:white;
     border-color:#475569;
 }
+
+/* ================= TTT ================= */
+
+.ttt-board{
+    display:grid;
+    grid-template-columns:repeat(3,100px);
+    gap:8px;
+    justify-content:center;
+    margin:20px auto;
+}
+
+.ttt-cell{
+    width:100px;
+    height:100px;
+    font-size:50px;
+    padding:0;
+    background:#e2e8f0;
+    color:#111827;
+}
+
+.ttt-cell:hover{
+    background:#cbd5e1;
+}
+
+.ttt-status{
+    font-size:20px;
+    font-weight:bold;
+    margin:15px;
+}
+
+/* ================= PONG CAMERA ================= */
+
+.camera-box{
+    margin:15px auto;
+    max-width:600px;
+}
+
+#pongCamera{
+    width:320px;
+    max-width:90vw;
+    border-radius:12px;
+    transform:scaleX(-1);
+    display:none;
+    border:3px solid #16a34a;
+}
+
+.camera-status{
+    margin:10px;
+    color:#64748b;
+    font-weight:bold;
+}
 </style>
 </head>
 
@@ -196,7 +235,7 @@ canvas{
 
 <div class="card">
 <h3>🧱 Тетрис</h3>
-<p class="small">Линии, уровни и скорость.</p>
+<p class="small">Линии, уровни и управление кнопками.</p>
 <br>
 <button onclick="openGameSettings('tetris')">Играть</button>
 </div>
@@ -210,52 +249,43 @@ canvas{
 
 <div class="card">
 <h3>🐦 Flappy Bird</h3>
-<p class="small">Настрой скорость и размер прохода.</p>
+<p class="small">Плавный старт и постепенное ускорение.</p>
 <br>
 <button onclick="openGameSettings('flappy')">Играть</button>
 </div>
 
 <div class="card">
 <h3>🐍 Змейка</h3>
-<p class="small">Скорость, поле и препятствия.</p>
+<p class="small">Плавная скорость и несколько размеров поля.</p>
 <br>
 <button onclick="openGameSettings('snake')">Играть</button>
 </div>
 
 <div class="card">
-<h3>🎯 Кликер</h3>
-<p class="small">Настрой время и множители.</p>
-<br>
-<button onclick="openGameSettings('clicker')">Играть</button>
-</div>
-
-<div class="card">
 <h3>🧠 Память</h3>
-<p class="small">Количество пар и время.</p>
+<p class="small">Проверка памяти и внимательности.</p>
 <br>
 <button onclick="openGameSettings('memory')">Играть</button>
 </div>
 
 <div class="card">
-<h3>🔢 2048</h3>
-<p class="small">Размер поля и цель.</p>
+<h3>🏓 Pong</h3>
+<p class="small">Можно управлять ракеткой рукой через камеру.</p>
 <br>
-<button onclick="openGameSettings('2048')">Играть</button>
+<button onclick="openGameSettings('pong')">Играть</button>
 </div>
 
 <div class="card">
-<h3>🏓 Pong</h3>
-<p class="small">Скорость мяча и сложность AI.</p>
+<h3>❌ Крестики-нолики</h3>
+<p class="small">Сильный компьютер. Победить будет сложно.</p>
 <br>
-<button onclick="openGameSettings('pong')">Играть</button>
+<button onclick="openGameSettings('ttt')">Играть</button>
 </div>
 
 </div>
 
 </section>
 
-
-<!-- НАСТРОЙКИ ИГРЫ -->
 
 <section id="settingsScreen" class="hidden">
 
@@ -292,8 +322,6 @@ canvas{
 
 </section>
 
-
-<!-- ИГРА -->
 
 <section id="gameScreen" class="hidden">
 
@@ -333,7 +361,7 @@ canvas{
 <script>
 
 /* =====================================================
-   GAME ENGINE
+   ENGINE
 ===================================================== */
 
 let currentGame=null;
@@ -345,21 +373,21 @@ let paused=false;
 let scores={};
 
 try{
-    scores=JSON.parse(localStorage.getItem("easyflow_game_records")||"{}");
+    scores=JSON.parse(
+        localStorage.getItem("easyflow_game_records")||"{}"
+    );
 }catch(e){
     scores={};
 }
-
 
 const gameNames={
     tetris:"🧱 Тетрис",
     mines:"💣 Сапёр",
     flappy:"🐦 Flappy Bird",
     snake:"🐍 Змейка",
-    clicker:"🎯 Кликер",
     memory:"🧠 Память",
-    "2048":"🔢 2048",
-    pong:"🏓 Pong"
+    pong:"🏓 Pong",
+    ttt:"❌ Крестики-нолики"
 };
 
 
@@ -368,11 +396,9 @@ const gameNames={
 ===================================================== */
 
 function hideAll(){
-
     document
     .querySelectorAll("section")
     .forEach(x=>x.classList.add("hidden"));
-
 }
 
 function backToMenu(){
@@ -384,9 +410,7 @@ function backToMenu(){
     document
     .getElementById("gameMenu")
     .classList.remove("hidden");
-
 }
-
 
 function stopEverything(){
 
@@ -402,11 +426,6 @@ function stopEverything(){
     paused=false;
 
 }
-
-
-/* =====================================================
-   GAME SETTINGS
-===================================================== */
 
 function openGameSettings(type){
 
@@ -424,9 +443,12 @@ function openGameSettings(type){
         "⚙️ "+gameNames[type]+" — настройки";
 
     renderExtraSettings(type);
-
 }
 
+
+/* =====================================================
+   SETTINGS
+===================================================== */
 
 function renderExtraSettings(type){
 
@@ -439,17 +461,10 @@ function renderExtraSettings(type){
         <label>⚡ Скорость падения</label>
 
         <select id="speed">
-            <option value="900">Медленная</option>
-            <option value="600" selected>Обычная</option>
-            <option value="350">Быстрая</option>
-            <option value="180">Очень быстрая</option>
-        </select>
-
-        <label>🎨 Цвета</label>
-
-        <select id="themeGame">
-            <option value="classic">Классика</option>
-            <option value="neon">Неон</option>
+            <option value="1000">Очень медленная</option>
+            <option value="800" selected>Медленная</option>
+            <option value="600">Обычная</option>
+            <option value="450">Быстрая</option>
         </select>
 
         `;
@@ -489,19 +504,19 @@ function renderExtraSettings(type){
         <label>🚀 Скорость</label>
 
         <select id="flappySpeed">
-            <option value="2">Медленная</option>
-            <option value="3" selected>Обычная</option>
-            <option value="4">Быстрая</option>
-            <option value="5">Экстремальная</option>
+            <option value="1.5">Очень медленная</option>
+            <option value="2" selected>Медленная</option>
+            <option value="2.5">Обычная</option>
+            <option value="3">Быстрая</option>
         </select>
 
         <label>🚪 Размер прохода</label>
 
         <select id="gap">
-            <option value="190">Большой</option>
-            <option value="160" selected>Средний</option>
-            <option value="130">Маленький</option>
-            <option value="105">Очень маленький</option>
+            <option value="200">Очень большой</option>
+            <option value="180" selected>Большой</option>
+            <option value="160">Средний</option>
+            <option value="140">Маленький</option>
         </select>
 
         `;
@@ -515,10 +530,10 @@ function renderExtraSettings(type){
         <label>⚡ Скорость змейки</label>
 
         <select id="snakeSpeed">
-            <option value="180">Медленная</option>
-            <option value="120" selected>Обычная</option>
-            <option value="80">Быстрая</option>
-            <option value="50">Экстремальная</option>
+            <option value="220">Очень медленная</option>
+            <option value="180" selected>Медленная</option>
+            <option value="145">Обычная</option>
+            <option value="115">Быстрая</option>
         </select>
 
         <label>📐 Размер поля</label>
@@ -527,31 +542,6 @@ function renderExtraSettings(type){
             <option value="15">15 × 15</option>
             <option value="20" selected>20 × 20</option>
             <option value="25">25 × 25</option>
-        </select>
-
-        `;
-
-    }
-
-    if(type==="clicker"){
-
-        el.innerHTML=`
-
-        <label>⏱️ Время игры</label>
-
-        <select id="clickTime">
-            <option value="10">10 секунд</option>
-            <option value="15" selected>15 секунд</option>
-            <option value="30">30 секунд</option>
-            <option value="60">60 секунд</option>
-        </select>
-
-        <label>⭐ Множитель</label>
-
-        <select id="clickMultiplier">
-            <option value="1">×1</option>
-            <option value="2">×2</option>
-            <option value="3">×3</option>
         </select>
 
         `;
@@ -575,31 +565,6 @@ function renderExtraSettings(type){
 
     }
 
-    if(type==="2048"){
-
-        el.innerHTML=`
-
-        <label>📐 Размер поля</label>
-
-        <select id="size2048">
-            <option value="3">3 × 3</option>
-            <option value="4" selected>4 × 4</option>
-            <option value="5">5 × 5</option>
-        </select>
-
-        <label>🎯 Цель</label>
-
-        <select id="target2048">
-            <option value="512">512</option>
-            <option value="1024">1024</option>
-            <option value="2048" selected>2048</option>
-            <option value="4096">4096</option>
-        </select>
-
-        `;
-
-    }
-
     if(type==="pong"){
 
         el.innerHTML=`
@@ -607,10 +572,10 @@ function renderExtraSettings(type){
         <label>🤖 Сложность компьютера</label>
 
         <select id="ai">
-            <option value="2">Лёгкая</option>
-            <option value="3" selected>Обычная</option>
-            <option value="4">Сложная</option>
-            <option value="5">Экстремальная</option>
+            <option value="1.5">Лёгкая</option>
+            <option value="2.3" selected>Обычная</option>
+            <option value="3.2">Сложная</option>
+            <option value="4.2">Экстремальная</option>
         </select>
 
         <label>🚀 Скорость мяча</label>
@@ -618,8 +583,29 @@ function renderExtraSettings(type){
         <select id="ballSpeed">
             <option value="3">Медленная</option>
             <option value="4" selected>Обычная</option>
-            <option value="6">Быстрая</option>
-            <option value="8">Экстремальная</option>
+            <option value="5">Быстрая</option>
+            <option value="6">Очень быстрая</option>
+        </select>
+
+        <p class="small">
+        После запуска можно включить управление рукой.
+        </p>
+
+        `;
+
+    }
+
+    if(type==="ttt"){
+
+        el.innerHTML=`
+
+        <label>🤖 Сила компьютера</label>
+
+        <select id="tttAI">
+            <option value="easy">Лёгкий</option>
+            <option value="normal" selected>Обычный</option>
+            <option value="hard">Сильный</option>
+            <option value="perfect">Непобедимый</option>
         </select>
 
         `;
@@ -687,36 +673,12 @@ function launchSelectedGame(){
 
     }
 
-    if(currentGame==="clicker"){
-
-        gameConfig.time=
-            Number(document.getElementById("clickTime").value);
-
-        gameConfig.multiplier=
-            Number(document.getElementById("clickMultiplier").value);
-
-        clicker();
-
-    }
-
     if(currentGame==="memory"){
 
         gameConfig.pairs=
             Number(document.getElementById("memoryPairs").value);
 
         memory();
-
-    }
-
-    if(currentGame==="2048"){
-
-        gameConfig.size=
-            Number(document.getElementById("size2048").value);
-
-        gameConfig.target=
-            Number(document.getElementById("target2048").value);
-
-        game2048();
 
     }
 
@@ -732,11 +694,20 @@ function launchSelectedGame(){
 
     }
 
+    if(currentGame==="ttt"){
+
+        gameConfig.ai=
+            document.getElementById("tttAI").value;
+
+        ttt();
+
+    }
+
 }
 
 
 /* =====================================================
-   GAME SCREEN
+   SCREEN
 ===================================================== */
 
 function prepareGame(title){
@@ -770,7 +741,6 @@ function prepareGame(title){
 
 }
 
-
 function setScore(v){
 
     document
@@ -778,7 +748,6 @@ function setScore(v){
     .textContent=v;
 
 }
-
 
 function finishGame(score=0,win=false){
 
@@ -807,11 +776,6 @@ function finishGame(score=0,win=false){
 
 }
 
-
-/* =====================================================
-   PAUSE
-===================================================== */
-
 function pauseGame(){
 
     paused=!paused;
@@ -820,6 +784,14 @@ function pauseGame(){
     .getElementById("pauseBtn")
     .textContent=
         paused?"▶ Продолжить":"⏸ Пауза";
+
+}
+
+function restartGame(){
+
+    stopEverything();
+
+    launchSelectedGame();
 
 }
 
@@ -855,17 +827,11 @@ function tetris(){
     const shapes=[
 
         [[1,1,1,1]],
-
         [[2,2],[2,2]],
-
         [[0,3,0],[3,3,3]],
-
         [[4,0,0],[4,4,4]],
-
         [[0,0,5],[5,5,5]],
-
         [[0,6,6],[6,6,0]],
-
         [[7,7,0],[0,7,7]]
 
     ];
@@ -888,17 +854,15 @@ function tetris(){
     function newPiece(){
 
         piece={
-            matrix:
-                JSON.parse(
-                    JSON.stringify(
-                        shapes[
-                            Math.floor(
-                                Math.random()*shapes.length
-                            )
-                        ]
-                    )
-                ),
-
+            matrix:JSON.parse(
+                JSON.stringify(
+                    shapes[
+                        Math.floor(
+                            Math.random()*shapes.length
+                        )
+                    ]
+                )
+            ),
             x:3,
             y:0
         };
@@ -907,7 +871,6 @@ function tetris(){
             end();
 
     }
-
 
     function hit(){
 
@@ -934,9 +897,7 @@ function tetris(){
         }
 
         return false;
-
     }
-
 
     function merge(){
 
@@ -953,7 +914,6 @@ function tetris(){
 
     }
 
-
     function clearLines(){
 
         let lines=0;
@@ -969,7 +929,7 @@ function tetris(){
                 );
 
                 lines++;
-                y++;
+                y--;
 
             }
 
@@ -983,7 +943,6 @@ function tetris(){
         setScore(score);
 
     }
-
 
     function rotate(){
 
@@ -1002,11 +961,9 @@ function tetris(){
 
     }
 
-
     function drop(){
 
-        if(paused||gameOver)
-            return;
+        if(paused||gameOver)return;
 
         piece.y++;
 
@@ -1015,9 +972,7 @@ function tetris(){
             piece.y--;
 
             merge();
-
             clearLines();
-
             newPiece();
 
         }
@@ -1026,6 +981,43 @@ function tetris(){
 
     }
 
+    function hardDrop(){
+
+        if(paused||gameOver)return;
+
+        while(!hit())
+            piece.y++;
+
+        piece.y--;
+
+        merge();
+        clearLines();
+        newPiece();
+        draw();
+
+    }
+
+    function moveLeft(){
+
+        piece.x--;
+
+        if(hit())
+            piece.x++;
+
+        draw();
+
+    }
+
+    function moveRight(){
+
+        piece.x++;
+
+        if(hit())
+            piece.x--;
+
+        draw();
+
+    }
 
     function draw(){
 
@@ -1059,7 +1051,6 @@ function tetris(){
 
         }
 
-
         piece.matrix.forEach((row,y)=>{
 
             row.forEach((v,x)=>{
@@ -1083,7 +1074,6 @@ function tetris(){
 
     }
 
-
     function end(){
 
         if(gameOver)return;
@@ -1096,28 +1086,15 @@ function tetris(){
 
     }
 
-
     document.onkeydown=e=>{
 
         if(paused||gameOver)return;
 
-        if(e.key==="ArrowLeft"){
+        if(e.key==="ArrowLeft")
+            moveLeft();
 
-            piece.x--;
-
-            if(hit())
-                piece.x++;
-
-        }
-
-        if(e.key==="ArrowRight"){
-
-            piece.x++;
-
-            if(hit())
-                piece.x--;
-
-        }
+        if(e.key==="ArrowRight")
+            moveRight();
 
         if(e.key==="ArrowDown")
             drop();
@@ -1125,40 +1102,50 @@ function tetris(){
         if(e.key==="ArrowUp")
             rotate();
 
-        if(e.code==="Space"){
-
-            while(!hit())
-                piece.y++;
-
-            piece.y--;
-
-            merge();
-
-            clearLines();
-
-            newPiece();
-
-        }
-
-        draw();
+        if(e.code==="Space")
+            hardDrop();
 
     };
 
 
+    let controls=document.createElement("div");
+
+    controls.className="touch-controls";
+
+    controls.innerHTML=`
+
+        <button id="tUp">↻</button>
+
+        <button id="tLeft">←</button>
+        <button id="tDown">↓</button>
+        <button id="tRight">→</button>
+
+        <button id="tDrop">⬇⬇</button>
+    `;
+
+    document
+    .getElementById("game")
+    .appendChild(controls);
+
+    document.getElementById("tUp").onclick=rotate;
+    document.getElementById("tLeft").onclick=moveLeft;
+    document.getElementById("tDown").onclick=drop;
+    document.getElementById("tRight").onclick=moveRight;
+    document.getElementById("tDrop").onclick=hardDrop;
+
     newPiece();
     draw();
 
-    gameTimer=
-        setInterval(
-            drop,
-            gameConfig.speed||600
-        );
+    gameTimer=setInterval(
+        drop,
+        gameConfig.speed||800
+    );
 
 }
 
 
 /* =====================================================
-   MINESWEEPER
+   MINES
 ===================================================== */
 
 function mines(){
@@ -1168,8 +1155,7 @@ function mines(){
     let size=gameConfig.size||10;
     let mineCount=gameConfig.mines||15;
 
-    let board=
-        document.createElement("div");
+    let board=document.createElement("div");
 
     board.style.display="grid";
     board.style.gridTemplateColumns=
@@ -1182,7 +1168,6 @@ function mines(){
     .appendChild(board);
 
     let cells=[];
-
     let started=false;
     let ended=false;
     let time=0;
@@ -1197,7 +1182,6 @@ function mines(){
         });
 
     }
-
 
     function neighbors(i){
 
@@ -1214,25 +1198,20 @@ function mines(){
                 let C=c+dc;
 
                 if(
-                    (dr||dc) &&
-                    R>=0 &&
-                    R<size &&
-                    C>=0 &&
+                    (dr||dc)&&
+                    R>=0&&
+                    R<size&&
+                    C>=0&&
                     C<size
-                ){
-
+                )
                     result.push(R*size+C);
-
-                }
 
             }
 
         }
 
         return result;
-
     }
-
 
     function setup(first){
 
@@ -1240,9 +1219,7 @@ function mines(){
             [...Array(size*size).keys()]
             .filter(i=>i!==first);
 
-        indexes.sort(
-            ()=>Math.random()-.5
-        );
+        indexes.sort(()=>Math.random()-.5);
 
         indexes
         .slice(
@@ -1255,7 +1232,6 @@ function mines(){
         .forEach(i=>{
             cells[i].mine=true;
         });
-
 
         cells.forEach((cell,i)=>{
 
@@ -1277,12 +1253,11 @@ function mines(){
 
     }
 
-
     function open(i){
 
         if(
-            ended ||
-            cells[i].open ||
+            ended||
+            cells[i].open||
             cells[i].flag
         )return;
 
@@ -1296,15 +1271,11 @@ function mines(){
             });
 
             ended=true;
-
             draw();
-
             stopEverything();
-
             finishGame(0);
 
             return;
-
         }
 
         let queue=[i];
@@ -1314,8 +1285,8 @@ function mines(){
             let j=queue.pop();
 
             if(
-                cells[j].open ||
-                cells[j].mine ||
+                cells[j].open||
+                cells[j].mine||
                 cells[j].flag
             )continue;
 
@@ -1324,9 +1295,7 @@ function mines(){
             if(cells[j].n===0){
 
                 neighbors(j)
-                .forEach(k=>{
-                    queue.push(k);
-                });
+                .forEach(k=>queue.push(k));
 
             }
 
@@ -1346,10 +1315,7 @@ function mines(){
             stopEverything();
 
             finishGame(
-                Math.max(
-                    10,
-                    1000-time
-                ),
+                Math.max(10,1000-time),
                 true
             );
 
@@ -1357,15 +1323,13 @@ function mines(){
 
     }
 
-
     function draw(){
 
         board.innerHTML="";
 
         cells.forEach((cell,i)=>{
 
-            let b=
-                document.createElement("button");
+            let b=document.createElement("button");
 
             b.style.width="32px";
             b.style.height="32px";
@@ -1394,17 +1358,15 @@ function mines(){
 
             }
 
-            b.onclick=()=>{
-                open(i);
-            };
+            b.onclick=()=>open(i);
 
             b.oncontextmenu=e=>{
 
                 e.preventDefault();
 
                 if(
-                    !started ||
-                    ended ||
+                    !started||
+                    ended||
                     cell.open
                 )return;
 
@@ -1420,14 +1382,12 @@ function mines(){
 
     }
 
-
     draw();
-
 }
 
 
 /* =====================================================
-   FLAPPY BIRD
+   FLAPPY
 ===================================================== */
 
 function flappy(){
@@ -1457,36 +1417,32 @@ function flappy(){
     let last=0;
     let ended=false;
 
-    let speed=gameConfig.speed||3;
-    let gap=gameConfig.gap||160;
-
+    let baseSpeed=gameConfig.speed||2;
+    let gap=gameConfig.gap||180;
 
     function jump(){
 
         if(ended)return;
 
-        bird.velocity=-7;
+        bird.velocity=-6.5;
 
     }
-
 
     canvas.onclick=jump;
 
     document.onkeydown=e=>{
 
         if(
-            e.code==="Space" ||
+            e.code==="Space"||
             e.key==="ArrowUp"
         ){
 
             e.preventDefault();
-
             jump();
 
         }
 
     };
-
 
     function end(){
 
@@ -1496,13 +1452,9 @@ function flappy(){
 
         stopEverything();
 
-        finishGame(
-            score,
-            false
-        );
+        finishGame(score,false);
 
     }
-
 
     function loop(time){
 
@@ -1516,16 +1468,16 @@ function flappy(){
 
         if(!paused){
 
-            bird.velocity+=0.42;
+            bird.velocity+=0.36;
             bird.y+=bird.velocity;
 
             timer+=delta;
 
-            if(timer>1400){
+            if(timer>1550){
 
                 let top=
-                    50+
-                    Math.random()*320;
+                    70+
+                    Math.random()*270;
 
                 pipes.push({
                     x:400,
@@ -1536,13 +1488,23 @@ function flappy(){
 
             }
 
+            /*
+             * Скорость растёт постепенно.
+             * Поэтому игра не начинается сразу
+             * на огромной скорости.
+             */
+            let speed=
+                Math.min(
+                    baseSpeed+score*0.035,
+                    baseSpeed+1.5
+                );
 
             pipes.forEach(p=>{
 
                 p.x-=speed;
 
                 if(
-                    p.x<70 &&
+                    p.x<70&&
                     !p.counted
                 ){
 
@@ -1554,20 +1516,15 @@ function flappy(){
 
                 }
 
-
                 if(
-                    bird.x+25>p.x &&
-                    bird.x<p.x+55 &&
+                    bird.x+25>p.x&&
+                    bird.x<p.x+55&&
                     (
-                        bird.y<p.top ||
-                        bird.y+25>
-                        p.top+gap
+                        bird.y<p.top||
+                        bird.y+25>p.top+gap
                     )
-                ){
-
+                )
                     end();
-
-                }
 
             });
 
@@ -1576,22 +1533,19 @@ function flappy(){
                     p=>p.x>-70
                 );
 
-
             if(
-                bird.y<0 ||
+                bird.y<0||
                 bird.y>575
             )
                 end();
 
         }
 
-
         ctx.fillStyle="#7dd3fc";
 
         ctx.fillRect(
             0,0,400,600
         );
-
 
         ctx.fillStyle="#22c55e";
 
@@ -1613,7 +1567,6 @@ function flappy(){
 
         });
 
-
         ctx.fillStyle="#facc15";
 
         ctx.beginPath();
@@ -1628,12 +1581,10 @@ function flappy(){
 
         ctx.fill();
 
-
         animation=
             requestAnimationFrame(loop);
 
     }
-
 
     animation=
         requestAnimationFrame(loop);
@@ -1674,6 +1625,8 @@ function snake(){
         y:0
     };
 
+    let nextDirection={...direction};
+
     let food={
         x:5,
         y:5
@@ -1682,54 +1635,55 @@ function snake(){
     let score=0;
     let ended=false;
 
-
     function newFood(){
 
-        food={
-            x:Math.floor(
-                Math.random()*size
-            ),
+        do{
 
-            y:Math.floor(
-                Math.random()*size
+            food={
+                x:Math.floor(Math.random()*size),
+                y:Math.floor(Math.random()*size)
+            };
+
+        }while(
+            snake.some(
+                s=>s.x===food.x&&s.y===food.y
             )
-        };
+        );
 
     }
-
 
     document.onkeydown=e=>{
 
         if(e.key==="ArrowUp"&&direction.y!==1)
-            direction={x:0,y:-1};
+            nextDirection={x:0,y:-1};
 
         if(e.key==="ArrowDown"&&direction.y!==-1)
-            direction={x:0,y:1};
+            nextDirection={x:0,y:1};
 
         if(e.key==="ArrowLeft"&&direction.x!==1)
-            direction={x:-1,y:0};
+            nextDirection={x:-1,y:0};
 
         if(e.key==="ArrowRight"&&direction.x!==-1)
-            direction={x:1,y:0};
+            nextDirection={x:1,y:0};
 
     };
-
 
     function loop(){
 
         if(paused||ended)return;
+
+        direction={...nextDirection};
 
         let head={
             x:snake[0].x+direction.x,
             y:snake[0].y+direction.y
         };
 
-
         if(
-            head.x<0 ||
-            head.y<0 ||
-            head.x>=size ||
-            head.y>=size ||
+            head.x<0||
+            head.y<0||
+            head.x>=size||
+            head.y>=size||
             snake.some(
                 s=>s.x===head.x&&s.y===head.y
             )
@@ -1742,15 +1696,12 @@ function snake(){
             finishGame(score);
 
             return;
-
         }
-
 
         snake.unshift(head);
 
-
         if(
-            head.x===food.x &&
+            head.x===food.x&&
             head.y===food.y
         ){
 
@@ -1766,17 +1717,13 @@ function snake(){
 
         }
 
-
-        let cell=
-            400/size;
-
+        let cell=400/size;
 
         ctx.fillStyle="#111827";
 
         ctx.fillRect(
             0,0,400,400
         );
-
 
         ctx.fillStyle="#22c55e";
 
@@ -1796,7 +1743,6 @@ function snake(){
 
         });
 
-
         ctx.fillStyle="#ef4444";
 
         ctx.fillRect(
@@ -1808,101 +1754,10 @@ function snake(){
 
     }
 
-
-    gameTimer=
-        setInterval(
-            loop,
-            gameConfig.speed||120
-        );
-
-}
-
-
-/* =====================================================
-   CLICKER
-===================================================== */
-
-function clicker(){
-
-    prepareGame("🎯 Кликер");
-
-    let time=
-        gameConfig.time||15;
-
-    let multiplier=
-        gameConfig.multiplier||1;
-
-    let score=0;
-
-    let box=document.createElement("div");
-
-    box.innerHTML=`
-
-        <h1 id="clickNumber">0</h1>
-
-        <button
-            id="bigClick"
-            style="
-                font-size:50px;
-                padding:50px;
-                margin:20px
-            "
-        >
-            👆
-        </button>
-
-        <p>
-            Осталось:
-            <b id="clickTimer">${time}</b>
-            секунд
-        </p>
-
-    `;
-
-    document
-    .getElementById("game")
-    .appendChild(box);
-
-
-    document
-    .getElementById("bigClick")
-    .onclick=()=>{
-
-        if(paused)return;
-
-        score+=multiplier;
-
-        document
-        .getElementById("clickNumber")
-        .textContent=score;
-
-        setScore(score);
-
-    };
-
-
-    gameTimer=setInterval(()=>{
-
-        if(paused)return;
-
-        time--;
-
-        document
-        .getElementById("clickTimer")
-        .textContent=time;
-
-        if(time<=0){
-
-            stopEverything();
-
-            finishGame(
-                score,
-                true
-            );
-
-        }
-
-    },1000);
+    gameTimer=setInterval(
+        loop,
+        gameConfig.speed||180
+    );
 
 }
 
@@ -1921,62 +1776,48 @@ function memory(){
         "🥑","🍑","🥥","🍍"
     ];
 
-    let pairs=
-        Math.min(
-            gameConfig.pairs||8,
-            all.length
-        );
+    let pairs=Math.min(
+        gameConfig.pairs||8,
+        all.length
+    );
 
-    let deck=
-        [...all.slice(0,pairs),
-         ...all.slice(0,pairs)]
-        .sort(()=>Math.random()-.5);
+    let deck=[
+        ...all.slice(0,pairs),
+        ...all.slice(0,pairs)
+    ].sort(()=>Math.random()-.5);
 
-
-    let board=
-        document.createElement("div");
+    let board=document.createElement("div");
 
     board.style.display="grid";
-
     board.style.gridTemplateColumns=
         "repeat(4,80px)";
-
     board.style.gap="8px";
-
     board.style.justifyContent="center";
 
     document
     .getElementById("game")
     .appendChild(board);
 
-
     let opened=[];
     let found=0;
-    let moves=0;
     let locked=false;
-
 
     deck.forEach((value,index)=>{
 
-        let button=
-            document.createElement("button");
+        let button=document.createElement("button");
 
         button.textContent="❓";
-
         button.style.height="80px";
-
         button.style.fontSize="30px";
-
 
         button.onclick=()=>{
 
             if(
-                locked ||
+                locked||
                 button.dataset.open
             )return;
 
             button.dataset.open="1";
-
             button.textContent=value;
 
             opened.push({
@@ -1984,25 +1825,17 @@ function memory(){
                 button:button
             });
 
-            moves++;
-
             if(opened.length===2){
 
                 locked=true;
 
                 if(
-                    deck[
-                        opened[0].index
-                    ]===
-                    deck[
-                        opened[1].index
-                    ]
+                    deck[opened[0].index]===
+                    deck[opened[1].index]
                 ){
 
                     found++;
-
                     opened=[];
-
                     locked=false;
 
                     setScore(found);
@@ -2031,7 +1864,6 @@ function memory(){
                         });
 
                         opened=[];
-
                         locked=false;
 
                     },700);
@@ -2042,7 +1874,6 @@ function memory(){
 
         };
 
-
         board.appendChild(button);
 
     });
@@ -2051,270 +1882,14 @@ function memory(){
 
 
 /* =====================================================
-   2048
-===================================================== */
-
-function game2048(){
-
-    prepareGame("🔢 2048");
-
-    let size=gameConfig.size||4;
-    let target=gameConfig.target||2048;
-
-    let board=
-        Array.from(
-            {length:size},
-            ()=>Array(size).fill(0)
-        );
-
-    let score=0;
-    let ended=false;
-
-
-    let container=
-        document.createElement("div");
-
-    container.style.display="grid";
-
-    container.style.gridTemplateColumns=
-        `repeat(${size},70px)`;
-
-    container.style.gap="6px";
-
-    container.style.justifyContent="center";
-
-    document
-    .getElementById("game")
-    .appendChild(container);
-
-
-    function addTile(){
-
-        let empty=[];
-
-        board.forEach((row,y)=>{
-
-            row.forEach((v,x)=>{
-
-                if(!v)
-                    empty.push([y,x]);
-
-            });
-
-        });
-
-        if(!empty.length)return;
-
-        let p=
-            empty[
-                Math.floor(
-                    Math.random()*empty.length
-                )
-            ];
-
-        board[p[0]][p[1]]=
-            Math.random()<.9?2:4;
-
-    }
-
-
-    function draw(){
-
-        container.innerHTML="";
-
-        board.flat().forEach(v=>{
-
-            let b=
-                document.createElement("button");
-
-            b.style.height="70px";
-
-            b.style.fontSize="20px";
-
-            b.textContent=v||"";
-
-            container.appendChild(b);
-
-        });
-
-        setScore(score);
-
-    }
-
-
-    function move(dx,dy){
-
-        if(paused||ended)return;
-
-        let before=
-            JSON.stringify(board);
-
-
-        if(dx!==0){
-
-            for(let y=0;y<size;y++){
-
-                let row=
-                    board[y].filter(Boolean);
-
-                if(dx>0)
-                    row.reverse();
-
-
-                for(
-                    let i=0;
-                    i<row.length-1;
-                    i++
-                ){
-
-                    if(
-                        row[i]===row[i+1]
-                    ){
-
-                        row[i]*=2;
-
-                        score+=row[i];
-
-                        row.splice(i+1,1);
-
-                    }
-
-                }
-
-
-                while(row.length<size)
-                    row.push(0);
-
-
-                if(dx>0)
-                    row.reverse();
-
-
-                board[y]=row;
-
-            }
-
-        }else{
-
-            for(let x=0;x<size;x++){
-
-                let col=[];
-
-                for(let y=0;y<size;y++){
-
-                    if(board[y][x])
-                        col.push(board[y][x]);
-
-                }
-
-
-                if(dy>0)
-                    col.reverse();
-
-
-                for(
-                    let i=0;
-                    i<col.length-1;
-                    i++
-                ){
-
-                    if(
-                        col[i]===col[i+1]
-                    ){
-
-                        col[i]*=2;
-
-                        score+=col[i];
-
-                        col.splice(i+1,1);
-
-                    }
-
-                }
-
-
-                while(col.length<size)
-                    col.push(0);
-
-
-                if(dy>0)
-                    col.reverse();
-
-
-                for(let y=0;y<size;y++)
-                    board[y][x]=col[y];
-
-            }
-
-        }
-
-
-        if(
-            before!==
-            JSON.stringify(board)
-        ){
-
-            addTile();
-
-            draw();
-
-        }
-
-
-        if(
-            board.flat()
-            .some(v=>v>=target)
-        ){
-
-            ended=true;
-
-            stopEverything();
-
-            finishGame(
-                score,
-                true
-            );
-
-        }
-
-    }
-
-
-    document.onkeydown=e=>{
-
-        if(e.key==="ArrowLeft")
-            move(-1,0);
-
-        if(e.key==="ArrowRight")
-            move(1,0);
-
-        if(e.key==="ArrowUp")
-            move(0,-1);
-
-        if(e.key==="ArrowDown")
-            move(0,1);
-
-    };
-
-
-    addTile();
-    addTile();
-
-    draw();
-
-}
-
-
-/* =====================================================
-   PONG
+   PONG + HAND CONTROL
 ===================================================== */
 
 function pong(){
 
     prepareGame("🏓 Pong");
 
-    let canvas=
-        document.createElement("canvas");
+    let canvas=document.createElement("canvas");
 
     canvas.width=600;
     canvas.height=400;
@@ -2324,7 +1899,6 @@ function pong(){
     .appendChild(canvas);
 
     let ctx=canvas.getContext("2d");
-
 
     let player=160;
     let enemy=160;
@@ -2339,7 +1913,12 @@ function pong(){
     let score=0;
     let ended=false;
 
+    let handControl=false;
+    let cameraStream=null;
 
+    /*
+     * Обычное управление клавиатурой
+     */
     document.onkeydown=e=>{
 
         if(e.key==="ArrowUp")
@@ -2348,29 +1927,273 @@ function pong(){
         if(e.key==="ArrowDown")
             player+=25;
 
-        player=
-            Math.max(
-                0,
-                Math.min(
-                    320,
-                    player
-                )
-            );
+        player=Math.max(
+            0,
+            Math.min(320,player)
+        );
 
     };
+
+    let cameraBox=document.createElement("div");
+
+    cameraBox.className="camera-box";
+
+    cameraBox.innerHTML=`
+
+        <button id="handBtn">
+            ✋ Управление рукой
+        </button>
+
+        <div class="camera-status" id="cameraStatus">
+            Камера выключена
+        </div>
+
+        <video id="pongCamera"
+            autoplay
+            playsinline>
+        </video>
+
+    `;
+
+    document
+    .getElementById("game")
+    .appendChild(cameraBox);
+
+    let video=
+        document.getElementById("pongCamera");
+
+    let handBtn=
+        document.getElementById("handBtn");
+
+    let status=
+        document.getElementById("cameraStatus");
+
+    /*
+     * Управление рукой без внешней библиотеки:
+     * камера используется как датчик движения.
+     *
+     * Берём среднюю яркость верхней части кадра
+     * и используем движение изображения для
+     * управления ракеткой.
+     *
+     * Это работает как простой motion-control.
+     */
+    let cameraCanvas=document.createElement("canvas");
+
+    cameraCanvas.width=160;
+    cameraCanvas.height=120;
+
+    let cameraCtx=
+        cameraCanvas.getContext("2d");
+
+    let previousFrame=null;
+
+    async function startCamera(){
+
+        if(!navigator.mediaDevices||
+           !navigator.mediaDevices.getUserMedia){
+
+            status.textContent=
+                "Камера недоступна в этом браузере.";
+
+            return;
+
+        }
+
+        try{
+
+            cameraStream=
+                await navigator.mediaDevices.getUserMedia({
+                    video:{
+                        facingMode:"user",
+                        width:{ideal:320},
+                        height:{ideal:240}
+                    },
+                    audio:false
+                });
+
+            video.srcObject=cameraStream;
+
+            video.style.display="block";
+
+            handControl=true;
+
+            handBtn.textContent=
+                "🛑 Выключить управление рукой";
+
+            status.textContent=
+                "✋ Показывай движение рукой перед камерой";
+
+            requestAnimationFrame(cameraLoop);
+
+        }catch(err){
+
+            status.textContent=
+                "Не удалось получить доступ к камере.";
+
+        }
+
+    }
+
+    function stopCamera(){
+
+        handControl=false;
+
+        if(cameraStream){
+
+            cameraStream
+            .getTracks()
+            .forEach(track=>track.stop());
+
+            cameraStream=null;
+
+        }
+
+        video.style.display="none";
+
+        handBtn.textContent=
+            "✋ Управление рукой";
+
+        status.textContent=
+            "Камера выключена";
+
+        previousFrame=null;
+
+    }
+
+    handBtn.onclick=()=>{
+
+        if(handControl)
+            stopCamera();
+        else
+            startCamera();
+
+    };
+
+    function cameraLoop(){
+
+        if(
+            !handControl||
+            !video.videoWidth
+        ){
+
+            if(handControl)
+                requestAnimationFrame(cameraLoop);
+
+            return;
+        }
+
+        cameraCtx.drawImage(
+            video,
+            0,0,
+            cameraCanvas.width,
+            cameraCanvas.height
+        );
+
+        let image=
+            cameraCtx.getImageData(
+                0,
+                0,
+                cameraCanvas.width,
+                cameraCanvas.height
+            );
+
+        /*
+         * Ищем изменение изображения.
+         */
+        if(previousFrame){
+
+            let total=0;
+            let weighted=0;
+
+            for(
+                let y=0;
+                y<cameraCanvas.height;
+                y+=4
+            ){
+
+                for(
+                    let x=0;
+                    x<cameraCanvas.width;
+                    x+=4
+                ){
+
+                    let i=
+                        (y*cameraCanvas.width+x)*4;
+
+                    let diff=
+                        Math.abs(
+                            image.data[i]-
+                            previousFrame.data[i]
+                        )+
+                        Math.abs(
+                            image.data[i+1]-
+                            previousFrame.data[i+1]
+                        )+
+                        Math.abs(
+                            image.data[i+2]-
+                            previousFrame.data[i+2]
+                        );
+
+                    if(diff>80){
+
+                        total+=diff;
+                        weighted+=diff*x;
+
+                    }
+
+                }
+
+            }
+
+            if(total>15000){
+
+                /*
+                 * Центр движения руки.
+                 */
+                let handX=
+                    weighted/total;
+
+                /*
+                 * Камера зеркальная,
+                 * поэтому инвертируем X.
+                 */
+                handX=
+                    cameraCanvas.width-handX;
+
+                let target=
+                    handX/
+                    cameraCanvas.width*
+                    320;
+
+                player+=
+                    (target-player)*0.22;
+
+                player=Math.max(
+                    0,
+                    Math.min(320,player)
+                );
+
+            }
+
+        }
+
+        previousFrame=image;
+
+        requestAnimationFrame(cameraLoop);
+
+    }
 
 
     function loop(){
 
         if(paused||ended)return;
 
-
         ball.x+=ball.vx;
         ball.y+=ball.vy;
 
-
         if(
-            ball.y<=0 ||
+            ball.y<=0||
             ball.y>=392
         ){
 
@@ -2378,32 +2201,55 @@ function pong(){
 
         }
 
+        /*
+         * AI не должен быть нечестным.
+         * На экстремальной сложности он очень
+         * быстро реагирует, но всё равно имеет
+         * небольшую задержку.
+         */
+        let target=
+            ball.y-40;
 
-        enemy+=
-            ball.y >
-            enemy+40
-            ?gameConfig.ai||3
-            :-(gameConfig.ai||3);
+        let aiSpeed=
+            gameConfig.ai||2.3;
 
-
-        enemy=
-            Math.max(
-                0,
-                Math.min(
-                    320,
-                    enemy
-                )
+        if(enemy<target)
+            enemy+=Math.min(
+                aiSpeed,
+                target-enemy
             );
+
+        if(enemy>target)
+            enemy-=Math.min(
+                aiSpeed,
+                enemy-target
+            );
+
+        enemy=Math.max(
+            0,
+            Math.min(320,enemy)
+        );
 
 
         if(
-            ball.x<30 &&
-            ball.y>player &&
-            ball.y<player+80
+            ball.x<30&&
+            ball.x>15&&
+            ball.y>player-5&&
+            ball.y<player+85
         ){
 
             ball.vx=
                 Math.abs(ball.vx);
+
+            /*
+             * Добавляем угол в зависимости
+             * от места попадания.
+             */
+            let hit=
+                (ball.y-(player+40))/40;
+
+            ball.vy=
+                hit*5;
 
             score++;
 
@@ -2413,24 +2259,31 @@ function pong(){
 
 
         if(
-            ball.x>570 &&
-            ball.y>enemy &&
-            ball.y<enemy+80
+            ball.x>570&&
+            ball.x<585&&
+            ball.y>enemy-5&&
+            ball.y<enemy+85
         ){
 
             ball.vx=
                 -Math.abs(ball.vx);
 
+            let hit=
+                (ball.y-(enemy+40))/40;
+
+            ball.vy=hit*5;
+
         }
 
 
         if(
-            ball.x<0 ||
+            ball.x<0||
             ball.x>600
         ){
 
             ended=true;
 
+            stopCamera();
             stopEverything();
 
             finishGame(
@@ -2449,7 +2302,6 @@ function pong(){
             0,0,600,400
         );
 
-
         ctx.fillStyle="#fff";
 
         ctx.fillRect(
@@ -2466,7 +2318,6 @@ function pong(){
             80
         );
 
-
         ctx.beginPath();
 
         ctx.arc(
@@ -2482,11 +2333,434 @@ function pong(){
     }
 
 
-    gameTimer=
-        setInterval(
-            loop,
-            16
+    gameTimer=setInterval(
+        loop,
+        16
+    );
+
+}
+
+
+/* =====================================================
+   TIC TAC TOE — STRONG AI
+===================================================== */
+
+function ttt(){
+
+    prepareGame("❌ Крестики-нолики");
+
+    let board=
+        Array(9).fill("");
+
+    let gameOver=false;
+    let player="X";
+    let ai="O";
+
+    let status=
+        document.createElement("div");
+
+    status.className="ttt-status";
+
+    status.textContent=
+        "Твой ход — ❌";
+
+    document
+    .getElementById("game")
+    .appendChild(status);
+
+    let grid=
+        document.createElement("div");
+
+    grid.className="ttt-board";
+
+    document
+    .getElementById("game")
+    .appendChild(grid);
+
+    let difficulty=
+        gameConfig.ai||"perfect";
+
+    let cells=[];
+
+
+    function checkWinner(b){
+
+        const wins=[
+
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+
+            [0,4,8],
+            [2,4,6]
+
+        ];
+
+        for(let w of wins){
+
+            if(
+                b[w[0]]&&
+                b[w[0]]===b[w[1]]&&
+                b[w[1]]===b[w[2]]
+            )
+                return b[w[0]];
+
+        }
+
+        if(b.every(Boolean))
+            return "draw";
+
+        return null;
+
+    }
+
+
+    function available(b){
+
+        return b
+        .map((v,i)=>v?null:i)
+        .filter(v=>v!==null);
+
+    }
+
+
+    function randomMove(){
+
+        let moves=available(board);
+
+        return moves[
+            Math.floor(
+                Math.random()*moves.length
+            )
+        ];
+
+    }
+
+
+    /*
+     * Minimax.
+     *
+     * При perfect AI компьютер просматривает
+     * все возможные продолжения.
+     *
+     * Поэтому при правильной игре игрок
+     * не сможет его победить.
+     */
+    function minimax(b,isMaximizing,depth){
+
+        let result=checkWinner(b);
+
+        if(result==="O")
+            return 10-depth;
+
+        if(result==="X")
+            return depth-10;
+
+        if(result==="draw")
+            return 0;
+
+        if(isMaximizing){
+
+            let best=-Infinity;
+
+            for(let i of available(b)){
+
+                b[i]="O";
+
+                best=Math.max(
+                    best,
+                    minimax(
+                        b,
+                        false,
+                        depth+1
+                    )
+                );
+
+                b[i]="";
+
+            }
+
+            return best;
+
+        }else{
+
+            let best=Infinity;
+
+            for(let i of available(b)){
+
+                b[i]="X";
+
+                best=Math.min(
+                    best,
+                    minimax(
+                        b,
+                        true,
+                        depth+1
+                    )
+                );
+
+                b[i]="";
+
+            }
+
+            return best;
+
+        }
+
+    }
+
+
+    function bestMove(){
+
+        let bestScore=-Infinity;
+        let move=null;
+
+        for(let i of available(board)){
+
+            board[i]="O";
+
+            let score=
+                minimax(
+                    board,
+                    false,
+                    0
+                );
+
+            board[i]="";
+
+            if(score>bestScore){
+
+                bestScore=score;
+                move=i;
+
+            }
+
+        }
+
+        return move;
+
+    }
+
+
+    function smartMove(){
+
+        let moves=available(board);
+
+        /*
+         * Сначала пытаемся выиграть.
+         */
+        for(let i of moves){
+
+            board[i]="O";
+
+            if(checkWinner(board)==="O"){
+
+                board[i]="";
+                return i;
+
+            }
+
+            board[i]="";
+
+        }
+
+        /*
+         * Затем блокируем игрока.
+         */
+        for(let i of moves){
+
+            board[i]="X";
+
+            if(checkWinner(board)==="X"){
+
+                board[i]="";
+                return i;
+
+            }
+
+            board[i]="";
+
+        }
+
+        /*
+         * Центр.
+         */
+        if(board[4]==="")
+            return 4;
+
+        /*
+         * Угол.
+         */
+        let corners=
+            [0,2,6,8]
+            .filter(i=>board[i]==="");
+
+        if(corners.length){
+
+            return corners[
+                Math.floor(
+                    Math.random()*corners.length
+                )
+            ];
+
+        }
+
+        return moves[0];
+
+    }
+
+
+    function aiMove(){
+
+        if(gameOver)return;
+
+        let move;
+
+        if(difficulty==="easy"){
+
+            move=randomMove();
+
+        }else if(difficulty==="normal"){
+
+            /*
+             * Иногда ошибается.
+             */
+            if(Math.random()<0.45)
+                move=randomMove();
+            else
+                move=smartMove();
+
+        }else{
+
+            /*
+             * hard и perfect используют minimax.
+             */
+            move=bestMove();
+
+        }
+
+        if(move===null)return;
+
+        board[move]="O";
+
+        draw();
+
+        let result=checkWinner(board);
+
+        if(result){
+
+            end(result);
+            return;
+
+        }
+
+        status.textContent=
+            "Твой ход — ❌";
+
+    }
+
+
+    function playerMove(i){
+
+        if(
+            gameOver||
+            board[i]
+        )
+            return;
+
+        board[i]="X";
+
+        draw();
+
+        let result=checkWinner(board);
+
+        if(result){
+
+            end(result);
+            return;
+
+        }
+
+        status.textContent=
+            "Компьютер думает...";
+
+        setTimeout(
+            aiMove,
+            difficulty==="perfect"
+            ?180
+            :350
         );
+
+    }
+
+
+    function end(result){
+
+        gameOver=true;
+
+        if(result==="X"){
+
+            status.textContent=
+                "🏆 Ты победил!";
+
+            finishGame(10,true);
+
+        }else if(result==="O"){
+
+            status.textContent=
+                "🤖 Компьютер победил!";
+
+            finishGame(0,false);
+
+        }else{
+
+            status.textContent=
+                "🤝 Ничья!";
+
+            finishGame(5,true);
+
+        }
+
+    }
+
+
+    function draw(){
+
+        grid.innerHTML="";
+        cells=[];
+
+        board.forEach((value,i)=>{
+
+            let button=
+                document.createElement("button");
+
+            button.className="ttt-cell";
+
+            button.textContent=value;
+
+            if(value==="X")
+                button.style.color="#2563eb";
+
+            if(value==="O")
+                button.style.color="#ef4444";
+
+            button.onclick=()=>{
+                playerMove(i);
+            };
+
+            cells.push(button);
+
+            grid.appendChild(button);
+
+        });
+
+    }
+
+    draw();
 
 }
 
