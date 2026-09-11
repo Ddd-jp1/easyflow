@@ -4,292 +4,359 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Profile</title>
+<title>Game Center</title>
 
 <style>
-*{
-    box-sizing:border-box;
+:root {
+    --button-color: #5865f2;
+    --button-hover: #4752c4;
+    --bg: #10131a;
+    --card: #1b202b;
+    --text: #ffffff;
+    --muted: #aeb5c2;
+    --danger: #ef4444;
+    --success: #22c55e;
 }
 
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#111827;
-    color:#fff;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
 }
 
 button,
-input{
-    font:inherit;
+input,
+select {
+    font: inherit;
 }
 
-button{
-    cursor:pointer;
+button {
+    border: 0;
+    cursor: pointer;
 }
 
-.hidden{
-    display:none!important;
+.hidden {
+    display: none !important;
 }
 
-header{
-    min-height:70px;
-    padding:12px 20px;
-    background:#1f2937;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
+/* HEADER */
+
+header {
+    height: 70px;
+    background: #171b24;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    border-bottom: 1px solid #292f3c;
+    position: sticky;
+    top: 0;
+    z-index: 20;
 }
 
-.header-left,
-.header-right{
-    display:flex;
-    align-items:center;
-    gap:12px;
+.logo {
+    font-size: 24px;
+    font-weight: bold;
 }
 
-.avatar{
-    width:46px;
-    height:46px;
-    border-radius:50%;
-    background:#374151;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    font-size:25px;
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.avatar img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+.stars {
+    color: #ffd43b;
+    font-weight: bold;
 }
 
-.container{
-    width:min(1100px,94%);
-    margin:25px auto;
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #303746;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-size: 23px;
 }
 
-.card{
-    background:#1f2937;
-    border-radius:16px;
-    padding:20px;
-    margin-bottom:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.profile{
-    display:grid;
-    grid-template-columns:180px 1fr;
-    gap:25px;
-    align-items:center;
+/* LAYOUT */
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 70px);
 }
 
-.profile-avatar{
-    width:160px;
-    height:160px;
-    border-radius:50%;
-    background:#374151;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    font-size:70px;
+.sidebar {
+    width: 230px;
+    background: #151922;
+    padding: 20px 12px;
+    border-right: 1px solid #292f3c;
 }
 
-.profile-avatar img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+.nav-button {
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    color: white;
+    background: transparent;
+    text-align: left;
 }
 
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
+.nav-button:hover,
+.nav-button.active {
+    background: var(--button-color);
 }
 
-.stat{
-    background:#111827;
-    border-radius:12px;
-    padding:15px;
+.content {
+    flex: 1;
+    padding: 30px;
+    max-width: 1300px;
+    margin: auto;
+    width: 100%;
 }
 
-.stat strong{
-    display:block;
-    font-size:25px;
-    margin-top:5px;
+/* CARDS */
+
+.card {
+    background: var(--card);
+    border: 1px solid #292f3c;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
-.progress{
-    width:100%;
-    height:12px;
-    background:#374151;
-    border-radius:10px;
-    overflow:hidden;
-    margin-top:10px;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 18px;
 }
 
-.progress-bar{
-    height:100%;
-    width:0;
-    background:#22c55e;
-    transition:.3s;
+.stat-card {
+    background: var(--card);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #292f3c;
 }
 
-input{
-    width:100%;
-    padding:12px;
-    border:1px solid #4b5563;
-    border-radius:9px;
-    background:#111827;
-    color:white;
-    margin:6px 0 12px;
-    outline:none;
+.stat-number {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 8px;
 }
 
-input:focus{
-    border-color:#60a5fa;
+.muted {
+    color: var(--muted);
 }
 
-.btn{
-    border:0;
-    padding:10px 15px;
-    border-radius:9px;
-    background:#2563eb;
-    color:white;
+/* BUTTONS */
+
+.btn {
+    background: var(--button-color);
+    color: white;
+    padding: 11px 17px;
+    border-radius: 10px;
+    transition: .15s;
+    margin: 4px;
 }
 
-.btn:hover{
-    background:#1d4ed8;
+.btn:hover {
+    background: var(--button-hover);
+    transform: translateY(-1px);
 }
 
-.btn-danger{
-    background:#dc2626;
+.btn-danger {
+    background: var(--danger);
 }
 
-.btn-danger:hover{
-    background:#b91c1c;
+.btn-success {
+    background: var(--success);
 }
 
-.btn-green{
-    background:#16a34a;
+.game-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.btn-gray{
-    background:#4b5563;
+/* GAME */
+
+.game-area {
+    text-align: center;
 }
 
-.actions{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
+.game-title {
+    font-size: 30px;
+    margin-bottom: 10px;
 }
 
-.item{
-    padding:15px;
-    background:#111827;
-    border-radius:12px;
-    margin-bottom:10px;
+.game-score {
+    font-size: 25px;
+    margin: 15px;
 }
 
-.shop-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:12px;
+.game-board {
+    min-height: 300px;
+    background: #0c0f15;
+    border: 1px solid #303746;
+    border-radius: 16px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.shop-item{
-    background:#111827;
-    border-radius:12px;
-    padding:15px;
+.click-target {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: var(--button-color);
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
 }
 
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.75);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:1000;
+.game-controls {
+    margin-top: 20px;
 }
 
-.modal-box{
-    width:min(430px,92%);
-    background:#1f2937;
-    border-radius:16px;
-    padding:25px;
+/* INPUT */
+
+input,
+select {
+    width: 100%;
+    background: #10141c;
+    color: white;
+    border: 1px solid #343b49;
+    padding: 12px;
+    border-radius: 9px;
+    margin: 7px 0 15px;
+    outline: none;
 }
 
-.tabs{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    margin-bottom:20px;
+input:focus,
+select:focus {
+    border-color: var(--button-color);
 }
 
-.toast{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    background:#22c55e;
-    color:#fff;
-    padding:14px 18px;
-    border-radius:10px;
-    display:none;
-    z-index:2000;
+/* PROGRESS */
+
+.progress {
+    height: 12px;
+    background: #303746;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
-.admin-user{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    background:#111827;
-    padding:12px;
-    border-radius:10px;
-    margin-bottom:10px;
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: var(--button-color);
 }
 
-.badge{
-    display:inline-block;
-    padding:4px 8px;
-    border-radius:20px;
-    background:#374151;
-    font-size:12px;
+/* ACHIEVEMENT */
+
+.achievement {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.badge-admin{
-    background:#7c3aed;
+.achievement-icon {
+    font-size: 35px;
 }
 
-h1,h2,h3{
-    margin-top:0;
+.locked {
+    opacity: .4;
 }
 
-small{
-    color:#9ca3af;
+/* SHOP */
+
+.shop-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
 }
 
-@media(max-width:700px){
-    .profile{
-        grid-template-columns:1fr;
-        text-align:center;
+/* MODAL */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 420px;
+    background: #1b202b;
+    border: 1px solid #343b49;
+    border-radius: 18px;
+    padding: 25px;
+}
+
+.error {
+    color: #ff7777;
+    min-height: 22px;
+}
+
+/* TOAST */
+
+#toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: #242a36;
+    padding: 14px 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 200;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+    .sidebar {
+        width: 70px;
     }
 
-    .profile-avatar{
-        margin:auto;
+    .nav-button {
+        text-align: center;
+        font-size: 0;
     }
 
-    .stats{
-        grid-template-columns:1fr 1fr;
+    .nav-button::first-letter {
+        font-size: 20px;
     }
 
-    .admin-user{
-        flex-direction:column;
-        align-items:stretch;
+    .content {
+        padding: 18px;
+    }
+
+    header {
+        padding: 0 12px;
     }
 }
 </style>
@@ -297,169 +364,454 @@ small{
 
 <body>
 
+<!-- HEADER -->
+
 <header>
-    <div class="header-left">
-        <div class="avatar" id="headerAvatar">👤</div>
-        <div>
-            <strong id="headerName">Гость</strong><br>
-            <small id="headerRole">Не авторизован</small>
-        </div>
-    </div>
+    <div class="logo">🎮 Game Center</div>
 
     <div class="header-right">
-        <span>⭐ <span id="shopStars">0</span></span>
-        <button class="btn btn-danger" id="logoutBtn">Выйти</button>
+        <div class="stars">
+            ⭐ <span id="headerStars">0</span>
+        </div>
+
+        <div
+            class="avatar"
+            id="headerAvatar"
+            onclick="openPage('profile')"
+        >👤</div>
     </div>
 </header>
 
-<main class="container">
 
-    <section class="card profile">
-        <div class="profile-avatar" id="profileAvatar">👤</div>
+<div class="layout">
 
-        <div>
-            <h1 id="profileName">Профиль</h1>
-            <p id="profileBest">—</p>
+<!-- SIDEBAR -->
 
-            <div>
-                Победы
-                <div class="progress">
-                    <div class="progress-bar" id="winsProgress"></div>
+<aside class="sidebar">
+
+    <button class="nav-button active" onclick="openPage('home')">
+        🏠 Главная
+    </button>
+
+    <button class="nav-button" onclick="openPage('games')">
+        🎮 Игры
+    </button>
+
+    <button class="nav-button" onclick="openPage('statistics')">
+        📊 Статистика
+    </button>
+
+    <button class="nav-button" onclick="openPage('achievements')">
+        🏆 Достижения
+    </button>
+
+    <button class="nav-button" onclick="openPage('shop')">
+        🛒 Магазин
+    </button>
+
+    <button class="nav-button" onclick="openPage('profile')">
+        👤 Профиль
+    </button>
+
+    <button class="nav-button" onclick="openPage('settings')">
+        ⚙️ Настройки
+    </button>
+
+    <button
+        id="adminButton"
+        class="nav-button hidden"
+        onclick="openPage('admin')"
+    >
+        🛡️ Админ
+    </button>
+
+</aside>
+
+
+<!-- CONTENT -->
+
+<main class="content">
+
+    <!-- HOME -->
+
+    <section id="page-home">
+
+        <div class="card">
+            <h1>Добро пожаловать!</h1>
+            <p class="muted">
+                Играй, получай очки, зарабатывай звёзды
+                и открывай достижения.
+            </p>
+
+            <button class="btn" onclick="openPage('games')">
+                🎮 Начать играть
+            </button>
+        </div>
+
+        <div class="grid">
+
+            <div class="stat-card">
+                <div class="muted">Игры</div>
+                <div class="stat-number" id="homeGames">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="muted">Победы</div>
+                <div class="stat-number" id="homeWins">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="muted">Очки</div>
+                <div class="stat-number" id="homeScore">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="muted">Звёзды</div>
+                <div class="stat-number" id="homeStars">0</div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- GAMES -->
+
+    <section id="page-games" class="hidden">
+
+        <div class="card">
+            <h1>🎮 Игры</h1>
+
+            <div class="game-buttons">
+
+                <button class="btn" onclick="startGame('clicker')">
+                    🖱️ Кликер
+                </button>
+
+                <button class="btn" onclick="startGame('reaction')">
+                    ⚡ Реакция
+                </button>
+
+                <button class="btn" onclick="startGame('number')">
+                    🔢 Число
+                </button>
+
+            </div>
+        </div>
+
+        <div id="gameContainer" class="card hidden">
+
+            <div class="game-area">
+
+                <div class="game-title" id="gameTitle">
+                    Игра
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <section class="card">
-        <h2>Статистика</h2>
+                <div class="game-score">
+                    Очки:
+                    <span id="gameScore">0</span>
+                </div>
 
-        <div class="stats">
-            <div class="stat">
-                Игр
-                <strong id="statGames">0</strong>
-            </div>
+                <div class="game-board" id="gameBoard">
+                </div>
 
-            <div class="stat">
-                Побед
-                <strong id="statWins">0</strong>
-            </div>
+                <div class="game-controls">
 
-            <div class="stat">
-                Звёзд
-                <strong id="statStars">0</strong>
-            </div>
+                    <button class="btn" onclick="pauseGame()">
+                        ⏸️ Пауза
+                    </button>
 
-            <div class="stat">
-                Очки
-                <strong id="statScore">0</strong>
-            </div>
+                    <button class="btn" onclick="restartGame()">
+                        🔄 Заново
+                    </button>
 
-            <div class="stat">
-                Достижения
-                <strong id="statAchievements">0</strong>
+                    <button class="btn" onclick="backToGames()">
+                        ↩️ Назад
+                    </button>
+
+                </div>
+
             </div>
 
-            <div class="stat">
-                Win Rate
-                <strong id="statWinRate">0%</strong>
-            </div>
-        </div>
-    </section>
-
-    <section class="card">
-        <h2>Профиль</h2>
-
-        <label>Имя</label>
-        <input id="nameInput" type="text" maxlength="30">
-
-        <label>URL аватара</label>
-        <input id="avatarInput" type="url" placeholder="https://...">
-
-        <div class="actions">
-            <button class="btn btn-green" id="saveProfileBtn">
-                Сохранить
-            </button>
-        </div>
-    </section>
-
-    <section class="card">
-        <h2>Рекорды</h2>
-        <div id="records"></div>
-    </section>
-
-    <section class="card">
-        <h2>Достижения</h2>
-        <div id="achievements"></div>
-    </section>
-
-    <section class="card">
-        <h2>Магазин</h2>
-
-        <p>
-            ⭐ Звёзды:
-            <strong id="profileStars">0</strong>
-        </p>
-
-        <div class="shop-grid" id="shop"></div>
-    </section>
-
-    <section class="card">
-        <h2>Инвентарь</h2>
-        <div id="inventory"></div>
-    </section>
-
-    <section class="card">
-        <h2>Настройки</h2>
-
-        <label>
-            <input id="soundSetting" type="checkbox">
-            Звуки
-        </label>
-
-        <label>
-            <input id="notificationsSetting" type="checkbox">
-            Уведомления
-        </label>
-
-        <button class="btn btn-green" id="saveSettingsBtn">
-            Сохранить настройки
-        </button>
-    </section>
-
-    <section class="card hidden" id="adminPanel">
-        <h2>👑 Админ-панель</h2>
-
-        <p>
-            Здесь находятся функции администратора.
-        </p>
-
-        <div class="actions">
-            <button class="btn btn-green" id="addStarsBtn">
-                +100 ⭐ себе
-            </button>
-
-            <button class="btn" id="addWinBtn">
-                +1 победа
-            </button>
-
-            <button class="btn" id="addGameBtn">
-                +1 игра
-            </button>
-
-            <button class="btn" id="resetStatsBtn">
-                Сбросить мои данные
-            </button>
         </div>
 
-        <hr>
+    </section>
 
-        <h3>Пользователи</h3>
-        <div id="adminUsers"></div>
+
+    <!-- STATISTICS -->
+
+    <section id="page-statistics" class="hidden">
+
+        <div class="card">
+            <h1>📊 Статистика</h1>
+        </div>
+
+        <div class="grid">
+
+            <div class="stat-card">
+                <div class="muted">Всего игр</div>
+                <div class="stat-number" id="statGames">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="muted">Побед</div>
+                <div class="stat-number" id="statWins">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="muted">Звёзд</div>
+                <div class="stat-number" id="statStars">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="muted">Очков</div>
+                <div class="stat-number" id="statScore">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="muted">Достижений</div>
+                <div class="stat-number" id="statAchievements">0</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="muted">Процент побед</div>
+                <div class="stat-number" id="statWinRate">0%</div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACHIEVEMENTS -->
+
+    <section id="page-achievements" class="hidden">
+
+        <div class="card">
+            <h1>🏆 Достижения</h1>
+        </div>
+
+        <div id="achievementList"></div>
+
+    </section>
+
+
+    <!-- SHOP -->
+
+    <section id="page-shop" class="hidden">
+
+        <div class="card">
+            <h1>🛒 Магазин</h1>
+
+            <p>
+                ⭐ Звёзды:
+                <b id="shopStars">0</b>
+            </p>
+        </div>
+
+        <div id="shopList"></div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+
+    <section id="page-profile" class="hidden">
+
+        <div class="card">
+
+            <div class="achievement">
+
+                <div
+                    class="avatar"
+                    id="profileAvatar"
+                    style="width:80px;height:80px"
+                >
+                    👤
+                </div>
+
+                <div>
+                    <h1 id="profileName">
+                        Пользователь
+                    </h1>
+
+                    <p class="muted">
+                        Профиль игрока
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="grid">
+
+            <div class="stat-card">
+                ⭐ Звёзды
+                <div class="stat-number" id="profileStars">0</div>
+            </div>
+
+            <div class="stat-card">
+                🎮 Игры
+                <div class="stat-number" id="profileGames">0</div>
+            </div>
+
+            <div class="stat-card">
+                🏆 Победы
+                <div class="stat-number" id="profileWins">0</div>
+            </div>
+
+            <div class="stat-card">
+                💎 Очки
+                <div class="stat-number" id="profileScore">0</div>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Процент побед</h3>
+
+            <div class="progress">
+                <div
+                    id="winsProgress"
+                    class="progress-bar"
+                ></div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SETTINGS -->
+
+    <section id="page-settings" class="hidden">
+
+        <div class="card">
+
+            <h1>⚙️ Настройки</h1>
+
+            <label>Цвет кнопок</label>
+
+            <select id="buttonColor" onchange="changeButtonColor()">
+                <option value="#5865f2">Синий</option>
+                <option value="#22c55e">Зелёный</option>
+                <option value="#ef4444">Красный</option>
+                <option value="#a855f7">Фиолетовый</option>
+                <option value="#f97316">Оранжевый</option>
+                <option value="#ec4899">Розовый</option>
+                <option value="#06b6d4">Бирюзовый</option>
+            </select>
+
+
+            <label>Шрифт</label>
+
+            <select id="fontSelect" onchange="changeFont()">
+                <option value="Arial, sans-serif">
+                    Arial
+                </option>
+
+                <option value="Verdana, sans-serif">
+                    Verdana
+                </option>
+
+                <option value="Georgia, serif">
+                    Georgia
+                </option>
+
+                <option value="'Trebuchet MS', sans-serif">
+                    Trebuchet MS
+                </option>
+
+                <option value="'Courier New', monospace">
+                    Courier New
+                </option>
+            </select>
+
+
+            <button class="btn" onclick="saveSettings()">
+                💾 Сохранить
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>Аккаунт</h2>
+
+            <button
+                class="btn btn-danger"
+                onclick="logout()"
+            >
+                🚪 Выйти
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ADMIN -->
+
+    <section id="page-admin" class="hidden">
+
+        <div class="card">
+
+            <h1>🛡️ Панель администратора</h1>
+
+            <p>
+                Администратор:
+                <b id="adminName">Aldik</b>
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Управление игроком</h2>
+
+            <button
+                class="btn"
+                onclick="adminAddStars(10)"
+            >
+                ⭐ +10 звёзд
+            </button>
+
+            <button
+                class="btn"
+                onclick="adminAddStars(100)"
+            >
+                ⭐ +100 звёзд
+            </button>
+
+            <button
+                class="btn"
+                onclick="adminAddScore(100)"
+            >
+                💎 +100 очков
+            </button>
+
+            <button
+                class="btn btn-danger"
+                onclick="adminResetStats()"
+            >
+                🗑️ Сбросить статистику
+            </button>
+
+        </div>
+
     </section>
 
 </main>
+</div>
 
-<div class="modal hidden" id="loginModal">
+
+<!-- LOGIN -->
+
+<div id="loginModal" class="modal">
+
     <div class="modal-box">
 
         <h2>Вход</h2>
@@ -467,297 +819,262 @@ small{
         <input
             id="loginName"
             type="text"
-            maxlength="30"
-            placeholder="Имя"
+            autocomplete="username"
         >
 
         <input
             id="loginPassword"
             type="password"
-            placeholder="Пароль"
+            autocomplete="current-password"
         >
 
-        <button class="btn" id="loginBtn">
+        <button
+            class="btn"
+            onclick="login()"
+        >
             Войти
         </button>
 
-        <button class="btn btn-gray" id="registerBtn">
+        <button
+            class="btn"
+            onclick="showRegister()"
+        >
+            Регистрация
+        </button>
+
+        <div
+            id="loginError"
+            class="error"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- REGISTER -->
+
+<div id="registerModal" class="modal hidden">
+
+    <div class="modal-box">
+
+        <h2>Регистрация</h2>
+
+        <input
+            id="registerName"
+            type="text"
+            autocomplete="off"
+        >
+
+        <input
+            id="registerPassword"
+            type="password"
+            autocomplete="new-password"
+        >
+
+        <button
+            class="btn"
+            onclick="registerUser()"
+        >
             Зарегистрироваться
         </button>
 
-        <p>
-            <small>
-                Администратор по умолчанию:<br>
-                admin / admin123
-            </small>
-        </p>
+        <button
+            class="btn"
+            onclick="showLogin()"
+        >
+            Войти
+        </button>
+
+        <div
+            id="registerError"
+            class="error"
+        ></div>
 
     </div>
+
 </div>
 
-<div class="toast" id="toast"></div>
+
+<div id="toast"></div>
+
 
 <script>
 "use strict";
 
+
 /* =====================================================
-   DATABASE
-===================================================== */
+   ADMIN
+   ===================================================== */
 
-const STORAGE_KEY = "game_users_v1";
-const CURRENT_USER_KEY = "game_current_user_v1";
+const ADMIN_NAME = "Aldik";
+const ADMIN_PASSWORD = "6767";
 
-const SHOP_ITEMS = [
-    {
-        id:"red_effect",
-        name:"Красный эффект",
-        price:20,
-        type:"effect"
+
+/* =====================================================
+   DATA
+   ===================================================== */
+
+const defaultUser = () => ({
+    name: "",
+    password: "",
+    isAdmin: false,
+
+    stars: 0,
+    totalGames: 0,
+    totalWins: 0,
+    totalScore: 0,
+
+    achievements: [],
+
+    records: {},
+
+    inventory: [],
+
+    equipped: {
+        accessory: null,
+        effect: null
     },
-    {
-        id:"blue_effect",
-        name:"Синий эффект",
-        price:30,
-        type:"effect"
-    },
-    {
-        id:"gold_frame",
-        name:"Золотая рамка",
-        price:50,
-        type:"accessory"
-    },
-    {
-        id:"crown",
-        name:"Корона",
-        price:100,
-        type:"accessory"
+
+    settings: {
+        buttonColor: "#5865f2",
+        font: "Arial, sans-serif"
     }
+});
+
+
+const achievements = [
+
+    {
+        id: "first_game",
+        icon: "🎮",
+        title: "Первая игра",
+        description: "Сыграйте одну игру",
+        check: u => u.totalGames >= 1
+    },
+
+    {
+        id: "first_win",
+        icon: "🏆",
+        title: "Первая победа",
+        description: "Одержите первую победу",
+        check: u => u.totalWins >= 1
+    },
+
+    {
+        id: "ten_games",
+        icon: "🔥",
+        title: "Игрок",
+        description: "Сыграйте 10 игр",
+        check: u => u.totalGames >= 10
+    },
+
+    {
+        id: "hundred_score",
+        icon: "💎",
+        title: "Сотня",
+        description: "Наберите 100 очков",
+        check: u => u.totalScore >= 100
+    },
+
+    {
+        id: "hundred_stars",
+        icon: "⭐",
+        title: "Звёздный игрок",
+        description: "Получите 100 звёзд",
+        check: u => u.stars >= 100
+    }
+
 ];
 
-/* =====================================================
-   HELPERS
-===================================================== */
 
-function escapeHTML(value){
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+const shopItems = [
+
+    {
+        id: "blue",
+        name: "🔵 Синий эффект",
+        price: 20
+    },
+
+    {
+        id: "green",
+        name: "🟢 Зелёный эффект",
+        price: 30
+    },
+
+    {
+        id: "purple",
+        name: "🟣 Фиолетовый эффект",
+        price: 50
+    },
+
+    {
+        id: "gold",
+        name: "🟡 Золотой эффект",
+        price: 100
+    }
+
+];
+
+
+/* =====================================================
+   CURRENT USER
+   ===================================================== */
+
+function getCurrentUser() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem("currentUser")
+        );
+
+    } catch {
+
+        return null;
+
+    }
 }
 
-function getUsers(){
-    try{
-        const data =
+
+function saveCurrentUser(user) {
+
+    localStorage.setItem(
+        "currentUser",
+        JSON.stringify(user)
+    );
+
+
+    if (!user.isAdmin) {
+
+        const users =
             JSON.parse(
-                localStorage.getItem(STORAGE_KEY)
+                localStorage.getItem("users") || "[]"
             );
 
-        return Array.isArray(data) ? data : [];
-    }catch(error){
-        console.error(error);
-        return [];
+        const index =
+            users.findIndex(
+                u => u.name === user.name
+            );
+
+        if (index !== -1) {
+
+            users[index] = user;
+
+            localStorage.setItem(
+                "users",
+                JSON.stringify(users)
+            );
+        }
     }
 }
 
-function saveUsers(users){
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(users)
-    );
-}
-
-function currentUser(){
-    const id =
-        localStorage.getItem(
-            CURRENT_USER_KEY
-        );
-
-    if(!id){
-        return null;
-    }
-
-    const users = getUsers();
-
-    return users.find(
-        user => user.id === id
-    ) || null;
-}
-
-function saveCurrentUser(user){
-    const users = getUsers();
-
-    const index =
-        users.findIndex(
-            item => item.id === user.id
-        );
-
-    if(index === -1){
-        return false;
-    }
-
-    users[index] = user;
-
-    saveUsers(users);
-
-    return true;
-}
-
-function createId(){
-    return (
-        Date.now().toString(36) +
-        Math.random()
-            .toString(36)
-            .slice(2)
-    );
-}
 
 /* =====================================================
-   NORMALIZATION
-===================================================== */
+   LOGIN
+   ===================================================== */
 
-function normalizeUser(user){
-
-    if(!user.records){
-        user.records = {};
-    }
-
-    if(!Array.isArray(user.inventory)){
-        user.inventory = [];
-    }
-
-    if(!user.equipped){
-        user.equipped = {
-            accessory:null,
-            effect:null
-        };
-    }
-
-    if(!Array.isArray(user.achievements)){
-        user.achievements = [];
-    }
-
-    if(typeof user.stars !== "number"){
-        user.stars = 0;
-    }
-
-    if(typeof user.totalGames !== "number"){
-        user.totalGames = 0;
-    }
-
-    if(typeof user.totalWins !== "number"){
-        user.totalWins = 0;
-    }
-
-    if(typeof user.totalScore !== "number"){
-        user.totalScore = 0;
-    }
-
-    if(!user.settings){
-        user.settings = {
-            sound:true,
-            notifications:true
-        };
-    }
-
-    if(typeof user.isAdmin !== "boolean"){
-        user.isAdmin = false;
-    }
-
-    return user;
-}
-
-/* =====================================================
-   AUTH
-===================================================== */
-
-function ensureAdmin(){
-
-    const users = getUsers();
-
-    const existing =
-        users.find(
-            user => user.name.toLowerCase() === "admin"
-        );
-
-    if(existing){
-
-        existing.isAdmin = true;
-
-        saveUsers(users);
-
-        return;
-    }
-
-    const admin = normalizeUser({
-        id:createId(),
-        name:"admin",
-        password:"admin123",
-        avatar:"",
-        stars:0,
-        totalGames:0,
-        totalWins:0,
-        totalScore:0,
-        achievements:[],
-        records:{},
-        inventory:[],
-        equipped:{
-            accessory:null,
-            effect:null
-        },
-        settings:{
-            sound:true,
-            notifications:true
-        },
-        isAdmin:true
-    });
-
-    users.push(admin);
-
-    saveUsers(users);
-}
-
-function login(name,password){
-
-    const users = getUsers();
-
-    const user =
-        users.find(
-            item =>
-                item.name.toLowerCase() ===
-                name.trim().toLowerCase() &&
-                item.password === password
-        );
-
-    if(!user){
-        toast("Неверное имя или пароль");
-        return;
-    }
-
-    normalizeUser(user);
-
-    saveCurrentUser(user);
-
-    localStorage.setItem(
-        CURRENT_USER_KEY,
-        user.id
-    );
-
-    document
-        .getElementById("loginModal")
-        .classList.add("hidden");
-
-    refreshPage();
-
-    toast(
-        user.isAdmin
-            ? "👑 Вы вошли как администратор"
-            : "Вы вошли в аккаунт"
-    );
-}
-
-function register(){
+function login() {
 
     const name =
         document
@@ -770,245 +1087,354 @@ function register(){
             .getElementById("loginPassword")
             .value;
 
-    if(name.length < 3){
-        toast("Имя должно содержать минимум 3 символа");
+    const error =
+        document.getElementById("loginError");
+
+
+    if (!name || !password) {
+
+        error.textContent =
+            "Заполните все поля";
+
         return;
     }
 
-    if(password.length < 4){
-        toast("Пароль должен содержать минимум 4 символа");
-        return;
-    }
 
-    const users = getUsers();
+    if (
+        name === ADMIN_NAME &&
+        password === ADMIN_PASSWORD
+    ) {
 
-    const exists =
-        users.some(
-            user =>
-                user.name.toLowerCase() ===
-                name.toLowerCase()
+        const admin = defaultUser();
+
+        admin.name = ADMIN_NAME;
+        admin.password = "";
+        admin.isAdmin = true;
+
+        localStorage.setItem(
+            "currentUser",
+            JSON.stringify(admin)
         );
 
-    if(exists){
-        toast("Такой пользователь уже существует");
+        closeAuth();
+
+        refreshPage();
+
+        toast("Вы вошли как администратор");
+
         return;
     }
 
-    const user = normalizeUser({
-        id:createId(),
-        name:name,
-        password:password,
-        avatar:"",
-        stars:0,
-        totalGames:0,
-        totalWins:0,
-        totalScore:0,
-        achievements:[],
-        records:{},
-        inventory:[],
-        equipped:{
-            accessory:null,
-            effect:null
-        },
-        settings:{
-            sound:true,
-            notifications:true
-        },
-        isAdmin:false
-    });
 
-    users.push(user);
+    const users =
+        JSON.parse(
+            localStorage.getItem("users") || "[]"
+        );
 
-    saveUsers(users);
+
+    const user =
+        users.find(
+            u =>
+                u.name === name &&
+                u.password === password
+        );
+
+
+    if (!user) {
+
+        error.textContent =
+            "Неверное имя или пароль";
+
+        return;
+    }
+
 
     localStorage.setItem(
-        CURRENT_USER_KEY,
-        user.id
+        "currentUser",
+        JSON.stringify(user)
     );
 
-    document
-        .getElementById("loginModal")
-        .classList.add("hidden");
+
+    closeAuth();
 
     refreshPage();
 
-    toast("Аккаунт создан");
+    toast("Добро пожаловать!");
 }
 
-function logout(){
 
-    localStorage.removeItem(
-        CURRENT_USER_KEY
+/* =====================================================
+   REGISTER
+   ===================================================== */
+
+function registerUser() {
+
+    const name =
+        document
+            .getElementById("registerName")
+            .value
+            .trim();
+
+    const password =
+        document
+            .getElementById("registerPassword")
+            .value;
+
+    const error =
+        document.getElementById("registerError");
+
+
+    if (!name || !password) {
+
+        error.textContent =
+            "Заполните все поля";
+
+        return;
+    }
+
+
+    if (
+        name.toLowerCase() ===
+        ADMIN_NAME.toLowerCase()
+    ) {
+
+        error.textContent =
+            "Это имя уже занято";
+
+        return;
+    }
+
+
+    const users =
+        JSON.parse(
+            localStorage.getItem("users") || "[]"
+        );
+
+
+    if (
+        users.some(
+            u =>
+                u.name.toLowerCase() ===
+                name.toLowerCase()
+        )
+    ) {
+
+        error.textContent =
+            "Пользователь уже существует";
+
+        return;
+    }
+
+
+    const user = defaultUser();
+
+    user.name = name;
+    user.password = password;
+
+
+    users.push(user);
+
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(users)
     );
+
+
+    document
+        .getElementById("registerModal")
+        .classList.add("hidden");
 
     document
         .getElementById("loginModal")
         .classList.remove("hidden");
 
     document
+        .getElementById("loginName")
+        .value = name;
+
+    document
         .getElementById("loginPassword")
         .value = "";
 
-    toast("Вы вышли из аккаунта");
+    toast("Регистрация завершена");
 }
+
 
 /* =====================================================
-   PROFILE
-===================================================== */
+   AUTH WINDOWS
+   ===================================================== */
 
-function refreshPage(){
-
-    let user = currentUser();
-
-    if(!user){
-        document
-            .getElementById("loginModal")
-            .classList.remove("hidden");
-
-        return;
-    }
-
-    user = normalizeUser(user);
-
-    saveCurrentUser(user);
+function showRegister() {
 
     document
-        .getElementById("headerName")
-        .textContent = user.name;
+        .getElementById("loginModal")
+        .classList.add("hidden");
 
     document
-        .getElementById("headerRole")
-        .textContent =
-            user.isAdmin
-                ? "Администратор"
-                : "Игрок";
-
-    document
-        .getElementById("profileName")
-        .textContent = user.name;
-
-    document
-        .getElementById("profileStars")
-        .textContent = user.stars;
-
-    document
-        .getElementById("profileAvatar")
-        .textContent = "";
-
-    document
-        .getElementById("headerAvatar")
-        .textContent = "";
-
-    if(user.avatar){
-
-        const profileImg =
-            document.createElement("img");
-
-        profileImg.src = user.avatar;
-        profileImg.alt = "Аватар";
-
-        profileImg.onerror = function(){
-            this.remove();
-            document
-                .getElementById("profileAvatar")
-                .textContent = "👤";
-        };
-
-        document
-            .getElementById("profileAvatar")
-            .appendChild(profileImg);
-
-        const headerImg =
-            document.createElement("img");
-
-        headerImg.src = user.avatar;
-        headerImg.alt = "Аватар";
-
-        headerImg.onerror = function(){
-            this.remove();
-            document
-                .getElementById("headerAvatar")
-                .textContent = "👤";
-        };
-
-        document
-            .getElementById("headerAvatar")
-            .appendChild(headerImg);
-
-    }else{
-
-        document
-            .getElementById("profileAvatar")
-            .textContent = "👤";
-
-        document
-            .getElementById("headerAvatar")
-            .textContent = "👤";
-    }
-
-    document
-        .getElementById("nameInput")
-        .value = user.name;
-
-    document
-        .getElementById("avatarInput")
-        .value = user.avatar || "";
-
-    updateStats(user);
-
-    renderRecords(user);
-    renderAchievements(user);
-    renderShop(user);
-    renderInventory(user);
-    loadSettings(user);
-
-    renderAdmin();
+        .getElementById("registerModal")
+        .classList.remove("hidden");
 }
+
+
+function showLogin() {
+
+    document
+        .getElementById("registerModal")
+        .classList.add("hidden");
+
+    document
+        .getElementById("loginModal")
+        .classList.remove("hidden");
+}
+
+
+function closeAuth() {
+
+    document
+        .getElementById("loginModal")
+        .classList.add("hidden");
+
+    document
+        .getElementById("registerModal")
+        .classList.add("hidden");
+}
+
 
 /* =====================================================
-   STATS
-===================================================== */
+   NAVIGATION
+   ===================================================== */
 
-function calculateBestRecord(user){
+function openPage(page) {
 
-    const values =
-        Object.values(user.records || {})
-            .filter(value => typeof value === "number");
+    document
+        .querySelectorAll("main section")
+        .forEach(
+            section =>
+                section.classList.add("hidden")
+        );
 
-    if(!values.length){
-        return "Лучший результат: —";
-    }
 
-    return (
-        "Лучший результат: " +
-        Math.max(...values)
-    );
+    const target =
+        document.getElementById(
+            "page-" + page
+        );
+
+
+    if (!target) return;
+
+
+    target.classList.remove("hidden");
+
+
+    document
+        .querySelectorAll(".nav-button")
+        .forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+
+    refreshPage();
 }
 
-function updateStats(user){
 
-    document
-        .getElementById("statGames")
-        .textContent = user.totalGames;
+function backToGames() {
 
-    document
-        .getElementById("statWins")
-        .textContent = user.totalWins;
+    stopGame();
 
-    document
-        .getElementById("statStars")
-        .textContent = user.stars;
+    openPage("games");
+}
 
-    document
-        .getElementById("statScore")
-        .textContent = user.totalScore;
 
-    document
-        .getElementById("statAchievements")
-        .textContent = user.achievements.length;
+/* =====================================================
+   REFRESH
+   ===================================================== */
+
+function refreshPage() {
+
+    const user = getCurrentUser();
+
+    if (!user) return;
+
+
+    document.getElementById(
+        "profileName"
+    ).textContent = user.name;
+
+
+    document.getElementById(
+        "headerStars"
+    ).textContent = user.stars;
+
+
+    document.getElementById(
+        "profileStars"
+    ).textContent = user.stars;
+
+
+    document.getElementById(
+        "profileGames"
+    ).textContent = user.totalGames;
+
+
+    document.getElementById(
+        "profileWins"
+    ).textContent = user.totalWins;
+
+
+    document.getElementById(
+        "profileScore"
+    ).textContent = user.totalScore;
+
+
+    document.getElementById(
+        "homeGames"
+    ).textContent = user.totalGames;
+
+
+    document.getElementById(
+        "homeWins"
+    ).textContent = user.totalWins;
+
+
+    document.getElementById(
+        "homeScore"
+    ).textContent = user.totalScore;
+
+
+    document.getElementById(
+        "homeStars"
+    ).textContent = user.stars;
+
+
+    document.getElementById(
+        "statGames"
+    ).textContent = user.totalGames;
+
+
+    document.getElementById(
+        "statWins"
+    ).textContent = user.totalWins;
+
+
+    document.getElementById(
+        "statStars"
+    ).textContent = user.stars;
+
+
+    document.getElementById(
+        "statScore"
+    ).textContent = user.totalScore;
+
+
+    document.getElementById(
+        "statAchievements"
+    ).textContent =
+        user.achievements.length;
+
 
     const percentage =
-        user.totalGames > 0
+        user.totalGames
             ? Math.round(
                 user.totalWins /
                 user.totalGames *
@@ -1016,786 +1442,941 @@ function updateStats(user){
             )
             : 0;
 
-    document
-        .getElementById("statWinRate")
-        .textContent =
-            percentage + "%";
 
-    document
-        .getElementById("winsProgress")
-        .style.width =
-            Math.min(percentage,100) + "%";
+    document.getElementById(
+        "statWinRate"
+    ).textContent =
+        percentage + "%";
 
-    document
-        .getElementById("profileBest")
-        .textContent =
-            calculateBestRecord(user);
 
-    document
-        .getElementById("shopStars")
-        .textContent = user.stars;
+    document.getElementById(
+        "winsProgress"
+    ).style.width =
+        Math.min(
+            percentage,
+            100
+        ) + "%";
+
+
+    renderAvatar(user);
+
+    renderAchievements();
+
+    renderShop();
+
+    loadSettings();
+
+
+    const adminButton =
+        document.getElementById(
+            "adminButton"
+        );
+
+
+    if (user.isAdmin) {
+
+        adminButton.classList.remove("hidden");
+
+    } else {
+
+        adminButton.classList.add("hidden");
+    }
 }
+
 
 /* =====================================================
-   RECORDS
-===================================================== */
+   AVATAR
+   ===================================================== */
 
-function renderRecords(user){
+function renderAvatar(user) {
 
-    const box =
-        document.getElementById("records");
+    const profile =
+        document.getElementById(
+            "profileAvatar"
+        );
 
-    box.innerHTML = "";
+    const header =
+        document.getElementById(
+            "headerAvatar"
+        );
 
-    const records =
-        Object.entries(user.records || {});
 
-    if(!records.length){
+    const avatar =
+        user.avatar;
 
-        box.innerHTML =
-            "<small>Рекордов пока нет.</small>";
 
-        return;
+    if (avatar) {
+
+        profile.innerHTML =
+            `<img src="${escapeHTML(avatar)}"
+                  alt="Аватар"
+                  onerror="this.parentElement.textContent='👤'">`;
+
+        header.innerHTML =
+            `<img src="${escapeHTML(avatar)}"
+                  alt="Аватар"
+                  onerror="this.parentElement.textContent='👤'">`;
+
+    } else {
+
+        profile.textContent = "👤";
+        header.textContent = "👤";
     }
-
-    records.forEach(
-        ([name,value]) => {
-
-            const item =
-                document.createElement("div");
-
-            item.className = "item";
-
-            item.innerHTML =
-                `<strong>${escapeHTML(name)}</strong>
-                 <br>
-                 <span>Результат: ${Number(value) || 0}</span>`;
-
-            box.appendChild(item);
-        }
-    );
 }
+
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
 
 /* =====================================================
    ACHIEVEMENTS
-===================================================== */
+   ===================================================== */
 
-function renderAchievements(user){
+function renderAchievements() {
 
-    const box =
-        document.getElementById("achievements");
+    const user = getCurrentUser();
 
-    box.innerHTML = "";
+    if (!user) return;
 
-    if(!user.achievements.length){
 
-        box.innerHTML =
-            "<small>Достижений пока нет.</small>";
+    achievements.forEach(a => {
 
-        return;
-    }
+        if (
+            a.check(user) &&
+            !user.achievements.includes(a.id)
+        ) {
 
-    user.achievements.forEach(
-        achievement => {
+            user.achievements.push(a.id);
 
-            const item =
-                document.createElement("div");
+            user.stars += 5;
 
-            item.className = "item";
-
-            item.textContent =
-                "🏆 " + achievement;
-
-            box.appendChild(item);
+            saveCurrentUser(user);
         }
-    );
+
+    });
+
+
+    const list =
+        document.getElementById(
+            "achievementList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    achievements.forEach(a => {
+
+        const unlocked =
+            user.achievements.includes(a.id);
+
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "card " +
+            (unlocked ? "" : "locked");
+
+
+        div.innerHTML = `
+            <div class="achievement">
+                <div class="achievement-icon">
+                    ${a.icon}
+                </div>
+
+                <div>
+                    <h3>${a.title}</h3>
+                    <p class="muted">
+                        ${a.description}
+                    </p>
+                    <b>
+                        ${unlocked ? "Получено ✓" : "Не получено"}
+                    </b>
+                </div>
+            </div>
+        `;
+
+
+        list.appendChild(div);
+
+    });
 }
+
 
 /* =====================================================
    SHOP
-===================================================== */
+   ===================================================== */
 
-function renderShop(user){
+function renderShop() {
 
-    const box =
-        document.getElementById("shop");
+    const list =
+        document.getElementById(
+            "shopList"
+        );
 
-    box.innerHTML = "";
 
-    SHOP_ITEMS.forEach(item => {
+    list.innerHTML = "";
+
+
+    shopItems.forEach(item => {
+
+        const user =
+            getCurrentUser();
+
 
         const owned =
-            user.inventory.includes(item.id);
+            user.inventory.includes(
+                item.id
+            );
+
 
         const div =
             document.createElement("div");
 
-        div.className = "shop-item";
+        div.className = "card";
+
 
         div.innerHTML = `
-            <h3>${escapeHTML(item.name)}</h3>
-            <p>⭐ ${item.price}</p>
-            <button
-                class="btn ${owned ? "btn-gray" : ""}"
-                ${owned ? "disabled" : ""}
-            >
-                ${owned ? "Куплено" : "Купить"}
-            </button>
+            <div class="shop-item">
+                <div>
+                    <h3>${item.name}</h3>
+                    <div class="muted">
+                        ⭐ ${item.price}
+                    </div>
+                </div>
+
+                <button
+                    class="btn"
+                    onclick="buyItem('${item.id}')"
+                    ${owned ? "disabled" : ""}
+                >
+                    ${owned ? "Куплено" : "Купить"}
+                </button>
+            </div>
         `;
 
-        div
-            .querySelector("button")
-            .addEventListener(
-                "click",
-                () => buyItem(item.id)
-            );
 
-        box.appendChild(div);
+        list.appendChild(div);
+
     });
 }
 
-function buyItem(itemId){
 
-    const user = currentUser();
+function buyItem(id) {
 
-    if(!user){
-        return;
-    }
+    const user =
+        getCurrentUser();
+
 
     const item =
-        SHOP_ITEMS.find(
-            product => product.id === itemId
+        shopItems.find(
+            x => x.id === id
         );
 
-    if(!item){
-        toast("Товар не найден");
+
+    if (!item) return;
+
+
+    if (
+        user.inventory.includes(id)
+    ) {
+
+        toast("У вас уже есть этот предмет");
+
         return;
     }
 
-    if(user.inventory.includes(itemId)){
-        toast("Этот предмет уже куплен");
-        return;
-    }
 
-    if(user.stars < item.price){
+    if (
+        user.stars < item.price
+    ) {
+
         toast("Недостаточно звёзд");
+
         return;
     }
+
 
     user.stars -= item.price;
 
-    user.inventory.push(itemId);
+    user.inventory.push(id);
+
 
     saveCurrentUser(user);
 
     refreshPage();
 
-    toast("Покупка выполнена");
+    toast("Покупка выполнена!");
 }
 
-/* =====================================================
-   INVENTORY
-===================================================== */
-
-function renderInventory(user){
-
-    const box =
-        document.getElementById("inventory");
-
-    box.innerHTML = "";
-
-    if(!user.inventory.length){
-
-        box.innerHTML =
-            "<small>Инвентарь пуст.</small>";
-
-        return;
-    }
-
-    user.inventory.forEach(itemId => {
-
-        const item =
-            SHOP_ITEMS.find(
-                product => product.id === itemId
-            );
-
-        if(!item){
-            return;
-        }
-
-        const div =
-            document.createElement("div");
-
-        div.className = "item";
-
-        const equipped =
-            user.equipped[item.type] === item.id;
-
-        div.innerHTML = `
-            <strong>${escapeHTML(item.name)}</strong>
-            <br><br>
-            <button class="btn ${equipped ? "btn-gray" : ""}">
-                ${equipped ? "Надето" : "Надеть"}
-            </button>
-        `;
-
-        div
-            .querySelector("button")
-            .addEventListener(
-                "click",
-                () => equipItem(item.id)
-            );
-
-        box.appendChild(div);
-    });
-}
-
-function equipItem(itemId){
-
-    const user = currentUser();
-
-    const item =
-        SHOP_ITEMS.find(
-            product => product.id === itemId
-        );
-
-    if(!user || !item){
-        return;
-    }
-
-    if(!user.inventory.includes(itemId)){
-        toast("Предмет отсутствует в инвентаре");
-        return;
-    }
-
-    user.equipped[item.type] = itemId;
-
-    saveCurrentUser(user);
-
-    refreshPage();
-
-    toast("Предмет экипирован");
-}
 
 /* =====================================================
    SETTINGS
-===================================================== */
+   ===================================================== */
 
-function loadSettings(user){
+function loadSettings() {
 
-    document
-        .getElementById("soundSetting")
-        .checked =
-            user.settings.sound !== false;
+    const user =
+        getCurrentUser();
 
-    document
-        .getElementById("notificationsSetting")
-        .checked =
-            user.settings.notifications !== false;
+
+    if (!user) return;
+
+
+    if (!user.settings) {
+
+        user.settings = {
+            buttonColor: "#5865f2",
+            font: "Arial, sans-serif"
+        };
+    }
+
+
+    document.documentElement
+        .style
+        .setProperty(
+            "--button-color",
+            user.settings.buttonColor
+        );
+
+
+    document.body.style.fontFamily =
+        user.settings.font;
+
+
+    document.getElementById(
+        "buttonColor"
+    ).value =
+        user.settings.buttonColor;
+
+
+    document.getElementById(
+        "fontSelect"
+    ).value =
+        user.settings.font;
 }
 
-function normalizeSettings(user){
 
-    if(!user.settings){
-        user.settings = {};
-    }
+function changeButtonColor() {
 
-    if(typeof user.settings.sound !== "boolean"){
-        user.settings.sound = true;
-    }
+    const color =
+        document.getElementById(
+            "buttonColor"
+        ).value;
 
-    if(typeof user.settings.notifications !== "boolean"){
-        user.settings.notifications = true;
-    }
+
+    document.documentElement
+        .style
+        .setProperty(
+            "--button-color",
+            color
+        );
 }
 
-function saveSettings(){
 
-    const user = currentUser();
+function changeFont() {
 
-    if(!user){
-        return;
-    }
+    const font =
+        document.getElementById(
+            "fontSelect"
+        ).value;
 
-    normalizeSettings(user);
 
-    user.settings.sound =
-        document
-            .getElementById("soundSetting")
-            .checked;
+    document.body.style.fontFamily =
+        font;
+}
 
-    user.settings.notifications =
-        document
-            .getElementById("notificationsSetting")
-            .checked;
+
+function saveSettings() {
+
+    const user =
+        getCurrentUser();
+
+
+    user.settings = {
+
+        buttonColor:
+            document.getElementById(
+                "buttonColor"
+            ).value,
+
+        font:
+            document.getElementById(
+                "fontSelect"
+            ).value
+    };
+
 
     saveCurrentUser(user);
+
+    loadSettings();
 
     toast("Настройки сохранены");
 }
 
+
 /* =====================================================
-   SAVE PROFILE
-===================================================== */
+   GAMES
+   ===================================================== */
 
-function saveProfile(){
+let currentGame = null;
+let gameTimer = null;
+let gamePaused = false;
+let gameScore = 0;
+let reactionTimeout = null;
 
-    const user = currentUser();
 
-    if(!user){
-        return;
-    }
+function startGame(type) {
 
-    const name =
-        document
-            .getElementById("nameInput")
-            .value
-            .trim();
+    stopGame();
 
-    const avatar =
-        document
-            .getElementById("avatarInput")
-            .value
-            .trim();
 
-    if(name.length < 3){
-        toast("Имя слишком короткое");
-        return;
-    }
+    currentGame = type;
+    gameScore = 0;
+    gamePaused = false;
 
-    const users = getUsers();
 
-    const duplicate =
-        users.some(
-            item =>
-                item.id !== user.id &&
-                item.name.toLowerCase() ===
-                name.toLowerCase()
+    document
+        .getElementById("gameContainer")
+        .classList.remove("hidden");
+
+
+    document
+        .getElementById("gameScore")
+        .textContent = "0";
+
+
+    const board =
+        document.getElementById(
+            "gameBoard"
         );
 
-    if(duplicate){
-        toast("Это имя уже занято");
+
+    if (type === "clicker") {
+
+        document.getElementById(
+            "gameTitle"
+        ).textContent =
+            "🖱️ Кликер";
+
+
+        board.innerHTML = `
+            <p>
+                Нажимай на кнопку как можно быстрее!
+            </p>
+
+            <button
+                class="click-target"
+                id="clickTarget"
+            >
+                КЛИК
+            </button>
+        `;
+
+
+        document
+            .getElementById("clickTarget")
+            .onclick = clickGame;
+
         return;
     }
 
-    user.name = name;
-    user.avatar = avatar;
+
+    if (type === "reaction") {
+
+        document.getElementById(
+            "gameTitle"
+        ).textContent =
+            "⚡ Реакция";
+
+
+        board.innerHTML = `
+            <p id="reactionText">
+                Подожди зелёный сигнал...
+            </p>
+
+            <button
+                class="click-target"
+                id="reactionButton"
+                disabled
+            >
+                ЖДИ
+            </button>
+        `;
+
+
+        startReactionGame();
+
+        return;
+    }
+
+
+    if (type === "number") {
+
+        document.getElementById(
+            "gameTitle"
+        ).textContent =
+            "🔢 Угадай число";
+
+
+        board.innerHTML = `
+            <p>
+                Угадай число от 1 до 10
+            </p>
+
+            <input
+                id="numberInput"
+                type="number"
+                min="1"
+                max="10"
+            >
+
+            <button
+                class="btn"
+                onclick="guessNumber()"
+            >
+                Проверить
+            </button>
+
+            <p id="numberResult"></p>
+        `;
+
+
+        window.secretNumber =
+            Math.floor(
+                Math.random() * 10
+            ) + 1;
+    }
+}
+
+
+function clickGame() {
+
+    if (gamePaused) return;
+
+
+    gameScore++;
+
+    document.getElementById(
+        "gameScore"
+    ).textContent =
+        gameScore;
+
+
+    if (gameScore >= 10) {
+
+        finishGame(true);
+    }
+}
+
+
+function startReactionGame() {
+
+    const button =
+        document.getElementById(
+            "reactionButton"
+        );
+
+    const text =
+        document.getElementById(
+            "reactionText"
+        );
+
+
+    button.disabled = true;
+
+    button.style.background =
+        "#ef4444";
+
+    button.textContent =
+        "ЖДИ";
+
+
+    const delay =
+        1000 +
+        Math.random() * 3000;
+
+
+    reactionTimeout =
+        setTimeout(() => {
+
+            if (gamePaused) return;
+
+
+            button.disabled = false;
+
+            button.style.background =
+                "#22c55e";
+
+            button.textContent =
+                "ЖМИ";
+
+            text.textContent =
+                "Сейчас!";
+
+
+            const start =
+                Date.now();
+
+
+            button.onclick = () => {
+
+                const reaction =
+                    Date.now() - start;
+
+
+                gameScore =
+                    Math.max(
+                        1,
+                        Math.round(
+                            1000 / reaction * 100
+                        )
+                    );
+
+
+                document.getElementById(
+                    "gameScore"
+                ).textContent =
+                    gameScore;
+
+
+                finishGame(true);
+            };
+
+        }, delay);
+}
+
+
+function guessNumber() {
+
+    if (gamePaused) return;
+
+
+    const value =
+        Number(
+            document.getElementById(
+                "numberInput"
+            ).value
+        );
+
+
+    const result =
+        document.getElementById(
+            "numberResult"
+        );
+
+
+    if (
+        !Number.isInteger(value) ||
+        value < 1 ||
+        value > 10
+    ) {
+
+        result.textContent =
+            "Введите число от 1 до 10";
+
+        return;
+    }
+
+
+    if (
+        value === window.secretNumber
+    ) {
+
+        gameScore = 20;
+
+        document.getElementById(
+            "gameScore"
+        ).textContent = gameScore;
+
+        result.textContent =
+            "🎉 Правильно!";
+
+
+        finishGame(true);
+
+    } else {
+
+        result.textContent =
+            value < window.secretNumber
+                ? "Больше!"
+                : "Меньше!";
+    }
+}
+
+
+/* =====================================================
+   FINISH GAME
+   ===================================================== */
+
+function finishGame(win) {
+
+    const user =
+        getCurrentUser();
+
+
+    user.totalGames++;
+
+
+    if (win) {
+
+        user.totalWins++;
+
+        user.totalScore += gameScore;
+
+        user.stars += Math.max(
+            1,
+            Math.floor(gameScore / 5)
+        );
+
+    }
+
 
     saveCurrentUser(user);
 
+    renderAchievements();
+
     refreshPage();
 
-    toast("Профиль сохранён");
+
+    toast(
+        win
+            ? "🎉 Победа!"
+            : "Игра завершена"
+    );
+
+
+    stopGame();
 }
 
-/* =====================================================
-   ADMIN
-===================================================== */
 
-function isCurrentUserAdmin(){
+function stopGame() {
 
-    const user = currentUser();
+    if (gameTimer) {
 
-    return Boolean(
-        user &&
-        user.isAdmin === true
+        clearInterval(gameTimer);
+
+        gameTimer = null;
+    }
+
+
+    if (reactionTimeout) {
+
+        clearTimeout(
+            reactionTimeout
+        );
+
+        reactionTimeout = null;
+    }
+}
+
+
+function pauseGame() {
+
+    if (!currentGame) return;
+
+
+    gamePaused =
+        !gamePaused;
+
+
+    toast(
+        gamePaused
+            ? "⏸️ Игра поставлена на паузу"
+            : "▶️ Игра продолжена"
     );
 }
 
-function renderAdmin(){
 
-    const panel =
-        document.getElementById("adminPanel");
+function restartGame() {
 
-    if(!isCurrentUserAdmin()){
+    if (!currentGame) return;
 
-        panel.classList.add("hidden");
-
-        return;
-    }
-
-    panel.classList.remove("hidden");
-
-    renderAdminUsers();
+    startGame(currentGame);
 }
 
-function renderAdminUsers(){
-
-    const box =
-        document.getElementById("adminUsers");
-
-    box.innerHTML = "";
-
-    const users = getUsers();
-
-    if(!users.length){
-
-        box.innerHTML =
-            "<small>Пользователей нет.</small>";
-
-        return;
-    }
-
-    users.forEach(user => {
-
-        const div =
-            document.createElement("div");
-
-        div.className = "admin-user";
-
-        const role =
-            user.isAdmin
-                ? `<span class="badge badge-admin">ADMIN</span>`
-                : `<span class="badge">USER</span>`;
-
-        div.innerHTML = `
-            <div>
-                <strong>${escapeHTML(user.name)}</strong>
-                ${role}
-                <br>
-                <small>
-                    ⭐ ${user.stars}
-                    · Игр ${user.totalGames}
-                    · Побед ${user.totalWins}
-                    · Очки ${user.totalScore}
-                </small>
-            </div>
-
-            <div class="actions">
-                <button class="btn btn-green">
-                    +100 ⭐
-                </button>
-
-                ${
-                    user.isAdmin
-                        ? ""
-                        : `<button class="btn btn-danger">
-                            Удалить
-                           </button>`
-                }
-            </div>
-        `;
-
-        const buttons =
-            div.querySelectorAll("button");
-
-        buttons[0].addEventListener(
-            "click",
-            () => adminAddStars(user.id)
-        );
-
-        if(!user.isAdmin && buttons[1]){
-
-            buttons[1].addEventListener(
-                "click",
-                () => adminDeleteUser(user.id)
-            );
-        }
-
-        box.appendChild(div);
-    });
-}
-
-function adminAddStars(userId){
-
-    if(!isCurrentUserAdmin()){
-        toast("Нет доступа");
-        return;
-    }
-
-    const users = getUsers();
-
-    const user =
-        users.find(
-            item => item.id === userId
-        );
-
-    if(!user){
-        toast("Пользователь не найден");
-        return;
-    }
-
-    user.stars += 100;
-
-    saveUsers(users);
-
-    refreshPage();
-
-    toast("Добавлено 100 ⭐");
-}
-
-function adminDeleteUser(userId){
-
-    if(!isCurrentUserAdmin()){
-        toast("Нет доступа");
-        return;
-    }
-
-    const current =
-        currentUser();
-
-    if(current.id === userId){
-        toast("Нельзя удалить самого себя");
-        return;
-    }
-
-    const users =
-        getUsers()
-            .filter(
-                user => user.id !== userId
-            );
-
-    saveUsers(users);
-
-    renderAdminUsers();
-
-    toast("Пользователь удалён");
-}
 
 /* =====================================================
-   ADMIN QUICK ACTIONS
-===================================================== */
+   ADMIN
+   ===================================================== */
 
-function addStarsToSelf(){
+function adminAddStars(amount) {
 
-    if(!isCurrentUserAdmin()){
+    const user =
+        getCurrentUser();
+
+
+    if (!user || !user.isAdmin) {
+
         toast("Нет доступа");
+
         return;
     }
 
-    const user = currentUser();
 
-    user.stars += 100;
+    user.stars += amount;
 
     saveCurrentUser(user);
 
     refreshPage();
 
-    toast("+100 ⭐");
+    toast("Звёзды добавлены");
 }
 
-function addWin(){
 
-    if(!isCurrentUserAdmin()){
+function adminAddScore(amount) {
+
+    const user =
+        getCurrentUser();
+
+
+    if (!user || !user.isAdmin) {
+
         toast("Нет доступа");
+
         return;
     }
 
-    const user = currentUser();
 
-    user.totalWins++;
-    user.totalGames++;
-    user.totalScore += 100;
-    user.stars += 10;
+    user.totalScore += amount;
 
     saveCurrentUser(user);
 
     refreshPage();
 
-    toast("Добавлена победа");
+    toast("Очки добавлены");
 }
 
-function addGame(){
 
-    if(!isCurrentUserAdmin()){
+function adminResetStats() {
+
+    const user =
+        getCurrentUser();
+
+
+    if (!user || !user.isAdmin) {
+
         toast("Нет доступа");
+
         return;
     }
 
-    const user = currentUser();
 
-    user.totalGames++;
+    if (
+        !confirm(
+            "Сбросить статистику?"
+        )
+    ) return;
 
-    saveCurrentUser(user);
 
-    refreshPage();
-
-    toast("Добавлена игра");
-}
-
-function resetMyStats(){
-
-    if(!isCurrentUserAdmin()){
-        toast("Нет доступа");
-        return;
-    }
-
-    const user = currentUser();
-
-    const confirmed =
-        confirm(
-            "Точно сбросить статистику?"
-        );
-
-    if(!confirmed){
-        return;
-    }
-
+    user.stars = 0;
     user.totalGames = 0;
     user.totalWins = 0;
     user.totalScore = 0;
-    user.stars = 0;
     user.achievements = [];
-    user.records = {};
+    user.records = [];
     user.inventory = [];
-    user.equipped = {
-        accessory:null,
-        effect:null
-    };
+
 
     saveCurrentUser(user);
 
     refreshPage();
 
-    toast("Данные сброшены");
+    toast("Статистика сброшена");
 }
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+function logout() {
+
+    stopGame();
+
+
+    localStorage.removeItem(
+        "currentUser"
+    );
+
+
+    location.reload();
+}
+
 
 /* =====================================================
    TOAST
-===================================================== */
+   ===================================================== */
 
 let toastTimer = null;
 
-function toast(text){
+
+function toast(text) {
 
     const box =
-        document.getElementById("toast");
+        document.getElementById(
+            "toast"
+        );
+
 
     box.textContent = text;
 
     box.style.display = "block";
 
+
     clearTimeout(toastTimer);
 
+
     toastTimer =
-        setTimeout(
-            () => {
-                box.style.display = "none";
-            },
-            2500
-        );
+        setTimeout(() => {
+
+            box.style.display =
+                "none";
+
+        }, 2500);
 }
 
-/* =====================================================
-   EVENTS
-===================================================== */
-
-document
-    .getElementById("loginBtn")
-    .addEventListener(
-        "click",
-        () => {
-            login(
-                document
-                    .getElementById("loginName")
-                    .value,
-                document
-                    .getElementById("loginPassword")
-                    .value
-            );
-        }
-    );
-
-document
-    .getElementById("registerBtn")
-    .addEventListener(
-        "click",
-        register
-    );
-
-document
-    .getElementById("logoutBtn")
-    .addEventListener(
-        "click",
-        logout
-    );
-
-document
-    .getElementById("saveProfileBtn")
-    .addEventListener(
-        "click",
-        saveProfile
-    );
-
-document
-    .getElementById("saveSettingsBtn")
-    .addEventListener(
-        "click",
-        saveSettings
-    );
-
-document
-    .getElementById("addStarsBtn")
-    .addEventListener(
-        "click",
-        addStarsToSelf
-    );
-
-document
-    .getElementById("addWinBtn")
-    .addEventListener(
-        "click",
-        addWin
-    );
-
-document
-    .getElementById("addGameBtn")
-    .addEventListener(
-        "click",
-        addGame
-    );
-
-document
-    .getElementById("resetStatsBtn")
-    .addEventListener(
-        "click",
-        resetMyStats
-    );
-
-document
-    .getElementById("loginPassword")
-    .addEventListener(
-        "keydown",
-        event => {
-
-            if(event.key === "Enter"){
-                document
-                    .getElementById("loginBtn")
-                    .click();
-            }
-        }
-    );
 
 /* =====================================================
    INIT
-===================================================== */
+   ===================================================== */
 
-function init(){
+function init() {
 
-    ensureAdmin();
+    const user =
+        getCurrentUser();
 
-    const user = currentUser();
 
-    if(!user){
+    if (!user) {
 
         document
-            .getElementById("loginModal")
-            .classList.remove("hidden");
+            .getElementById(
+                "loginModal"
+            )
+            .classList.remove(
+                "hidden"
+            );
 
         return;
     }
 
-    document
-        .getElementById("loginModal")
-        .classList.add("hidden");
 
-    normalizeUser(user);
-    normalizeSettings(user);
-
-    saveCurrentUser(user);
+    closeAuth();
 
     refreshPage();
+
+    openPage("home");
 }
+
 
 init();
 
