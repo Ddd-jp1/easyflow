@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyFlow — Регистрация</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f7fb;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#111827;
+}
+
+.register-box{
+    width:100%;
+    max-width:420px;
+    background:#fff;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.1);
+    border:1px solid #e5e7eb;
+}
+
+.logo{
+    text-align:center;
+    color:#2563eb;
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:2px solid #e5e7eb;
+    border-radius:12px;
+    margin-bottom:14px;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#2563eb;
+}
+
+button{
+    width:100%;
+    border:0;
+    background:#2563eb;
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.message{
+    text-align:center;
+    margin-top:15px;
+    min-height:22px;
+    font-weight:bold;
+}
+
+.error{
+    color:#dc2626;
+}
+
+.success{
+    color:#16a34a;
+}
+
+.login{
+    text-align:center;
+    margin-top:20px;
+    color:#64748b;
+}
+
+.login a{
+    color:#2563eb;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="register-box">
+
+    <div class="logo">EasyFlow</div>
+
+    <h1>👤 Регистрация</h1>
+
+    <input
+        id="registerName"
+        type="text"
+        placeholder="Имя"
+        maxlength="20"
+    >
+
+    <input
+        id="registerPassword"
+        type="password"
+        placeholder="Пароль"
+    >
+
+    <input
+        id="registerPassword2"
+        type="password"
+        placeholder="Повторите пароль"
+    >
+
+    <button onclick="register()">
+        Зарегистрироваться
+    </button>
+
+    <div id="message" class="message"></div>
+
+    <div class="login">
+        Уже есть аккаунт?
+        <a href="login.html">Войти</a>
+    </div>
+
+</div>
+
+<script>
+
+const ADMIN_NAME="Admin";
+
+function getUsers(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem("easyflow_users")
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+function saveUsers(users){
+
+    localStorage.setItem(
+        "easyflow_users",
+        JSON.stringify(users)
+    );
+
+}
+
+function register(){
+
+    const name=
+        document.getElementById(
+            "registerName"
+        ).value.trim();
+
+    const password=
+        document.getElementById(
+            "registerPassword"
+        ).value;
+
+    const password2=
+        document.getElementById(
+            "registerPassword2"
+        ).value;
+
+    const message=
+        document.getElementById(
+            "message"
+        );
+
+    message.className="message";
+
+    if(!name){
+
+        showError("Введите имя");
+
+        return;
+
+    }
+
+    if(name.length<2){
+
+        showError(
+            "Имя должно содержать минимум 2 символа"
+        );
+
+        return;
+
+    }
+
+    if(!password){
+
+        showError("Введите пароль");
+
+        return;
+
+    }
+
+    if(password.length<4){
+
+        showError(
+            "Пароль должен содержать минимум 4 символа"
+        );
+
+        return;
+
+    }
+
+    if(password!==password2){
+
+        showError(
+            "Пароли не совпадают"
+        );
+
+        return;
+
+    }
+
+    /*
+       Имя Admin зарезервировано
+       для администратора.
+    */
+
+    if(
+        name.toLowerCase() ===
+        ADMIN_NAME.toLowerCase()
+    ){
+
+        showError(
+            "Имя Admin зарезервировано"
+        );
+
+        return;
+
+    }
+
+    const users=getUsers();
+
+    const exists=users.some(
+        user =>
+            user.name.toLowerCase() ===
+            name.toLowerCase()
+    );
+
+    if(exists){
+
+        showError(
+            "Такой пользователь уже существует"
+        );
+
+        return;
+
+    }
+
+    const newUser={
+
+        name:name,
+
+        password:password,
+
+        role:"user",
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+    users.push(newUser);
+
+    saveUsers(users);
+
+    message.textContent=
+        "✅ Регистрация успешна!";
+
+    message.classList.add(
+        "success"
+    );
+
+    document.getElementById(
+        "registerName"
+    ).value="";
+
+    document.getElementById(
+        "registerPassword"
+    ).value="";
+
+    document.getElementById(
+        "registerPassword2"
+    ).value="";
+
+    setTimeout(()=>{
+
+        window.location.href=
+            "login.html";
+
+    },800);
+
+}
+
+function showError(text){
+
+    const message=
+        document.getElementById(
+            "message"
+        );
+
+    message.textContent=
+        "❌ "+text;
+
+    message.className=
+        "message error";
+
+}
+
+document.addEventListener(
+    "keydown",
+    e=>{
+
+        if(e.key==="Enter")
+            register();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
