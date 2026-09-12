@@ -1,2406 +1,2973 @@
-```html
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>EasyFlow — Игры</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>easyflow</title>
 
 <style>
-
-/* ==================================================
-   ОСНОВНЫЕ НАСТРОЙКИ
-================================================== */
-
-:root {
-    --main: #2563eb;
-    --main-dark: #1d4ed8;
-
-    --background: #f4f7fb;
-    --card: #ffffff;
-
-    --text: #111827;
-    --muted: #64748b;
-
-    --border: #e5e7eb;
-
-    --green: #22c55e;
-    --red: #ef4444;
-    --yellow: #eab308;
-
-    --radius: 16px;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background: var(--background);
-    color: var(--text);
-    min-height: 100vh;
-    transition: .2s;
-}
-
-/* ==================================================
-   DARK THEME
-================================================== */
-
-body.dark {
-    --background: #0f172a;
-    --card: #1e293b;
-    --text: #f8fafc;
-    --muted: #94a3b8;
-    --border: #334155;
-}
-
-/* ==================================================
-   HEADER
-================================================== */
-
-header {
-    background: var(--card);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.header {
-    max-width: 1200px;
-    margin: auto;
-    padding: 14px 20px;
-
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.logo {
-    color: var(--main);
-    font-size: 27px;
-    font-weight: bold;
-    text-decoration: none;
-    white-space: nowrap;
+:root{
+    --btn:#171717;
+    --btn2:#333;
+    --bg:#fff;
+    --text:#111;
+    --border:#555;
 }
-
-/* ==================================================
-   TOP MENU
-================================================== */
-
-.top-menu {
-    flex: 1;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
+*{box-sizing:border-box}
 
-    flex-wrap: wrap;
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial,sans-serif;
 }
 
-.top-menu a {
-    color: var(--muted);
-    text-decoration: none;
+button,input,select{font:inherit}
 
-    padding: 9px 10px;
-    border-radius: 9px;
+button{cursor:pointer}
 
-    font-size: 14px;
-    font-weight: bold;
+.hidden{display:none!important}
 
-    transition: .2s;
+header{
+    border-bottom:2px solid #222;
+    padding:18px 25px;
 }
 
-.top-menu a:hover,
-.top-menu a.active {
-    background: #eff6ff;
-    color: var(--main);
+.header{
+    max-width:1250px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    gap:45px;
 }
 
-body.dark .top-menu a:hover,
-body.dark .top-menu a.active {
-    background: #172554;
+.logo{
+    font-size:29px;
+    white-space:nowrap;
 }
 
-/* ==================================================
-   PROFILE MINI
-================================================== */
-
-.profile-mini {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    background: var(--background);
-    border: 1px solid var(--border);
-
-    padding: 8px 12px;
-    border-radius: 12px;
-
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.profile-avatar {
-    width: 30px;
-    height: 30px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: var(--main);
-    color: white;
-
-    border-radius: 50%;
+nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:25px;
 }
 
-/* ==================================================
-   CONTAINER
-================================================== */
-
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 35px 20px;
+nav button{
+    border:0;
+    background:none;
+    font-size:16px;
 }
 
-/* ==================================================
-   TITLE
-================================================== */
+nav button:hover{text-decoration:underline}
 
-.title {
-    text-align: center;
-    margin-bottom: 30px;
-}
 
-.title h1 {
-    color: var(--main);
-    font-size: 38px;
-    margin-bottom: 10px;
-}
+/* AUTH */
 
-.title p {
-    color: var(--muted);
-    font-size: 17px;
+.auth{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f3f3f3;
 }
 
-/* ==================================================
-   QUICK STATS
-================================================== */
-
-.quick-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-
-    margin-bottom: 30px;
+.auth-box{
+    width:390px;
+    max-width:94%;
+    background:#fff;
+    border:2px dashed var(--border);
+    padding:35px;
 }
-
-.quick-stat {
-    background: var(--card);
 
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-
-    padding: 20px;
-    text-align: center;
+.auth-box h1{
+    text-align:center;
+    font-weight:normal;
 }
 
-.quick-stat .icon {
-    font-size: 30px;
-    margin-bottom: 7px;
+.auth-box h2{
+    text-align:center;
+    font-weight:normal;
 }
 
-.quick-stat span {
-    display: block;
-    color: var(--muted);
-    font-size: 14px;
-    margin-bottom: 5px;
+.auth-box input{
+    width:100%;
+    padding:13px;
+    margin:7px 0;
+    border:1px solid #555;
 }
 
-.quick-stat strong {
-    font-size: 25px;
+.main{
+    max-width:1250px;
+    margin:30px auto;
+    padding:35px;
+    border:2px dashed var(--border);
 }
-
-/* ==================================================
-   SECTION
-================================================== */
-
-.section {
-    background: var(--card);
 
-    border: 1px solid var(--border);
-    border-radius: 20px;
-
-    padding: 25px;
-    margin-bottom: 25px;
+.welcome{
+    border:2px dashed var(--border);
+    min-height:105px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    margin-bottom:50px;
 }
 
-.section-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    gap: 15px;
-    margin-bottom: 20px;
+.games{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:40px;
 }
 
-.section-title h2 {
-    font-size: 23px;
+.game-card{
+    min-height:120px;
+    border:2px dashed var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-size:21px;
+    cursor:pointer;
+    transition:.2s;
 }
-
-/* ==================================================
-   GAMES
-================================================== */
 
-.games {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+.game-card:hover{
+    background:#f4f4f4;
+    transform:translateY(-3px);
 }
-
-.game-card {
-    background: var(--card);
-
-    border: 1px solid var(--border);
-    border-radius: 18px;
-
-    padding: 22px;
-
-    text-align: center;
 
-    transition:
-        transform .2s,
-        box-shadow .2s;
+.description{
+    min-height:230px;
+    border:2px dashed var(--border);
+    margin-top:50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-size:28px;
 }
 
-.game-card:hover {
-    transform: translateY(-5px);
 
-    box-shadow:
-        0 15px 35px
-        rgba(0,0,0,.10);
-}
+/* BUTTONS */
 
-.game-icon {
-    font-size: 60px;
-    margin-bottom: 12px;
+.main-btn{
+    border:0;
+    background:var(--btn);
+    color:white;
+    padding:12px 18px;
 }
 
-.game-card h2 {
-    margin-bottom: 8px;
+.main-btn:hover{
+    background:var(--btn2);
 }
 
-.game-card p {
-    color: var(--muted);
-    line-height: 1.5;
-    min-height: 48px;
-    margin-bottom: 18px;
-}
 
-/* ==================================================
-   DIFFICULTY
-================================================== */
+/* MODALS */
 
-.difficulty-title {
-    color: var(--muted);
-    font-size: 13px;
-    margin-bottom: 8px;
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:15px;
+    z-index:100;
 }
-
-.difficulty {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
 
-    margin-bottom: 12px;
+.modal-box{
+    width:650px;
+    max-width:100%;
+    max-height:94vh;
+    overflow:auto;
+    background:#fff;
+    border:2px dashed #555;
+    padding:25px;
 }
-
-.difficulty button {
-    border: 1px solid var(--border);
-
-    background: var(--background);
-    color: var(--text);
-
-    padding: 8px 4px;
 
-    border-radius: 8px;
-
-    cursor: pointer;
-
-    font-size: 12px;
-    font-weight: bold;
+.modal-box h2{
+    text-align:center;
+    margin-top:0;
 }
 
-.difficulty button.active {
-    background: var(--main);
-    color: white;
-    border-color: var(--main);
+.close{
+    width:100%;
+    margin-top:15px;
+    padding:11px;
+    border:0;
+    background:#ddd;
 }
-
-/* ==================================================
-   PLAY BUTTON
-================================================== */
-
-.play {
-    display: block;
-
-    width: 100%;
-
-    background: var(--main);
-    color: white;
 
-    text-decoration: none;
 
-    padding: 13px;
+/* GAME */
 
-    border-radius: 11px;
-
-    font-weight: bold;
-
-    transition: .2s;
+.game-area{
+    text-align:center;
 }
 
-.play:hover {
-    background: var(--main-dark);
+.game-area canvas{
+    display:block;
+    margin:15px auto;
+    border:3px solid #111;
+    background:#050505;
+    max-width:100%;
 }
-
-/* ==================================================
-   TABLE
-================================================== */
 
-.table-wrapper {
-    overflow-x: auto;
+.game-info{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    margin:10px;
+    font-size:18px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+.difficulty{
+    width:100%;
+    padding:11px;
+    margin:10px 0;
 }
 
-th,
-td {
-    padding: 13px 10px;
 
-    border-bottom: 1px solid var(--border);
+/* CONTROLS */
 
-    text-align: left;
+.game-controls{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    margin:10px auto 5px;
 }
 
-th {
-    color: var(--muted);
-    font-size: 14px;
+.control-row{
+    display:flex;
+    gap:6px;
 }
 
-.player {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.game-controls button{
+    width:58px;
+    height:48px;
+    border:0;
+    border-radius:8px;
+    background:var(--btn);
+    color:#fff;
+    font-size:21px;
+    touch-action:manipulation;
 }
-
-.avatar {
-    width: 38px;
-    height: 38px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #dbeafe;
-    color: #1d4ed8;
 
-    border-radius: 50%;
-
-    font-weight: bold;
+.game-controls button:active{
+    transform:scale(.93);
 }
-
-/* ==================================================
-   BADGES
-================================================== */
-
-.badge {
-    display: inline-block;
 
-    padding: 5px 9px;
 
-    border-radius: 8px;
-
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.badge.green {
-    background: #dcfce7;
-    color: #166534;
-}
+/* MEMORY */
 
-.badge.red {
-    background: #fee2e2;
-    color: #991b1b;
+.memory-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    max-width:420px;
+    margin:20px auto;
 }
 
-.badge.yellow {
-    background: #fef9c3;
-    color: #854d0e;
+.memory-card{
+    aspect-ratio:1;
+    border:0;
+    background:#222;
+    color:white;
+    font-size:30px;
+    border-radius:8px;
 }
 
-.badge.blue {
-    background: #dbeafe;
-    color: #1e40af;
+.memory-card.open{
+    background:#ddd;
+    color:#111;
 }
 
-/* ==================================================
-   BUTTONS
-================================================== */
 
-.btn {
-    border: none;
+/* TIC TAC TOE */
 
-    background: var(--main);
-    color: white;
-
-    padding: 10px 15px;
-
-    border-radius: 9px;
-
-    cursor: pointer;
-
-    font-weight: bold;
+.ttt{
+    display:grid;
+    grid-template-columns:repeat(3,90px);
+    gap:7px;
+    justify-content:center;
+    margin:20px;
 }
 
-.btn:hover {
-    background: var(--main-dark);
+.ttt button{
+    width:90px;
+    height:90px;
+    font-size:40px;
+    border:1px solid #555;
+    background:#eee;
 }
 
-.btn.red {
-    background: var(--red);
-}
 
-.btn.green {
-    background: var(--green);
-}
+/* PROFILE */
 
-.btn.gray {
-    background: #64748b;
+.profile-box{
+    line-height:1.8;
 }
 
-/* ==================================================
-   PROFILE
-================================================== */
-
-.profile-box {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 25px;
-
-    align-items: center;
+.stat-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
 }
-
-.big-avatar {
-    width: 100px;
-    height: 100px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: var(--main);
-    color: white;
-
-    border-radius: 50%;
 
-    font-size: 42px;
-    font-weight: bold;
+.stat{
+    border:2px dashed #555;
+    padding:20px;
+    text-align:center;
 }
 
-.profile-info h2 {
-    margin-bottom: 8px;
+.stat b{
+    display:block;
+    font-size:28px;
 }
 
-.profile-info p {
-    color: var(--muted);
-    margin-bottom: 5px;
-}
 
-/* ==================================================
-   ACHIEVEMENTS
-================================================== */
+/* TABLE */
 
-.achievements {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+table{
+    width:100%;
+    border-collapse:collapse;
 }
 
-.achievement {
-    border: 1px solid var(--border);
-    border-radius: 14px;
-
-    padding: 18px;
-    text-align: center;
+th,td{
+    border:1px solid #aaa;
+    padding:10px;
+    text-align:center;
 }
 
-.achievement-icon {
-    font-size: 40px;
-    margin-bottom: 8px;
+th{
+    background:var(--btn);
+    color:#fff;
 }
 
-.achievement.locked {
-    opacity: .45;
-}
 
-/* ==================================================
-   SETTINGS
-================================================== */
+/* SETTINGS */
 
-.settings {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+.settings label{
+    display:block;
+    margin-top:18px;
+    margin-bottom:7px;
+    font-weight:bold;
 }
 
-.setting {
-    padding: 15px;
-
-    border: 1px solid var(--border);
-    border-radius: 12px;
+.settings select,
+.settings input[type=color]{
+    width:100%;
+    padding:11px;
 }
 
-.setting label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
+.settings input[type=color]{
+    height:50px;
 }
 
-.setting select,
-.setting input {
-    width: 100%;
 
-    padding: 10px;
+/* ADMIN */
 
-    border: 1px solid var(--border);
-    border-radius: 9px;
-
-    background: var(--background);
-    color: var(--text);
+.admin{
+    max-width:1250px;
+    margin:30px auto;
+    padding:35px;
+    border:2px dashed #555;
 }
-
-/* ==================================================
-   ADMIN
-================================================== */
 
-.admin-section {
-    border: 2px solid #f59e0b;
+.admin-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin:25px 0;
 }
 
-.admin-warning {
-    background: #fffbeb;
-    color: #92400e;
 
-    padding: 12px;
+/* ACHIEVEMENTS */
 
-    border-radius: 10px;
-
-    margin-bottom: 15px;
+.achievement{
+    padding:15px;
+    border:1px solid #aaa;
+    margin:8px 0;
 }
 
-body.dark .admin-warning {
-    background: #422006;
-    color: #fde68a;
+.achievement.locked{
+    opacity:.4;
 }
 
-/* ==================================================
-   HIDDEN
-================================================== */
-
-.hidden {
-    display: none !important;
+.achievement b{
+    display:block;
+    margin-bottom:5px;
 }
-
-/* ==================================================
-   FOOTER
-================================================== */
 
-footer {
-    margin-top: 40px;
-
-    background: #111827;
-    color: #9ca3af;
-
-    text-align: center;
-
-    padding: 25px;
-}
 
-/* ==================================================
-   MOBILE
-================================================== */
+/* MOBILE */
 
-@media(max-width: 950px) {
+@media(max-width:850px){
 
-    .header {
-        flex-wrap: wrap;
+    .header{
+        flex-direction:column;
+        gap:15px;
     }
 
-    .top-menu {
-        order: 3;
-        width: 100%;
+    nav{
+        justify-content:center;
+        gap:14px;
     }
 
-    .games {
-        grid-template-columns: 1fr 1fr;
+    .main,.admin{
+        margin:15px;
+        padding:20px;
     }
 
-    .quick-stats {
-        grid-template-columns: repeat(2, 1fr);
+    .games{
+        grid-template-columns:1fr;
+        gap:20px;
     }
 
-    .achievements {
-        grid-template-columns: repeat(2, 1fr);
+    .stat-grid,
+    .admin-stats{
+        grid-template-columns:1fr;
+    }
+
+    .description{
+        min-height:160px;
     }
 }
-
-@media(max-width: 600px) {
-
-    .header {
-        padding: 12px 10px;
-    }
-
-    .top-menu {
-        justify-content: flex-start;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-    }
-
-    .top-menu a {
-        white-space: nowrap;
-    }
-
-    .container {
-        padding: 25px 10px;
-    }
-
-    .title h1 {
-        font-size: 30px;
-    }
-
-    .games {
-        grid-template-columns: 1fr;
-    }
-
-    .quick-stats {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .profile-box {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .big-avatar {
-        margin: auto;
-    }
-
-    .settings {
-        grid-template-columns: 1fr;
-    }
-
-    .achievements {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .section {
-        padding: 18px 12px;
-    }
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
 
-<!-- ==================================================
-     HEADER
-================================================== -->
+<!-- =====================================================
+     ВХОД
+===================================================== -->
+
+<div id="loginPage" class="auth">
+
+    <div class="auth-box">
+
+        <h1>easyflow</h1>
+        <h2>Вход</h2>
+
+        <input id="loginName"
+               placeholder="Имя пользователя">
+
+        <input id="loginPass"
+               type="password"
+               placeholder="Пароль">
+
+        <button class="main-btn"
+                style="width:100%;"
+                onclick="login()">
+            Войти
+        </button>
+
+        <p id="loginError"
+           style="color:red;text-align:center"></p>
+
+        <p style="text-align:center;cursor:pointer"
+           onclick="showRegister()">
+            Нет аккаунта? Зарегистрироваться
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     РЕГИСТРАЦИЯ
+===================================================== -->
+
+<div id="registerPage" class="auth hidden">
+
+    <div class="auth-box">
+
+        <h1>easyflow</h1>
+        <h2>Регистрация</h2>
+
+        <input id="regName"
+               placeholder="Имя пользователя">
+
+        <input id="regPass"
+               type="password"
+               placeholder="Пароль">
+
+        <input id="regPass2"
+               type="password"
+               placeholder="Повторите пароль">
+
+        <button class="main-btn"
+                style="width:100%;"
+                onclick="register()">
+            Зарегистрироваться
+        </button>
+
+        <p id="regError"
+           style="color:red;text-align:center"></p>
+
+        <p style="text-align:center;cursor:pointer"
+           onclick="showLogin()">
+            Уже есть аккаунт? Войти
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     САЙТ
+===================================================== -->
+
+<div id="site" class="hidden">
 
 <header>
 
 <div class="header">
 
-<a href="index.html" class="logo">
-    EasyFlow
-</a>
+    <div class="logo">
+        easyflow
+    </div>
 
+    <nav>
 
-<nav class="top-menu">
+        <button onclick="openProfile()">
+            Профиль
+        </button>
 
-<a href="index.html">
-    🏠 Главная
-</a>
+        <button onclick="openAchievements()">
+            Достижения
+        </button>
 
-<a href="games.html" class="active">
-    🎮 Мои игры
-</a>
+        <button onclick="openSettings()">
+            Настройка магазина
+        </button>
 
-<a href="#statistics">
-    📊 Статистика
-</a>
+        <button onclick="logout()">
+            Выход
+        </button>
 
-<a href="#achievements">
-    🏆 Достижения
-</a>
-
-<a href="#shop">
-    🛒 Магазин
-</a>
-
-<a href="#profile">
-    👤 Профиль
-</a>
-
-<a href="#settings">
-    ⚙️ Настройки
-</a>
-
-<a href="#admin" id="adminMenu">
-    🛡️ Админ
-</a>
-
-</nav>
-
-
-<div class="profile-mini">
-
-<div class="profile-avatar" id="miniAvatar">
-    ?
-</div>
-
-<span id="profileName">
-    Гость
-</span>
-
-</div>
+    </nav>
 
 </div>
 
 </header>
 
 
-<!-- ==================================================
-     MAIN
-================================================== -->
+<main class="main">
 
-<main class="container">
+    <div class="welcome">
+        👋 Приветствие
+    </div>
 
 
-<div class="title">
+    <div class="games">
 
-<h1>
-    🎮 Игры EasyFlow
-</h1>
+        <div class="game-card"
+             onclick="openGame('Тетрис')">
+            🧱<br>Тетрис
+        </div>
 
-<p>
-    Играй, соревнуйся, устанавливай рекорды и открывай достижения!
-</p>
+        <div class="game-card"
+             onclick="openGame('Сапер')">
+            💣<br>Сапёр
+        </div>
 
-</div>
+        <div class="game-card"
+             onclick="openGame('Flappy Bird')">
+            🐦<br>Flappy Bird
+        </div>
 
+        <div class="game-card"
+             onclick="openGame('Змейка')">
+            🐍<br>Змейка
+        </div>
 
-<!-- ==================================================
-     QUICK STATS
-================================================== -->
+        <div class="game-card"
+             onclick="openGame('Игра на память')">
+            🧠<br>Игра на память
+        </div>
 
-<div class="quick-stats">
+        <div class="game-card"
+             onclick="openGame('Крестики-нолики')">
+            ❌⭕<br>Крестики-нолики
+        </div>
 
-<div class="quick-stat">
+    </div>
 
-<div class="icon">🎮</div>
 
-<span>
-    Игр сыграно
-</span>
-
-<strong id="gamesPlayed">
-    0
-</strong>
-
-</div>
-
-
-<div class="quick-stat">
-
-<div class="icon">🏆</div>
-
-<span>
-    Побед
-</span>
-
-<strong id="wins">
-    0
-</strong>
-
-</div>
-
-
-<div class="quick-stat">
-
-<div class="icon">⭐</div>
-
-<span>
-    Очков
-</span>
-
-<strong id="points">
-    0
-</strong>
-
-</div>
-
-
-<div class="quick-stat">
-
-<div class="icon">🏅</div>
-
-<span>
-    Достижения
-</span>
-
-<strong id="achievementCount">
-    0
-</strong>
-
-</div>
-
-</div>
-
-
-<!-- ==================================================
-     GAMES
-================================================== -->
-
-<section class="section">
-
-<div class="section-title">
-
-<h2>
-    🎮 Мои игры
-</h2>
-
-</div>
-
-
-<div class="games">
-
-
-<!-- TETRIS -->
-
-<div class="game-card">
-
-<div class="game-icon">
-    🧱
-</div>
-
-<h2>
-    Тетрис
-</h2>
-
-<p>
-    Собирай линии, повышай уровень
-    и устанавливай рекорды.
-</p>
-
-
-<div class="difficulty-title">
-    Выбери сложность
-</div>
-
-<div class="difficulty"
-     data-game="tetris">
-
-<button
-    class="active"
-    onclick="setDifficulty('tetris','easy',this)">
-    🟢 Лёгкий
-</button>
-
-<button
-    onclick="setDifficulty('tetris','medium',this)">
-    🟡 Средний
-</button>
-
-<button
-    onclick="setDifficulty('tetris','hard',this)">
-    🔴 Сложный
-</button>
-
-</div>
-
-
-<a
-    id="tetrisPlay"
-    href="tetris.html?difficulty=easy"
-    class="play">
-
-    ▶ Играть
-
-</a>
-
-</div>
-
-
-<!-- FLAPPY -->
-
-<div class="game-card">
-
-<div class="game-icon">
-    🐦
-</div>
-
-<h2>
-    Flappy Bird
-</h2>
-
-<p>
-    Пролетай между трубами
-    и набирай как можно больше очков.
-</p>
-
-
-<div class="difficulty-title">
-    Выбери сложность
-</div>
-
-<div class="difficulty"
-     data-game="flappy">
-
-<button
-    class="active"
-    onclick="setDifficulty('flappy','easy',this)">
-    🟢 Лёгкий
-</button>
-
-<button
-    onclick="setDifficulty('flappy','medium',this)">
-    🟡 Средний
-</button>
-
-<button
-    onclick="setDifficulty('flappy','hard',this)">
-    🔴 Сложный
-</button>
-
-</div>
-
-
-<a
-    id="flappyPlay"
-    href="flappy.html?difficulty=easy"
-    class="play">
-
-    ▶ Играть
-
-</a>
-
-</div>
-
-
-<!-- MINESWEEPER -->
-
-<div class="game-card">
-
-<div class="game-icon">
-    💣
-</div>
-
-<h2>
-    Сапёр
-</h2>
-
-<p>
-    Открывай клетки, ставь флажки
-    и избегай мин.
-</p>
-
-
-<div class="difficulty-title">
-    Выбери сложность
-</div>
-
-<div class="difficulty"
-     data-game="minesweeper">
-
-<button
-    class="active"
-    onclick="setDifficulty('minesweeper','easy',this)">
-    🟢 Лёгкий
-</button>
-
-<button
-    onclick="setDifficulty('minesweeper','medium',this)">
-    🟡 Средний
-</button>
-
-<button
-    onclick="setDifficulty('minesweeper','hard',this)">
-    🔴 Сложный
-</button>
-
-</div>
-
-
-<a
-    id="minesweeperPlay"
-    href="minesweeper.html?difficulty=easy"
-    class="play">
-
-    ▶ Играть
-
-</a>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<!-- ==================================================
-     STATISTICS
-================================================== -->
-
-<section
-    class="section"
-    id="statistics">
-
-<div class="section-title">
-
-<h2>
-    📊 Моя статистика
-</h2>
-
-</div>
-
-
-<div class="table-wrapper">
-
-<table>
-
-<thead>
-
-<tr>
-    <th>Игра</th>
-    <th>Лёгкий</th>
-    <th>Средний</th>
-    <th>Сложный</th>
-</tr>
-
-</thead>
-
-
-<tbody>
-
-<tr>
-
-<td>
-    🧱 Тетрис
-</td>
-
-<td id="tetrisEasy">
-    0
-</td>
-
-<td id="tetrisMedium">
-    0
-</td>
-
-<td id="tetrisHard">
-    0
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-    🐦 Flappy Bird
-</td>
-
-<td id="flappyEasy">
-    0
-</td>
-
-<td id="flappyMedium">
-    0
-</td>
-
-<td id="flappyHard">
-    0
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>
-    💣 Сапёр
-</td>
-
-<td id="minesEasy">
-    0
-</td>
-
-<td id="minesMedium">
-    0
-</td>
-
-<td id="minesHard">
-    0
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</section>
-
-
-<!-- ==================================================
-     PLAYERS
-================================================== -->
-
-<section class="section">
-
-<div class="section-title">
-
-<h2>
-    👥 Игроки и результаты
-</h2>
-
-</div>
-
-
-<div class="table-wrapper">
-
-<table>
-
-<thead>
-
-<tr>
-    <th>Игрок</th>
-    <th>Очки</th>
-    <th>Игр</th>
-    <th>Побед</th>
-    <th>Статус</th>
-</tr>
-
-</thead>
-
-
-<tbody id="playersTable">
-
-</tbody>
-
-</table>
-
-</div>
-
-</section>
-
-
-<!-- ==================================================
-     ACHIEVEMENTS
-================================================== -->
-
-<section
-    class="section"
-    id="achievements">
-
-<div class="section-title">
-
-<h2>
-    🏆 Достижения
-</h2>
-
-</div>
-
-
-<div class="achievements">
-
-
-<div class="achievement">
-
-<div class="achievement-icon">
-    🎮
-</div>
-
-<strong>
-    Первая игра
-</strong>
-
-<p>
-    Сыграть первую игру
-</p>
-
-</div>
-
-
-<div class="achievement">
-
-<div class="achievement-icon">
-    🏆
-</div>
-
-<strong>
-    Победитель
-</strong>
-
-<p>
-    Одержать первую победу
-</p>
-
-</div>
-
-
-<div class="achievement">
-
-<div class="achievement-icon">
-    🔥
-</div>
-
-<strong>
-    10 игр
-</strong>
-
-<p>
-    Сыграть 10 игр
-</p>
-
-</div>
-
-
-<div class="achievement locked">
-
-<div class="achievement-icon">
-    👑
-</div>
-
-<strong>
-    Легенда
-</strong>
-
-<p>
-    Набрать 1000 очков
-</p>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<!-- ==================================================
-     SHOP
-================================================== -->
-
-<section
-    class="section"
-    id="shop">
-
-<div class="section-title">
-
-<h2>
-    🛒 Магазин
-</h2>
-
-</div>
-
-
-<p style="color:var(--muted);">
-    Здесь в будущем можно будет покупать темы,
-    аватары, эффекты и другие предметы за игровые очки.
-</p>
-
-<br>
-
-<button
-    class="btn"
-    onclick="alert('🛒 Магазин EasyFlow скоро будет доступен!')">
-
-    Открыть магазин
-
-</button>
-
-</section>
-
-
-<!-- ==================================================
-     PROFILE
-================================================== -->
-
-<section
-    class="section"
-    id="profile">
-
-<div class="section-title">
-
-<h2>
-    👤 Профиль игрока
-</h2>
-
-</div>
-
-
-<div class="profile-box">
-
-<div class="big-avatar" id="bigAvatar">
-    ?
-</div>
-
-
-<div class="profile-info">
-
-<h2 id="fullProfileName">
-    Гость
-</h2>
-
-<p>
-    🎮 Игр сыграно:
-    <strong id="profileGames">0</strong>
-</p>
-
-<p>
-    🏆 Побед:
-    <strong id="profileWins">0</strong>
-</p>
-
-<p>
-    ⭐ Очков:
-    <strong id="profilePoints">0</strong>
-</p>
-
-<p>
-    📅 Статус:
-    <span class="badge blue">
-        Игрок
-    </span>
-</p>
-
-<br>
-
-<button
-    class="btn"
-    onclick="logout()">
-
-    🚪 Выйти
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ==================================================
-     SETTINGS
-================================================== -->
-
-<section
-    class="section"
-    id="settings">
-
-<div class="section-title">
-
-<h2>
-    ⚙️ Настройки
-</h2>
-
-</div>
-
-
-<div class="settings">
-
-
-<div class="setting">
-
-<label>
-    🌙 Тема
-</label>
-
-<select id="themeSelect"
-        onchange="changeTheme(this.value)">
-
-<option value="light">
-    Светлая
-</option>
-
-<option value="dark">
-    Тёмная
-</option>
-
-</select>
-
-</div>
-
-
-<div class="setting">
-
-<label>
-    🎨 Основной цвет
-</label>
-
-<input
-    type="color"
-    id="colorSelect"
-    value="#2563eb"
-    onchange="changeColor(this.value)">
-
-</div>
-
-
-<div class="setting">
-
-<label>
-    🔵 Скругление
-</label>
-
-<select id="radiusSelect"
-        onchange="changeRadius(this.value)">
-
-<option value="10px">
-    Маленькое
-</option>
-
-<option value="16px" selected>
-    Среднее
-</option>
-
-<option value="24px">
-    Большое
-</option>
-
-</select>
-
-</div>
-
-
-<div class="setting">
-
-<label>
-    🔤 Шрифт
-</label>
-
-<select id="fontSelect"
-        onchange="changeFont(this.value)">
-
-<option value="Arial, sans-serif">
-    Arial
-</option>
-
-<option value="Verdana, sans-serif">
-    Verdana
-</option>
-
-<option value="Tahoma, sans-serif">
-    Tahoma
-</option>
-
-</select>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<!-- ==================================================
-     ADMIN
-================================================== -->
-
-<section
-    class="section admin-section"
-    id="admin">
-
-<div class="section-title">
-
-<h2>
-    🛡️ Панель администратора
-</h2>
-
-</div>
-
-
-<div class="admin-warning">
-
-⚠️ Администратор может блокировать и разблокировать игроков.
-
-</div>
-
-
-<div class="table-wrapper">
-
-<table>
-
-<thead>
-
-<tr>
-    <th>Игрок</th>
-    <th>Роль</th>
-    <th>Статус</th>
-    <th>Действие</th>
-</tr>
-
-</thead>
-
-
-<tbody id="adminTable">
-
-</tbody>
-
-</table>
-
-</div>
-
-</section>
-
+    <div class="description">
+        Описание сайта
+    </div>
 
 </main>
 
+</div>
 
-<footer>
 
-© 2026 EasyFlow — Игровая платформа
+<!-- =====================================================
+     ИГРА
+===================================================== -->
 
-</footer>
+<div id="gameModal" class="modal hidden">
+
+<div class="modal-box">
+
+    <h2 id="gameTitle"></h2>
+
+    <select id="difficulty"
+            class="difficulty">
+
+        <option value="easy">
+            🟢 Легкая
+        </option>
+
+        <option value="normal">
+            🟡 Средняя
+        </option>
+
+        <option value="hard">
+            🔴 Сложная
+        </option>
+
+    </select>
+
+    <div id="gameContent"></div>
+
+    <button class="close"
+            onclick="closeGame()">
+        Закрыть
+    </button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     ПРОФИЛЬ
+===================================================== -->
+
+<div id="profileModal" class="modal hidden">
+
+<div class="modal-box profile-box">
+
+    <h2>👤 Профиль</h2>
+
+    <div id="profileInfo"></div>
+
+    <h3>📊 Статистика</h3>
+
+    <div class="stat-grid">
+
+        <div class="stat">
+            <b id="profileGames">0</b>
+            Игр
+        </div>
+
+        <div class="stat">
+            <b id="profileWins">0</b>
+            Побед
+        </div>
+
+        <div class="stat">
+            <b id="profilePoints">0</b>
+            Очков
+        </div>
+
+    </div>
+
+    <button class="close"
+            onclick="closeModal('profileModal')">
+        Закрыть
+    </button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     ДОСТИЖЕНИЯ
+===================================================== -->
+
+<div id="achievementsModal" class="modal hidden">
+
+<div class="modal-box">
+
+    <h2>🏆 Достижения</h2>
+
+    <div id="achievementList"></div>
+
+    <button class="close"
+            onclick="closeModal('achievementsModal')">
+        Закрыть
+    </button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     НАСТРОЙКИ
+===================================================== -->
+
+<div id="settingsModal" class="modal hidden">
+
+<div class="modal-box settings">
+
+    <h2>⚙️ Настройка магазина</h2>
+
+    <label>🔤 Шрифт сайта</label>
+
+    <select id="fontSelect">
+
+        <option value="Arial">
+            Arial
+        </option>
+
+        <option value="Verdana">
+            Verdana
+        </option>
+
+        <option value="Georgia">
+            Georgia
+        </option>
+
+        <option value="Times New Roman">
+            Times New Roman
+        </option>
+
+        <option value="Courier New">
+            Courier New
+        </option>
+
+        <option value="Trebuchet MS">
+            Trebuchet MS
+        </option>
+
+    </select>
+
+
+    <label>🎨 Цвет кнопок</label>
+
+    <input id="buttonColor"
+           type="color"
+           value="#171717">
+
+
+    <label>🔊 Звуки</label>
+
+    <select id="soundSelect">
+
+        <option value="on">
+            Включены
+        </option>
+
+        <option value="off">
+            Выключены
+        </option>
+
+    </select>
+
+
+    <button class="main-btn"
+            style="width:100%;margin-top:20px"
+            onclick="saveSettings()">
+        Сохранить
+    </button>
+
+    <button class="close"
+            onclick="closeModal('settingsModal')">
+        Закрыть
+    </button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     АДМИН
+===================================================== -->
+
+<div id="adminSite" class="hidden">
+
+<header>
+
+<div class="header">
+
+    <div class="logo">
+        easyflow 👑 ADMIN
+    </div>
+
+    <button onclick="logout()">
+        Выход
+    </button>
+
+</div>
+
+</header>
+
+
+<div class="admin">
+
+    <h1>👑 Панель администратора</h1>
+
+    <p>
+        Администратор: <b>Aldik</b>
+    </p>
+
+
+    <div class="admin-stats">
+
+        <div class="stat">
+            <b id="adminUsers">0</b>
+            Игроков
+        </div>
+
+        <div class="stat">
+            <b id="adminGames">0</b>
+            Игр сыграно
+        </div>
+
+        <div class="stat">
+            <b id="adminWins">0</b>
+            Побед
+        </div>
+
+    </div>
+
+
+    <h2>👥 Зарегистрированные игроки</h2>
+
+    <div style="overflow:auto">
+
+        <table>
+
+            <thead>
+
+            <tr>
+                <th>#</th>
+                <th>Игрок</th>
+                <th>Дата регистрации</th>
+                <th>Игр</th>
+                <th>Побед</th>
+                <th>Очки</th>
+            </tr>
+
+            </thead>
+
+            <tbody id="playersTable"></tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</div>
 
 
 <script>
 
-/* ==================================================
-   USERS
-================================================== */
+/* =====================================================
+   НАСТРОЙКИ
+===================================================== */
 
-/*
-   Если пользователей ещё нет,
-   создаём демонстрационные данные.
-*/
+const ADMIN_NAME = "Aldik";
+const ADMIN_PASSWORD = "112233";
 
-function getUsers() {
+let currentGame = "";
+let audioCtx = null;
 
-    try {
+let tetrisTimer = null;
+let snakeTimer = null;
+let flappyTimer = null;
 
-        return JSON.parse(
-            localStorage.getItem(
-                "easyflow_users"
-            )
-        ) || [];
 
-    } catch {
+/* =====================================================
+   AUDIO
+===================================================== */
 
-        return [];
+function sound(freq=500,duration=.08,type="square"){
 
-    }
+    if(localStorage.getItem("sound") === "off")
+        return;
+
+    try{
+
+        if(!audioCtx)
+            audioCtx =
+                new (window.AudioContext ||
+                window.webkitAudioContext)();
+
+        const osc =
+            audioCtx.createOscillator();
+
+        const gain =
+            audioCtx.createGain();
+
+        osc.type=type;
+        osc.frequency.value=freq;
+
+        gain.gain.setValueAtTime(
+            .08,
+            audioCtx.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            audioCtx.currentTime+duration
+        );
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(
+            audioCtx.currentTime+duration
+        );
+
+    }catch(e){}
 
 }
 
 
-function saveUsers(users) {
+/* =====================================================
+   USERS
+===================================================== */
+
+function users(){
+
+    return JSON.parse(
+        localStorage.getItem("easyflowUsers") || "[]"
+    );
+
+}
+
+function saveUsers(data){
 
     localStorage.setItem(
-        "easyflow_users",
-        JSON.stringify(users)
+        "easyflowUsers",
+        JSON.stringify(data)
     );
 
 }
 
 
-/*
-   Демонстрационные игроки.
-*/
+/* =====================================================
+   AUTH
+===================================================== */
 
-function createDemoUsers() {
+function showLogin(){
 
-    let users = getUsers();
+    document.getElementById("loginPage")
+        .classList.remove("hidden");
 
-    if (users.length > 0) {
+    document.getElementById("registerPage")
+        .classList.add("hidden");
+
+    document.getElementById("site")
+        .classList.add("hidden");
+
+    document.getElementById("adminSite")
+        .classList.add("hidden");
+
+}
+
+function showRegister(){
+
+    document.getElementById("loginPage")
+        .classList.add("hidden");
+
+    document.getElementById("registerPage")
+        .classList.remove("hidden");
+
+}
+
+function register(){
+
+    const name =
+        document.getElementById("regName")
+        .value.trim();
+
+    const pass =
+        document.getElementById("regPass")
+        .value;
+
+    const pass2 =
+        document.getElementById("regPass2")
+        .value;
+
+    const error =
+        document.getElementById("regError");
+
+    error.textContent="";
+
+
+    if(name.length<3){
+
+        error.textContent=
+            "Имя минимум 3 символа.";
+
         return;
     }
 
-    users = [
+    if(pass.length<4){
 
-        {
-            id: 1,
-            name: "Администратор",
-            role: "admin",
-            blocked: false,
-            games: 25,
-            wins: 18,
-            points: 1250
-        },
+        error.textContent=
+            "Пароль минимум 4 символа.";
 
-        {
-            id: 2,
-            name: "Алексей",
-            role: "player",
-            blocked: false,
-            games: 17,
-            wins: 10,
-            points: 740
-        },
+        return;
+    }
 
-        {
-            id: 3,
-            name: "Мария",
-            role: "player",
-            blocked: false,
-            games: 13,
-            wins: 8,
-            points: 620
-        },
+    if(pass!==pass2){
 
-        {
-            id: 4,
-            name: "Иван",
-            role: "player",
-            blocked: false,
-            games: 9,
-            wins: 5,
-            points: 410
-        }
+        error.textContent=
+            "Пароли не совпадают.";
 
-    ];
+        return;
+    }
 
-    saveUsers(users);
+    if(name.toLowerCase()===
+       ADMIN_NAME.toLowerCase()){
+
+        error.textContent=
+            "Это имя занято.";
+
+        return;
+    }
+
+
+    const list=users();
+
+    if(list.some(
+        u=>u.name.toLowerCase()===name.toLowerCase()
+    )){
+
+        error.textContent=
+            "Такой пользователь уже есть.";
+
+        return;
+    }
+
+
+    list.push({
+
+        name:name,
+        password:pass,
+
+        registered:
+            new Date().toLocaleString("ru-RU"),
+
+        games:0,
+        wins:0,
+        points:0,
+
+        stats:[]
+
+    });
+
+
+    saveUsers(list);
+
+    sound(700);
+
+    alert("Регистрация выполнена!");
+
+    showLogin();
 
 }
 
 
-/* ==================================================
-   CURRENT USER
-================================================== */
+function login(){
 
-function getCurrentUser() {
+    const name =
+        document.getElementById("loginName")
+        .value.trim();
 
-    try {
+    const pass =
+        document.getElementById("loginPass")
+        .value;
 
-        return JSON.parse(
-            localStorage.getItem(
-                "easyflow_current_user"
+    const error =
+        document.getElementById("loginError");
+
+
+    if(
+        name===ADMIN_NAME &&
+        pass===ADMIN_PASSWORD
+    ){
+
+        localStorage.setItem(
+            "easyflowCurrent",
+            "ADMIN"
+        );
+
+        showAdmin();
+
+        return;
+    }
+
+
+    const user =
+        users().find(
+            u=>u.name===name &&
+               u.password===pass
+        );
+
+
+    if(!user){
+
+        error.textContent=
+            "Неверное имя или пароль.";
+
+        sound(150,.15);
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "easyflowCurrent",
+        name
+    );
+
+    showSite();
+
+}
+
+
+function logout(){
+
+    localStorage.removeItem(
+        "easyflowCurrent"
+    );
+
+    stopAllGames();
+
+    showLogin();
+
+}
+
+
+/* =====================================================
+   SHOW SITE
+===================================================== */
+
+function showSite(){
+
+    document.getElementById("loginPage")
+        .classList.add("hidden");
+
+    document.getElementById("registerPage")
+        .classList.add("hidden");
+
+    document.getElementById("adminSite")
+        .classList.add("hidden");
+
+    document.getElementById("site")
+        .classList.remove("hidden");
+
+    applySettings();
+
+}
+
+
+function showAdmin(){
+
+    document.getElementById("loginPage")
+        .classList.add("hidden");
+
+    document.getElementById("registerPage")
+        .classList.add("hidden");
+
+    document.getElementById("site")
+        .classList.add("hidden");
+
+    document.getElementById("adminSite")
+        .classList.remove("hidden");
+
+    loadAdmin();
+
+}
+
+
+/* =====================================================
+   GAME MODAL
+===================================================== */
+
+function openGame(name){
+
+    currentGame=name;
+
+    document.getElementById("gameTitle")
+        .textContent=name;
+
+    document.getElementById("gameContent")
+        .innerHTML="";
+
+    document.getElementById("gameModal")
+        .classList.remove("hidden");
+
+
+    if(name==="Тетрис")
+        createTetris();
+
+    if(name==="Змейка")
+        createSnake();
+
+    if(name==="Flappy Bird")
+        createFlappy();
+
+    if(name==="Игра на память")
+        createMemory();
+
+    if(name==="Крестики-нолики")
+        createTicTacToe();
+
+    if(name==="Сапер")
+        createMinesweeper();
+
+}
+
+
+function closeGame(){
+
+    stopAllGames();
+
+    document.getElementById("gameModal")
+        .classList.add("hidden");
+
+}
+
+
+function stopAllGames(){
+
+    clearInterval(tetrisTimer);
+    clearInterval(snakeTimer);
+    clearInterval(flappyTimer);
+
+    tetrisTimer=null;
+    snakeTimer=null;
+    flappyTimer=null;
+
+}
+
+
+/* =====================================================
+   SAVE RESULT
+===================================================== */
+
+function result(points){
+
+    const name =
+        localStorage.getItem(
+            "easyflowCurrent"
+        );
+
+    if(!name || name==="ADMIN")
+        return;
+
+    const list=users();
+
+    const i=list.findIndex(
+        u=>u.name===name
+    );
+
+    if(i<0)return;
+
+    list[i].games++;
+    list[i].wins++;
+    list[i].points+=points;
+
+    list[i].stats.push({
+
+        game:currentGame,
+
+        difficulty:
+            document.getElementById(
+                "difficulty"
+            ).value,
+
+        points:points,
+
+        date:
+            new Date().toLocaleString("ru-RU")
+
+    });
+
+    saveUsers(list);
+
+    sound(900,.12);
+
+}
+
+
+/* =====================================================
+   TETRIS
+===================================================== */
+
+let T=null;
+
+const pieces=[
+    [[1,1,1,1]],
+
+    [[1,1],
+     [1,1]],
+
+    [[0,1,0],
+     [1,1,1]],
+
+    [[1,0,0],
+     [1,1,1]],
+
+    [[0,0,1],
+     [1,1,1]],
+
+    [[0,1,1],
+     [1,1,0]],
+
+    [[1,1,0],
+     [0,1,1]]
+];
+
+
+function createTetris(){
+
+    const c=document.getElementById("gameContent");
+
+    c.innerHTML=`
+
+        <div class="game-area">
+
+            <div class="game-info">
+                Очки: <b id="tetrisScore">0</b>
+            </div>
+
+            <canvas
+                id="tetrisCanvas"
+                width="240"
+                height="400">
+            </canvas>
+
+            <div class="game-controls">
+
+                <div class="control-row">
+
+                    <button onclick="tMove(-1)">
+                        ◀
+                    </button>
+
+                    <button onclick="tRotate()">
+                        ⟳
+                    </button>
+
+                    <button onclick="tMove(1)">
+                        ▶
+                    </button>
+
+                </div>
+
+                <div class="control-row">
+
+                    <button onclick="tDrop()">
+                        ▼
+                    </button>
+
+                </div>
+
+            </div>
+
+            <small>
+                Клавиатура: ← → ↑ ↓
+            </small>
+
+        </div>
+
+    `;
+
+    const canvas=
+        document.getElementById("tetrisCanvas");
+
+    const ctx=canvas.getContext("2d");
+
+    const rows=20;
+    const cols=12;
+    const size=20;
+
+    T={
+        ctx,
+        rows,
+        cols,
+        size,
+        board:Array.from(
+            {length:rows},
+            ()=>Array(cols).fill(0)
+        ),
+        piece:null,
+        x:4,
+        y:0,
+        score:0
+    };
+
+    spawnTetris();
+
+    const speed =
+        document.getElementById("difficulty").value==="easy"
+        ? 650
+        : document.getElementById("difficulty").value==="normal"
+        ? 450
+        : 280;
+
+    tetrisTimer=setInterval(
+        tDrop,
+        speed
+    );
+
+    drawTetris();
+
+}
+
+
+function spawnTetris(){
+
+    T.piece =
+        pieces[
+            Math.floor(
+                Math.random()*pieces.length
+            )
+        ].map(r=>r.slice());
+
+    T.x=4;
+    T.y=0;
+
+    if(collisionTetris()){
+
+        alert(
+            "Игра окончена! Очки: "+T.score
+        );
+
+        stopAllGames();
+
+    }
+
+}
+
+
+function collisionTetris(){
+
+    for(let y=0;y<T.piece.length;y++){
+
+        for(let x=0;x<T.piece[y].length;x++){
+
+            if(!T.piece[y][x])continue;
+
+            const nx=T.x+x;
+            const ny=T.y+y;
+
+            if(
+                nx<0 ||
+                nx>=T.cols ||
+                ny>=T.rows ||
+                (ny>=0 && T.board[ny][nx])
+            )
+                return true;
+
+        }
+
+    }
+
+    return false;
+
+}
+
+
+function mergeTetris(){
+
+    T.piece.forEach(
+        (row,y)=>
+        row.forEach(
+            (v,x)=>{
+                if(v)
+                    T.board[T.y+y][T.x+x]=1;
+            }
+        )
+    );
+
+}
+
+
+function clearLines(){
+
+    let count=0;
+
+    for(let y=T.rows-1;y>=0;y--){
+
+        if(T.board[y].every(Boolean)){
+
+            T.board.splice(y,1);
+
+            T.board.unshift(
+                Array(T.cols).fill(0)
+            );
+
+            count++;
+            y++;
+
+        }
+
+    }
+
+    if(count){
+
+        T.score+=count*100;
+
+        sound(700,.12);
+
+        document.getElementById(
+            "tetrisScore"
+        ).textContent=T.score;
+
+        if(T.score>=500)
+            result(50);
+
+    }
+
+}
+
+
+function tDrop(){
+
+    if(!T)return;
+
+    T.y++;
+
+    if(collisionTetris()){
+
+        T.y--;
+
+        mergeTetris();
+
+        clearLines();
+
+        spawnTetris();
+
+    }
+
+    drawTetris();
+
+}
+
+
+function tMove(dir){
+
+    if(!T)return;
+
+    T.x+=dir;
+
+    if(collisionTetris())
+        T.x-=dir;
+    else
+        sound(250,.04);
+
+    drawTetris();
+
+}
+
+
+function tRotate(){
+
+    if(!T)return;
+
+    const old=T.piece;
+
+    const rotated =
+        old[0].map(
+            (_,i)=>
+            old.map(
+                row=>row[i]
+            ).reverse()
+        );
+
+    T.piece=rotated;
+
+    if(collisionTetris())
+        T.piece=old;
+    else
+        sound(500,.06);
+
+    drawTetris();
+
+}
+
+
+function drawTetris(){
+
+    if(!T)return;
+
+    const ctx=T.ctx;
+
+    ctx.fillStyle="#050505";
+    ctx.fillRect(
+        0,0,
+        T.cols*T.size,
+        T.rows*T.size
+    );
+
+    ctx.strokeStyle="#222";
+
+    for(let x=0;x<=T.cols;x++){
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            x*T.size,0
+        );
+
+        ctx.lineTo(
+            x*T.size,
+            T.rows*T.size
+        );
+
+        ctx.stroke();
+
+    }
+
+    for(let y=0;y<=T.rows;y++){
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            0,y*T.size
+        );
+
+        ctx.lineTo(
+            T.cols*T.size,
+            y*T.size
+        );
+
+        ctx.stroke();
+
+    }
+
+
+    function block(x,y,color="#22ccff"){
+
+        ctx.fillStyle=color;
+
+        ctx.fillRect(
+            x*T.size+1,
+            y*T.size+1,
+            T.size-2,
+            T.size-2
+        );
+
+    }
+
+
+    T.board.forEach(
+        (row,y)=>
+        row.forEach(
+            (v,x)=>{
+                if(v)
+                    block(x,y);
+            }
+        )
+    );
+
+
+    T.piece.forEach(
+        (row,y)=>
+        row.forEach(
+            (v,x)=>{
+                if(v)
+                    block(
+                        T.x+x,
+                        T.y+y,
+                        "#ffcc00"
+                    );
+            }
+        )
+    );
+
+}
+
+
+/* =====================================================
+   SNAKE
+===================================================== */
+
+let S=null;
+
+
+function createSnake(){
+
+    const c=document.getElementById("gameContent");
+
+    c.innerHTML=`
+
+        <div class="game-area">
+
+            <div class="game-info">
+                Очки: <b id="snakeScore">0</b>
+            </div>
+
+            <canvas
+                id="snakeCanvas"
+                width="360"
+                height="360">
+            </canvas>
+
+            <div class="game-controls">
+
+                <div class="control-row">
+
+                    <button onclick="snakeDir('up')">
+                        ▲
+                    </button>
+
+                </div>
+
+                <div class="control-row">
+
+                    <button onclick="snakeDir('left')">
+                        ◀
+                    </button>
+
+                    <button onclick="snakeDir('down')">
+                        ▼
+                    </button>
+
+                    <button onclick="snakeDir('right')">
+                        ▶
+                    </button>
+
+                </div>
+
+            </div>
+
+            <small>
+                Клавиатура: стрелки
+            </small>
+
+        </div>
+
+    `;
+
+
+    const canvas=
+        document.getElementById(
+            "snakeCanvas"
+        );
+
+    const ctx=canvas.getContext("2d");
+
+    const speed =
+        document.getElementById("difficulty").value==="easy"
+        ? 180
+        : document.getElementById("difficulty").value==="normal"
+        ? 120
+        : 75;
+
+
+    S={
+
+        ctx,
+
+        snake:[
+            {x:8,y:8},
+            {x:7,y:8},
+            {x:6,y:8}
+        ],
+
+        dir:{x:1,y:0},
+
+        food:{x:12,y:12},
+
+        score:0
+
+    };
+
+
+    newFood();
+
+    snakeTimer=setInterval(
+        snakeTick,
+        speed
+    );
+
+    drawSnake();
+
+}
+
+
+function snakeDir(d){
+
+    if(!S)return;
+
+    const dirs={
+
+        up:{x:0,y:-1},
+        down:{x:0,y:1},
+        left:{x:-1,y:0},
+        right:{x:1,y:0}
+
+    };
+
+    const n=dirs[d];
+
+    if(
+        n.x===-S.dir.x &&
+        n.y===-S.dir.y
+    )
+        return;
+
+    S.dir=n;
+
+}
+
+
+function newFood(){
+
+    S.food={
+
+        x:Math.floor(
+            Math.random()*18
+        ),
+
+        y:Math.floor(
+            Math.random()*18
+        )
+
+    };
+
+}
+
+
+function snakeTick(){
+
+    const head={
+
+        x:S.snake[0].x+S.dir.x,
+
+        y:S.snake[0].y+S.dir.y
+
+    };
+
+
+    if(
+        head.x<0 ||
+        head.x>=18 ||
+        head.y<0 ||
+        head.y>=18 ||
+        S.snake.some(
+            p=>p.x===head.x &&
+               p.y===head.y
+        )
+    ){
+
+        clearInterval(snakeTimer);
+
+        alert(
+            "Змейка закончилась! Очки: "+
+            S.score
+        );
+
+        return;
+
+    }
+
+
+    S.snake.unshift(head);
+
+
+    if(
+        head.x===S.food.x &&
+        head.y===S.food.y
+    ){
+
+        S.score+=10;
+
+        document.getElementById(
+            "snakeScore"
+        ).textContent=S.score;
+
+        sound(800,.08);
+
+        newFood();
+
+        if(S.score>=100)
+            result(40);
+
+    }else{
+
+        S.snake.pop();
+
+    }
+
+
+    drawSnake();
+
+}
+
+
+function drawSnake(){
+
+    if(!S)return;
+
+    const ctx=S.ctx;
+
+    ctx.fillStyle="#050505";
+
+    ctx.fillRect(
+        0,0,360,360
+    );
+
+
+    ctx.fillStyle="#ff4444";
+
+    ctx.fillRect(
+        S.food.x*20,
+        S.food.y*20,
+        19,
+        19
+    );
+
+
+    S.snake.forEach(
+        (p,i)=>{
+
+            ctx.fillStyle =
+                i===0
+                ? "#00ff66"
+                : "#00bb55";
+
+            ctx.fillRect(
+                p.x*20,
+                p.y*20,
+                19,
+                19
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   FLAPPY BIRD
+===================================================== */
+
+function createFlappy(){
+
+    const c=document.getElementById("gameContent");
+
+    c.innerHTML=`
+
+        <div class="game-area">
+
+            <div class="game-info">
+                Очки: <b id="flappyScore">0</b>
+            </div>
+
+            <canvas
+                id="flappyCanvas"
+                width="360"
+                height="500">
+            </canvas>
+
+            <button class="main-btn"
+                    onclick="flappyJump()">
+                🐦 Прыжок
+            </button>
+
+        </div>
+
+    `;
+
+
+    const canvas=
+        document.getElementById(
+            "flappyCanvas"
+        );
+
+    const ctx=canvas.getContext("2d");
+
+
+    F={
+
+        ctx,
+
+        y:250,
+
+        velocity:0,
+
+        score:0,
+
+        pipeX:360,
+
+        gap:145,
+
+        running:true
+
+    };
+
+
+    flappyTimer=setInterval(
+        flappyTick,
+        30
+    );
+
+    drawFlappy();
+
+}
+
+
+let F=null;
+
+
+function flappyJump(){
+
+    if(!F)return;
+
+    F.velocity=-7;
+
+    sound(550,.05);
+
+}
+
+
+function flappyTick(){
+
+    if(!F || !F.running)return;
+
+    F.velocity+=.35;
+
+    F.y+=F.velocity;
+
+    F.pipeX-=3;
+
+
+    if(F.pipeX<-60){
+
+        F.pipeX=360;
+
+        F.score++;
+
+        document.getElementById(
+            "flappyScore"
+        ).textContent=F.score;
+
+    }
+
+
+    if(
+        F.y<0 ||
+        F.y>480
+    ){
+
+        flappyEnd();
+        return;
+
+    }
+
+
+    drawFlappy();
+
+}
+
+
+function flappyEnd(){
+
+    F.running=false;
+
+    clearInterval(flappyTimer);
+
+    alert(
+        "Flappy Bird: "+F.score
+    );
+
+}
+
+
+function drawFlappy(){
+
+    const ctx=F.ctx;
+
+    ctx.fillStyle="#72d9ff";
+
+    ctx.fillRect(
+        0,0,360,500
+    );
+
+
+    ctx.fillStyle="#ffdd00";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        90,F.y,
+        15,0,Math.PI*2
+    );
+
+    ctx.fill();
+
+
+    ctx.fillStyle="#22aa44";
+
+    ctx.fillRect(
+        F.pipeX,
+        0,
+        55,
+        150
+    );
+
+    ctx.fillRect(
+        F.pipeX,
+        350,
+        55,
+        150
+    );
+
+}
+
+
+/* =====================================================
+   MEMORY
+===================================================== */
+
+function createMemory(){
+
+    const c=document.getElementById("gameContent");
+
+    const symbols=[
+        "🍎","🍎",
+        "🚀","🚀",
+        "⭐","⭐",
+        "🐱","🐱",
+        "⚽","⚽",
+        "🎵","🎵",
+        "🔥","🔥",
+        "💎","💎"
+    ];
+
+    symbols.sort(
+        ()=>Math.random()-.5
+    );
+
+
+    c.innerHTML=`
+
+        <div class="game-area">
+
+            <p>
+                Найдите одинаковые пары
+            </p>
+
+            <div
+                class="memory-grid"
+                id="memoryGrid">
+            </div>
+
+        </div>
+
+    `;
+
+
+    const grid=
+        document.getElementById(
+            "memoryGrid"
+        );
+
+    let opened=[];
+    let matched=0;
+
+
+    symbols.forEach(
+        (symbol,i)=>{
+
+            const btn=
+                document.createElement(
+                    "button"
+                );
+
+            btn.className=
+                "memory-card";
+
+            btn.textContent="?";
+
+
+            btn.onclick=()=>{
+
+                if(
+                    opened.length===2 ||
+                    btn.classList.contains("open")
+                )
+                    return;
+
+
+                btn.classList.add("open");
+
+                btn.textContent=symbol;
+
+                opened.push({
+                    btn,
+                    symbol
+                });
+
+                sound(400,.04);
+
+
+                if(opened.length===2){
+
+                    if(
+                        opened[0].symbol===
+                        opened[1].symbol
+                    ){
+
+                        matched++;
+
+                        opened=[];
+
+                        sound(900,.1);
+
+
+                        if(matched===8){
+
+                            result(100);
+
+                            alert(
+                                "🎉 Все пары найдены!"
+                            );
+
+                        }
+
+                    }else{
+
+                        setTimeout(
+                            ()=>{
+
+                                opened.forEach(
+                                    x=>{
+                                        x.btn.classList
+                                            .remove("open");
+
+                                        x.btn.textContent="?";
+                                    }
+                                );
+
+                                opened=[];
+
+                            },
+                            700
+                        );
+
+                    }
+
+                }
+
+            };
+
+
+            grid.appendChild(btn);
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   TIC TAC TOE
+===================================================== */
+
+function createTicTacToe(){
+
+    const c=document.getElementById("gameContent");
+
+    c.innerHTML=`
+
+        <div class="game-area">
+
+            <h3 id="tttStatus">
+                Ваш ход: X
+            </h3>
+
+            <div
+                class="ttt"
+                id="tttBoard">
+            </div>
+
+        </div>
+
+    `;
+
+
+    let board=Array(9).fill("");
+
+    let gameOver=false;
+
+    const el=
+        document.getElementById(
+            "tttBoard"
+        );
+
+
+    function render(){
+
+        el.innerHTML="";
+
+
+        board.forEach(
+            (v,i)=>{
+
+                const b=
+                    document.createElement(
+                        "button"
+                    );
+
+                b.textContent=v;
+
+                b.onclick=()=>{
+
+                    if(
+                        gameOver ||
+                        board[i]
+                    )
+                        return;
+
+                    board[i]="X";
+
+                    sound(500,.05);
+
+                    if(check("X")){
+
+                        gameOver=true;
+
+                        result(50);
+
+                        document.getElementById(
+                            "tttStatus"
+                        ).textContent=
+                            "🎉 Вы победили!";
+
+                        return;
+
+                    }
+
+
+                    if(
+                        board.every(Boolean)
+                    ){
+
+                        gameOver=true;
+
+                        document.getElementById(
+                            "tttStatus"
+                        ).textContent=
+                            "Ничья";
+
+                        return;
+
+                    }
+
+
+                    computer();
+
+                    render();
+
+                };
+
+
+                el.appendChild(b);
+
+            }
+        );
+
+    }
+
+
+    function computer(){
+
+        const free=
+            board
+            .map((v,i)=>v?null:i)
+            .filter(x=>x!==null);
+
+        if(!free.length)return;
+
+        const i=
+            free[
+                Math.floor(
+                    Math.random()*free.length
+                )
+            ];
+
+        board[i]="O";
+
+        sound(250,.05);
+
+
+        if(check("O")){
+
+            gameOver=true;
+
+            document.getElementById(
+                "tttStatus"
+            ).textContent=
+                "Победил компьютер";
+
+        }
+
+    }
+
+
+    function check(p){
+
+        const wins=[
+
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+
+            [0,4,8],
+            [2,4,6]
+
+        ];
+
+        return wins.some(
+            w=>w.every(
+                i=>board[i]===p
             )
         );
 
-    } catch {
+    }
 
-        return null;
+
+    render();
+
+}
+
+
+/* =====================================================
+   САПЕР
+===================================================== */
+
+function createMinesweeper(){
+
+    const c=document.getElementById("gameContent");
+
+    c.innerHTML=`
+
+        <div class="game-area">
+
+            <p>
+                Найдите безопасные клетки.
+            </p>
+
+            <div
+                id="mineBoard"
+                style="
+                display:grid;
+                grid-template-columns:
+                repeat(8,35px);
+                gap:3px;
+                justify-content:center">
+            </div>
+
+        </div>
+
+    `;
+
+
+    const board=
+        document.getElementById(
+            "mineBoard"
+        );
+
+    const mines=new Set();
+
+
+    while(mines.size<10){
+
+        mines.add(
+            Math.floor(
+                Math.random()*64
+            )
+        );
+
+    }
+
+
+    let opened=0;
+
+
+    for(let i=0;i<64;i++){
+
+        const b=
+            document.createElement(
+                "button"
+            );
+
+        b.style.width="35px";
+        b.style.height="35px";
+        b.textContent="?";
+
+        b.onclick=()=>{
+
+            if(b.disabled)return;
+
+            b.disabled=true;
+
+            if(mines.has(i)){
+
+                b.textContent="💣";
+
+                b.style.background="red";
+
+                sound(100,.3);
+
+                alert("💥 Вы попали на мину!");
+
+            }else{
+
+                b.textContent="✓";
+
+                b.style.background="#9f9";
+
+                opened++;
+
+                sound(700,.04);
+
+
+                if(opened>=54){
+
+                    result(100);
+
+                    alert(
+                        "🎉 Сапёр пройден!"
+                    );
+
+                }
+
+            }
+
+        };
+
+
+        board.appendChild(b);
 
     }
 
 }
 
 
-function setCurrentUser(user) {
+/* =====================================================
+   PROFILE
+===================================================== */
 
-    localStorage.setItem(
-        "easyflow_current_user",
-        JSON.stringify(user)
-    );
+function openProfile(){
 
-}
+    const name=
+        localStorage.getItem(
+            "easyflowCurrent"
+        );
 
+    const user=
+        users().find(
+            u=>u.name===name
+        );
 
-/* ==================================================
-   USER DISPLAY
-================================================== */
-
-function showUser() {
-
-    const user = getCurrentUser();
-
-    const name =
-        user && user.name
-            ? user.name
-            : "Гость";
-
-    document.getElementById(
-        "profileName"
-    ).textContent = name;
-
-    document.getElementById(
-        "fullProfileName"
-    ).textContent = name;
-
-
-    const letter =
-        name.charAt(0).toUpperCase();
+    if(!user)return;
 
 
     document.getElementById(
-        "miniAvatar"
-    ).textContent = letter;
+        "profileInfo"
+    ).innerHTML=`
 
-    document.getElementById(
-        "bigAvatar"
-    ).textContent = letter;
+        <p>
+            <b>Игрок:</b> ${user.name}
+        </p>
 
-}
+        <p>
+            <b>Регистрация:</b>
+            ${user.registered}
+        </p>
 
-
-/* ==================================================
-   STATISTICS
-================================================== */
-
-function showStatistics() {
-
-    const user = getCurrentUser();
-
-    if (!user) {
-        return;
-    }
-
-
-    document.getElementById(
-        "gamesPlayed"
-    ).textContent =
-        user.games || 0;
-
-
-    document.getElementById(
-        "wins"
-    ).textContent =
-        user.wins || 0;
-
-
-    document.getElementById(
-        "points"
-    ).textContent =
-        user.points || 0;
+    `;
 
 
     document.getElementById(
         "profileGames"
-    ).textContent =
-        user.games || 0;
-
+    ).textContent=user.games;
 
     document.getElementById(
         "profileWins"
-    ).textContent =
-        user.wins || 0;
-
+    ).textContent=user.wins;
 
     document.getElementById(
         "profilePoints"
-    ).textContent =
-        user.points || 0;
+    ).textContent=user.points;
+
+
+    document.getElementById(
+        "profileModal"
+    ).classList.remove("hidden");
 
 }
 
 
-/* ==================================================
-   PLAYERS
-================================================== */
+/* =====================================================
+   ACHIEVEMENTS
+===================================================== */
 
-function renderPlayers() {
+function openAchievements(){
 
-    const users = getUsers();
-
-    const table =
-        document.getElementById(
-            "playersTable"
+    const name=
+        localStorage.getItem(
+            "easyflowCurrent"
         );
 
+    const user=
+        users().find(
+            u=>u.name===name
+        );
 
-    table.innerHTML = "";
-
-
-    users
-        .sort(
-            (a,b) =>
-                (b.points || 0) -
-                (a.points || 0)
-        )
-        .forEach(function(user) {
-
-            const row =
-                document.createElement("tr");
+    if(!user)return;
 
 
-            const status =
-                user.blocked
-                    ? '<span class="badge red">Заблокирован</span>'
-                    : '<span class="badge green">Активен</span>';
+    const achievements=[
+
+        {
+            title:"🎮 Первый шаг",
+            text:"Сыграть первую игру.",
+            ok:user.games>=1
+        },
+
+        {
+            title:"🏆 Победитель",
+            text:"Одержать 5 побед.",
+            ok:user.wins>=5
+        },
+
+        {
+            title:"⭐ Опытный игрок",
+            text:"Набрать 100 очков.",
+            ok:user.points>=100
+        },
+
+        {
+            title:"🔥 Мастер",
+            text:"Набрать 500 очков.",
+            ok:user.points>=500
+        },
+
+        {
+            title:"👑 Легенда",
+            text:"Набрать 1000 очков.",
+            ok:user.points>=1000
+        }
+
+    ];
 
 
-            row.innerHTML = `
+    document.getElementById(
+        "achievementList"
+    ).innerHTML=
+        achievements.map(
+            a=>`
 
-                <td>
+            <div class="
+                achievement
+                ${a.ok?"":"locked"}
+            ">
 
-                    <div class="player">
+                <b>
+                    ${a.title}
+                </b>
 
-                        <div class="avatar">
-                            ${user.name.charAt(0).toUpperCase()}
-                        </div>
+                ${a.text}
 
-                        <strong>
-                            ${escapeHTML(user.name)}
-                        </strong>
+                <br>
 
-                    </div>
+                ${
+                    a.ok
+                    ? "✅ Получено"
+                    : "🔒 Не получено"
+                }
 
-                </td>
+            </div>
 
-                <td>
-                    ${user.points || 0}
-                </td>
-
-                <td>
-                    ${user.games || 0}
-                </td>
-
-                <td>
-                    ${user.wins || 0}
-                </td>
-
-                <td>
-                    ${status}
-                </td>
-
-            `;
+        `
+        ).join("");
 
 
-            table.appendChild(row);
-
-        });
+    document.getElementById(
+        "achievementsModal"
+    ).classList.remove("hidden");
 
 }
 
 
-/* ==================================================
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+function openSettings(){
+
+    document.getElementById(
+        "fontSelect"
+    ).value=
+        localStorage.getItem(
+            "font"
+        ) || "Arial";
+
+
+    document.getElementById(
+        "buttonColor"
+    ).value=
+        localStorage.getItem(
+            "buttonColor"
+        ) || "#171717";
+
+
+    document.getElementById(
+        "soundSelect"
+    ).value=
+        localStorage.getItem(
+            "sound"
+        ) || "on";
+
+
+    document.getElementById(
+        "settingsModal"
+    ).classList.remove("hidden");
+
+}
+
+
+function saveSettings(){
+
+    localStorage.setItem(
+        "font",
+        document.getElementById(
+            "fontSelect"
+        ).value
+    );
+
+    localStorage.setItem(
+        "buttonColor",
+        document.getElementById(
+            "buttonColor"
+        ).value
+    );
+
+    localStorage.setItem(
+        "sound",
+        document.getElementById(
+            "soundSelect"
+        ).value
+    );
+
+    applySettings();
+
+    sound(700,.08);
+
+    closeModal("settingsModal");
+
+}
+
+
+function applySettings(){
+
+    document.body.style.fontFamily=
+        localStorage.getItem(
+            "font"
+        ) || "Arial";
+
+
+    document.documentElement.style
+        .setProperty(
+            "--btn",
+            localStorage.getItem(
+                "buttonColor"
+            ) || "#171717"
+        );
+
+}
+
+
+function closeModal(id){
+
+    document.getElementById(id)
+        .classList.add("hidden");
+
+}
+
+
+/* =====================================================
    ADMIN
-================================================== */
+===================================================== */
 
-function renderAdmin() {
+function loadAdmin(){
 
-    const current =
-        getCurrentUser();
+    const list=users();
 
-
-    const adminMenu =
-        document.getElementById(
-            "adminMenu"
-        );
+    let games=0;
+    let wins=0;
 
 
-    const adminSection =
-        document.getElementById(
-            "admin"
-        );
-
-
-    /*
-       Только администратор
-       видит админ-панель.
-    */
-
-    if (
-        !current ||
-        current.role !== "admin"
-    ) {
-
-        adminMenu.classList.add(
-            "hidden"
-        );
-
-        adminSection.classList.add(
-            "hidden"
-        );
-
-        return;
-
-    }
-
-
-    adminMenu.classList.remove(
-        "hidden"
-    );
-
-    adminSection.classList.remove(
-        "hidden"
+    list.forEach(
+        u=>{
+            games+=u.games;
+            wins+=u.wins;
+        }
     );
 
 
-    const users = getUsers();
+    document.getElementById(
+        "adminUsers"
+    ).textContent=list.length;
 
-    const table =
-        document.getElementById(
-            "adminTable"
-        );
+    document.getElementById(
+        "adminGames"
+    ).textContent=games;
 
-
-    table.innerHTML = "";
-
-
-    users.forEach(function(user) {
-
-        const row =
-            document.createElement("tr");
+    document.getElementById(
+        "adminWins"
+    ).textContent=wins;
 
 
-        const status =
-            user.blocked
-                ? '<span class="badge red">Заблокирован</span>'
-                : '<span class="badge green">Активен</span>';
+    document.getElementById(
+        "playersTable"
+    ).innerHTML=
+        list.map(
+            (u,i)=>`
+
+            <tr>
+
+                <td>${i+1}</td>
+
+                <td>${u.name}</td>
+
+                <td>${u.registered}</td>
+
+                <td>${u.games}</td>
+
+                <td>${u.wins}</td>
+
+                <td>${u.points}</td>
+
+            </tr>
+
+        `
+        ).join("");
+
+}
 
 
-        let action = "";
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    e=>{
+
+        if(
+            document.getElementById(
+                "gameModal"
+            ).classList.contains("hidden")
+        )
+            return;
 
 
-        if (user.role === "admin") {
+        if(currentGame==="Тетрис"){
 
-            action =
-                '<span class="badge blue">Администратор</span>';
+            if(e.key==="ArrowLeft")
+                tMove(-1);
 
-        } else if (user.blocked) {
+            if(e.key==="ArrowRight")
+                tMove(1);
 
-            action = `
+            if(e.key==="ArrowDown")
+                tDrop();
 
-                <button
-                    class="btn green"
-                    onclick="toggleBlock(${user.id})">
-
-                    Разблокировать
-
-                </button>
-
-            `;
-
-        } else {
-
-            action = `
-
-                <button
-                    class="btn red"
-                    onclick="toggleBlock(${user.id})">
-
-                    Заблокировать
-
-                </button>
-
-            `;
+            if(e.key==="ArrowUp")
+                tRotate();
 
         }
 
 
-        row.innerHTML = `
+        if(currentGame==="Змейка"){
 
-            <td>
-                <strong>
-                    ${escapeHTML(user.name)}
-                </strong>
-            </td>
+            if(e.key==="ArrowUp")
+                snakeDir("up");
 
-            <td>
-                ${user.role === "admin"
-                    ? "🛡️ Админ"
-                    : "👤 Игрок"}
-            </td>
+            if(e.key==="ArrowDown")
+                snakeDir("down");
 
-            <td>
-                ${status}
-            </td>
+            if(e.key==="ArrowLeft")
+                snakeDir("left");
 
-            <td>
-                ${action}
-            </td>
+            if(e.key==="ArrowRight")
+                snakeDir("right");
 
-        `;
+        }
 
 
-        table.appendChild(row);
+        if(currentGame==="Flappy Bird"){
 
-    });
+            if(e.code==="Space"){
 
-}
+                e.preventDefault();
 
+                flappyJump();
 
-/* ==================================================
-   BLOCK / UNBLOCK
-================================================== */
+            }
 
-function toggleBlock(id) {
-
-    const current =
-        getCurrentUser();
-
-
-    if (
-        !current ||
-        current.role !== "admin"
-    ) {
-
-        alert(
-            "Недостаточно прав."
-        );
-
-        return;
+        }
 
     }
+);
 
 
-    const users = getUsers();
-
-    const user =
-        users.find(
-            item => item.id === id
-        );
-
-
-    if (!user) {
-        return;
-    }
-
-
-    if (user.role === "admin") {
-
-        alert(
-            "Администратора нельзя заблокировать."
-        );
-
-        return;
-
-    }
-
-
-    user.blocked =
-        !user.blocked;
-
-
-    saveUsers(users);
-
-
-    renderPlayers();
-    renderAdmin();
-
-
-    alert(
-        user.blocked
-            ? "Игрок заблокирован."
-            : "Игрок разблокирован."
-    );
-
-}
-
-
-/* ==================================================
-   DIFFICULTY
-================================================== */
-
-const selectedDifficulty = {
-
-    tetris: "easy",
-
-    flappy: "easy",
-
-    minesweeper: "easy"
-
-};
-
-
-function setDifficulty(
-    game,
-    difficulty,
-    button
-) {
-
-    selectedDifficulty[game] =
-        difficulty;
-
-
-    const parent =
-        button.parentElement;
-
-
-    parent
-        .querySelectorAll("button")
-        .forEach(function(btn) {
-
-            btn.classList.remove(
-                "active"
-            );
-
-        });
-
-
-    button.classList.add(
-        "active"
-    );
-
-
-    const links = {
-
-        tetris:
-            "tetrisPlay",
-
-        flappy:
-            "flappyPlay",
-
-        minesweeper:
-            "minesweeperPlay"
-
-    };
-
-
-    const pages = {
-
-        tetris:
-            "tetris.html",
-
-        flappy:
-            "flappy.html",
-
-        minesweeper:
-            "minesweeper.html"
-
-    };
-
-
-    document.getElementById(
-        links[game]
-    ).href =
-        pages[game] +
-        "?difficulty=" +
-        difficulty;
-
-}
-
-
-/* ==================================================
-   THEME
-================================================== */
-
-function changeTheme(theme) {
-
-    if (theme === "dark") {
-
-        document.body.classList.add(
-            "dark"
-        );
-
-    } else {
-
-        document.body.classList.remove(
-            "dark"
-        );
-
-    }
-
-
-    localStorage.setItem(
-        "easyflow_theme",
-        theme
-    );
-
-}
-
-
-/* ==================================================
-   COLOR
-================================================== */
-
-function changeColor(color) {
-
-    document.documentElement
-        .style
-        .setProperty(
-            "--main",
-            color
-        );
-
-
-    localStorage.setItem(
-        "easyflow_color",
-        color
-    );
-
-}
-
-
-/* ==================================================
-   RADIUS
-================================================== */
-
-function changeRadius(radius) {
-
-    document.documentElement
-        .style
-        .setProperty(
-            "--radius",
-            radius
-        );
-
-
-    localStorage.setItem(
-        "easyflow_radius",
-        radius
-    );
-
-}
-
-
-/* ==================================================
-   FONT
-================================================== */
-
-function changeFont(font) {
-
-    document.body.style.fontFamily =
-        font;
-
-
-    localStorage.setItem(
-        "easyflow_font",
-        font
-    );
-
-}
-
-
-/* ==================================================
-   LOAD SETTINGS
-================================================== */
-
-function loadSettings() {
-
-    const theme =
-        localStorage.getItem(
-            "easyflow_theme"
-        ) || "light";
-
-
-    const color =
-        localStorage.getItem(
-            "easyflow_color"
-        ) || "#2563eb";
-
-
-    const radius =
-        localStorage.getItem(
-            "easyflow_radius"
-        ) || "16px";
-
-
-    const font =
-        localStorage.getItem(
-            "easyflow_font"
-        ) || "Arial, sans-serif";
-
-
-    document.getElementById(
-        "themeSelect"
-    ).value = theme;
-
-
-    document.getElementById(
-        "colorSelect"
-    ).value = color;
-
-
-    document.getElementById(
-        "radiusSelect"
-    ).value = radius;
-
-
-    document.getElementById(
-        "fontSelect"
-    ).value = font;
-
-
-    changeTheme(theme);
-    changeColor(color);
-    changeRadius(radius);
-    changeFont(font);
-
-}
-
-
-/* ==================================================
-   LOGOUT
-================================================== */
-
-function logout() {
-
-    localStorage.removeItem(
-        "easyflow_current_user"
-    );
-
-
-    window.location.href =
-        "login.html";
-
-}
-
-
-/* ==================================================
-   HTML SECURITY
-================================================== */
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-/* ==================================================
+/* =====================================================
    START
-================================================== */
+===================================================== */
 
 window.addEventListener(
-    "DOMContentLoaded",
-    function() {
+    "load",
+    ()=>{
 
-        createDemoUsers();
+        applySettings();
 
-        loadSettings();
+        const current=
+            localStorage.getItem(
+                "easyflowCurrent"
+            );
 
-        showUser();
 
-        showStatistics();
+        if(current==="ADMIN")
+            showAdmin();
 
-        renderPlayers();
+        else if(current)
+            showSite();
 
-        renderAdmin();
+        else
+            showLogin();
 
     }
 );
@@ -2408,6 +2975,4 @@ window.addEventListener(
 </script>
 
 </body>
-
 </html>
-```
